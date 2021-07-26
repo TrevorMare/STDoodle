@@ -29,7 +29,7 @@
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="npm install" WorkingDirectory="npm" />
+    <Exec Command="npm install" WorkingDirectory="../npm" />
   </Target>
 
 </Project>
