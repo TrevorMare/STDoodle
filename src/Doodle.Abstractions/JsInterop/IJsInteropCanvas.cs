@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Abstractions.JsInterop
 {
-    public interface IJsInteropCommon
+    public interface IJsInteropCanvas
     {
 
-        
+        ValueTask<string> InitialiseCanvas(ElementReference forElement);
 
     }
 }
