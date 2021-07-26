@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Doodle\Doodle.csproj" />
+    <ProjectReference Include="..\STDoodle.DemoComponents\STDoodle.DemoComponents.csproj" />
+  </ItemGroup>
+
+</Project>
