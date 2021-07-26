@@ -2,11 +2,35 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <PackageId>STDoodle</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Trevor Maré</Authors>
+    <PackageTags>blazor;ui canvas;blazor canvas;blazor drawing;blazor whiteboard;stdoodle;st doodle; .net5</PackageTags>
+    <Description>
+      A Canvas Whiteboard drawing component for Blazor
+    </Description>
+    <RepositoryUrl>https://github.com/TrevorMare/STDoodle</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/TrevorMare/STDoodle</PackageProjectUrl>
+    <PackageReleaseNotes>
+      0.0.1 Initial Release
+    </PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryType>Github</RepositoryType>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
-  
   <ItemGroup>
     <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NuGet.Build.Tasks.Pack" Version="5.2.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

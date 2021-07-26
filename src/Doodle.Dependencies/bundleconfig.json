@@ -1,0 +1,13 @@
+[
+    {
+      "outputFileName": "wwwroot/js/JsInteropCommon.min.js",
+      "inputFiles": [
+        "npm/src/JsInteropCommon.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    }
+  ]
