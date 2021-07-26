@@ -6,7 +6,9 @@ namespace Doodle.Abstractions.JsInterop
     public interface IJsInteropCanvas
     {
 
-        ValueTask<string> InitialiseCanvas(ElementReference forElement);
+        Task InitialiseCanvas(ElementReference forElement);
+
+        ValueTask<string> RenderCanvasToImage(ElementReference forElement);
 
     }
 }

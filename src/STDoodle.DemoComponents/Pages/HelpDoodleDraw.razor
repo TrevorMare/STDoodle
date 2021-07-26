@@ -1,0 +1,16 @@
+@using Doodle.Components
+
+<button @onclick="RenderTest">Render</button>
+
+<DoodleDraw @ref="_doodleDraw">
+    
+</DoodleDraw>
+
+@code {
+    private DoodleDraw _doodleDraw;
+    private async Task RenderTest() 
+    {
+        await _doodleDraw.RenderTest();
+    }
+
+}

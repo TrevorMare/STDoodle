@@ -5,11 +5,13 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "webpack --mode production"
+        "build": "webpack --mode production",
+        "tsc": "tsc"
     },
     "author": "Trevor Mare",
     "license": "ISC",
     "dependencies": {
+        "html2canvas": "^1.1.4",
         "less": "^4.1.1",
         "requirejs": "^2.3.6",
         "typescript": "^4.3.5"

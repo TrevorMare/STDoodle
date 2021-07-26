@@ -9,5 +9,28 @@
         "renameLocals": false
       },
       "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/JsInteropCanvas.min.js",
+      "inputFiles": [
+        "npm/src/JsInteropCanvas.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/vendor.min.js",
+      "inputFiles": [
+        "npm/node_modules/html2canvas/dist/html2canvas.min.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
     }
+    
   ]
