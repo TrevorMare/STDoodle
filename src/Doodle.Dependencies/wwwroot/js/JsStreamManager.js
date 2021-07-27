@@ -1,4 +1,3 @@
-import { JsStreamBuffer } from './JsStreamBuffer';
 export class JsStreamManager {
     constructor() {
         this._buffers = new Array();

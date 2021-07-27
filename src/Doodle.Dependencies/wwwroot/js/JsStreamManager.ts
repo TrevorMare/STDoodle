@@ -1,10 +1,11 @@
-import { JsStreamBuffer } from './JsStreamBuffer'
+//import { JsStreamBuffer } from './JsStreamBuffer'
 
 export class JsStreamManager {
-
+    // @ts-ignore
     private _buffers: JsStreamBuffer[] = new Array();
 
     public AddBuffer(id: string, base64: string) : string {
+        // @ts-ignore
         const buffer = new JsStreamBuffer(id, base64);
         this._buffers.push(buffer);
         return id;

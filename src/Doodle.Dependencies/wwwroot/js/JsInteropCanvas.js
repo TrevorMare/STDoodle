@@ -1,5 +1,4 @@
 import './vendor.min.js';
-import { JsStreamManager } from './JsStreamManager';
 export const _jsStreamManager = new JsStreamManager();
 export function RenderCanvasToImage(renderElement) {
     var bufferId = "88888";

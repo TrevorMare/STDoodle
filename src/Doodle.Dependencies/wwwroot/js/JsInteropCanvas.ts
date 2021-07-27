@@ -1,7 +1,8 @@
 
 import './vendor.min.js';
-import { JsStreamManager } from './JsStreamManager'
+//import { JsStreamManager } from './JsStreamManager'
 
+// @ts-ignore
 export const _jsStreamManager: JsStreamManager = new JsStreamManager();
 
 export function RenderCanvasToImage(renderElement: HTMLElement): string {

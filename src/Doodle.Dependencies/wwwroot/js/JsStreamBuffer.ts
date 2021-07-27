@@ -1,3 +1,4 @@
+
 export class JsStreamBuffer {
      
     private _jsBufferName: string;

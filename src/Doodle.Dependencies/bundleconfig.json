@@ -2,7 +2,7 @@
     {
       "outputFileName": "wwwroot/js/JsInteropCommon.min.js",
       "inputFiles": [
-        "npm/src/JsInteropCommon.js"
+        "wwwroot/js/JsInteropCommon.js"
       ],
       "minify": {
         "enabled": true,
@@ -13,7 +13,9 @@
     {
       "outputFileName": "wwwroot/js/JsInteropCanvas.min.js",
       "inputFiles": [
-        "npm/src/JsInteropCanvas.js"
+        "wwwroot/js/JsInteropCanvas.js",
+        "wwwroot/js/JsStreamBuffer.js",
+        "wwwroot/js/JsStreamManager.js"
       ],
       "minify": {
         "enabled": true,
@@ -24,8 +26,8 @@
     {
       "outputFileName": "wwwroot/js/vendor.min.js",
       "inputFiles": [
-        "npm/node_modules/html2canvas/dist/html2canvas.min.js",
-        "npm/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js"
+        "wwwroot/js/node_modules/html2canvas/dist/html2canvas.min.js",
+        "wwwroot/js/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js"
       ],
       "minify": {
         "enabled": true,
