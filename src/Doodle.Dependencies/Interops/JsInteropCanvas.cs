@@ -33,6 +33,37 @@ namespace Doodle.Dependencies.Interops
             var module = await _moduleTask.Value;
             return await module.InvokeAsync<string>("RenderCanvasToImage", forElement);
         }
+
+        public async Task ClearBufferedImage(string bufferId)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("ClearBufferedImage", bufferId);
+        }
+
+        public async Task<bool> BufferExists(string bufferId)
+        {
+            var module = await _moduleTask.Value;
+            return await module.InvokeAsync<bool>("BufferExists", bufferId);
+        }
+
+        public async Task<long> BufferLength(string bufferId)
+        {
+            var module = await _moduleTask.Value;
+            return await module.InvokeAsync<long>("BufferLength", bufferId);
+        }
+
+        public async Task<byte[]> ReadBufferedImage(string bufferId)
+        {
+            var module = await _moduleTask.Value;
+            using (var jsBufferStream = new Helpers.JsBufferStream(module, bufferId))
+            {
+                using (var resultStream = new System.IO.MemoryStream())
+                {
+                    await jsBufferStream.CopyToAsync(resultStream);
+                    return resultStream.ToArray();
+                }
+            }
+        }
         #endregion
 
         #region Dispose
@@ -45,7 +76,6 @@ namespace Doodle.Dependencies.Interops
             }
         }
         #endregion
-       
-        
+
     }
 }

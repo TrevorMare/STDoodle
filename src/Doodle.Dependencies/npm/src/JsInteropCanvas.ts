@@ -1,29 +1,32 @@
-/// <reference types="../node_modules/html2canvas/dist/types" />
 
 import './vendor.min.js';
+import { JsStreamManager } from './JsStreamManager'
 
-export function ScrollToElement(elementSelector: string): void {
-    const element: HTMLElement = document.querySelector(elementSelector);
-    if (element !== undefined && element != null) {
-      element.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+export const _jsStreamManager: JsStreamManager = new JsStreamManager();
 
-      const x: HTMLElement = document.querySelector('xxx');
+export function RenderCanvasToImage(renderElement: HTMLElement): string {
 
-    }
-  }
+  var bufferId: string = "88888";
+  // @ts-ignore
+  html2canvas(renderElement).then(canvas => {
+    var renderedData = canvas.toDataURL("image/png");
+    _jsStreamManager.AddBuffer(bufferId, renderedData);
+  });
+  return bufferId;
+} 
 
-  export function RenderCanvasToImage(canvasElement: HTMLElement) {
-    // @ts-ignore
-    html2canvas(canvasElement,{
-        onrendered: function (canvas){
-            var data = canvas.toDataURL();
-            var img  = document.createElement('img');
-            img.setAttribute('download','myImage.png');
-            img.src  = 'data:image/png;base64,' + data;
-            document.body.appendChild(img);
-        },
-        width:300,
-        height:300
-    });
+export function ClearBufferedImage(bufferId: string): void {
+  _jsStreamManager.RemoveBuffer(bufferId)
+}
 
-  } 
+export function ReadBufferedImage(bufferId: string, fromIndex: number): Uint8Array {
+  return _jsStreamManager.ReadBuffer(bufferId, fromIndex)
+} 
+
+export function BufferExists(id: string): boolean {
+  return _jsStreamManager.BufferExists(id);
+}
+
+export function BufferLength(id: string): number {
+  return _jsStreamManager.BufferLength(id);
+}

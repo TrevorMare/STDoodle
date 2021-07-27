@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Threading.Tasks;
 
 namespace Doodle.Components 
@@ -9,6 +10,9 @@ namespace Doodle.Components
 
         [Parameter]
         public ElementReference CanvasElement { get; set; }
+
+        [Parameter]
+        public ElementReference RenderWrapper { get; set; }
 
         [Inject]
         public Abstractions.JsInterop.IJsInteropCommon JsInteropCommon { get; set; }
@@ -25,9 +29,17 @@ namespace Doodle.Components
 
         public async Task RenderTest()
         {
+            try
+            {
+                var bufferId = await JsInteropCanvas.RenderCanvasToImage(RenderWrapper);
 
-            await JsInteropCanvas.RenderCanvasToImage(CanvasElement);
+                var buffer = await JsInteropCanvas.ReadBufferedImage(bufferId);
 
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
 
