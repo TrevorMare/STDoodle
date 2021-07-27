@@ -26,8 +26,7 @@
     {
       "outputFileName": "wwwroot/js/vendor.min.js",
       "inputFiles": [
-        "wwwroot/js/node_modules/html2canvas/dist/html2canvas.min.js",
-        "wwwroot/js/node_modules/base64-arraybuffer/lib/base64-arraybuffer.js"
+        "wwwroot/js/node_modules/html2canvas/dist/html2canvas.min.js"
       ],
       "minify": {
         "enabled": true,

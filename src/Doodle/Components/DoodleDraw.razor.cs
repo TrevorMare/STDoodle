@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Doodle.Components 
@@ -20,6 +21,8 @@ namespace Doodle.Components
         [Inject]
         public Abstractions.JsInterop.IJsInteropCanvas JsInteropCanvas { get; set; }
 
+        private string imgSource = "";
+
         protected override async Task OnParametersSetAsync()
         {
 
@@ -29,17 +32,15 @@ namespace Doodle.Components
 
         public async Task RenderTest()
         {
-            try
-            {
-                var bufferId = await JsInteropCanvas.RenderCanvasToImage(RenderWrapper);
+            var cancellationTimeout = new CancellationTokenSource();
+            cancellationTimeout.CancelAfter(TimeSpan.FromSeconds(5));
 
-                var buffer = await JsInteropCanvas.ReadBufferedImage(bufferId);
+            var bufferId = await JsInteropCanvas.RenderCanvasToImage(RenderWrapper, cancellationTimeout.Token);
 
-            }
-            catch (Exception ex)
-            {
-
-            }
+            var base64Image = await JsInteropCanvas.ReadBufferedImage(bufferId);
+            this.imgSource = base64Image;
+            
+            StateHasChanged();
         }
 
 

@@ -11,7 +11,6 @@
     "author": "Trevor Mare",
     "license": "ISC",
     "dependencies": {
-        "base64-arraybuffer": "^0.2.0",
         "html2canvas": "^1.1.4",
         "less": "^4.1.1",
         "requirejs": "^2.3.6",

@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -28,10 +29,23 @@ namespace Doodle.Dependencies.Interops
             return Task.CompletedTask;
         }
 
-        public async ValueTask<string> RenderCanvasToImage(ElementReference forElement)
+        public async ValueTask<string> RenderCanvasToImage(ElementReference forElement, CancellationToken cancelationToken = default)
         {
             var module = await _moduleTask.Value;
-            return await module.InvokeAsync<string>("RenderCanvasToImage", forElement);
+            var bufferId = await module.InvokeAsync<string>("RenderCanvasToImage", forElement);
+
+            bool isBufferReady = await BufferExists(bufferId);
+            while (isBufferReady == false)
+            {
+                if (cancelationToken != null && cancelationToken.IsCancellationRequested)
+                {
+                    return null;
+                }
+                await Task.Delay(100);
+                isBufferReady = await BufferExists(bufferId);;
+            }
+
+            return bufferId;
         }
 
         public async Task ClearBufferedImage(string bufferId)
@@ -52,15 +66,18 @@ namespace Doodle.Dependencies.Interops
             return await module.InvokeAsync<long>("BufferLength", bufferId);
         }
 
-        public async Task<byte[]> ReadBufferedImage(string bufferId)
+        public async ValueTask<string> ReadBufferedImage(string bufferId, CancellationToken cancelationToken = default)
         {
             var module = await _moduleTask.Value;
             using (var jsBufferStream = new Helpers.JsBufferStream(module, bufferId))
             {
                 using (var resultStream = new System.IO.MemoryStream())
                 {
-                    await jsBufferStream.CopyToAsync(resultStream);
-                    return resultStream.ToArray();
+                    await jsBufferStream.CopyToAsync(resultStream, cancelationToken);
+                    var byteArray = resultStream.ToArray();
+
+                    var base64Image = Convert.ToBase64String(byteArray);
+                    return $"data:image/png;base64,{base64Image}";
                 }
             }
         }

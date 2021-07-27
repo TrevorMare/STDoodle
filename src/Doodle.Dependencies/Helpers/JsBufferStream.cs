@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
@@ -63,24 +64,31 @@ namespace Doodle.Dependencies.Helpers
                 await this._jsObject.InvokeVoidAsync("ClearBufferedImage", this._jsBufferName);
                 return 0;
             }
-            
-            // Read the next bytes from the Js Object specified buffer
-            var bytes = await this._jsObject.InvokeAsync<byte[]>("ReadBufferedImage", this._jsBufferName, this._currentIndex);
 
-            if (this._maxAllowedLength - this._currentIndex <  bytes.Length)
+            // This is really bad, need to find a way to transfer a byte array from the JsInterop
+            // When there is time look at the Unmarshalled JsIntrop or the getStream example
+            // on github.
+            var byteString = await this._jsObject.InvokeAsync<string>("ReadBufferedImage", this._jsBufferName, this._currentIndex);
+            if (!string.IsNullOrEmpty(byteString))
             {
-                throw new InvalidDataException("Too many bytes read.");
+                var bytes = (byteString).Split(',').Select<string, int>(int.Parse).Select(x => (byte)x).ToArray();
+                
+                if (this._maxAllowedLength - this._currentIndex <  bytes.Length)
+                {
+                    throw new InvalidDataException("Too many bytes read.");
+                }
+
+                // Keep this in sync with JS
+                const int SegmentSize = 5 * 1024;
+                this._previouslyReadFullBuffer = bytes.Length == SegmentSize;
+
+                // Copy the bytes to the parameter buffer
+                bytes.AsMemory().CopyTo(buffer);
+                this._currentIndex += bytes.Length;
+                return bytes.Length;
             }
 
-            // Keep this in sync with JS
-            const int SegmentSize = 5 * 1024;
-            this._previouslyReadFullBuffer = bytes.Length == SegmentSize;
-
-            // Copy the bytes to the parameter buffer
-            bytes.AsMemory().CopyTo(buffer);
-            this._currentIndex += bytes.Length;
-
-            return bytes.Length;
+            return 0;
         }
         #endregion
 

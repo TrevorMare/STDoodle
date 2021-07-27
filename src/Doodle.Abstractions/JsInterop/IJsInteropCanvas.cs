@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
@@ -9,7 +10,9 @@ namespace Doodle.Abstractions.JsInterop
 
         Task InitialiseCanvas(ElementReference forElement);
 
-        ValueTask<string> RenderCanvasToImage(ElementReference forElement);
+        ValueTask<string> RenderCanvasToImage(ElementReference forElement, CancellationToken cancelationToken = default);
+
+        ValueTask<string> ReadBufferedImage(string bufferId, CancellationToken cancelationToken = default);
 
         Task ClearBufferedImage(string bufferId);
 
@@ -17,7 +20,7 @@ namespace Doodle.Abstractions.JsInterop
 
         Task<long> BufferLength(string bufferId);
 
-        Task<byte[]> ReadBufferedImage(string bufferId);
+        
 
     }
 }
