@@ -7,34 +7,23 @@ using Microsoft.JSInterop;
 namespace Doodle.Dependencies.Interops
 {
 
-    public class JsInteropCanvas : Abstractions.JsInterop.IJsInteropCanvas, IAsyncDisposable
+    public class JsInteropHtml2Canvas : Abstractions.JsInterop.IJsInteropHtml2Canvas, IAsyncDisposable
     {
 
         #region Members
-        private const string _basePath = "./_content/Doodle.Dependencies/js/JsInteropCanvas.min.js";
+        private const string _basePath = "./_content/Doodle.Dependencies/js/JsInteropHtml2Canvas.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
         #endregion
 
         #region ctor
-        public JsInteropCanvas(IJSRuntime jsRuntime)
+        public JsInteropHtml2Canvas(IJSRuntime jsRuntime)
         {
             _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", _basePath).AsTask());
         }
         #endregion
 
         #region Interface Methods
-        public Task InitialiseCanvas(ElementReference forElement) 
-        {
-            //throw new System.NotImplementedException();
-            return Task.CompletedTask;
-        }
-
-        public async ValueTask<string> RenderCanvasToImage(ElementReference forElement, CancellationToken cancelationToken = default)
-        {
-            var module = await _moduleTask.Value;
-            var bufferId = await module.InvokeAsync<string>("RenderCanvasToImage", forElement, cancelationToken);
-            return bufferId;
-        }
+        
         #endregion
 
         #region Dispose

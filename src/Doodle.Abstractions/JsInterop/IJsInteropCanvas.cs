@@ -12,15 +12,5 @@ namespace Doodle.Abstractions.JsInterop
 
         ValueTask<string> RenderCanvasToImage(ElementReference forElement, CancellationToken cancelationToken = default);
 
-        ValueTask<string> ReadBufferedImage(string bufferId, CancellationToken cancelationToken = default);
-
-        Task ClearBufferedImage(string bufferId);
-
-        Task<bool> BufferExists(string bufferId);
-
-        Task<long> BufferLength(string bufferId);
-
-        
-
     }
 }

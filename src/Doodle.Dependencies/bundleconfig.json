@@ -14,8 +14,7 @@
       "outputFileName": "wwwroot/js/JsInteropCanvas.min.js",
       "inputFiles": [
         "wwwroot/js/JsInteropCanvas.js",
-        "wwwroot/js/JsStreamBuffer.js",
-        "wwwroot/js/JsStreamManager.js"
+        "wwwroot/js/JsLocalStorage.js"
       ],
       "minify": {
         "enabled": true,
@@ -27,6 +26,20 @@
       "outputFileName": "wwwroot/js/vendor.min.js",
       "inputFiles": [
         "wwwroot/js/node_modules/html2canvas/dist/html2canvas.min.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/JsInteropBuffer.min.js",
+      "inputFiles": [
+        "wwwroot/js/JsInteropBuffer.js",
+        "wwwroot/js/JsLocalStorage.js",
+        "wwwroot/js/JsStreamManager.js",
+        "wwwroot/js/JsStreamBuffer.js"
       ],
       "minify": {
         "enabled": true,

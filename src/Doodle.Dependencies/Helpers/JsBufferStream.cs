@@ -61,14 +61,14 @@ namespace Doodle.Dependencies.Helpers
             {
                 // If we did not read a full buffer in the previous read, we must be done. There is no reason
                 // for the JS to send us partial buffers. Dispose of the Js Memory object.
-                await this._jsObject.InvokeVoidAsync("ClearBufferedImage", this._jsBufferName);
+                await this._jsObject.InvokeVoidAsync("ClearBuffer", this._jsBufferName);
                 return 0;
             }
 
             // This is really bad, need to find a way to transfer a byte array from the JsInterop
             // When there is time look at the Unmarshalled JsIntrop or the getStream example
             // on github.
-            var byteString = await this._jsObject.InvokeAsync<string>("ReadBufferedImage", this._jsBufferName, this._currentIndex);
+            var byteString = await this._jsObject.InvokeAsync<string>("ReadBuffer", this._jsBufferName, this._currentIndex);
             if (!string.IsNullOrEmpty(byteString))
             {
                 var bytes = (byteString).Split(',').Select<string, int>(int.Parse).Select(x => (byte)x).ToArray();

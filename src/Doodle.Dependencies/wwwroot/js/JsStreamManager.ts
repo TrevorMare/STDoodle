@@ -1,81 +1,72 @@
-//import { JsStreamBuffer } from './JsStreamBuffer'
-
 export class JsStreamManager {
     // @ts-ignore
     private _buffers: JsStreamBuffer[] = new Array();
 
-    public AddBuffer(id: string, base64: string) : string {
-        console.log(`Adding stream ${id} with length ${base64.length}`)
+    // @ts-ignore
+    private GetBufferByName(bufferId: string): JsStreamBuffer {
+        try {
+            const ix = this._buffers.findIndex(b => b.JsBufferName == bufferId);
+            if (ix => 0) {
+                return this._buffers[ix];
+            }
+            return null;
+        } catch (ex) {
+            return null;    
+        }
+    }
+    
+    private GetBufferIndexByName(bufferId: string): number {
+        try {
+            const bufferIndex = this._buffers.findIndex(b => b.JsBufferName == bufferId);
+            return bufferIndex;
+        } catch (ex) {
+            return -1;    
+        }
+    }
+
+    public LoadBuffer(bufferId: string) : string {
         // @ts-ignore
-        const buffer = new JsStreamBuffer(id, base64);
+        const buffer = new JsStreamBuffer(bufferId);
         this._buffers.push(buffer);
-        console.log(`Current buffer count: ${this._buffers.length}`);
-        return id;
+        return bufferId;
     }
 
-    public RemoveBuffer(id: string) {
-        try {
-            const ix = this._buffers.findIndex(b => b.JsBufferName == id);
-            if (ix >= 0) {
-                this._buffers.splice(ix, 1);
-            }
-        }
-        catch (ex) {
-            console.log(`Unable to remove buffer: ${ex}`);
+    public RemoveBuffer(bufferId: string): void {
+        var bufferIndex = this.GetBufferIndexByName(bufferId);
+        if (bufferIndex >= 0) {
+            console.log(`Buffer with Id ${bufferId} removed.`)
+            this._buffers[bufferIndex].ClearBuffer();
+            this._buffers.splice(bufferIndex, 1);
+        } else {
+            console.log(`Unable to clear buffer with Id ${bufferId}. Not found`)
         }
     }
 
-    public ReadBuffer(id: string, index: number): string {
-        try {
-            const ix = this._buffers.findIndex(b => b.JsBufferName == id);
-            if (ix >= 0) {
-                return this._buffers[ix].ReadBuffer(index);
-            }
-        }
-        catch (ex) {
-            console.log(`Unable to read buffer: ${ex}`);
-        }
-        return null;
+    public BufferExists(bufferId: string): boolean {
+        return (this.GetBufferIndexByName(bufferId) >= 0)
     }
 
-    public ReadBufferBase64(id: string, index: number): string {
-        try {
-            const ix = this._buffers.findIndex(b => b.JsBufferName == id);
-            if (ix >= 0) {
-                return this._buffers[ix].ReadBufferBase64(index);
-            }
-        }
-        catch (ex) {
-            console.log(`Unable to read buffer: ${ex}`);
-        }
-        return null;
-    }
-
-    public BufferExists(id: string): boolean {
-        try {
-            
-            const ix = this._buffers.findIndex(b => b.JsBufferName == id);
-            if (ix >= 0) {
-                return true;
-            }
-        }
-        catch (ex) {
-            console.log(`BufferExists: ${ex}`);
+    public BufferHasData(bufferId: string): boolean {
+        const buffer = this.GetBufferByName(bufferId);
+        if (buffer !== null) {
+            return buffer.BufferHasData();
         }
         return false;
     }
 
-    public BufferLength(id: string): number {
-        try {
-            const ix = this._buffers.findIndex(b => b.JsBufferName == id);
-            if (ix >= 0) {
-                return this._buffers[ix].BufferLength();
-            }
-        }
-        catch (ex) {
-            console.log(`BufferLength: ${ex}`);
+    public BufferLength(bufferId: string): number {
+        const buffer = this.GetBufferByName(bufferId);
+        if (buffer !== null) {
+            return buffer.BufferLength();
         }
         return 0;
     }
 
+    public ReadBuffer(bufferId: string, index: number): string {
+        const buffer = this.GetBufferByName(bufferId);
+        if (buffer !== null) {
+            return buffer.ReadBuffer(index);
+        }
+        return null;
+    }
 }

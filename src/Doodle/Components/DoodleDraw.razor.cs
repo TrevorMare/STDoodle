@@ -21,6 +21,9 @@ namespace Doodle.Components
         [Inject]
         public Abstractions.JsInterop.IJsInteropCanvas JsInteropCanvas { get; set; }
 
+        [Inject]
+        public Abstractions.JsInterop.IJsInteropBuffer JsInteropBuffer { get; set; }
+
         private string imgSource = "";
 
         protected override async Task OnParametersSetAsync()
@@ -32,12 +35,10 @@ namespace Doodle.Components
 
         public async Task RenderTest()
         {
-            var cancellationTimeout = new CancellationTokenSource();
-            cancellationTimeout.CancelAfter(TimeSpan.FromSeconds(5));
 
-            var bufferId = await JsInteropCanvas.RenderCanvasToImage(RenderWrapper, cancellationTimeout.Token);
+            var bufferId = await JsInteropCanvas.RenderCanvasToImage(RenderWrapper);
 
-            var base64Image = await JsInteropCanvas.ReadBufferedImage(bufferId);
+            var base64Image = await JsInteropBuffer.ReadBuffer(bufferId);
             this.imgSource = base64Image;
             
             StateHasChanged();
