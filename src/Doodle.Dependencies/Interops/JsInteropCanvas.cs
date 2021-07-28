@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Doodle.Abstractions.JsInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -10,15 +13,21 @@ namespace Doodle.Dependencies.Interops
     public class JsInteropCanvas : Abstractions.JsInterop.IJsInteropCanvas, IAsyncDisposable
     {
 
+        #region Events
+        public event OnCanvasUpdatedHandler CanvasCommandsUpdated;
+        #endregion
+
         #region Members
         private const string _basePath = "./_content/Doodle.Dependencies/js/JsInteropCanvas.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
+        private readonly DotNetObjectReference<JsInteropCanvas> _thisRef;
         #endregion
 
         #region ctor
         public JsInteropCanvas(IJSRuntime jsRuntime)
         {
             _moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", _basePath).AsTask());
+            _thisRef = DotNetObjectReference.Create(this);
         }
         #endregion
 
@@ -26,7 +35,82 @@ namespace Doodle.Dependencies.Interops
         public async Task InitialiseCanvas(ElementReference forElement) 
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("InitialiseCanvas", forElement);
+            await module.InvokeVoidAsync("InitialiseCanvas", forElement, _thisRef);
+        }
+
+        public async Task SetBrushColor(string color)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetBrushColor", color);
+        }
+
+        public async Task SetBrushSize(int size)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetBrushSize", size);
+        }
+
+        public async Task Destroy()
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("Destroy");
+        }
+
+        public async Task Clear(bool clearHistory)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("Clear", clearHistory);            
+        }
+
+        public async Task Refresh()
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("Refresh");  
+        }
+
+        public async Task Restore(string commandJson)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("Restore", commandJson);
+        }
+
+        public async ValueTask<bool> Undo()
+        {
+            var module = await _moduleTask.Value;
+            return await module.InvokeAsync<bool>("Undo");
+        }
+
+        public async ValueTask<bool> Redo()
+        {
+            var module = await _moduleTask.Value;
+            return await module.InvokeAsync<bool>("Redo");
+        }
+
+        public async ValueTask<bool> CanUndo()
+        {
+            var module = await _moduleTask.Value;
+            return await module.InvokeAsync<bool>("CanUndo");
+        }
+
+        public async ValueTask<bool> CanRedo()
+        {
+            var module = await _moduleTask.Value;
+            return await module.InvokeAsync<bool>("CanRedo");
+        }
+
+        [JSInvokable("OnCanvasUpdated")]
+        public Task OnCanvasUpdated(string commandJson)
+        {
+            if (string.IsNullOrEmpty(commandJson))
+            {
+                CanvasCommandsUpdated?.Invoke(this, null);
+            }
+            else
+            {
+                var paths = JsonSerializer.Deserialize<List<Abstractions.Models.CanvasPath>>(commandJson);
+                CanvasCommandsUpdated?.Invoke(this, paths);
+            }
+            return Task.CompletedTask;
         }
         #endregion
 

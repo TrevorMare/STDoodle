@@ -10,7 +10,7 @@ export function ConvertElementToImage(renderElement: HTMLElement, optionsJson: s
     }
     
     // Generate the buffer Id
-    const bufferId: string = Date.now().toString(18) + Math.random().toString(36).substring(2);;
+    const bufferId: string = Date.now().toString(18) + Math.random().toString(36).substring(2);
     // @ts-ignore
     html2canvas(renderElement, config).then(canvas => {
         // Load the data Url
