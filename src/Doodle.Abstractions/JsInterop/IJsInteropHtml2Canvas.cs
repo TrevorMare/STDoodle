@@ -7,7 +7,7 @@ namespace Doodle.Abstractions.JsInterop
     public interface IJsInteropHtml2Canvas
     {
 
-
+        ValueTask<string> WriteElementImageToBuffer(ElementReference forElement, Config.Html2CanvasConfig config = default, CancellationToken cancelationToken = default);
 
     }
 }

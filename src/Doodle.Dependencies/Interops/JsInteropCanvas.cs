@@ -23,17 +23,10 @@ namespace Doodle.Dependencies.Interops
         #endregion
 
         #region Interface Methods
-        public Task InitialiseCanvas(ElementReference forElement) 
-        {
-            //throw new System.NotImplementedException();
-            return Task.CompletedTask;
-        }
-
-        public async ValueTask<string> RenderCanvasToImage(ElementReference forElement, CancellationToken cancelationToken = default)
+        public async Task InitialiseCanvas(ElementReference forElement) 
         {
             var module = await _moduleTask.Value;
-            var bufferId = await module.InvokeAsync<string>("RenderCanvasToImage", forElement, cancelationToken);
-            return bufferId;
+            await module.InvokeVoidAsync("InitialiseCanvas", forElement);
         }
         #endregion
 

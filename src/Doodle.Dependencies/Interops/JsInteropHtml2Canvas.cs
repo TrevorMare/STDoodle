@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Doodle.Dependencies.Interops
 {
@@ -23,7 +25,24 @@ namespace Doodle.Dependencies.Interops
         #endregion
 
         #region Interface Methods
-        
+        public async ValueTask<string> WriteElementImageToBuffer(ElementReference forElement, Abstractions.Config.Html2CanvasConfig config = default, CancellationToken cancelationToken = default)
+        {
+            string configOptionsJson = "";
+            if (config != null)
+            {
+                var options = new JsonSerializerOptions 
+                {
+                    WriteIndented = false, 
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                    IgnoreNullValues = true
+                };
+                configOptionsJson = JsonSerializer.Serialize(config, options);
+            }
+
+            var module = await _moduleTask.Value;
+            var bufferId = await module.InvokeAsync<string>("ConvertElementToImage", cancelationToken, forElement, configOptionsJson);
+            return bufferId;
+        }
         #endregion
 
         #region Dispose

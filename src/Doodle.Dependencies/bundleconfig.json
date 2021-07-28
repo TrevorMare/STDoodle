@@ -23,9 +23,10 @@
       "sourceMap": false
     },
     {
-      "outputFileName": "wwwroot/js/vendor.min.js",
+      "outputFileName": "wwwroot/js/JsInteropHtml2Canvas.min.js",
       "inputFiles": [
-        "wwwroot/js/node_modules/html2canvas/dist/html2canvas.min.js"
+        "wwwroot/js/JsInteropHtml2Canvas.js",
+        "wwwroot/js/JsLocalStorage.js"
       ],
       "minify": {
         "enabled": true,
@@ -40,6 +41,17 @@
         "wwwroot/js/JsLocalStorage.js",
         "wwwroot/js/JsStreamManager.js",
         "wwwroot/js/JsStreamBuffer.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/vendor.min.js",
+      "inputFiles": [
+        "wwwroot/js/node_modules/html2canvas/dist/html2canvas.min.js"
       ],
       "minify": {
         "enabled": true,
