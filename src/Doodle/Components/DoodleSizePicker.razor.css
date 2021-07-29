@@ -1,0 +1,38 @@
+.doodle-size-picker-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.doodle-size-picker-wrapper .doodle-size-picker-favourites {
+  display: flex;
+}
+.doodle-size-picker-wrapper .doodle-color-picker-custom {
+  display: flex;
+  padding-left: 0.2rem;
+  margin-left: 0.2rem;
+  border-left: solid 1px #807e7e;
+}
+.doodle-size-picker-wrapper .doodle-color-picker-custom span {
+  margin-right: 0.2rem;
+}
+.doodle-size-picker-wrapper.vertical {
+  flex-direction: column;
+}
+.doodle-size-picker-wrapper.vertical .doodle-size-picker-favourites {
+  flex-direction: column;
+}
+.doodle-size-picker-wrapper.vertical .doodle-size-picker-custom {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0rem;
+  margin-left: 0rem;
+  padding-top: 0.2rem;
+  margin-top: 0.2rem;
+  border-left: none;
+  border-top: solid 1px #807e7e;
+}
+.doodle-size-picker-wrapper.vertical .doodle-size-picker-custom span {
+  margin-right: 0rem;
+  margin-top: 0rem;
+}

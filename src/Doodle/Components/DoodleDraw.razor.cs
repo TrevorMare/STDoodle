@@ -10,25 +10,91 @@ namespace Doodle.Components
     public partial class DoodleDraw : ComponentBase
     {
 
+        #region Members
         [Inject]
         private ILogger<DoodleDraw> _logger { get; set;}
 
+        private Abstractions.Config.DoodleDrawConfig _config;
+
+        private Abstractions.Config.DoodleDrawConfig _options;
+
+        private ElementReference RenderWrapper { get; set; }
+        
+        [Inject]
+        private Abstractions.Config.DoodleDrawConfig Config 
+        { 
+            get => this._config;
+            set 
+            {
+                this._config = value;
+                this.InitConfigSettings(this._config);
+            } 
+        }
+       
+        
+        [Inject]
+        private Abstractions.JsInterop.IJsInteropBuffer JsInteropBuffer { get; set; }
+
+        [Inject]
+        private Abstractions.JsInterop.IJsInteropHtml2Canvas JsInteropHtml2Canvas { get; set; }
+        #endregion
+
+        #region Event Callbacks
+
         [Parameter]
-        public ElementReference RenderWrapper { get; set; }
+        public EventCallback<string> StrokeColorChanged { get; set; }
 
-        [Inject]
-        public Abstractions.JsInterop.IJsInteropBuffer JsInteropBuffer { get; set; }
+        [Parameter]
+        public EventCallback<int> StrokeSizeChanged { get; set; }
+        #endregion
 
-        [Inject]
-        public Abstractions.JsInterop.IJsInteropHtml2Canvas JsInteropHtml2Canvas { get; set; }
+        #region Parameters
+        [Parameter]
+        public string E2ETestingName { get; set; }
 
+        [Parameter]
+        public Abstractions.Config.DoodleDrawConfig Options 
+        { 
+            get => _options; 
+            set
+            {
+                if (_options != value)
+                {
+                    _options = value;
+                    this.InitConfigSettings(this._options);
+                }
+            } 
+        }
+
+        [Parameter]
+        public string StrokeColor { get; set; }
+
+        [Parameter]
+        public int StrokeSize { get; set; }
+        #endregion
         private string imgSource = "";
 
+        #region Config Init
+        private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
+        {
+            if (config == null) return;
+
+            this.StrokeColor = config.DefaultStrokeColor ?? "#000000";
+            this.StrokeSize = config.DefaultStrokeSize;
+        }
+        #endregion
+
+        #region Methods
         public async Task<string> ExportDoodleToImage(Abstractions.Config.Html2CanvasConfig config = null)
         {
             try
             {
                 _logger.LogInformation($"Exporting Doodle to image.");
+
+                if (config == null)
+                {
+                    config = _options?.Html2CanvasConfig ?? _config?.Html2CanvasConfig ?? null;
+                }
 
                 var bufferId = await JsInteropHtml2Canvas.WriteElementImageToBuffer(RenderWrapper, config);
                 if (string.IsNullOrEmpty(bufferId))
@@ -52,6 +118,7 @@ namespace Doodle.Components
                 throw;
             }
         }
+        #endregion
 
     }
 

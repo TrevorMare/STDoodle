@@ -1,3 +1,8 @@
-.drawing-wrapper {
+.doodle-draw-wrapper .doodle-draw-body {
   display: flex;
+}
+.doodle-draw-wrapper .doodle-draw-body .doodle-draw-content {
+  height: 400px;
+  width: 400px;
+  background-color: whitesmoke;
 }

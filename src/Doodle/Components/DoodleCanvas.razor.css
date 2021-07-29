@@ -1,3 +1,10 @@
-.doodle-canvas {
-  background-color: blanchedalmond;
+.doodle-canvas-resize {
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+}
+.doodle-canvas-resize .doodle-canvas {
+  background-color: transparent;
 }

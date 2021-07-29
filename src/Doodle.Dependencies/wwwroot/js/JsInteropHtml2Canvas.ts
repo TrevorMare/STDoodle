@@ -5,8 +5,7 @@ export function ConvertElementToImage(renderElement: HTMLElement, optionsJson: s
     
     let config = { };
     if (optionsJson !== null && optionsJson !== '') {
-        config = JSON.parse(`Value of json Options ${optionsJson}`);
-        console.log(optionsJson);
+        config = JSON.parse(optionsJson);
     }
     
     // Generate the buffer Id

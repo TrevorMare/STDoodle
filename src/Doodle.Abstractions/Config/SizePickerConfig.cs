@@ -3,12 +3,12 @@ using System.Collections.Generic;
 namespace Doodle.Abstractions.Config
 {
 
-    public class ColorPickerConfig
+    public class SizePickerConfig
     {
 
-        public IEnumerable<string> FavouriteColors { get; set; } = new List<string>() 
+        public IEnumerable<int> FavouriteSizes { get; set; } = new List<int>() 
         {
-            "#ff4000", "#ff8000", "#00ff00", "#00ffff", "#0000ff", "#bf00ff", "#ff0080"
+            1, 2, 4, 6
         }; 
 
         public Common.Orientation Orientation { get; set; } = Common.Orientation.Horizontal;

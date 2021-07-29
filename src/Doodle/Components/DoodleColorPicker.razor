@@ -1,17 +1,21 @@
-<div data-e2e-doodle-color-picker="@E2ETestingName" class="doodle-color-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
-    <div class="doodle-color-picker-favourites @FavouriteWrapperClass">
-        @if (FavouriteColors?.Count() > 0)
-        {
-            foreach (var color in FavouriteColors)
+@if (Visible)
+{
+    <div data-e2e-doodle-color-picker="@E2ETestingName" class="doodle-color-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
+        <div class="doodle-color-picker-favourites @FavouriteWrapperClass">
+            @if (FavouriteColors?.Count() > 0)
             {
-                <div class="doodle-color-picker-color-outer @FavouriteOuterClass" @onclick="@(() => SelectedColor = color)">
-                    <div class="doodle-color-picker-color-inner @FavouriteInnerClass" style="background-color: @color;"></div>
-                </div>
+                foreach (var color in FavouriteColors)
+                {
+                    <div class="doodle-color-picker-color-outer @((SelectedColor == color) ? "active" : "") @FavouriteOuterClass" @onclick="@(() => SelectedColor = color)">
+                        <div class="doodle-color-picker-color-inner @FavouriteInnerClass" style="background-color: @color;"></div>
+                    </div>
+                }
             }
-        }
+        </div>
+        <div class="doodle-color-picker-custom @CustomWrapperClass">
+            <span>Custom</span>
+            <input type="color" @bind-value="@SelectedColor" />
+        </div>
     </div>
-    <div class="doodle-color-picker-custom @CustomWrapperClass">
-        <span>Custom</span>
-        <input type="color" @bind-value="@SelectedColor" />
-    </div>
-</div>
+}
+

@@ -32,7 +32,8 @@ namespace STDoodle.DemoServerSide
 
       services.UseDoodle((config) => 
       {
-        config.ColorPickerConfig.StartupColor = "#FF0000";
+        config.DefaultStrokeColor = "#FF0000";
+        config.DefaultStrokeSize = 2;
         config.ColorPickerConfig.Orientation = Doodle.Abstractions.Common.Orientation.Horizontal;
       });
     }

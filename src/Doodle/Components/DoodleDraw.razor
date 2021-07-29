@@ -1,15 +1,30 @@
 <div class="doodle-draw-wrapper">
     <div class="doodle-draw-header">
-        <DoodleColorPicker></DoodleColorPicker>
+        <DoodleColorPicker 
+            SelectedColor="@StrokeColor" 
+            SelectedColorChanged="@((color) => this.StrokeColor = color)"
+            Options="@Options"
+            E2ETestingName="@E2ETestingName"></DoodleColorPicker> 
+
+        <DoodleSizePicker 
+           SelectedSize="@StrokeSize"
+           SelectedSizeChanged="@((size) => this.StrokeSize = size)"
+           E2ETestingName="@E2ETestingName"></DoodleSizePicker>    
     </div>
     <div class="doodle-draw-body">
 
         <div class="doodle-draw-left-panel">
-            <DoodleColorPicker Orientation="Orientation.Vertical"></DoodleColorPicker>
+            
         </div>
+
         <div @ref="RenderWrapper" class="doodle-draw-content" >
-            <DoodleCanvas></DoodleCanvas>
+            <DoodleCanvas 
+                E2ETestingName="@E2ETestingName" 
+                StrokeColor="@StrokeColor" 
+                Options="@Options"
+                StrokeSize="@StrokeSize"></DoodleCanvas>
         </div>
+
         <div class="doodle-draw-right-panel"></div>
     </div>
 

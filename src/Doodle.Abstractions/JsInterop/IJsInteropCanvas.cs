@@ -13,7 +13,7 @@ namespace Doodle.Abstractions.JsInterop
     {
         event OnCanvasUpdatedHandler CanvasCommandsUpdated;
 
-        Task InitialiseCanvas(ElementReference forElement);
+        Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize);
 
         Task SetBrushColor(string color);
 

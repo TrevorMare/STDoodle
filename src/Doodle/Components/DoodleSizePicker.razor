@@ -1,0 +1,21 @@
+@if (Visible)
+{
+    <div data-e2e-doodle-size-picker="@E2ETestingName" class="doodle-size-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
+        <div class="doodle-size-picker-favourites @FavouriteWrapperClass">
+            @if (FavouriteSizes?.Count() > 0)
+            {
+                foreach (var size in FavouriteSizes)
+                {
+                    <div class="doodle-size-picker-outer @FavouriteOuterClass" @onclick="@(() => SelectedSize = size)">
+                        <div class="doodle-size-picker-inner @FavouriteInnerClass" >@size</div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="doodle-size-picker-custom @CustomWrapperClass">
+            <span>Custom</span>
+            <input type="number" @bind-value="@SelectedSize" />
+        </div>
+    </div>
+}
+

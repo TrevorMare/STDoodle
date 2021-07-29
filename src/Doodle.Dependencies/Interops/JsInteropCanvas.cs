@@ -32,10 +32,10 @@ namespace Doodle.Dependencies.Interops
         #endregion
 
         #region Interface Methods
-        public async Task InitialiseCanvas(ElementReference forElement) 
+        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize) 
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("InitialiseCanvas", forElement, _thisRef);
+            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize);
         }
 
         public async Task SetBrushColor(string color)

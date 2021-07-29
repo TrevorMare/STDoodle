@@ -9,15 +9,45 @@ namespace Doodle.Components
     public partial class DoodleColorPicker : ComponentBase
     {
 
+        #region Members
+        private string _selectedColor;
+        private Abstractions.Config.DoodleDrawConfig _options;
+        #endregion
+
         #region "Parameters"
         [Parameter]
         public string E2ETestingName { get; set; }
 
         [Parameter]
-        public string SelectedColor { get; set; }
+        public string SelectedColor 
+        { 
+            get => _selectedColor; 
+            set 
+            {
+                if (_selectedColor != value)
+                {
+                    _selectedColor = value;
+                    SelectedColorChanged.InvokeAsync(_selectedColor);
+                }
+            } 
+        }
 
         [Parameter]
-        public EventCallback<string> SelectedColorChange { get; set; }
+        public EventCallback<string> SelectedColorChanged { get; set; }
+
+        [Parameter]
+        public Abstractions.Config.DoodleDrawConfig Options 
+        { 
+            get => _options; 
+            set
+            {
+                if (_options != value)
+                {
+                    _options = value;
+                    this.InitConfigSettings(_options);
+                }
+            } 
+        }
 
         [Parameter]
         public IEnumerable<string> FavouriteColors { get; set; } 
@@ -34,7 +64,7 @@ namespace Doodle.Components
             set 
             {
                 this._config = value;
-                this.InitConfigSettings();
+                this.InitConfigSettings(this._config);
             } 
         }
 
@@ -55,20 +85,25 @@ namespace Doodle.Components
 
         [Parameter]
         public string CustomWrapperClass { get; set; }
+
+        [Parameter]
+        public bool Visible { get; set; } = true;
         #endregion
 
         #region Config Init
-        private void InitConfigSettings()
+        private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
-            this.SelectedColor = Config.ColorPickerConfig?.StartupColor ?? "#000000";
-            this.Orientation = Config.ColorPickerConfig?.Orientation ?? Abstractions.Common.Orientation.Vertical;
-            this.FavouriteColors = Config.ColorPickerConfig?.FavouriteColors ?? new List<string>();
+            if (config == null) return;
 
-            this.WrapperClass = Config.ColorPickerConfig?.WrapperClass;
-            this.FavouriteWrapperClass = Config.ColorPickerConfig?.FavouriteWrapperClass;
-            this.FavouriteOuterClass = Config.ColorPickerConfig?.FavouriteOuterClass;
-            this.FavouriteInnerClass = Config.ColorPickerConfig?.FavouriteInnerClass;
-            this.CustomWrapperClass = Config.ColorPickerConfig?.CustomWrapperClass;
+            this.Orientation = config.ColorPickerConfig?.Orientation ?? Abstractions.Common.Orientation.Vertical;
+            this.FavouriteColors = config.ColorPickerConfig?.FavouriteColors ?? new List<string>();
+
+            this.WrapperClass = config.ColorPickerConfig?.WrapperClass;
+            this.FavouriteWrapperClass = config.ColorPickerConfig?.FavouriteWrapperClass;
+            this.FavouriteOuterClass = config.ColorPickerConfig?.FavouriteOuterClass;
+            this.FavouriteInnerClass = config.ColorPickerConfig?.FavouriteInnerClass;
+            this.CustomWrapperClass = config.ColorPickerConfig?.CustomWrapperClass;
+            this.Visible = config.ColorPickerConfig?.Visible ?? true;
         }
         #endregion
 

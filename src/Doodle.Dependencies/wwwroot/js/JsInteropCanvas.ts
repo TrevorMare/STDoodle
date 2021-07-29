@@ -23,17 +23,31 @@ export class DoodleCanvas {
   private _context: CanvasRenderingContext2D;
   private _commands: ICanvasPath[] = [];
   private _callbackRef: any;
+  private _resizeElement: HTMLElement;
 
   private _currentCanvasPath: ICanvasPath;
   private _brushSize: number = 1;
   private _brushColor: string = "#000000";
-  
 
-  constructor(canvas: HTMLCanvasElement, callbackRef: any) {
+  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number) {
     this._canvas = canvas;
     this._context = this._canvas.getContext('2d');
     this._callbackRef = callbackRef;
+    this._resizeElement = resizeElement;
     this.SetupHandlers();
+
+    if (!!initColor && initColor !== '') {
+      this.SetBrushColor(initColor);
+      console.log(`Setting initial color to ${initColor}`)
+    }
+
+    if (!!initSize && initSize > 0) {
+      this.SetBrushSize(initSize);
+      console.log(`Setting initial size to ${initSize}`)
+    }
+
+    this.ResizeComponent();
+
   }
 
   public SetBrushColor(color: string): void {
@@ -130,18 +144,26 @@ export class DoodleCanvas {
 
     this._canvas.addEventListener('touchmove', (e) => { this.DrawMovement(e.touches[0]);  e.preventDefault(); }, false);
     this._canvas.addEventListener('mousemove', (e) => { this.DrawMovement(e); }, false);
+
+    if (!!this._resizeElement) {
+      this._resizeElement.addEventListener('resize', (e) => { this.ResizeComponent(); })
+    }
   }
 
   private DestroyHandlers(): void {
     // Remove the event handlers
     this._canvas.removeEventListener('touchstart', (e) => {});
-    this._canvas.addEventListener('mousedown', (e) => {});
+    this._canvas.removeEventListener('mousedown', (e) => {});
 
-    this._canvas.addEventListener('touchend', (e) => {});
-    this._canvas.addEventListener('mouseup', (e) => {});
+    this._canvas.removeEventListener('touchend', (e) => {});
+    this._canvas.removeEventListener('mouseup', (e) => {});
 
-    this._canvas.addEventListener('touchmove', (e) => {});
-    this._canvas.addEventListener('mousemove', (e) => {});
+    this._canvas.removeEventListener('touchmove', (e) => {});
+    this._canvas.removeEventListener('mousemove', (e) => {});
+
+    if (!!this._resizeElement) {
+      this._resizeElement.removeEventListener('resize', (e) => { this.ResizeComponent(); })
+    }
   }
 
   private StartDraw(event): void {
@@ -150,6 +172,9 @@ export class DoodleCanvas {
       // Calculate the coords
       const x: number = event.pageX - this._canvas.offsetLeft;
       const y: number = event.pageY - this._canvas.offsetTop;
+
+      this._context.lineWidth = this._brushSize;
+      this._context.strokeStyle = this._brushColor;
 
       this._context.beginPath();
       this._context.moveTo(x, y);
@@ -222,11 +247,18 @@ export class DoodleCanvas {
       this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
     }
   }
+
+  private ResizeComponent() {
+    if (!!this._resizeElement) {
+      this._canvas.width = this._resizeElement.clientWidth;
+      this._canvas.height = this._resizeElement.clientHeight;
+    }
+  }
 }
 
 export let _doodleCanvas: DoodleCanvas;
 
-export function InitialiseCanvas(renderElement: HTMLElement, callbackRef: any): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, callbackRef); } 
+export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize); } 
 export function SetBrushColor(color: string): void { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size: number): void { _doodleCanvas.SetBrushSize(size); }
 export function Destroy(): void { _doodleCanvas.Destroy() }
