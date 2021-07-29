@@ -77,15 +77,39 @@ export class DoodleCanvas {
   }
 
   public Undo(): boolean {
-    this.Refresh();
-    this.NotifyBlazorCommands();
-    return false;
+    let result: boolean = false;
+    if (this.CanUndo()) {
+
+      for (let iCommand: number = this._commands.length - 1; iCommand >= 0; iCommand--) {
+        if (this._commands[iCommand].Display === true) {
+          this._commands[iCommand].Display = false;
+          result = true;
+          break;
+        }
+      }
+
+      this.Refresh();
+      this.NotifyBlazorCommands();
+    }
+    return result;
   }
 
   public Redo(): boolean {
-    this.Refresh();
-    this.NotifyBlazorCommands();
-    return false;
+    let result: boolean = false;
+    if (this.CanRedo()) {
+
+      for (let iCommand: number = 0; iCommand < this._commands.length; iCommand++) {
+        if (this._commands[iCommand].Display === false) {
+          this._commands[iCommand].Display = true;
+          result = true;
+          break;
+        }
+      }
+
+      this.Refresh();
+      this.NotifyBlazorCommands();
+    }
+    return result;
   }
 
   public CanUndo(): boolean {

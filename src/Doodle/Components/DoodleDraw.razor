@@ -1,11 +1,12 @@
 <div class="doodle-draw-wrapper">
     <div class="doodle-draw-header">
-
-
+        <DoodleColorPicker></DoodleColorPicker>
     </div>
     <div class="doodle-draw-body">
 
-        <div class="doodle-draw-left-panel"></div>
+        <div class="doodle-draw-left-panel">
+            <DoodleColorPicker Orientation="Orientation.Vertical"></DoodleColorPicker>
+        </div>
         <div @ref="RenderWrapper" class="doodle-draw-content" >
             <DoodleCanvas></DoodleCanvas>
         </div>

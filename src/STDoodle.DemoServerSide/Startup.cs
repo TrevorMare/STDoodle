@@ -30,7 +30,11 @@ namespace STDoodle.DemoServerSide
       services.AddServerSideBlazor();
       services.AddSingleton<WeatherForecastService>();
 
-      services.UseDoodle();
+      services.UseDoodle((config) => 
+      {
+        config.ColorPickerConfig.StartupColor = "#FF0000";
+        config.ColorPickerConfig.Orientation = Doodle.Abstractions.Common.Orientation.Horizontal;
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

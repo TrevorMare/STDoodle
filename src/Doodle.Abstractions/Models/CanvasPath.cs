@@ -17,7 +17,7 @@ namespace Doodle.Abstractions.Models
 
         public IEnumerable<CanvasPathPoint> Points { get; set; }
 
-        public DateTime Created { get; set; }
+        public long Created { get; set; }
         
     }
 
