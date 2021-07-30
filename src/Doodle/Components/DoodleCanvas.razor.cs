@@ -35,7 +35,6 @@ namespace Doodle.Components
             } 
         }
         private ElementReference ResizeElement { get; set; }
-
         private ElementReference CanvasElement { get; set; }
         #endregion
 
@@ -112,14 +111,43 @@ namespace Doodle.Components
                 if (this._strokeSize != value)
                 {
                     this._strokeSize = value;
-                    Task.Run(async () => await this.SetBrushSize(value)).Wait();
+                    this.SetBrushSize(value);
                 }
             } 
         }
         
-        public bool CanUndo { get; private set; }
+        private bool _canUndo = false;
+        private bool _canRedo = false;
 
-        public bool CanRedo { get; private set; }
+        public bool CanUndo 
+        { 
+            get => _canUndo; 
+            private set
+            {
+                if (_canUndo != value)
+                {
+                    _canUndo = value;
+                    this.CanUndoChanged.InvokeAsync(_canUndo);
+                }
+            } 
+        }
+
+        public EventCallback<bool> CanUndoChanged { get; set; }
+
+        public bool CanRedo 
+        { 
+            get => _canRedo; 
+            private set
+            {
+                if (_canRedo != value)
+                {
+                    _canRedo = value;
+                    this.CanRedoChanged.InvokeAsync(_canRedo);
+                }
+            } 
+        }
+
+        public EventCallback<bool> CanRedoChanged { get; set; }
 
         public bool CanvasInitialised { get; private set; }
 

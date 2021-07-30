@@ -14,7 +14,13 @@
     <div class="doodle-draw-body">
 
         <div class="doodle-draw-left-panel">
-            
+            <button disabled=@(!DoodleCanvas?.CanUndo ?? true) @onclick="@(async () => await DoodleCanvas.Undo())">Undo</button>
+            <button disabled=@(!DoodleCanvas?.CanRedo ?? true) @onclick="@(async () => await DoodleCanvas.Redo())">Redo</button>
+            <button @onclick="@(async () => await DoodleCanvas.ClearCanvas(false))">Clear</button>
+            <button @onclick="@(async () => await DoodleCanvas.ClearCanvas(true))">Clear History</button>
+            <button @onclick="@(async () => await DoodleCanvas.Redraw())">Refresh</button>
+            <button>Get Commands</button>
+            <button>Set Commands</button>
         </div>
 
         <div @ref="RenderWrapper" class="doodle-draw-content" >
@@ -22,7 +28,9 @@
                 E2ETestingName="@E2ETestingName" 
                 StrokeColor="@StrokeColor" 
                 Options="@Options"
-                StrokeSize="@StrokeSize"></DoodleCanvas>
+                StrokeSize="@StrokeSize"
+                OnCommandPathsUpdated="@(() => StateHasChanged())"
+                @ref="DoodleCanvas"></DoodleCanvas>
         </div>
 
         <div class="doodle-draw-right-panel"></div>

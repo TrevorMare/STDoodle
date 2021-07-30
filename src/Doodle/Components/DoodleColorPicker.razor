@@ -12,10 +12,13 @@
                 }
             }
         </div>
-        <div class="doodle-color-picker-custom @CustomWrapperClass">
-            <span>Custom</span>
-            <input type="color" @bind-value="@SelectedColor" />
-        </div>
+        @if (ShowCustomColor)
+        {
+            <div class="doodle-color-picker-custom @CustomWrapperClass">
+                <span>Custom</span>
+                <input class="@ColorInputClass" type="color" @bind-value="@SelectedColor" />
+            </div>
+        }
     </div>
 }
 

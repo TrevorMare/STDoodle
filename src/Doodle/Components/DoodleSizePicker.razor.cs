@@ -87,6 +87,12 @@ namespace Doodle.Components
                 }
             } 
         }
+
+        [Parameter]
+        public string NumberInputClass { get; set; }
+
+        [Parameter]
+        public bool ShowCustomNumber { get; set; }
         #endregion
 
         #region Config Init
@@ -102,10 +108,11 @@ namespace Doodle.Components
             this.FavouriteOuterClass = config.SizePickerConfig?.FavouriteOuterClass;
             this.FavouriteInnerClass = config.SizePickerConfig?.FavouriteInnerClass;
             this.CustomWrapperClass = config.SizePickerConfig?.CustomWrapperClass;
+            this.NumberInputClass = config.SizePickerConfig?.NumberInputClass;
             this.Visible = config.SizePickerConfig?.Visible ?? true;
+            this.ShowCustomNumber = config.SizePickerConfig?.ShowCustomNumber ?? true;
         }
         #endregion
-
 
     }
 

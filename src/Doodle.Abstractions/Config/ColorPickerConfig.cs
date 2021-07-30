@@ -24,6 +24,10 @@ namespace Doodle.Abstractions.Config
         public string CustomWrapperClass { get; set; }
 
         public bool Visible { get; set; } = true;
+
+        public string ColorInputClass { get; set; }
+
+        public bool ShowCustomColor { get; set; } = true;
     }
 
 }

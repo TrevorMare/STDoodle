@@ -87,7 +87,13 @@ namespace Doodle.Components
         public string CustomWrapperClass { get; set; }
 
         [Parameter]
+        public string ColorInputClass { get; set; }
+
+        [Parameter]
         public bool Visible { get; set; } = true;
+
+        [Parameter]
+        public bool ShowCustomColor { get; set; }
         #endregion
 
         #region Config Init
@@ -103,6 +109,8 @@ namespace Doodle.Components
             this.FavouriteOuterClass = config.ColorPickerConfig?.FavouriteOuterClass;
             this.FavouriteInnerClass = config.ColorPickerConfig?.FavouriteInnerClass;
             this.CustomWrapperClass = config.ColorPickerConfig?.CustomWrapperClass;
+            this.ColorInputClass = config.ColorPickerConfig?.ColorInputClass;
+            this.ShowCustomColor = config.ColorPickerConfig?.ShowCustomColor ?? true;
             this.Visible = config.ColorPickerConfig?.Visible ?? true;
         }
         #endregion

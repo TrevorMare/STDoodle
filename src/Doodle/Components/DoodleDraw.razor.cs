@@ -30,13 +30,15 @@ namespace Doodle.Components
                 this.InitConfigSettings(this._config);
             } 
         }
-       
         
         [Inject]
         private Abstractions.JsInterop.IJsInteropBuffer JsInteropBuffer { get; set; }
 
         [Inject]
         private Abstractions.JsInterop.IJsInteropHtml2Canvas JsInteropHtml2Canvas { get; set; }
+
+        private DoodleCanvas DoodleCanvas { get; set; }
+
         #endregion
 
         #region Event Callbacks
