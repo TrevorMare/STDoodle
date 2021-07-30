@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
-namespace Doodle.Dependencies.Helpers
+namespace Doodle.Helpers
 {
     public class JsBufferStream : Stream
     {

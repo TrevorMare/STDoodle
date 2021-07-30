@@ -7,7 +7,7 @@ using Doodle.Abstractions.JsInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Doodle.Dependencies.Interops
+namespace Doodle.Interops
 {
 
     public class JsInteropCanvas : Abstractions.JsInterop.IJsInteropCanvas, IAsyncDisposable
@@ -18,7 +18,7 @@ namespace Doodle.Dependencies.Interops
         #endregion
 
         #region Members
-        private const string _basePath = "./_content/Doodle.Dependencies/js/JsInteropCanvas.min.js";
+        private const string _basePath = "./_content/STDoodle/js/JsInteropCanvas.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
         private readonly DotNetObjectReference<JsInteropCanvas> _thisRef;
         #endregion

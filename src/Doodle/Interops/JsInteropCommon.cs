@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Doodle.Dependencies.Interops
+namespace Doodle.Interops
 {
 
     public class JsInteropCommon : Abstractions.JsInterop.IJsInteropCommon, IAsyncDisposable
     {
 
         #region Members
-        private const string _basePath = "./_content/Doodle.Dependencies/js/JsInteropCommon.min.js";
+        private const string _basePath = "./_content/STDoodle/js/JsInteropCommon.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
         #endregion
 

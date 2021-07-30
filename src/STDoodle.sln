@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doodle", "Doodle\Doodle.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doodle.Abstractions", "Doodle.Abstractions\Doodle.Abstractions.csproj", "{36262E1A-801C-4499-AF36-487B9DE1B6FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doodle.Dependencies", "Doodle.Dependencies\Doodle.Dependencies.csproj", "{5032B5E3-C2DE-41D2-A603-2D24900954D7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STDoodle.DemoServerSide", "STDoodle.DemoServerSide\STDoodle.DemoServerSide.csproj", "{ED62008A-4E78-4299-8D20-B9FEFD8BFFA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STDoodle.DemoWASM", "STDoodle.DemoWASM\STDoodle.DemoWASM.csproj", "{7B7DA8FB-8C8A-4436-A03F-C221DCAF4BF6}"
@@ -29,10 +27,6 @@ Global
 		{36262E1A-801C-4499-AF36-487B9DE1B6FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36262E1A-801C-4499-AF36-487B9DE1B6FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36262E1A-801C-4499-AF36-487B9DE1B6FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5032B5E3-C2DE-41D2-A603-2D24900954D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5032B5E3-C2DE-41D2-A603-2D24900954D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5032B5E3-C2DE-41D2-A603-2D24900954D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5032B5E3-C2DE-41D2-A603-2D24900954D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ED62008A-4E78-4299-8D20-B9FEFD8BFFA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ED62008A-4E78-4299-8D20-B9FEFD8BFFA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED62008A-4E78-4299-8D20-B9FEFD8BFFA0}.Release|Any CPU.ActiveCfg = Release|Any CPU

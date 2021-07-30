@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Doodle\Doodle.csproj" />
+    <ProjectReference Include="..\Doodle.Abstractions\Doodle.Abstractions.csproj" />
     <ProjectReference Include="..\STDoodle.DemoComponents\STDoodle.DemoComponents.csproj" />
   </ItemGroup>
 

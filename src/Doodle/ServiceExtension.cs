@@ -1,7 +1,5 @@
 using System;
-using Doodle.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace Doodle
 {
 
@@ -10,7 +8,6 @@ namespace Doodle
 
         public static IServiceCollection UseDoodle(this IServiceCollection serviceCollection, Action<Abstractions.Config.DoodleDrawConfig> config = default)
         {
-            serviceCollection.UseDoodleDependencies();
 
             if (config == null)
             {
@@ -22,6 +19,13 @@ namespace Doodle
                 config.Invoke(configValue);
                 serviceCollection.AddScoped<Abstractions.Config.DoodleDrawConfig>((s) => configValue);
             }
+
+            serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropCanvas, Interops.JsInteropCanvas>();
+            serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropCommon, Interops.JsInteropCommon>();
+
+            serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropBuffer, Interops.JsInteropBuffer>();
+            serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropHtml2Canvas, Interops.JsInteropHtml2Canvas>();
+
 
             return serviceCollection;
         }

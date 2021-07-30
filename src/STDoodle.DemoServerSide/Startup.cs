@@ -1,4 +1,5 @@
 using Doodle;
+using GTour;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace STDoodle.DemoServerSide
       services.AddRazorPages();
       services.AddServerSideBlazor();
       services.AddSingleton<WeatherForecastService>();
+
+      services.UseGTour();
 
       services.UseDoodle((config) => 
       {

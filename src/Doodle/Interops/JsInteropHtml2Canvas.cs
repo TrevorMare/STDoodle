@@ -6,14 +6,14 @@ using Microsoft.JSInterop;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Doodle.Dependencies.Interops
+namespace Doodle.Interops
 {
 
     public class JsInteropHtml2Canvas : Abstractions.JsInterop.IJsInteropHtml2Canvas, IAsyncDisposable
     {
 
         #region Members
-        private const string _basePath = "./_content/Doodle.Dependencies/js/JsInteropHtml2Canvas.min.js";
+        private const string _basePath = "./_content/STDoodle/js/JsInteropHtml2Canvas.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
         #endregion
 
