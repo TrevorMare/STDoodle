@@ -126,7 +126,7 @@ namespace Doodle.Components
                 if (this._strokeSize != value)
                 {
                     this._strokeSize = value;
-                    this.SetBrushSize(value);
+                    this.SetBrushSize(value).ConfigureAwait(false);
                 }
             } 
         }
