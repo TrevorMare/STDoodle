@@ -14,4 +14,10 @@ namespace Doodle.Abstractions.Common
         Point = 2
     }
 
+    public enum BackgroundSourceType
+    {
+        Url = 1,
+        SVG = 2
+    }
+
 }

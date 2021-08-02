@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 566.81 628.12" version="1.0">
+  <g id="layer1" transform="translate(-88.641 -212.12)">
+    <path id="rect3464" stroke-linejoin="round" d="m650.44 457.29l0.01 93.27-34.87-27.91v312.59h-484.25v-318.18l-37.689 33.5 1.922-93.68 32.577-31.92h0.41v-178.62h58.59v130.97l184.22-160.19 279.08 240.17z" stroke="#000" stroke-linecap="round" stroke-width="10" fill="none"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>house-silhouette</dc:title>
+        <dc:date>2008-09-05T21:51:59</dc:date>
+        <dc:description>House silhouette</dc:description>
+        <dc:source>http://openclipart.org/detail/19100/house-silhouette-by-josuemb</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>josuemb</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>building</rdf:li>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>home</rdf:li>
+            <rdf:li>house</rdf:li>
+            <rdf:li>image</rdf:li>
+            <rdf:li>media</rdf:li>
+            <rdf:li>public domain</rdf:li>
+            <rdf:li>silhouette</rdf:li>
+            <rdf:li>svg</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

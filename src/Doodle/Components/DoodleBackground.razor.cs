@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Doodle.Abstractions.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
@@ -17,10 +18,7 @@ namespace Doodle.Components
         public bool Visible { get; set; } = true;
 
         [Parameter]
-        public string BackgroundSource { get; set; } = "./_content/STDoodle/img/mono-kpresenter-kpr.svg";
-
-        [Parameter]
-        public string BackgroundClass { get; set; }
+        public BackgroundData BackgroundSource { get; set; }
         #endregion
         
     }

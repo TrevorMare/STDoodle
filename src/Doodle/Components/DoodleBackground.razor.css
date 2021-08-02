@@ -9,3 +9,11 @@
   background-position: center;
   background-size: cover contain;
 }
+.test-svg-stroke {
+  background-color: #5e1aca;
+  -webkit-mask-image: url("/_content/STDoodle/img/svg4.svg");
+  mask-image: url("/_content/STDoodle/img/svg4.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: cover contain;
+}

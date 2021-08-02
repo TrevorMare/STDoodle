@@ -29,7 +29,13 @@
 
         <div @ref="RenderWrapper" class="doodle-draw-content" >
 
-            @* <DoodleBackground></DoodleBackground> *@
+            @if (Backgrounds != null && Backgrounds.Count() > 0)
+            {
+                foreach (var background in Backgrounds)
+                {
+                    <DoodleBackground BackgroundSource="@background"></DoodleBackground>
+                }
+            }
 
             <DoodleCanvas 
                 DataAttributeName="@DataAttributeName" 
