@@ -15,6 +15,8 @@ namespace Doodle.Abstractions.Config
 
         public Html2CanvasConfig Html2CanvasConfig { get; set; } = new Html2CanvasConfig();
 
+        public ToolbarConfig ToolbarConfig { get; set; } = new ToolbarConfig();
+
         
     }
 

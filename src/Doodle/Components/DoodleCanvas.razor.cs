@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -12,6 +13,8 @@ namespace Doodle.Components
     {
 
         #region Members
+        private bool _canUndo = false;
+        private bool _canRedo = false;
         private bool _disposed = false;
         private string _strokeColor = "#000000";
         private int _strokeSize = 1;
@@ -80,7 +83,7 @@ namespace Doodle.Components
         }
 
         [Parameter]
-        public string E2ETestingName { get; set; }
+        public string DataAttributeName { get; set; }
 
         [Parameter]
         public string CanvasClass { get; set; }
@@ -115,9 +118,6 @@ namespace Doodle.Components
                 }
             } 
         }
-        
-        private bool _canUndo = false;
-        private bool _canRedo = false;
 
         public bool CanUndo 
         { 
@@ -130,6 +130,11 @@ namespace Doodle.Components
                     this.CanUndoChanged.InvokeAsync(_canUndo);
                 }
             } 
+        }
+
+        public bool Dirty 
+        {
+            get => (this.PathCommands?.Count() > 0);
         }
 
         public EventCallback<bool> CanUndoChanged { get; set; }

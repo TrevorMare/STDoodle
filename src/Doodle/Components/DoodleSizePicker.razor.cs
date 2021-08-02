@@ -31,7 +31,7 @@ namespace Doodle.Components
 
         #region Properties
         [Parameter]
-        public string E2ETestingName { get; set; }
+        public string DataAttributeName { get; set; }
 
         [Parameter]
         public bool Visible { get; set; } = true;

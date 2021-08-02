@@ -52,7 +52,7 @@ namespace Doodle.Components
 
         #region Parameters
         [Parameter]
-        public string E2ETestingName { get; set; }
+        public string DataAttributeName { get; set; }
 
         [Parameter]
         public Abstractions.Config.DoodleDrawConfig Options 
@@ -87,6 +87,7 @@ namespace Doodle.Components
         #endregion
 
         #region Methods
+        
         public async Task<string> ExportDoodleToImage(Abstractions.Config.Html2CanvasConfig config = null)
         {
             try

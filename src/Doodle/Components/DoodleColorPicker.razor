@@ -1,6 +1,6 @@
 @if (Visible)
 {
-    <div data-e2e-doodle-color-picker="@E2ETestingName" class="doodle-color-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
+    <div data-doodle-color-picker="@DataAttributeName" class="doodle-color-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
         <div class="doodle-color-picker-favourites @FavouriteWrapperClass">
             @if (FavouriteColors?.Count() > 0)
             {

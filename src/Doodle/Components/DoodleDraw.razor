@@ -1,31 +1,35 @@
-<div class="doodle-draw-wrapper">
-    <div class="doodle-draw-header">
+<div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName">
+    <div class="doodle-draw-header" data-doodle-draw-header="@DataAttributeName">
         <DoodleColorPicker 
             SelectedColor="@StrokeColor" 
             SelectedColorChanged="@((color) => this.StrokeColor = color)"
             Options="@Options"
-            E2ETestingName="@E2ETestingName"></DoodleColorPicker> 
+            DataAttributeName="@DataAttributeName"></DoodleColorPicker> 
 
         <DoodleSizePicker 
            SelectedSize="@StrokeSize"
            SelectedSizeChanged="@((size) => this.StrokeSize = size)"
-           E2ETestingName="@E2ETestingName"></DoodleSizePicker>    
+           DataAttributeName="@DataAttributeName"></DoodleSizePicker>    
     </div>
-    <div class="doodle-draw-body">
+    <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
 
         <div class="doodle-draw-left-panel">
-            <button disabled=@(!DoodleCanvas?.CanUndo ?? true) @onclick="@(async () => await DoodleCanvas.Undo())">Undo</button>
-            <button disabled=@(!DoodleCanvas?.CanRedo ?? true) @onclick="@(async () => await DoodleCanvas.Redo())">Redo</button>
-            <button @onclick="@(async () => await DoodleCanvas.ClearCanvas(false))">Clear</button>
-            <button @onclick="@(async () => await DoodleCanvas.ClearCanvas(true))">Clear History</button>
-            <button @onclick="@(async () => await DoodleCanvas.Redraw())">Refresh</button>
-            <button>Get Commands</button>
-            <button>Set Commands</button>
+            <DoodleToolbar 
+                UndoButtonEnabled="@(DoodleCanvas?.CanUndo ?? false)"
+                RedoButtonEnabled="@(DoodleCanvas?.CanRedo ?? false)"
+                ExportButtonEnabled="true"
+                SaveButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
+                ClearButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
+                ClearHistoryOnClear="true"
+                UndoButtonClick="@(async() => await DoodleCanvas.Undo())"
+                RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
+                ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))"
+                ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
         </div>
 
         <div @ref="RenderWrapper" class="doodle-draw-content" >
             <DoodleCanvas 
-                E2ETestingName="@E2ETestingName" 
+                DataAttributeName="@DataAttributeName" 
                 StrokeColor="@StrokeColor" 
                 Options="@Options"
                 StrokeSize="@StrokeSize"

@@ -1,0 +1,45 @@
+@if (Visible)
+{
+    <div data-doodle-toolbar="@DataAttributeName" class="doodle-toolbar-wrapper @WrapperClass">
+        <div class="doodle-toolbar-buttons @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")">
+            <button hidden="@(!UndoButtonVisible)" 
+                    disabled=@(!UndoButtonEnabled) 
+                    class="@UndoButtonClass" 
+                    @onclick="@(() => UndoButtonClick.InvokeAsync())">
+
+                        <span class="material-icons">undo</span>
+
+                    @(UndoButtonContent == null ? @UndoButtonText : @UndoButtonContent)
+            </button>
+
+            <button hidden="@(!RedoButtonVisible)" 
+                    disabled=@(!RedoButtonEnabled) 
+                    class="@RedoButtonClass" 
+                    @onclick="@(() => RedoButtonClick.InvokeAsync())">
+                    @(RedoButtonContent == null ? @RedoButtonText : @RedoButtonContent)
+            </button>
+            
+            <button hidden="@(!ClearButtonVisible)" 
+                    disabled=@(!ClearButtonEnabled) 
+                    class="@ClearButtonClass" 
+                    @onclick="@(() => ClearButtonClick.InvokeAsync(ClearHistoryOnClear))">
+                    @(ClearButtonContent == null ? @ClearButtonText : @ClearButtonContent)
+            </button>
+
+            <button hidden="@(!SaveButtonVisible)" 
+                    disabled=@(!SaveButtonEnabled) 
+                    class="@SaveButtonClass" 
+                    @onclick="@(() => SaveButtonClick.InvokeAsync())">
+                    @(SaveButtonContent == null ? @SaveButtonText : @SaveButtonContent)
+            </button>
+
+            <button hidden="@(!ExportButtonVisible)" 
+                    disabled=@(!ExportButtonEnabled) 
+                    class="@ExportButtonClass" 
+                    @onclick="@(() => ExportButtonClick.InvokeAsync())">
+                    @(ExportButtonContent == null ? @ExportButtonText : @ExportButtonContent)
+            </button>
+        </div>
+    </div>
+}
+

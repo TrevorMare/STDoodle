@@ -16,7 +16,7 @@ namespace Doodle.Components
 
         #region "Parameters"
         [Parameter]
-        public string E2ETestingName { get; set; }
+        public string DataAttributeName { get; set; }
 
         [Parameter]
         public string SelectedColor 

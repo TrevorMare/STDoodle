@@ -1,0 +1,8 @@
+.doodle-toolbar-wrapper .doodle-toolbar-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.doodle-toolbar-wrapper .doodle-toolbar-buttons.vertical {
+  flex-direction: column;
+}
