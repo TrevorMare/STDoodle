@@ -1,7 +1,6 @@
 
 //import './vendor.min.js';
 
-
 export interface ICanvasPathPoint {
   X: number;
   Y: number;
@@ -16,6 +15,12 @@ export interface ICanvasPath {
   Created: number;
 }
 
+export enum GridType {
+  None = 0,
+  Grid = 1,
+  Point = 2
+}
+
 export class DoodleCanvas {
 
   private _canvas: HTMLCanvasElement;
@@ -24,16 +29,25 @@ export class DoodleCanvas {
   private _commands: ICanvasPath[] = [];
   private _callbackRef: any;
   private _resizeElement: HTMLElement;
+  private _drawGrid: boolean;
+  private _gridSize: number = 10;
+  private _gridColor: string = "gray";
+  private _gridType: GridType = GridType.Grid;
 
   private _currentCanvasPath: ICanvasPath;
   private _brushSize: number = 1;
   private _brushColor: string = "#000000";
 
-  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number) {
+  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, showGrid: boolean, gridSize: number, gridColor: string, gridType: GridType) {
     this._canvas = canvas;
     this._context = this._canvas.getContext('2d');
     this._callbackRef = callbackRef;
     this._resizeElement = resizeElement;
+    this._drawGrid = showGrid;
+    this._gridSize = gridSize;
+    this._gridColor = gridColor;
+    this._gridType = gridType;
+
     this.SetupHandlers();
 
     if (!!initColor && initColor !== '') {
@@ -47,6 +61,10 @@ export class DoodleCanvas {
     }
 
     this.ResizeComponent();
+
+    if (this._drawGrid === true) {
+      this.DrawGridLayout();
+    }
 
   }
 
@@ -65,11 +83,36 @@ export class DoodleCanvas {
     this._canvas = null;
   }
 
+  public ShowGrid(show: boolean) {
+    this._drawGrid = show;
+    this.Refresh();
+  }
+
+  public SetGridSize(size: number): void {
+    this._gridSize = size;
+    this.Refresh();
+  }
+
+  public SetGridColor(color: string): void {
+    this._gridColor = color;
+    this.Refresh();
+  }
+
+  public SetGridType(gridType: GridType): void {
+    this._gridType = gridType;
+    this.Refresh();
+  }
+
   public Clear(clearCommands: boolean): void {
     if (clearCommands === true) {
       this._commands = [];
     }
     this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
+
+    if (this._drawGrid == true) {
+      this.DrawGridLayout();
+    }
+
     this.NotifyBlazorCommands();
   }
 
@@ -167,21 +210,26 @@ export class DoodleCanvas {
     }
   }
 
+  private GetEventPosition(event: any) : any {
+    var rect = event.target.getBoundingClientRect();
+    var x = event.clientX - rect.left; 
+    var y = event.clientY - rect.top;  
+    return { x: x, y: y };
+  }
+
   private StartDraw(event): void {
     if (this._isDrawing == false) {
-
       // Calculate the coords
-      const x: number = event.pageX - this._canvas.offsetLeft;
-      const y: number = event.pageY - this._canvas.offsetTop;
+      const coords = this.GetEventPosition(event);
 
       this._context.lineWidth = this._brushSize;
       this._context.strokeStyle = this._brushColor;
 
       this._context.beginPath();
-      this._context.moveTo(x, y);
+      this._context.moveTo(coords.x, coords.y);
 
       // Initialise the current path command
-      this.StartCurrentPath(x, y);
+      this.StartCurrentPath(coords.x, coords.y);
 
       // Set the current is drawing value
       this._isDrawing = true;
@@ -191,14 +239,13 @@ export class DoodleCanvas {
   private DrawMovement(event): void {
     if (this._isDrawing == false) return;
 
-    const x: number = event.pageX - this._canvas.offsetLeft;
-    const y: number = event.pageY - this._canvas.offsetTop;
-
-    this._context.lineTo(x, y);
+     // Calculate the coords
+    const coords = this.GetEventPosition(event);
+    this._context.lineTo(coords.x, coords.y);
     this._context.stroke();
 
     if (!!this._currentCanvasPath) {
-      this._currentCanvasPath.Points.push( { X: x, Y: y } );
+      this._currentCanvasPath.Points.push( { X: coords.x, Y: coords.y } );
     }
   }
 
@@ -249,17 +296,61 @@ export class DoodleCanvas {
     }
   }
 
-  private ResizeComponent() {
+  private ResizeComponent(): void  {
     if (!!this._resizeElement) {
       this._canvas.width = this._resizeElement.clientWidth;
       this._canvas.height = this._resizeElement.clientHeight;
     }
   }
+
+  private DrawGridLayout(): void {
+    let svgData = "";
+    if (this._gridType === GridType.Grid) {
+      svgData = `<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"> 
+                    <defs> 
+                        <pattern id="smallGrid" width="${this._gridSize}" height="${this._gridSize}" patternUnits="userSpaceOnUse"> 
+                            <path d="M ${this._gridSize} 0 L 0 0 0 ${this._gridSize}" fill="none" stroke="${this._gridColor}" stroke-width="0.5" /> 
+                        </pattern> 
+                        <pattern id="grid" width="${this._gridSize * 10}" height="${this._gridSize * 10}" patternUnits="userSpaceOnUse"> 
+                            <rect width="${this._gridSize * 10}" height="${this._gridSize * 10}" fill="url(#smallGrid)" /> 
+                            <path d="M ${this._gridSize * 10} 0 L 0 0 0 ${this._gridSize * 10}" fill="none" stroke="${this._gridColor}" stroke-width="1" /> 
+                        </pattern> 
+                    </defs> 
+                    <rect width="100%" height="100%" fill="url(#grid)" /> 
+                </svg>`;
+    } else if (this._gridType === GridType.Point) {
+      svgData = `<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"> 
+                    <defs> 
+                        <pattern id="smallGrid" width="${this._gridSize}" height="${this._gridSize}" patternUnits="userSpaceOnUse"> 
+                          <circle cx='${this._gridSize}' cy='${this._gridSize}' r='1' stroke-width="1" stroke='${this._gridColor}' />
+                        </pattern> 
+                    </defs> 
+                    <rect width="100%" height="100%" fill="url(#smallGrid)" /> 
+                </svg>`;
+    } else {
+      return;
+    }
+    var DOMURL = window.URL || window.webkitURL || window;
+
+    var img = new Image();
+    var svg = new Blob([svgData], {type: 'image/svg+xml;charset=utf-8'});
+    // @ts-ignore
+    var url = DOMURL.createObjectURL(svg);
+    const that = this;
+    img.onload = function () {
+      that._context.drawImage(img, 0, 0);
+      // @ts-ignore
+      DOMURL.revokeObjectURL(url);
+    }
+    img.src = url;
+  }
 }
 
 export let _doodleCanvas: DoodleCanvas;
 
-export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize); } 
+export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTMLElement, callbackRef: any, 
+                                 initColor: string, initSize: number, drawGrid: boolean, gridSize: number, gridColor: string,
+                                 gridType: GridType): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize, drawGrid, gridSize, gridColor, gridType); } 
 export function SetBrushColor(color: string): void { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size: number): void { _doodleCanvas.SetBrushSize(size); }
 export function Destroy(): void { _doodleCanvas.Destroy() }
@@ -270,5 +361,8 @@ export function Undo(): boolean { return _doodleCanvas.Undo(); }
 export function Redo(): boolean { return _doodleCanvas.Redo(); }
 export function CanUndo(): boolean { return _doodleCanvas.CanUndo(); }
 export function CanRedo(): boolean { return _doodleCanvas.CanRedo(); }
-
+export function ShowGrid(show: boolean): void { _doodleCanvas.ShowGrid(show); }
+export function SetGridSize(size: number): void { _doodleCanvas.SetGridSize(size); }
+export function SetGridColor(color: string): void { _doodleCanvas.SetGridColor(color); }
+export function SetGridType(gridType: GridType): void { _doodleCanvas.SetGridType(gridType); }
 

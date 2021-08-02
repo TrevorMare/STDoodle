@@ -69,6 +69,18 @@ namespace Doodle.Components
 
         #region Properties
         [Parameter]
+        public bool DrawGrid { get; set; }
+
+        [Parameter]
+        public int GridSize { get; set; }
+
+        [Parameter]
+        public string GridColor { get; set; }
+
+        [Parameter]
+        public Abstractions.Common.GridType GridType { get; set; }
+
+        [Parameter]
         public Abstractions.Config.DoodleDrawConfig Options 
         { 
             get => _options; 
@@ -165,6 +177,10 @@ namespace Doodle.Components
             if (config == null) return;
 
             this.CanvasClass = config.CanvasConfig?.CanvasClass;
+            this.DrawGrid = config.CanvasConfig?.DrawGrid ?? false;
+            this.GridSize = config.CanvasConfig?.GridSize ?? 10;
+            this.GridColor = config.CanvasConfig?.GridColor ?? "";
+            this.GridType = config.CanvasConfig?.GridType ?? Abstractions.Common.GridType.None;
         }
         #endregion
 
@@ -174,7 +190,7 @@ namespace Doodle.Components
             if (firstRender == true && CanvasInitialised == false)
             {
                 Logger.LogDebug($"Initialising Canvas");
-                await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, this.StrokeColor, this.StrokeSize);
+                await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, this.StrokeColor, this.StrokeSize, this.DrawGrid, this.GridSize, this.GridColor, this.GridType);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
                     Logger.LogDebug($"Updating state");
