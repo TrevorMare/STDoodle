@@ -1,6 +1,6 @@
 @if (Visible)
 {
-    <div data-e2e-doodle-size-picker="@E2ETestingName" class="doodle-size-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
+    <div data-doodle-size-picker="@DataAttributeName" class="doodle-size-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
         <div class="doodle-size-picker-favourites @FavouriteWrapperClass">
             @if (FavouriteSizes?.Count() > 0)
             {
