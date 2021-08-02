@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    id="svg2"
+    sodipodi:docname="New document 1"
+    viewBox="0 0 193.76 139.58"
+    version="1.1"
+    inkscape:version="0.48.0 r9654"
+  >
+  <sodipodi:namedview
+      id="base"
+      bordercolor="#666666"
+      inkscape:pageshadow="2"
+      inkscape:window-y="-8"
+      fit-margin-left="0"
+      pagecolor="#ffffff"
+      fit-margin-top="0"
+      inkscape:window-maximized="1"
+      inkscape:zoom="6.2614712"
+      inkscape:window-x="-8"
+      inkscape:window-height="1095"
+      showgrid="false"
+      borderopacity="1.0"
+      inkscape:current-layer="layer1"
+      inkscape:cx="96.877784"
+      inkscape:cy="69.791904"
+      fit-margin-right="0"
+      fit-margin-bottom="0"
+      inkscape:window-width="1920"
+      inkscape:pageopacity="0.0"
+      inkscape:document-units="px"
+  />
+  <g
+      id="layer1"
+      inkscape:label="Layer 1"
+      inkscape:groupmode="layer"
+      transform="translate(-261.97 -70.586)"
+    >
+    <path
+        id="path2985"
+        sodipodi:rx="17"
+        sodipodi:ry="17"
+        style="stroke:#000000;stroke-width:.5;fill:none"
+        sodipodi:type="arc"
+        d="m360 140.36c0 9.3888-7.6112 17-17 17s-17-7.6112-17-17 7.6112-17 17-17 17 7.6112 17 17z"
+        transform="translate(18.316 -52.526)"
+        sodipodi:cy="140.36218"
+        sodipodi:cx="343"
+    />
+    <path
+        id="path2985-3"
+        sodipodi:rx="17"
+        sodipodi:ry="17"
+        style="stroke:#000000;stroke-width:.5;fill:none"
+        sodipodi:type="arc"
+        d="m360 140.36c0 9.3888-7.6112 17-17 17s-17-7.6112-17-17 7.6112-17 17-17 17 7.6112 17 17z"
+        transform="translate(-31 5.3684)"
+        sodipodi:cy="140.36218"
+        sodipodi:cx="343"
+    />
+    <path
+        id="path2985-2"
+        sodipodi:rx="17"
+        sodipodi:ry="17"
+        style="stroke:#000000;stroke-width:.5;fill:none"
+        sodipodi:type="arc"
+        d="m360 140.36c0 9.3888-7.6112 17-17 17s-17-7.6112-17-17 7.6112-17 17-17 17 7.6112 17 17z"
+        transform="translate(68.053 5.3684)"
+        sodipodi:cy="140.36218"
+        sodipodi:cx="343"
+    />
+    <path
+        id="path2985-0"
+        sodipodi:rx="17"
+        sodipodi:ry="17"
+        style="stroke:#000000;stroke-width:.5;fill:none"
+        sodipodi:type="arc"
+        d="m360 140.36c0 9.3888-7.6112 17-17 17s-17-7.6112-17-17 7.6112-17 17-17 17 7.6112 17 17z"
+        transform="translate(-63.778 52.557)"
+        sodipodi:cy="140.36218"
+        sodipodi:cx="343"
+    />
+    <path
+        id="path2985-1"
+        sodipodi:rx="17"
+        sodipodi:ry="17"
+        style="stroke:#000000;stroke-width:.5;fill:none"
+        sodipodi:type="arc"
+        d="m360 140.36c0 9.3888-7.6112 17-17 17s-17-7.6112-17-17 7.6112-17 17-17 17 7.6112 17 17z"
+        transform="translate(-8.19 52.557)"
+        sodipodi:cy="140.36218"
+        sodipodi:cx="343"
+    />
+    <path
+        id="path2985-7"
+        sodipodi:rx="17"
+        sodipodi:ry="17"
+        style="stroke:#000000;stroke-width:.5;fill:none"
+        sodipodi:type="arc"
+        d="m360 140.36c0 9.3888-7.6112 17-17 17s-17-7.6112-17-17 7.6112-17 17-17 17 7.6112 17 17z"
+        transform="translate(41.606 52.557)"
+        sodipodi:cy="140.36218"
+        sodipodi:cx="343"
+    />
+    <path
+        id="path5337"
+        style="stroke:#000000;stroke-width:1px;fill:none"
+        d="m319.4 161.04 8.0098 16.571"
+        inkscape:connector-curvature="0"
+        inkscape:connection-start-point="d4"
+        inkscape:connection-start="#path2985-3"
+        inkscape:connector-type="polyline"
+        inkscape:connection-end="#path2985-1"
+        inkscape:connection-end-point="d4"
+    />
+    <path
+        id="path5339"
+        style="stroke:#000000;stroke-width:1px;fill:none"
+        d="m288.92 178.96 13.38-19.262"
+        inkscape:connector-curvature="0"
+        inkscape:connection-start-point="d4"
+        inkscape:connection-start="#path2985-0"
+        inkscape:connector-type="polyline"
+        inkscape:connection-end="#path2985-3"
+        inkscape:connection-end-point="d4"
+    />
+    <path
+        id="path5341"
+        style="stroke:#000000;stroke-width:1px;fill:none"
+        d="m392.92 178.09 9.8214-17.524"
+        inkscape:connector-curvature="0"
+        inkscape:connection-start-point="d4"
+        inkscape:connection-start="#path2985-7"
+        inkscape:connector-type="polyline"
+        inkscape:connection-end="#path2985-2"
+        inkscape:connection-end-point="d4"
+    />
+    <path
+        id="path5343"
+        style="stroke:#000000;stroke-width:1px;fill:none"
+        d="m399.97 132.84-27.581-32.104"
+        inkscape:connector-curvature="0"
+        inkscape:connection-start-point="d4"
+        inkscape:connection-start="#path2985-2"
+        inkscape:connector-type="polyline"
+        inkscape:connection-end="#path2985"
+        inkscape:connection-end-point="d4"
+    />
+    <path
+        id="path5345"
+        style="stroke:#000000;stroke-width:1px;fill:none"
+        d="m323.02 132.79 27.27-32.01"
+        inkscape:connector-curvature="0"
+        inkscape:connection-start-point="d4"
+        inkscape:connection-start="#path2985-3"
+        inkscape:connector-type="polyline"
+        inkscape:connection-end="#path2985"
+        inkscape:connection-end-point="d4"
+    />
+    <path
+        id="path2985-7-1"
+        sodipodi:rx="17"
+        sodipodi:ry="17"
+        style="stroke:#000000;stroke-width:.5;fill:none"
+        sodipodi:type="arc"
+        d="m360 140.36c0 9.3888-7.6112 17-17 17s-17-7.6112-17-17 7.6112-17 17-17 17 7.6112 17 17z"
+        transform="translate(95.478 51.86)"
+        sodipodi:cy="140.36218"
+        sodipodi:cx="343"
+    />
+    <path
+        id="path5367"
+        style="stroke:#000000;stroke-width:1px;fill:none"
+        d="m429.84 177.58-10.15-17.2"
+        inkscape:connector-curvature="0"
+        inkscape:connection-start-point="d4"
+        inkscape:connection-start="#path2985-7-1"
+        inkscape:connector-type="polyline"
+        inkscape:connection-end="#path2985-2"
+        inkscape:connection-end-point="d4"
+    />
+  </g
+  >
+  <metadata
+    >
+    <rdf:RDF
+      >
+      <cc:Work
+        >
+        <dc:format
+          >image/svg+xml</dc:format
+        >
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        />
+        <cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        />
+        <dc:publisher
+          >
+          <cc:Agent
+              rdf:about="http://openclipart.org/"
+            >
+            <dc:title
+              >Openclipart</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:publisher
+        >
+        <dc:title
+          >Ontology</dc:title
+        >
+        <dc:date
+          >2011-04-20T22:55:29</dc:date
+        >
+        <dc:description
+          >For use in informatics and computer science documents</dc:description
+        >
+        <dc:source
+          >https://openclipart.org/detail/133363/ontology-by-imad</dc:source
+        >
+        <dc:creator
+          >
+          <cc:Agent
+            >
+            <dc:title
+              >imad</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:creator
+        >
+        <dc:subject
+          >
+          <rdf:Bag
+            >
+            <rdf:li
+              >binary tree</rdf:li
+            >
+            <rdf:li
+              >data structure</rdf:li
+            >
+            <rdf:li
+              >digraph</rdf:li
+            >
+            <rdf:li
+              >ontology</rdf:li
+            >
+            <rdf:li
+              >tree</rdf:li
+            >
+          </rdf:Bag
+          >
+        </dc:subject
+        >
+      </cc:Work
+      >
+      <cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        >
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
+      </cc:License
+      >
+    </rdf:RDF
+    >
+  </metadata
+  >
+</svg
+>

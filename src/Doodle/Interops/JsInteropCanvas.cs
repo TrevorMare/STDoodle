@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Doodle.Abstractions.Common;
 using Doodle.Abstractions.JsInterop;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -32,10 +33,10 @@ namespace Doodle.Interops
         #endregion
 
         #region Interface Methods
-        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize) 
+        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, bool drawGrid = false, int gridSize = 10, string gridColor = "", GridType gridType = GridType.Grid) 
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize);
+            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize, drawGrid, gridSize, gridColor, gridType);
         }
 
         public async Task SetBrushColor(string color)
@@ -48,6 +49,29 @@ namespace Doodle.Interops
         {
             var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("SetBrushSize", size);
+        }
+        public async Task SetGridSize(int size)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetGridSize", size);
+        }
+
+        public async Task SetGridColor(string color)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetGridColor", color);
+        }
+
+         public async Task SetGridType(GridType gridType)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetGridType", gridType);
+        }
+
+        public async Task ShowGrid(bool show)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("ShowGrid", show);
         }
 
         public async Task Destroy()
