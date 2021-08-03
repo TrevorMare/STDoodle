@@ -1,0 +1,8 @@
+.doodle-resizable-wrapper {
+  box-sizing: border-box;
+}
+.doodle-resizable-wrapper.resizeActive {
+  border: solid 1px #a3a3a3;
+  border-radius: 0.4rem;
+  cursor: move;
+}
