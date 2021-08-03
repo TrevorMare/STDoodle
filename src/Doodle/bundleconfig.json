@@ -11,6 +11,17 @@
       "sourceMap": false
     },
     {
+      "outputFileName": "wwwroot/js/JsInteropDragDrop.min.js",
+      "inputFiles": [
+        "wwwroot/js/JsInteropDragDrop.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
       "outputFileName": "wwwroot/js/JsInteropCanvas.min.js",
       "inputFiles": [
         "wwwroot/js/JsInteropCanvas.js",

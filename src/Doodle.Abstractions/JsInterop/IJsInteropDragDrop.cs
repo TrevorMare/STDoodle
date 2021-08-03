@@ -11,15 +11,22 @@ namespace Doodle.Abstractions.JsInterop
 
     public interface IJsInteropDragDrop
     {
+       
         event OnElementResizedHandler OnElementResized;
 
         event OnElementMovedHandler OnElementMoved;
 
         event OnElementUpdatedHandler OnElementUpdated;
 
-        Task ActivateElement(ElementReference element);
+        Task InitialiseResizable(ElementReference element, ElementDimensions dimensions, bool elementActive = false, bool allowResize = true, bool allowMove = true);
 
-        Task DeActivateElement(ElementReference element);
+        Task ActivateElement();
+
+        Task DeActivateElement();
+
+        Task SetAllowResize(bool value);
+
+        Task SetAllowMove(bool value);
 
         Task ElementMoved(ElementReference element, ElementDimensions dimension);
 

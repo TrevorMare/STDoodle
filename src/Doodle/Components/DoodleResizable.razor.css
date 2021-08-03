@@ -1,8 +1,48 @@
 .doodle-resizable-wrapper {
   box-sizing: border-box;
+  position: relative;
+}
+.doodle-resizable-wrapper .doodle-resizable-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.doodle-resizable-wrapper .resize-adorner {
+  display: none;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: #cee0e0;
+  box-sizing: border-box;
+  border: solid 2px #3f6779;
+  position: absolute;
+}
+.doodle-resizable-wrapper .resize-adorner.tl {
+  top: -12px;
+  left: -12px;
+  cursor: nw-resize;
+}
+.doodle-resizable-wrapper .resize-adorner.tr {
+  top: -12px;
+  right: -12px;
+  cursor: ne-resize;
+}
+.doodle-resizable-wrapper .resize-adorner.bl {
+  bottom: -12px;
+  left: -12px;
+  cursor: sw-resize;
+}
+.doodle-resizable-wrapper .resize-adorner.br {
+  bottom: -12px;
+  right: -12px;
+  cursor: se-resize;
 }
 .doodle-resizable-wrapper.resizeActive {
-  border: solid 1px #a3a3a3;
-  border-radius: 0.4rem;
+  border: dotted 1px #3f6779;
+  border-radius: 0.2rem;
   cursor: move;
+}
+.doodle-resizable-wrapper.resizeActive .resize-adorner {
+  display: inline-block;
 }

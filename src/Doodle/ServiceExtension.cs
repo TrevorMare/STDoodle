@@ -20,12 +20,11 @@ namespace Doodle
                 serviceCollection.AddScoped<Abstractions.Config.DoodleDrawConfig>((s) => configValue);
             }
 
-            serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropCanvas, Interops.JsInteropCanvas>();
+            serviceCollection.AddTransient<Abstractions.JsInterop.IJsInteropCanvas, Interops.JsInteropCanvas>();
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropCommon, Interops.JsInteropCommon>();
-
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropBuffer, Interops.JsInteropBuffer>();
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropHtml2Canvas, Interops.JsInteropHtml2Canvas>();
-
+            serviceCollection.AddTransient<Abstractions.JsInterop.IJsInteropDragDrop, Interops.JsInteropDragDrop>();
 
             return serviceCollection;
         }

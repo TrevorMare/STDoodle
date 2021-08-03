@@ -1,11 +1,62 @@
+@resize-adorner-size: 12px;
+
 .doodle-resizable-wrapper {
     box-sizing: border-box;
+    position: relative;
+
+    .doodle-resizable-content {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    
+    .resize-adorner {
+        display: none;
+        height: @resize-adorner-size;
+        width: @resize-adorner-size;
+        border-radius: 50%;
+        background-color: #cee0e0;
+        box-sizing: border-box;
+        border: solid 2px #3f6779;
+        position: absolute;
+
+        &.tl {
+            top: -@resize-adorner-size;
+            left: -@resize-adorner-size;
+            cursor: nw-resize;
+        }
+
+        &.tr {
+            top: -@resize-adorner-size;
+            right: -@resize-adorner-size;
+            cursor: ne-resize;
+        }
+
+        &.bl {
+            bottom: -@resize-adorner-size;
+            left: -@resize-adorner-size;
+            cursor: sw-resize;
+        }
+
+        &.br {
+            bottom: -@resize-adorner-size;
+            right: -@resize-adorner-size;
+            cursor: se-resize;
+        }
+    }
 
     &.resizeActive {
 
-        border: solid 1px rgb(163, 163, 163);
-        border-radius: 0.4rem;
+        border: dotted 1px #3f6779;
+        border-radius: 0.2rem;
         cursor: move;
         
+        .resize-adorner {
+            display: inline-block;
+        }
+
     }
+
+
 }
