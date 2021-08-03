@@ -1,6 +1,6 @@
 .doodle-resizable-wrapper {
   box-sizing: border-box;
-  position: relative;
+  position: absolute;
 }
 .doodle-resizable-wrapper .doodle-resizable-content {
   width: 100%;

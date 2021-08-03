@@ -18,10 +18,14 @@ namespace Doodle.Components
         private ElementReference ResizeElement { get; set; }
 
         private bool _resizeActive = false;
+        
+        
         private double _left = 0;
         private double _top = 0;
         private double _width = 100;
         private double _height = 20;
+        private double? _minWidth;
+        private double? _minHeight;
         private bool _interopUpdate = false;
         #endregion
 
@@ -125,6 +129,11 @@ namespace Doodle.Components
                 }
             } 
         } 
+
+        public double? MinWidth { get; set; }
+
+        public double? MinHeight { get; set; }
+
 
         [Parameter]
         public EventCallback<double> LeftChanged { get; set; }
