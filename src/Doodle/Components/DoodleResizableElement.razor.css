@@ -8,6 +8,22 @@
   box-sizing: border-box;
   overflow: hidden;
 }
+.doodle-resizable-wrapper .move-adorner {
+  display: none;
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  top: -24px;
+  left: calc(50% - 12px / 2);
+  background-image: url('/_content/STDoodle/img/move-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover contain;
+}
+.doodle-resizable-wrapper .move-adorner.move {
+  display: inline-block;
+  cursor: move;
+}
 .doodle-resizable-wrapper .resize-adorner {
   display: none;
   height: 12px;
@@ -44,7 +60,4 @@
 .doodle-resizable-wrapper.active {
   border: dotted 1px #3f6779;
   border-radius: 0.2rem;
-}
-.doodle-resizable-wrapper.move {
-  cursor: move;
 }

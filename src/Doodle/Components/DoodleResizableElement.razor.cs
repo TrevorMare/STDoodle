@@ -222,6 +222,12 @@ namespace Doodle.Components
                 }
             } 
         }
+
+        [Parameter]
+        public string ResizeElementClass { get; set; }
+
+        [Parameter]
+        public string MoveAdornerClass { get; set; }
         #endregion
 
         #region Overrides

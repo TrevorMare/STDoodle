@@ -1,4 +1,6 @@
 @resize-adorner-size: 12px;
+@move-adorner-size: 12px;
+@move-adorner-size-half: @move-adorner-size / 2;
 
 .doodle-resizable-wrapper {
     box-sizing: border-box;
@@ -9,6 +11,23 @@
         height: 100%;
         box-sizing: border-box;
         overflow: hidden;
+    }
+
+    .move-adorner {
+        display: none;
+        height: @resize-adorner-size;
+        width: @resize-adorner-size;
+        position: absolute;
+        top: -@resize-adorner-size * 2;
+        left: calc(50% - @move-adorner-size-half);
+        background-image: url('/_content/STDoodle/img/move-icon.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover contain;
+        &.move {
+            display: inline-block;
+            cursor: move;
+        }
     }
     
     .resize-adorner {
@@ -55,10 +74,7 @@
         border-radius: 0.2rem;
     } 
 
-    &.move {
-
-        cursor: move;
-    }
+   
 
 
 }
