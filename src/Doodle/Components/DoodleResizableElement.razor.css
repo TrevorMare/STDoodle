@@ -18,6 +18,9 @@
   border: solid 2px #3f6779;
   position: absolute;
 }
+.doodle-resizable-wrapper .resize-adorner.resize {
+  display: inline-block;
+}
 .doodle-resizable-wrapper .resize-adorner.tl {
   top: -12px;
   left: -12px;
@@ -38,11 +41,10 @@
   right: -12px;
   cursor: se-resize;
 }
-.doodle-resizable-wrapper.resizeActive {
+.doodle-resizable-wrapper.active {
   border: dotted 1px #3f6779;
   border-radius: 0.2rem;
-  cursor: move;
 }
-.doodle-resizable-wrapper.resizeActive .resize-adorner {
-  display: inline-block;
+.doodle-resizable-wrapper.move {
+  cursor: move;
 }

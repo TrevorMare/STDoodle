@@ -21,6 +21,10 @@
         border: solid 2px #3f6779;
         position: absolute;
 
+        &.resize {
+            display: inline-block;
+        }
+
         &.tl {
             top: -@resize-adorner-size;
             left: -@resize-adorner-size;
@@ -46,16 +50,14 @@
         }
     }
 
-    &.resizeActive {
-
+    &.active {
         border: dotted 1px #3f6779;
         border-radius: 0.2rem;
-        cursor: move;
-        
-        .resize-adorner {
-            display: inline-block;
-        }
+    } 
 
+    &.move {
+
+        cursor: move;
     }
 
 

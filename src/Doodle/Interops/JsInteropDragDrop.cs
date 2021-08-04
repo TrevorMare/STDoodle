@@ -17,6 +17,7 @@ namespace Doodle.Interops
         public event OnElementResizedHandler OnElementResized;
         public event OnElementMovedHandler OnElementMoved;
         public event OnElementUpdatedHandler OnElementUpdated;
+        public event OnSetIsActiveHandler OnSetIsActive;
         #endregion
 
         #region Members
@@ -35,24 +36,12 @@ namespace Doodle.Interops
         #endregion
 
         #region Interface Methods
-        public async Task InitialiseResizable(ElementReference element, ElementDimensions dimensions, bool elementActive = false, bool allowResize = true, bool allowMove = true)
+        public async Task InitialiseResizable(ElementReference element, bool autoHandleEvents, bool elementActive = false, bool allowResize = true, bool allowMove = true, double? minWidth = null, double? minHeight = null)
         {
             var module = await _moduleTask.Value;
             this._resizeElement = element;
 
-            string dimensionsJson = "";
-            if (dimensions != null)
-            {
-                var options = new JsonSerializerOptions 
-                {
-                    WriteIndented = false, 
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    IgnoreNullValues = true
-                };
-                dimensionsJson = JsonSerializer.Serialize(dimensions, options);
-            }
-
-            await module.InvokeVoidAsync("InitialiseResizable", element, element.Id, _thisRef, dimensionsJson, elementActive, allowResize, allowMove);
+            await module.InvokeVoidAsync("InitialiseResizable", element, element.Id, _thisRef, autoHandleEvents, elementActive, allowResize, allowMove, minWidth, minHeight);
         }
 
         public async Task ActivateElement()
@@ -79,27 +68,69 @@ namespace Doodle.Interops
             await module.InvokeVoidAsync("SetAllowMove", this._resizeElement.Id, value);
         }
 
-        [JSInvokable("ElementMoved")]
-        public Task ElementMoved(ElementReference element, ElementDimensions dimension)
+        public async Task SetMinWidth(double? value)
         {
-            this.OnElementMoved?.Invoke(element, dimension);
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetMinWidth", this._resizeElement.Id, value);
+        }
+
+        public async Task SetMinHeight(double? value)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetMinHeight", this._resizeElement.Id, value);
+        }
+
+        public async Task SetAutoHandleEvents(bool value)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetAutoHandleEvents", this._resizeElement.Id, value);
+        }
+
+        [JSInvokable("ElementMoved")]
+        public Task ElementMoved(string dimensionJson)
+        {
+            this.OnElementMoved?.Invoke(_resizeElement, GetDimensions(dimensionJson));
             return Task.CompletedTask;
         }
 
         [JSInvokable("ElementResized")]
-        public Task ElementResized(ElementReference element, ElementDimensions dimension)
+        public Task ElementResized(string dimensionJson)
         {
-            this.OnElementResized?.Invoke(element, dimension);
+            this.OnElementResized?.Invoke(_resizeElement, GetDimensions(dimensionJson));
             return Task.CompletedTask;
         }
 
         [JSInvokable("ElementUpdated")]
-        public Task ElementUpdated(ElementReference element, ElementDimensions dimension)
+        public Task ElementUpdated(string dimensionJson)
         {
-            this.OnElementUpdated?.Invoke(element, dimension);
+            this.OnElementUpdated?.Invoke(_resizeElement, GetDimensions(dimensionJson));
             return Task.CompletedTask;
         }
-        #endregion
+
+        [JSInvokable("SetIsActivate")]
+        public Task SetIsActivate(bool value)
+        {
+            this.OnSetIsActive?.Invoke(_resizeElement, value);
+            return Task.CompletedTask;
+        }
+
+        private ElementDimensions GetDimensions(string dimensionJson)
+        {
+            if (string.IsNullOrEmpty(dimensionJson))
+            {
+                return null;
+            }
+
+            var options = new JsonSerializerOptions 
+            {
+                WriteIndented = false, 
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                IgnoreNullValues = true
+            };
+            var dimensions = JsonSerializer.Deserialize<ElementDimensions>(dimensionJson, options);
+            return dimensions;
+        }
+        #endregion 
 
         #region Dispose
         public async ValueTask DisposeAsync()

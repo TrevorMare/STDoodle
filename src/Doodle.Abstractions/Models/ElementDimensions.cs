@@ -5,13 +5,13 @@ namespace Doodle.Abstractions.Models
     {
 
         #region Properties
-        public double Height { get; set; }
+        public double Height { get; set; } = 20;
 
-        public double Width { get; set; }
+        public double Width { get; set; } = 100;
 
-        public double Top { get; set; }
+        public double Top { get; set; } = 0;
 
-        public double Left { get; set; }
+        public double Left { get; set; } = 0;
 
         public double? MinWidth { get; set; }
 
@@ -23,7 +23,7 @@ namespace Doodle.Abstractions.Models
         {
         }
         
-        public ElementDimensions(double top = 50, double left = 50, double width = 100, double height = 20, double? minWidth = null, double? minHeight = null)
+        public ElementDimensions(double top = 0, double left = 0, double width = 100, double height = 20, double? minWidth = null, double? minHeight = null)
         {
             this.Top = top;
             this.Left = left;

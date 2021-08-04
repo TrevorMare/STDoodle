@@ -18,10 +18,10 @@ export enum E_OperationType {
     ResizeTR = 3,
     ResizeBL = 4,
     ResizeBR = 5
-}
+} 
 
 export interface IDoodleResizeOperation {
-    StartOperation(element: HTMLElement, event: any, elementDimensions: Dimensions): void,
+    StartOperation(element: HTMLElement, event: any, minWidth?: number, minHeight?: number): void,
     ReCalculate(event: any): void,
     EndOperation(event: any): Dimensions,
     CancelOperation(): void,
@@ -32,14 +32,30 @@ export class DoodleResizeOperation implements IDoodleResizeOperation {
     protected _element: HTMLElement;
     protected _elementDimensions: Dimensions;
     protected _startCoords: Coords;
+    protected _minWidth?: number;
+    protected _minHeight: number;
 
     protected CalculateDelta(event: any): Dimensions {
         throw new Error("Method not implemented.");
     }
 
-    StartOperation(element: HTMLElement, event: any, elementDimensions: Dimensions): void {
+    private GetElementDimensions(): Dimensions {
+        const result: Dimensions = {
+            top: Number(this._element.style.top.replace('px', '')),
+            left: Number(this._element.style.left.replace('px', '')),
+            width: Number(this._element.style.width.replace('px', '')),
+            height: Number(this._element.style.height.replace('px', '')),
+            minWidth: this._minWidth,
+            minHeight: this._minHeight
+        }
+        return result;
+    }
+
+    StartOperation(element: HTMLElement, event: any, minWidth?: number, minHeight?: number): void {
         this._element = element;
-        this._elementDimensions = elementDimensions;
+        this._minHeight = minHeight;
+        this._minWidth = minWidth;
+        this._elementDimensions = this.GetElementDimensions();
         this._startCoords = { x: event.clientX, y: event.clientY }
     }
     ReCalculate(event: any): void {
@@ -66,7 +82,6 @@ export class DoodleResizeOperation implements IDoodleResizeOperation {
         throw new Error("Method not implemented.");
     }
 }
-
 export class DoodleResizeOperationMove extends DoodleResizeOperation {
     
     protected CalculateDelta(event: any): Dimensions {
@@ -81,7 +96,6 @@ export class DoodleResizeOperationMove extends DoodleResizeOperation {
     }
     get OperationType() { return E_OperationType.Move };
 }
-
 export class DoodleResizeOperationResizeBR extends DoodleResizeOperation {
    
     protected CalculateDelta(event: any): Dimensions {
@@ -97,7 +111,6 @@ export class DoodleResizeOperationResizeBR extends DoodleResizeOperation {
 
     get OperationType() { return E_OperationType.ResizeBR };
 }
-
 export class DoodleResizeOperationResizeTR extends DoodleResizeOperation {
 
     protected CalculateDelta(event: any): Dimensions {
@@ -115,7 +128,6 @@ export class DoodleResizeOperationResizeTR extends DoodleResizeOperation {
 
     get OperationType() { return E_OperationType.ResizeTR };
 }
-
 export class DoodleResizeOperationResizeBL extends DoodleResizeOperation {
    
     protected CalculateDelta(event: any): Dimensions {
@@ -132,7 +144,6 @@ export class DoodleResizeOperationResizeBL extends DoodleResizeOperation {
 
     get OperationType() { return E_OperationType.ResizeBL };
 }
-
 export class DoodleResizeOperationResizeTL extends DoodleResizeOperation {
    
     protected CalculateDelta(event: any): Dimensions {
@@ -149,10 +160,8 @@ export class DoodleResizeOperationResizeTL extends DoodleResizeOperation {
 
     get OperationType() { return E_OperationType.ResizeTL };
 }
-
 export class DoodleResize {
     private _resizeElement: HTMLElement;
-    private _currentDimensions: Dimensions;
     private _elementActivated: boolean;
     private _callbackRef: any;
     private _elementId: string;
@@ -162,23 +171,42 @@ export class DoodleResize {
     private _rsAdornerTR: HTMLElement;
     private _rsAdornerBR: HTMLElement;
 
+    private _resizeElementDownRef: any;
+    private _resizeElementUpRef: any;
+    private _documentDownRef: any;
+    private _documentUpRef: any;
+    private _documentMoveRef: any;
+    
+    private _adornerDownTLRef: any;
+    private _adornerDownTRRef: any;
+    private _adornerDownBLRef: any;
+    private _adornerDownBRRef: any;
+
     private _canResize: boolean = true;
     private _canMove: boolean = true;
     private _currentOperation: IDoodleResizeOperation = null;
+    private _autoHandleEvents: boolean = false;
+
+    private _minWidth?: number;
+    private _minHeight?: number;
 
     public get ElementId(): string { return this._elementId; }
 
-    constructor(resizeElement: HTMLElement, elementId: string, callbackRef: any, initDimensions: Dimensions, 
-                elementActive: boolean = false, allowResize: boolean = true, allowMove: boolean = true) {
+    constructor(resizeElement: HTMLElement, elementId: string, callbackRef: any, 
+                autoHandleEvents: boolean, elementActive: boolean = false, allowResize: boolean = true, allowMove: boolean = true,
+                minWidth?: number, minHeight?: number) {
         this._resizeElement = resizeElement;
-        this._currentDimensions = initDimensions;
+        
         this._elementActivated = elementActive;
         this._callbackRef = callbackRef;
         this._canResize = allowResize;
         this._canMove = allowMove;
         this._elementId = elementId;
-
+        this._minHeight = minHeight;
+        this._minWidth = minWidth;
+        this._autoHandleEvents = autoHandleEvents;
         this.SetupAdornerElements();
+        this.AttachEventHandlers();
     }
 
     public SetAllowResize(value: boolean): void {
@@ -189,127 +217,51 @@ export class DoodleResize {
         this._canMove = value;
     }
 
+    public SetMinWidth(value?: number) {
+        this._minWidth = value;
+    }
+
+    public SetMinHeight(value?: number) {
+        this._minHeight = value;
+    }
+
+    public SetAutoHandleEvents(value: boolean) {
+        this._autoHandleEvents = value;
+    }
+
     public ActivateElement(): void {
         this._elementActivated = true;
-        this.UpdateResizeElementClass();
-        this.AttachHandlers();
     }
 
     public DeActivateElement(): void {
         this._elementActivated = false;
-        this.UpdateResizeElementClass();
-        this.RemoveHandlers();
-    }
-
-    private UpdateResizeElementClass() {
-        if (this._elementActivated) {
-            this._resizeElement.classList.add("resizeActive");
-        } else {
-            this._resizeElement.classList.remove("resizeActive");
-        }
-    }
-
-    private StartMove(event: any): void {
-        if (this._canMove === true && this._currentOperation === null) {
-            this._currentOperation = new DoodleResizeOperationMove();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._currentDimensions);
-        }
     }
 
     private StartResizeBR(event: any): void {
-        if (this._canResize === true && this._currentOperation === null) {
+        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
             this._currentOperation = new DoodleResizeOperationResizeBR();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._currentDimensions);
+            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
         }
     }
 
     private StartResizeTR(event: any): void {
-        if (this._canResize === true && this._currentOperation === null) {
+        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
             this._currentOperation = new DoodleResizeOperationResizeTR();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._currentDimensions);
+            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
         }
     }
 
     private StartResizeBL(event: any): void {
-        if (this._canResize === true && this._currentOperation === null) {
+        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
             this._currentOperation = new DoodleResizeOperationResizeBL();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._currentDimensions);
+            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
         }
     }
 
     private StartResizeTL(event: any): void {
-        if (this._canResize === true && this._currentOperation === null) {
+        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
             this._currentOperation = new DoodleResizeOperationResizeTL();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._currentDimensions);
-        }
-    }
-
-    private AttachHandlers(): void {
-
-
-        this._resizeElement.addEventListener('touchstart', (e) => { this.StartMove(e.touches[0]); }, false);
-        this._resizeElement.addEventListener('mousedown', (e) => { this.StartMove(e); }, false);
-
-        this._rsAdornerBR.addEventListener('touchstart', (e) => { this.StartResizeBR(e.touches[0]); }, false);
-        this._rsAdornerBR.addEventListener('mousedown', (e) => { this.StartResizeBR(e); }, false);
-
-        this._rsAdornerTR.addEventListener('touchstart', (e) => { this.StartResizeTR(e.touches[0]); }, false);
-        this._rsAdornerTR.addEventListener('mousedown', (e) => { this.StartResizeTR(e); }, false);
-
-        this._rsAdornerBL.addEventListener('touchstart', (e) => { this.StartResizeBL(e.touches[0]); }, false);
-        this._rsAdornerBL.addEventListener('mousedown', (e) => { this.StartResizeBL(e); }, false);
-
-        this._rsAdornerTL.addEventListener('touchstart', (e) => { this.StartResizeTL(e.touches[0]); }, false);
-        this._rsAdornerTL.addEventListener('mousedown', (e) => { this.StartResizeTL(e); }, false);
-     
-        document.addEventListener('touchmove', (e) => { this.MouseMove(e.touches[0]); e.preventDefault(); }, false);
-        document.addEventListener('mousemove', (e) => { this.MouseMove(e); }, false);
-        document.addEventListener('mouseup', (e) => { this.EndAll(e); }, false);
-        document.addEventListener('touchend', (e) => { this.EndAll(e.touches[0]); }, false);
-    }
-
-    private RemoveHandlers(): void {
-
-        this._resizeElement.removeEventListener('touchstart', (e) => { this.StartMove(e.touches[0]); });
-        this._resizeElement.removeEventListener('mousedown', (e) => { this.StartMove(e); });
-        
-        this._rsAdornerBR.removeEventListener('touchstart', (e) => { this.StartResizeBR(e.touches[0]); });
-        this._rsAdornerBR.removeEventListener('mousedown', (e) => { this.StartResizeBR(e); });
-        
-        this._rsAdornerTR.removeEventListener('touchstart', (e) => { this.StartResizeTR(e.touches[0]); });
-        this._rsAdornerTR.removeEventListener('mousedown', (e) => { this.StartResizeTR(e); });
-        
-        this._rsAdornerBL.removeEventListener('touchstart', (e) => { this.StartResizeBL(e.touches[0]); });
-        this._rsAdornerBL.removeEventListener('mousedown', (e) => { this.StartResizeBL(e); });
-
-        this._rsAdornerTL.removeEventListener('touchstart', (e) => { this.StartResizeTL(e.touches[0]); });
-        this._rsAdornerTL.removeEventListener('mousedown', (e) => { this.StartResizeTL(e); });
-
-        document.removeEventListener('touchmove', (e) => { this.MouseMove(e.touches[0]); e.preventDefault(); });
-        document.removeEventListener('mousemove', (e) => { this.MouseMove(e); });
-        document.removeEventListener('mouseup', (e) => { this.EndAll(e); });
-        document.removeEventListener('touchend', (e) => { this.EndAll(e.touches[0]); });
-
-        this.EndAll(null);
-    }
-
-    private MouseMove(event: any): void {
-        if (this._currentOperation !== null) {
-            this._currentOperation.ReCalculate(event);
-        }
-    }
-
-    private EndAll(event: any): void {
-        if (this._currentOperation !== null && !!event) {
-            this._currentDimensions = this._currentOperation.EndOperation(event);
-
-            if (this._currentOperation.OperationType === E_OperationType.Move) {
-                this.NotifyBlazorPositionChanged();
-            } else {
-                this.NotifyBlazorSizeChanged();
-            }
-            this.NotifyBlazorElementUpdated();
-            this._currentOperation = null;
+            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
         }
     }
 
@@ -320,22 +272,169 @@ export class DoodleResize {
         this._rsAdornerBR = this._resizeElement.querySelector('[data-doodle-resizable-adorner-br]');
     }
 
-    private NotifyBlazorPositionChanged(): void {
+    private NotifyBlazorPositionChanged(operationResult: Dimensions): void {
         if (!!this._callbackRef) {
-          this._callbackRef.invokeMethodAsync("ElementMoved", this._resizeElement, this._currentDimensions);
+            this._callbackRef.invokeMethodAsync("ElementMoved", JSON.stringify(operationResult));
         }
     }
 
-    private NotifyBlazorSizeChanged(): void {
+    private NotifyBlazorSizeChanged(operationResult: Dimensions): void {
         if (!!this._callbackRef) {
-          this._callbackRef.invokeMethodAsync("ElementResized", this._resizeElement, this._currentDimensions);
+            this._callbackRef.invokeMethodAsync("ElementResized", JSON.stringify(operationResult));
         }
     }
 
-    private NotifyBlazorElementUpdated(): void {
+    private NotifyBlazorElementUpdated(operationResult: Dimensions): void {
         if (!!this._callbackRef) {
-          this._callbackRef.invokeMethodAsync("ElementUpdated", this._resizeElement, this._currentDimensions);
+            this._callbackRef.invokeMethodAsync("ElementUpdated", JSON.stringify(operationResult));
         }
+    }
+
+    private NotifyBlazorSetIsActive(value: boolean): void {
+        if (!!this._callbackRef && this._autoHandleEvents) {
+            console.log(`Calling Set Is Active on Js ${value}`);
+            this._callbackRef.invokeMethodAsync("SetIsActivate", value);
+        }
+    }
+
+    private AttachEventHandlers(): void {
+        this._documentMoveRef = this.DocumentMoveEvent.bind(this);
+        this._documentUpRef = this.DocumentUpEvent.bind(this);
+        this._documentDownRef = this.DocumentDownEvent.bind(this);
+        this._resizeElementDownRef = this.ResizeDownEvent.bind(this);
+        this._resizeElementUpRef = this.ResizeUpEvent.bind(this);
+        this._adornerDownTLRef = this.StartResizeTL.bind(this);
+        this._adornerDownTRRef = this.StartResizeTR.bind(this);
+        this._adornerDownBLRef = this.StartResizeBL.bind(this);
+        this._adornerDownBRRef = this.StartResizeBR.bind(this);
+
+        document.addEventListener('touchmove', this._documentMoveRef, false);
+        document.addEventListener('mousemove', this._documentMoveRef, false);
+
+        document.addEventListener('mousedown', this._documentDownRef, false);
+        document.addEventListener('touchstart', this._documentDownRef, false);
+
+        document.addEventListener('mouseup', this._documentUpRef, false);
+        document.addEventListener('touchend', this._documentUpRef, false);
+
+        this._resizeElement.addEventListener('touchstart', this._resizeElementDownRef, false);
+        this._resizeElement.addEventListener('mousedown', this._resizeElementDownRef, false);
+        
+        this._resizeElement.addEventListener('touchend', this._resizeElementUpRef, false);
+        this._resizeElement.addEventListener('mouseup', this._resizeElementUpRef, false);
+
+        this._rsAdornerBR.addEventListener('touchstart', this._adornerDownBRRef, false);
+        this._rsAdornerBR.addEventListener('mousedown', this._adornerDownBRRef, false);
+
+        this._rsAdornerTR.addEventListener('touchstart', this._adornerDownTRRef, false);
+        this._rsAdornerTR.addEventListener('mousedown', this._adornerDownTRRef, false);
+
+        this._rsAdornerBL.addEventListener('touchstart', this._adornerDownBLRef, false);
+        this._rsAdornerBL.addEventListener('mousedown', this._adornerDownBLRef, false);
+
+        this._rsAdornerTL.addEventListener('touchstart', this._adornerDownTLRef, false);
+        this._rsAdornerTL.addEventListener('mousedown', this._adornerDownTLRef, false);
+    }
+
+    private DetachEventHandlers(): void {
+        document.removeEventListener('touchmove', this._documentMoveRef);
+        document.removeEventListener('mousemove', this._documentMoveRef);
+        
+        document.removeEventListener('mousedown', this._documentDownRef);
+        document.removeEventListener('touchstart', this._documentDownRef);
+        
+        document.removeEventListener('mouseup', this._documentUpRef);
+        document.removeEventListener('touchend', this._documentUpRef);
+
+        this._resizeElement.removeEventListener('touchstart', this._resizeElementDownRef);
+        this._resizeElement.removeEventListener('mousedown', this._resizeElementDownRef);
+        
+        this._resizeElement.removeEventListener('touchend', this._resizeElementUpRef);
+        this._resizeElement.removeEventListener('mouseup', this._resizeElementUpRef);
+
+        this._rsAdornerBR.removeEventListener('touchstart', this._adornerDownBRRef);
+        this._rsAdornerBR.removeEventListener('mousedown', this._adornerDownBRRef);
+
+        this._rsAdornerTR.removeEventListener('touchstart', this._adornerDownTRRef);
+        this._rsAdornerTR.removeEventListener('mousedown', this._adornerDownTRRef);
+
+        this._rsAdornerBL.removeEventListener('touchstart', this._adornerDownBLRef);
+        this._rsAdornerBL.removeEventListener('mousedown', this._adornerDownBLRef);
+
+        this._rsAdornerTL.removeEventListener('touchstart', this._adornerDownTLRef);
+        this._rsAdornerTL.removeEventListener('mousedown', this._adornerDownTLRef);
+
+        this._documentMoveRef = null;
+        this._documentDownRef = null;
+        this._documentUpRef = null;
+        this._resizeElementDownRef = null;
+        this._resizeElementUpRef = null;
+
+        this._adornerDownBRRef = null;
+        this._adornerDownTRRef = null;
+        this._adornerDownBLRef = null;
+        this._adornerDownTLRef = null;
+    }
+
+    private ResizeDownEvent(e: any) {
+        if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
+            const event = this.GetInternalEvent(e);
+
+            this._currentOperation = new DoodleResizeOperationMove();
+            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+        } else if (this._elementActivated === false && this._autoHandleEvents === true && this._currentOperation === null) {
+            const event = this.GetInternalEvent(e);
+            event.preventDefault();
+
+            this.NotifyBlazorSetIsActive(true);
+        }
+    }
+
+    private ResizeUpEvent(e: any) { 
+        const event = this.GetInternalEvent(e);
+        event.preventDefault();
+    }
+
+    private DocumentDownEvent(e: any): void { }
+
+    private DocumentUpEvent(e: any): void {
+        const event = this.GetInternalEvent(e);
+        
+        if (this._elementActivated) {
+
+            if (this._currentOperation !== null && !!e) {
+                event.preventDefault();    
+    
+                const operationResult = this._currentOperation.EndOperation(event);
+    
+                if (this._currentOperation.OperationType === E_OperationType.Move) {
+                    this.NotifyBlazorPositionChanged(operationResult);
+                } else {
+                    this.NotifyBlazorSizeChanged(operationResult);
+                }
+
+                this.NotifyBlazorElementUpdated(operationResult);
+                this._currentOperation = null;
+            }
+        } else {
+            if (this._autoHandleEvents && this._elementActivated) {
+                event.preventDefault();
+
+                this.NotifyBlazorSetIsActive(false);
+            }
+        }
+    }
+
+    private DocumentMoveEvent(e: any): void {
+        if (!!this._currentOperation && this._elementActivated) {
+            const event = this.GetInternalEvent(e);
+            this._currentOperation.ReCalculate(event);
+        }
+    }
+
+    private GetInternalEvent(e): any {
+        if ('touches' in e) { return e.touches[0]; }
+        return e;
     }
 }
 
@@ -348,17 +447,17 @@ export function GetDoodleResize(id: string): DoodleResize {
     return null;
 }
 
-export function InitialiseResizable(resizeElement: HTMLElement, resizeElementId: string, callbackRef: any, initDimensions: string, 
-                                    elementActive: boolean, allowResize: boolean = true, allowMove: boolean = true): void { 
+export function InitialiseResizable(resizeElement: HTMLElement, resizeElementId: string, callbackRef: any, 
+                                    autoHandleEvents: boolean, elementActive: boolean, allowResize: boolean = true, allowMove: boolean = true,
+                                    minWidth: number = null, minHeight: number = null): void { 
 
-    let dimensions: Dimensions = { height: 20, width: 100, left: 0, top: 0, minHeight: 0, minWidth: 0 };   
-    if (!!initDimensions && initDimensions != '') {
-        dimensions = JSON.parse(initDimensions);
-    }
-    const resizeInstance = new DoodleResize(resizeElement, resizeElementId, callbackRef, dimensions, elementActive, allowResize, allowMove); 
+    const resizeInstance = new DoodleResize(resizeElement, resizeElementId, callbackRef, autoHandleEvents, elementActive, allowResize, allowMove, minWidth, minHeight); 
     _doodleResizeComponents.push(resizeInstance)
 }
 export function ActivateElement(resizeElementId: string): void { GetDoodleResize(resizeElementId).ActivateElement(); }
 export function DeActivateElement(resizeElementId: string): void { GetDoodleResize(resizeElementId).DeActivateElement(); }
 export function SetAllowResize(resizeElementId: string, value: boolean): void { GetDoodleResize(resizeElementId).SetAllowResize(value); }
 export function SetAllowMove(resizeElementId: string, value: boolean): void { GetDoodleResize(resizeElementId).SetAllowMove(value); }
+export function SetMinWidth(resizeElementId: string, value?: number): void { GetDoodleResize(resizeElementId).SetMinWidth(value); }
+export function SetMinHeight(resizeElementId: string, value?: number): void { GetDoodleResize(resizeElementId).SetMinHeight(value); }
+export function SetAutoHandleEvents(resizeElementId: string, value: boolean): void { GetDoodleResize(resizeElementId).SetAutoHandleEvents(value); }

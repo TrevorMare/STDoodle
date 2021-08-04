@@ -9,26 +9,26 @@ Welcome to your new app.
 
 <div style="height: 400px; width: 400px; background-color:yellow; position: relative;">
 
-    <Doodle.Components.DoodleResizable AutoHandleEvents="false" Height="50" Width="100" Top="100" Left="100" >
+    <Doodle.Components.DoodleResizableElement AutoHandleEvents="true" Height="50" Width="100" Top="100" Left="100" AllowResize="false" >
         <InActiveContent>
-            <button @onclick="@(() => context.ResizeActive = true)">Activate</button>
+            <button @onclick="@(() => context.ElementActive = true)">Activate</button>
         </InActiveContent>
         
         <ActiveContent>
-            <button @onclick="@(() => context.ResizeActive = false)">DeActivate</button>
+            <button @onclick="@(() => context.ElementActive = false)">DeActivate</button>
         </ActiveContent>
 
-    </Doodle.Components.DoodleResizable>
+    </Doodle.Components.DoodleResizableElement>
 
-    <Doodle.Components.DoodleResizable AutoHandleEvents="false" Height="50" Width="100" Top="200" Left="200" >
+    <Doodle.Components.DoodleResizableElement AutoHandleEvents="true" Height="50" Width="100" Top="200" Left="200" AllowMove="false" >
         <InActiveContent>
-            <button @onclick="@(() => context.ResizeActive = true)">Activate</button>
+            <button @onclick="@(() => context.ElementActive = true)">Activate</button>
         </InActiveContent>
         
         <ActiveContent>
-            <button @onclick="@(() => context.ResizeActive = false)">DeActivate</button>
+            <button @onclick="@(() => context.ElementActive = false)">DeActivate</button>
         </ActiveContent>
 
-    </Doodle.Components.DoodleResizable>
+    </Doodle.Components.DoodleResizableElement>
 
 </div>

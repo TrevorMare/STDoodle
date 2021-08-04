@@ -8,6 +8,7 @@ namespace Doodle.Abstractions.JsInterop
     public delegate void OnElementResizedHandler(object sender, ElementDimensions dimension);
     public delegate void OnElementMovedHandler(object sender, ElementDimensions dimension);
     public delegate void OnElementUpdatedHandler(object sender, ElementDimensions dimension);
+    public delegate void OnSetIsActiveHandler(object sender, bool active);
 
     public interface IJsInteropDragDrop
     {
@@ -18,7 +19,9 @@ namespace Doodle.Abstractions.JsInterop
 
         event OnElementUpdatedHandler OnElementUpdated;
 
-        Task InitialiseResizable(ElementReference element, ElementDimensions dimensions, bool elementActive = false, bool allowResize = true, bool allowMove = true);
+        event OnSetIsActiveHandler OnSetIsActive;
+
+        Task InitialiseResizable(ElementReference element, bool autoHandleEvents, bool elementActive = false, bool allowResize = true, bool allowMove = true, double? minWidth = null, double? minHeight = null);
 
         Task ActivateElement();
 
@@ -28,11 +31,19 @@ namespace Doodle.Abstractions.JsInterop
 
         Task SetAllowMove(bool value);
 
-        Task ElementMoved(ElementReference element, ElementDimensions dimension);
+        Task SetMinWidth(double? value);
+        
+        Task SetMinHeight(double? value);
 
-        Task ElementResized(ElementReference element, ElementDimensions dimension);
+        Task SetAutoHandleEvents(bool value);
 
-        Task ElementUpdated(ElementReference element, ElementDimensions dimension);
+        Task ElementMoved(string dimension);
+
+        Task ElementResized(string dimension);
+
+        Task ElementUpdated(string dimension);
+
+        Task SetIsActivate(bool value);
     }
 
 
