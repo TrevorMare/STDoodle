@@ -409,13 +409,21 @@ export class DoodleResize {
         this._adornerDownMoveRef = null;
     }
 
-    private ResizeDownEvent(e: any) {}
+    private ResizeDownEvent(e: any) {
+        if (this._currentOperation === null) {
+            const event = this.GetInternalEvent(e);
+            event.stopPropagation();
+        }
+    }
 
-    private ResizeUpEvent(e: any) {}
+    private ResizeUpEvent(e: any) {
+        if (this._currentOperation === null) {
+            const event = this.GetInternalEvent(e);
+            event.stopPropagation();
+        }
+    }
 
     private ResizeClickEvent(e: any) { 
-
-        console.log(`Resize Element Click: activated = ${this._elementActivated}`);
 
         if (this._elementActivated === false && this._autoHandleEvents === true) {
             const event = this.GetInternalEvent(e);
@@ -462,7 +470,7 @@ export class DoodleResize {
         }
     }
 
-    private DocumentMoveEvent(e: any): void {
+    private DocumentMoveEvent(e: any): void { 
         if (!!this._currentOperation && this._elementActivated) {
             const event = this.GetInternalEvent(e);
             this._currentOperation.ReCalculate(event);

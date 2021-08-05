@@ -10,11 +10,11 @@
 }
 .doodle-resizable-wrapper .move-adorner {
   display: none;
-  height: 12px;
-  width: 12px;
+  height: 16px;
+  width: 16px;
   position: absolute;
   top: -24px;
-  left: calc(50% - 12px / 2);
+  left: calc(50% - 16px / 2);
   background-image: url('/_content/STDoodle/img/move-icon.svg');
   background-repeat: no-repeat;
   background-position: center;

@@ -53,7 +53,7 @@ namespace Doodle.Interops
         public async Task DeActivateElement()
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("ActivateElement", this._resizeElement.Id);
+            await module.InvokeVoidAsync("DeActivateElement", this._resizeElement.Id);
         }
 
         public async Task SetAllowResize(bool value)

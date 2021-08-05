@@ -100,7 +100,7 @@ namespace Doodle.Components
                 {
                     _elementActive = value;
                     ElementActiveChanged.InvokeAsync(_elementActive);
-                    UpdateElementActive().ConfigureAwait(false);
+                    UpdateElementActive().ConfigureAwait(false); 
                 }
             } 
         }
