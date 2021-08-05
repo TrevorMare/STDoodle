@@ -1,5 +1,6 @@
 <div @ref="@ResizeElement" data-doodle-resizable-wrapper class="doodle-resizable-wrapper @(ElementActive ? "active" : "") @ResizeElementClass" style="height: @(Height)px; width: @(Width)px; top: @(Top)px; left: @(Left)px;">
     <div data-doodle-resizable-content class="doodle-resizable-content">
+        <label>@ElementActive</label>
         @if (ChildContent != null)
         {
             @ChildContent(this)

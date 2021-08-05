@@ -232,16 +232,14 @@ export class DoodleResize {
         this._autoHandleEvents = value;
     }
 
-    public ActivateElement(): void {
-        this._elementActivated = true;
-    }
-
-    public DeActivateElement(): void {
-        this._elementActivated = false;
+    public SetElementIsActive(value: boolean) {
+        console.log(`Blazor=> Setting Element Active ${value} `);
+        this._elementActivated = value;
     }
 
     private StartMove(e: any) {
         if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
+            
             const event = this.GetInternalEvent(e);
             this._currentOperation = new DoodleResizeOperationMove();
             this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
@@ -307,13 +305,17 @@ export class DoodleResize {
     }
 
     private NotifyBlazorSetIsActive(value: boolean): void {
-        if (!!this._callbackRef && this._autoHandleEvents) {
-            console.log(`Calling Set Is Active on Js ${value}`);
-            this._callbackRef.invokeMethodAsync("SetIsActivate", value);
+        if (!!this._callbackRef) {
+            if (this._elementActivated !== value) {
+                console.log(`JS => SetIsActive ${value}`);
+                this._callbackRef.invokeMethodAsync("SetIsActivate", value);
+            }
         }
     }
 
     private AttachEventHandlers(): void {
+        console.log(`Attaching event handlers`);
+
         this._documentMoveRef = this.DocumentMoveEvent.bind(this);
         this._documentUpRef = this.DocumentUpEvent.bind(this);
         this._documentDownRef = this.DocumentDownEvent.bind(this);
@@ -407,17 +409,9 @@ export class DoodleResize {
         this._adornerDownMoveRef = null;
     }
 
-    private ResizeDownEvent(e: any) {
-        
-    }
+    private ResizeDownEvent(e: any) {}
 
-    private ResizeUpEvent(e: any) { 
-        if (this._elementActivated && this._autoHandleEvents === true && this._currentOperation === null) {
-            const event = this.GetInternalEvent(e);
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    }
+    private ResizeUpEvent(e: any) {}
 
     private ResizeClickEvent(e: any) { 
 
@@ -426,7 +420,7 @@ export class DoodleResize {
         if (this._elementActivated === false && this._autoHandleEvents === true) {
             const event = this.GetInternalEvent(e);
             event.preventDefault();
-            
+            event.stopPropagation();
             this.NotifyBlazorSetIsActive(true);
         }
     }
@@ -451,18 +445,19 @@ export class DoodleResize {
 
                 this.NotifyBlazorElementUpdated(operationResult);
                 this._currentOperation = null;
+
+                console.log(`Document Element Up: Finalising Operation`);
+
             } else if (this._currentOperation === null && this._autoHandleEvents === true) {
                 event.preventDefault();
-                console.log(`Document Element Up`);
+                console.log(`Document Element Up: Setting active to false`);
                 this.NotifyBlazorSetIsActive(false);
-                this._elementActivated = false;
             }
         } else {
             if (this._autoHandleEvents) {
                 event.preventDefault();
 
                 this.NotifyBlazorSetIsActive(false);
-                this._elementActivated = false;
             }
         }
     }
@@ -496,8 +491,8 @@ export function InitialiseResizable(resizeElement: HTMLElement, resizeElementId:
     const resizeInstance = new DoodleResize(resizeElement, resizeElementId, callbackRef, autoHandleEvents, elementActive, allowResize, allowMove, minWidth, minHeight); 
     _doodleResizeComponents.push(resizeInstance)
 }
-export function ActivateElement(resizeElementId: string): void { GetDoodleResize(resizeElementId).ActivateElement(); }
-export function DeActivateElement(resizeElementId: string): void { GetDoodleResize(resizeElementId).DeActivateElement(); }
+export function ActivateElement(resizeElementId: string): void { GetDoodleResize(resizeElementId).SetElementIsActive(true); }
+export function DeActivateElement(resizeElementId: string): void { GetDoodleResize(resizeElementId).SetElementIsActive(false); }
 export function SetAllowResize(resizeElementId: string, value: boolean): void { GetDoodleResize(resizeElementId).SetAllowResize(value); }
 export function SetAllowMove(resizeElementId: string, value: boolean): void { GetDoodleResize(resizeElementId).SetAllowMove(value); }
 export function SetMinWidth(resizeElementId: string, value?: number): void { GetDoodleResize(resizeElementId).SetMinWidth(value); }
