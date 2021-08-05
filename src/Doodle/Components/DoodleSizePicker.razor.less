@@ -1,5 +1,6 @@
 @fav-size-outer-size: 28px;
 @fav-size-inner-size: 20px;
+@break-color: rgba(0, 0, 0, 0.2);
 
 .doodle-size-picker-wrapper {
     display: flex;
@@ -16,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border: solid 1px #807e7e;
+            border: solid 1px @break-color;
             box-sizing: border-box;
             cursor: pointer;
             margin: 0.1rem;
@@ -38,7 +39,7 @@
 
                 .doodle-size-picker-line {
                     width: 100%;
-                    border-top-color: #807e7e;;
+                    border-top-color: rgb(94, 94, 94);;
                     border-top-style: solid;
                     height: 1px;
                     align-self: center;
@@ -51,11 +52,11 @@
         display: flex;
         padding-left: 0.2rem;
         margin-left: 0.2rem;
-        border-left: solid 1px #807e7e;
+        border-left: solid 1px @break-color;
         justify-content: center;
         align-content: center;
         span {
-            margin-right: 0.2rem;
+            margin-right: 0.8rem;
             align-self: center;
         }
     }
@@ -74,7 +75,7 @@
             padding-top: 0.2rem;
             margin-top: 0.2rem;
             border-left: none;
-            border-top: solid 1px #807e7e;
+            border-top: solid 1px @break-color;
             span {
                 margin-right: 0.0rem;
                 margin-top: 0.0rem;

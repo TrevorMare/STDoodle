@@ -99,19 +99,17 @@ namespace Doodle.Components
         #region Config Init
         private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
-            if (config == null) return;
-
-            this.Orientation = config.ColorPickerConfig?.Orientation ?? Abstractions.Common.Orientation.Vertical;
-            this.FavouriteColors = config.ColorPickerConfig?.FavouriteColors ?? new List<string>();
-
-            this.WrapperClass = config.ColorPickerConfig?.WrapperClass;
-            this.FavouriteWrapperClass = config.ColorPickerConfig?.FavouriteWrapperClass;
-            this.FavouriteOuterClass = config.ColorPickerConfig?.FavouriteOuterClass;
-            this.FavouriteInnerClass = config.ColorPickerConfig?.FavouriteInnerClass;
-            this.CustomWrapperClass = config.ColorPickerConfig?.CustomWrapperClass;
-            this.ColorInputClass = config.ColorPickerConfig?.ColorInputClass;
-            this.ShowCustomColor = config.ColorPickerConfig?.ShowCustomColor ?? true;
-            this.Visible = config.ColorPickerConfig?.Visible ?? true;
+            if (config == null || config.ColorPickerConfig == null) return;
+            this.Orientation = config.ColorPickerConfig.Orientation;
+            this.FavouriteColors = config.ColorPickerConfig.FavouriteColors ?? new List<string>();
+            this.WrapperClass = config.ColorPickerConfig.WrapperClass;
+            this.FavouriteWrapperClass = config.ColorPickerConfig.FavouriteWrapperClass;
+            this.FavouriteOuterClass = config.ColorPickerConfig.FavouriteOuterClass;
+            this.FavouriteInnerClass = config.ColorPickerConfig.FavouriteInnerClass;
+            this.CustomWrapperClass = config.ColorPickerConfig.CustomWrapperClass;
+            this.ColorInputClass = config.ColorPickerConfig.ColorInputClass;
+            this.ShowCustomColor = config.ColorPickerConfig.ShowCustomColor;
+            this.Visible = config.ColorPickerConfig.Visible;
         }
         #endregion
 

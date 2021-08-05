@@ -6,29 +6,3 @@ Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
-
-<div style="height: 400px; width: 400px; background-color:yellow; position: relative;">
-
-    <Doodle.Components.DoodleResizableElement AutoHandleEvents="true" Height="50" Width="100" Top="100" Left="100" AllowResize="false" >
-        <InActiveContent>
-            <button @onclick="@(() => context.ElementActive = true)">Activate</button>
-        </InActiveContent>
-        
-        <ActiveContent>
-            <button @onclick="@(() => context.ElementActive = false)">DeActivate</button>
-        </ActiveContent>
-
-    </Doodle.Components.DoodleResizableElement>
-
-    <Doodle.Components.DoodleResizableElement AutoHandleEvents="true" Height="50" Width="100" Top="200" Left="200" AllowMove="false" >
-        <InActiveContent>
-            <button @onclick="@(() => context.ElementActive = true)">Activate</button>
-        </InActiveContent>
-        
-        <ActiveContent>
-            <button @onclick="@(() => context.ElementActive = false)">DeActivate</button>
-        </ActiveContent>
-
-    </Doodle.Components.DoodleResizableElement>
-
-</div>

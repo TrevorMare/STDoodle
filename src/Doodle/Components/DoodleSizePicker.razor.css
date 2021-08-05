@@ -13,7 +13,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: solid 1px #807e7e;
+  border: solid 1px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   cursor: pointer;
   margin: 0.1rem;
@@ -34,7 +34,7 @@
 }
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner .doodle-size-picker-line {
   width: 100%;
-  border-top-color: #807e7e;
+  border-top-color: #5e5e5e;
   border-top-style: solid;
   height: 1px;
   align-self: center;
@@ -43,12 +43,12 @@
   display: flex;
   padding-left: 0.2rem;
   margin-left: 0.2rem;
-  border-left: solid 1px #807e7e;
+  border-left: solid 1px rgba(0, 0, 0, 0.2);
   justify-content: center;
   align-content: center;
 }
 .doodle-size-picker-wrapper .doodle-size-picker-custom span {
-  margin-right: 0.2rem;
+  margin-right: 0.8rem;
   align-self: center;
 }
 .doodle-size-picker-wrapper.vertical {
@@ -66,7 +66,7 @@
   padding-top: 0.2rem;
   margin-top: 0.2rem;
   border-left: none;
-  border-top: solid 1px #807e7e;
+  border-top: solid 1px rgba(0, 0, 0, 0.2);
 }
 .doodle-size-picker-wrapper.vertical .doodle-size-picker-custom span {
   margin-right: 0rem;

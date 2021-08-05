@@ -5,7 +5,7 @@
             SelectedColorChanged="@((color) => this.StrokeColor = color)"
             Options="@Options"
             DataAttributeName="@DataAttributeName"></DoodleColorPicker> 
-
+        <div class="splitter"></div>
         <DoodleSizePicker 
            SelectedSize="@StrokeSize"
            SelectedSizeChanged="@((size) => this.StrokeSize = size)"
@@ -36,6 +36,17 @@
                     <DoodleBackground BackgroundSource="@background"></DoodleBackground>
                 }
             }
+
+            <DoodleResizableContainer>
+                <DoodleResizableElement Top="50" Left="50" Height="50" Width="50">
+                    <img height="100%" width="100%" src="./_content/STDoodle/img/svg2.svg" />
+                </DoodleResizableElement>
+
+                <DoodleResizableElement Top="150" Left="150" Height="50" Width="50">
+                    <span>This is a text element that should be displayed</span>
+                </DoodleResizableElement>
+
+            </DoodleResizableContainer>
 
             <DoodleCanvas 
                 DataAttributeName="@DataAttributeName" 

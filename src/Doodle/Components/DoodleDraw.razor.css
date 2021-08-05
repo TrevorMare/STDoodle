@@ -1,3 +1,18 @@
+.doodle-draw-wrapper {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+}
+.doodle-draw-wrapper .splitter {
+  margin-right: 0.8rem;
+  margin-left: 0.8rem;
+  width: 1px;
+  box-sizing: border-box;
+  border-right: solid 3px #bac1bc;
+}
+.doodle-draw-wrapper .doodle-draw-header {
+  display: flex;
+  padding: 0.4rem;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
 .doodle-draw-wrapper .doodle-draw-body {
   display: flex;
 }

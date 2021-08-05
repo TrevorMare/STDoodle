@@ -6,14 +6,31 @@ namespace Doodle.Components
 {
 
     public partial class DoodleResizableElement : ComponentBase
-    {
+    { 
 
-        #region Members
+        #region Members 
+        private Abstractions.Config.DoodleDrawConfig _config;
+        private Abstractions.Config.DoodleDrawConfig _options;
+
         [Inject]
         private Abstractions.JsInterop.IJsInteropDragDrop JsInteropDragDrop { get; set;}
 
         [Inject]
         private ILogger<DoodleResizableElement> Logger { get; set; }
+
+        [Inject]
+        private Abstractions.Config.DoodleDrawConfig Config 
+        { 
+            get => _config; 
+            set
+            {
+                if (_config != value)
+                {
+                    _config = value;
+                    InitConfigSettings(value);
+                }
+            } 
+        }
 
         private ElementReference ResizeElement { get; set; }
 
@@ -228,6 +245,39 @@ namespace Doodle.Components
 
         [Parameter]
         public string MoveAdornerClass { get; set; }
+
+        [Parameter]
+        public Abstractions.Config.DoodleDrawConfig Options 
+        { 
+            get => _options; 
+            set 
+            {
+                if (_options != value)
+                {
+                    _options = value;
+                    InitConfigSettings(value);
+                }
+            } 
+        }
+        #endregion
+
+        #region Config Init
+        private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
+        {
+            if (config == null || config.ResizableElementConfig == null) return;
+
+            this.AllowMove = config.ResizableElementConfig.AllowMove;
+            this.AllowResize = config.ResizableElementConfig.AllowResize;
+            this.AutoHandleEvents = config.ResizableElementConfig.AutoHandleEvents;
+            this.Height = config.ResizableElementConfig.Height;
+            this.Width = config.ResizableElementConfig.Width;
+            this.Top = config.ResizableElementConfig.Top;
+            this.Left = config.ResizableElementConfig.Left;
+            this.MinWidth = config.ResizableElementConfig.MinWidth;
+            this.MinHeight = config.ResizableElementConfig.MinHeight;
+            this.ResizeElementClass = config.ResizableElementConfig.ResizeElementClass;
+            this.MoveAdornerClass = config.ResizableElementConfig.MoveAdornerClass;
+        }
         #endregion
 
         #region Overrides
@@ -329,6 +379,4 @@ namespace Doodle.Components
         #endregion
 
     }
-
-
 }

@@ -17,6 +17,9 @@ namespace Doodle.Abstractions.Config
 
         public ToolbarConfig ToolbarConfig { get; set; } = new ToolbarConfig();
 
+        public ResizableElementConfig ResizableElementConfig { get; set; } = new ResizableElementConfig();
+
+        public ResizableContainerConfig ResizableContainerConfig { get; set; } = new ResizableContainerConfig();
         
     }
 

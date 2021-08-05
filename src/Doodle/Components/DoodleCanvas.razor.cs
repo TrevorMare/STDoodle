@@ -37,7 +37,9 @@ namespace Doodle.Components
                 }
             } 
         }
+
         private ElementReference ResizeElement { get; set; }
+        
         private ElementReference CanvasElement { get; set; }
         #endregion
 
@@ -174,13 +176,13 @@ namespace Doodle.Components
         #region Config Init
         private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
-            if (config == null) return;
+            if (config == null || config.CanvasConfig == null) return;
 
-            this.CanvasClass = config.CanvasConfig?.CanvasClass;
-            this.DrawGrid = config.CanvasConfig?.DrawGrid ?? false;
-            this.GridSize = config.CanvasConfig?.GridSize ?? 10;
-            this.GridColor = config.CanvasConfig?.GridColor ?? "";
-            this.GridType = config.CanvasConfig?.GridType ?? Abstractions.Common.GridType.None;
+            this.CanvasClass = config.CanvasConfig.CanvasClass;
+            this.DrawGrid = config.CanvasConfig.DrawGrid;
+            this.GridSize = config.CanvasConfig.GridSize;
+            this.GridColor = config.CanvasConfig.GridColor;
+            this.GridType = config.CanvasConfig.GridType;
         }
         #endregion
 
