@@ -2,13 +2,22 @@
 {
     <div data-doodle-toolbar="@DataAttributeName" class="doodle-toolbar-wrapper @WrapperClass">
         <div class="doodle-toolbar-buttons @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")">
+
+           <button hidden="@(!UndoButtonVisible)" 
+                   disabled=@(!UndoButtonEnabled) 
+                   class="doodle-toolbar-button @UndoButtonClass" 
+                   @onclick="@(() => UndoButtonClick.InvokeAsync())"> 
+                   <div class="img-wrapper undo">
+
+                   </div>
+                   
+            </button>
+
+
             <button hidden="@(!UndoButtonVisible)" 
                     disabled=@(!UndoButtonEnabled) 
                     class="@UndoButtonClass" 
-                    @onclick="@(() => UndoButtonClick.InvokeAsync())">
-
-                        <span class="material-icons">undo</span>
-
+                    @onclick="@(() => UndoButtonClick.InvokeAsync())"> 
                     @(UndoButtonContent == null ? @UndoButtonText : @UndoButtonContent)
             </button>
 

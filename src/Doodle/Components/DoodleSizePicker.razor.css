@@ -1,3 +1,40 @@
+.circle-button-outer,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  cursor: pointer;
+}
+.circle-button-outer.active,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.active {
+  background-color: #89fd85;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.circle-button-outer:hover,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.circle-button-outer.vertical,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.vertical {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+.circle-button-inner,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner {
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
 .doodle-size-picker-wrapper {
   display: flex;
   align-items: center;
@@ -6,31 +43,12 @@
 .doodle-size-picker-wrapper .doodle-size-picker-favourites {
   display: flex;
 }
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer {
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: solid 1px rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  cursor: pointer;
-  margin: 0.1rem;
-}
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.active {
-  background-color: #fdb185;
-}
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner {
-  box-sizing: border-box;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
+  background-color: white;
   overflow: hidden;
   display: flex;
   vertical-align: center();
   align-content: center;
-  background-color: white;
 }
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner .doodle-size-picker-line {
   width: 100%;
@@ -43,13 +61,16 @@
   display: flex;
   padding-left: 0.2rem;
   margin-left: 0.2rem;
-  border-left: solid 1px rgba(0, 0, 0, 0.2);
   justify-content: center;
   align-content: center;
 }
-.doodle-size-picker-wrapper .doodle-size-picker-custom span {
-  margin-right: 0.8rem;
-  align-self: center;
+.doodle-size-picker-wrapper .doodle-size-picker-custom .doodle-size-picker-custom-input {
+  border-width: 0px;
+  border: none;
+  outline: none;
+}
+.doodle-size-picker-wrapper .doodle-size-picker-custom .doodle-size-picker-custom-input:focus {
+  outline: none;
 }
 .doodle-size-picker-wrapper.vertical {
   flex-direction: column;
@@ -66,9 +87,4 @@
   padding-top: 0.2rem;
   margin-top: 0.2rem;
   border-left: none;
-  border-top: solid 1px rgba(0, 0, 0, 0.2);
-}
-.doodle-size-picker-wrapper.vertical .doodle-size-picker-custom span {
-  margin-right: 0rem;
-  margin-top: 0rem;
 }

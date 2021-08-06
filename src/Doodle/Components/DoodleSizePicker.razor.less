@@ -1,6 +1,4 @@
-@fav-size-outer-size: 28px;
-@fav-size-inner-size: 20px;
-@break-color: rgba(0, 0, 0, 0.2);
+@import url(../wwwroot/styles/shared.less);
 
 .doodle-size-picker-wrapper {
     display: flex;
@@ -11,31 +9,14 @@
         display: flex;
         
         .doodle-size-picker-outer {
-            height: @fav-size-outer-size;
-            width: @fav-size-outer-size;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: solid 1px @break-color;
-            box-sizing: border-box;
-            cursor: pointer;
-            margin: 0.1rem;
-
-            &.active {
-                background-color: #fdb185;
-            }
-
+            &:extend(.circle-button-outer all);
             .doodle-size-picker-inner {
-                box-sizing: border-box;
-                height: @fav-size-inner-size;
-                width: @fav-size-inner-size;
-                border-radius: 50%;
+                &:extend(.circle-button-inner all);
+                background-color: white;
                 overflow: hidden;
                 display: flex;
                 vertical-align: center();
                 align-content: center;
-                background-color: white;
 
                 .doodle-size-picker-line {
                     width: 100%;
@@ -50,14 +31,18 @@
 
     .doodle-size-picker-custom {
         display: flex;
-        padding-left: 0.2rem;
-        margin-left: 0.2rem;
-        border-left: solid 1px @break-color;
+        padding-left: @circle-button-default-margin;
+        margin-left: @circle-button-default-margin;
         justify-content: center;
         align-content: center;
-        span {
-            margin-right: 0.8rem;
-            align-self: center;
+
+        .doodle-size-picker-custom-input {
+            border-width: 0px;
+            border:none;
+            outline: none;
+            &:focus {
+                outline: none;
+            }
         }
     }
     
@@ -72,14 +57,9 @@
             justify-content: center;
             padding-left: 0rem;
             margin-left: 0rem;
-            padding-top: 0.2rem;
-            margin-top: 0.2rem;
+            padding-top: @circle-button-default-margin;
+            margin-top: @circle-button-default-margin;
             border-left: none;
-            border-top: solid 1px @break-color;
-            span {
-                margin-right: 0.0rem;
-                margin-top: 0.0rem;
-            }
         }
     }
 }

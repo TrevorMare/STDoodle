@@ -1,11 +1,28 @@
+@import url(../wwwroot/styles/shared.less);
+
 .doodle-toolbar-wrapper {
     .doodle-toolbar-buttons {
         display: flex;
         justify-content: center;
         align-items: center;
 
+        .doodle-toolbar-button {
+           &:extend(.img-circle-button all);
+           .img-wrapper {
+                &:extend(.img-circle-button-content all);
+
+                &.undo {
+                    background-image: url("/_content/STDoodle/img/undo-icon.svg"); 
+                }
+    
+            }
+
+        }
+
         &.vertical {
             flex-direction: column;
         }
+
+
     }
 }

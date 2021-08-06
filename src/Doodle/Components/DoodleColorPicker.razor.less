@@ -1,6 +1,4 @@
-@fav-color-outer-size: 28px;
-@fav-color-inner-size: 20px;
-@break-color: rgba(0, 0, 0, 0.2);
+@import url(../wwwroot/styles/shared.less);
 
 .doodle-color-picker-wrapper {
     display: flex;
@@ -9,40 +7,20 @@
 
     .doodle-color-picker-favourites {
         display: flex;
+        
         .doodle-color-picker-color-outer {
-            height: @fav-color-outer-size;
-            width: @fav-color-outer-size;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: solid 1px @break-color;
-            box-sizing: border-box;
-            cursor: pointer;
-            margin: 0.1rem;
-
-            &.active {
-                background-color: #fdb185;
-            }
+            &:extend(.circle-button-outer all);
 
             .doodle-color-picker-color-inner {
-                box-sizing: border-box;
-                height: @fav-color-inner-size;
-                width: @fav-color-inner-size;
-                border-radius: 50%;
+                &:extend(.circle-button-inner all);
             }
         }
     }
 
     .doodle-color-picker-custom {
         display: flex;
-        padding-left: 0.2rem;
-        margin-left: 0.2rem;
-        border-left: solid 1px @break-color;
-
-        span {
-            margin-right: 0.8rem;
-        }
+        padding-left: @circle-button-default-margin;
+        margin-left: @circle-button-default-margin;
     }
 
     &.vertical {
@@ -56,14 +34,8 @@
             justify-content: center;
             padding-left: 0rem;
             margin-left: 0rem;
-            padding-top: 0.2rem;
-            margin-top: 0.2rem;
-            border-left: none;
-            border-top: solid 1px @break-color;
-            span {
-                margin-right: 0.0rem;
-                margin-top: 0.0rem;
-            }
+            padding-top: @circle-button-default-margin;
+            margin-top: @circle-button-default-margin;
         }
     }
 }
