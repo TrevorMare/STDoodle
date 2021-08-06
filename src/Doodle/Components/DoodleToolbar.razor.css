@@ -2,6 +2,8 @@
 .doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button {
   height: 28px;
   width: 28px;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -84,8 +86,23 @@
   justify-content: center;
   align-items: center;
 }
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.undo {
+.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-undo {
   background-image: url("/_content/STDoodle/img/undo-icon.svg");
+}
+.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-redo {
+  background-image: url("/_content/STDoodle/img/redo-icon.svg");
+}
+.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-clear {
+  background-image: url("/_content/STDoodle/img/clear-icon.svg");
+}
+.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-save {
+  background-image: url("/_content/STDoodle/img/save-icon.svg");
+}
+.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-export {
+  background-image: url("/_content/STDoodle/img/image-icon.svg");
+}
+.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button:disabled .img-wrapper {
+  opacity: 0.4;
 }
 .doodle-toolbar-wrapper .doodle-toolbar-buttons.vertical {
   flex-direction: column;

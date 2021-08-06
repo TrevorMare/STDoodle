@@ -62,8 +62,6 @@ namespace Doodle.Components
         [Parameter]
         public string UndoButtonClass { get; set; }
 
-        [Parameter]
-        public string UndoButtonText { get; set; } = "Undo";
 
         [Parameter]
         public RenderFragment UndoButtonContent { get; set; }
@@ -80,8 +78,6 @@ namespace Doodle.Components
         [Parameter]
         public string RedoButtonClass { get; set; }
 
-        [Parameter]
-        public string RedoButtonText { get; set; } = "Redo";
 
         [Parameter]
         public RenderFragment RedoButtonContent { get; set; }
@@ -98,8 +94,6 @@ namespace Doodle.Components
         [Parameter]
         public string ClearButtonClass { get; set; }
 
-        [Parameter]
-        public string ClearButtonText { get; set; } = "Clear";
 
         [Parameter]
         public RenderFragment ClearButtonContent { get; set; }
@@ -119,8 +113,6 @@ namespace Doodle.Components
         [Parameter]
         public string SaveButtonClass { get; set; }
 
-        [Parameter]
-        public string SaveButtonText { get; set; } = "Save";
 
         [Parameter]
         public RenderFragment SaveButtonContent { get; set; }
@@ -137,8 +129,6 @@ namespace Doodle.Components
         [Parameter]
         public string ExportButtonClass { get; set; }
 
-        [Parameter]
-        public string ExportButtonText { get; set; } = "Export";
 
         [Parameter]
         public RenderFragment ExportButtonContent { get; set; }
@@ -158,23 +148,18 @@ namespace Doodle.Components
 
             this.UndoButtonVisible = config.ToolbarConfig.UndoButtonVisible;
             this.UndoButtonClass = config.ToolbarConfig.UndoButtonClass;
-            this.UndoButtonText = config.ToolbarConfig.UndoButtonText;
 
             this.RedoButtonVisible = config.ToolbarConfig.RedoButtonVisible;
             this.RedoButtonClass = config.ToolbarConfig.RedoButtonClass;
-            this.RedoButtonText = config.ToolbarConfig.RedoButtonText;
-
+ 
             this.ClearButtonVisible = config.ToolbarConfig.ClearButtonVisible;
             this.ClearButtonClass = config.ToolbarConfig.ClearButtonClass;
-            this.ClearButtonText = config.ToolbarConfig.ClearButtonText;
             this.ClearHistoryOnClear = config.ToolbarConfig.ClearHistoryOnClear;
 
             this.SaveButtonVisible = config.ToolbarConfig.SaveButtonVisible;
-            this.SaveButtonText = config.ToolbarConfig.SaveButtonText;
-            this.SaveButtonClass = config.ToolbarConfig.SaveButtonClass;
+             this.SaveButtonClass = config.ToolbarConfig.SaveButtonClass;
 
             this.ExportButtonVisible = config.ToolbarConfig.ExportButtonVisible;
-            this.ExportButtonText = config.ToolbarConfig.ExportButtonText;
             this.ExportButtonClass = config.ToolbarConfig.ExportButtonClass;
         }
         #endregion

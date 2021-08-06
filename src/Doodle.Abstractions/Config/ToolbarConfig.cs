@@ -15,19 +15,13 @@ namespace Doodle.Abstractions.Config
 
         public string UndoButtonClass { get; set; }
 
-        public string UndoButtonText { get; set; } = "Undo";
-
         public bool RedoButtonVisible { get; set; } = true;
 
         public string RedoButtonClass { get; set; }
 
-        public string RedoButtonText { get; set; } = "Redo";
-
         public bool ClearButtonVisible { get; set; } = true;
 
         public string ClearButtonClass { get; set; }
-
-        public string ClearButtonText { get; set; } = "Clear";
 
         public bool ClearHistoryOnClear { get; set; }
 
@@ -35,13 +29,10 @@ namespace Doodle.Abstractions.Config
 
         public string SaveButtonClass { get; set; }
 
-        public string SaveButtonText { get; set; } = "Save";
-
         public bool ExportButtonVisible { get; set; } = true;   
 
         public string ExportButtonClass { get; set; }
 
-        public string ExportButtonText { get; set; } = "Export";
     }
 
 }

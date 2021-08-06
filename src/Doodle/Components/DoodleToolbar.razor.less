@@ -4,17 +4,33 @@
     .doodle-toolbar-buttons {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center; 
 
         .doodle-toolbar-button {
            &:extend(.img-circle-button all);
            .img-wrapper {
                 &:extend(.img-circle-button-content all);
 
-                &.undo {
+                &.toolbar-button-undo {
                     background-image: url("/_content/STDoodle/img/undo-icon.svg"); 
                 }
-    
+                &.toolbar-button-redo {
+                    background-image: url("/_content/STDoodle/img/redo-icon.svg"); 
+                }
+                &.toolbar-button-clear {
+                    background-image: url("/_content/STDoodle/img/clear-icon.svg"); 
+                }
+                &.toolbar-button-save {
+                    background-image: url("/_content/STDoodle/img/save-icon.svg"); 
+                }
+                &.toolbar-button-export {
+                    background-image: url("/_content/STDoodle/img/image-icon.svg"); 
+                }
+            }
+            &:disabled {
+                .img-wrapper {
+                    opacity: 0.4;
+                }
             }
 
         }
