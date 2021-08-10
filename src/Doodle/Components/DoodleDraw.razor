@@ -20,11 +20,6 @@
         <button @onclick="@((e) => IsResizableContainerActive = false)">Draw</button>           
     </div>
     <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
-
-        <div class="doodle-draw-left-panel">
-
-        </div>
-
         <div @ref="RenderWrapper" class="doodle-draw-content" >
 
             @if (Backgrounds != null && Backgrounds.Count() > 0)
@@ -34,10 +29,9 @@
                     <DoodleBackground BackgroundSource="@background"></DoodleBackground>
                 }
             }
+            
+            <DoodleResizableContainer Active="@IsResizableContainerActive"></DoodleResizableContainer>
 
-            <DoodleResizableContainer Active="@IsResizableContainerActive">
-            </DoodleResizableContainer>
-           
             <DoodleCanvas 
                 DataAttributeName="@DataAttributeName" 
                 StrokeColor="@StrokeColor" 
@@ -45,14 +39,10 @@
                 StrokeSize="@StrokeSize"
                 OnCommandPathsUpdated="@(() => StateHasChanged())"
                 @ref="DoodleCanvas"></DoodleCanvas>
-
         </div>
-
-        <div class="doodle-draw-right-panel"></div>
     </div>
-
 </div>
 
-<div style="height: 200px; width:200px; background-image: url('@imgSource');" ></div>
+<div style="height: 400px; width:400px; background-image: url('@imgSource');" ></div>
 
 
