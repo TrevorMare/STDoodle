@@ -73,17 +73,14 @@
   width: 20px;
   border-radius: 50%;
 }
-.doodle-canvas-resize {
-  box-sizing: border-box;
-  overflow: hidden;
-  background-color: transparent;
-  height: 100%;
+.doodle-resizable-container-wrapper {
+  position: relative;
   width: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 20;
-}
-.doodle-canvas-resize .doodle-canvas {
+  height: 100%;
   background-color: transparent;
+  overflow: hidden;
+  z-index: 19;
+}
+.doodle-resizable-container-wrapper.front {
+  z-index: 21;
 }

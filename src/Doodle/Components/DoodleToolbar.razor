@@ -2,42 +2,75 @@
 {
     <div data-doodle-toolbar="@DataAttributeName" class="doodle-toolbar-wrapper @WrapperClass">
         <div class="doodle-toolbar-buttons @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")">
+
             <button hidden="@(!UndoButtonVisible)" 
                     disabled=@(!UndoButtonEnabled) 
-                    class="@UndoButtonClass" 
-                    @onclick="@(() => UndoButtonClick.InvokeAsync())">
-
-                        <span class="material-icons">undo</span>
-
-                    @(UndoButtonContent == null ? @UndoButtonText : @UndoButtonContent)
+                    class="doodle-toolbar-button @UndoButtonClass" 
+                    @onclick="@(() => UndoButtonClick.InvokeAsync())"> 
+                    @if (UndoButtonContent == null)
+                    {
+                         <div title="Undo" class="img-wrapper toolbar-button-undo"></div>
+                    }
+                    else
+                    { 
+                        @UndoButtonContent
+                    }
             </button>
 
             <button hidden="@(!RedoButtonVisible)" 
                     disabled=@(!RedoButtonEnabled) 
-                    class="@RedoButtonClass" 
+                    class="doodle-toolbar-button @RedoButtonClass" 
                     @onclick="@(() => RedoButtonClick.InvokeAsync())">
-                    @(RedoButtonContent == null ? @RedoButtonText : @RedoButtonContent)
+                    @if (RedoButtonContent == null)
+                    {
+                         <div title="Redo" class="img-wrapper toolbar-button-redo"></div>
+                    }
+                    else
+                    { 
+                        @RedoButtonContent
+                    }
             </button>
             
             <button hidden="@(!ClearButtonVisible)" 
                     disabled=@(!ClearButtonEnabled) 
-                    class="@ClearButtonClass" 
+                    class="doodle-toolbar-button @ClearButtonClass" 
                     @onclick="@(() => ClearButtonClick.InvokeAsync(ClearHistoryOnClear))">
-                    @(ClearButtonContent == null ? @ClearButtonText : @ClearButtonContent)
+                    @if (ClearButtonContent == null)
+                    {
+                         <div title="Clear Image" class="img-wrapper toolbar-button-clear"></div>
+                    }
+                    else
+                    { 
+                        @ClearButtonContent
+                    }
             </button>
 
             <button hidden="@(!SaveButtonVisible)" 
                     disabled=@(!SaveButtonEnabled) 
-                    class="@SaveButtonClass" 
+                    class="doodle-toolbar-button @SaveButtonClass" 
                     @onclick="@(() => SaveButtonClick.InvokeAsync())">
-                    @(SaveButtonContent == null ? @SaveButtonText : @SaveButtonContent)
+                    @if (SaveButtonContent == null)
+                    {
+                         <div title="Save Canvas Data" class="img-wrapper toolbar-button-save"></div>
+                    }
+                    else
+                    { 
+                        @SaveButtonContent
+                    }
             </button>
 
             <button hidden="@(!ExportButtonVisible)" 
                     disabled=@(!ExportButtonEnabled) 
-                    class="@ExportButtonClass" 
+                    class="doodle-toolbar-button @ExportButtonClass" 
                     @onclick="@(() => ExportButtonClick.InvokeAsync())">
-                    @(ExportButtonContent == null ? @ExportButtonText : @ExportButtonContent)
+                    @if (ExportButtonContent == null)
+                    {
+                         <div title="Export to an image" class="img-wrapper toolbar-button-export"></div>
+                    }
+                    else
+                    { 
+                        @ExportButtonContent
+                    }
             </button>
         </div>
     </div>

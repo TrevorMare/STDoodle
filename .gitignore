@@ -37,3 +37,4 @@ node_modules
 .vs/
 Prerender/output
 src/Doodle/wwwroot/js/**.js 
+src/Doodle/wwwroot/styles/shared.css

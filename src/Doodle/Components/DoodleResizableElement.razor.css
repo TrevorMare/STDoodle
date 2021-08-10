@@ -1,14 +1,14 @@
-.doodle-resizable-wrapper {
+.doodle-resizable-element-wrapper {
   box-sizing: border-box;
   position: absolute;
 }
-.doodle-resizable-wrapper .doodle-resizable-content {
+.doodle-resizable-element-wrapper .doodle-resizable-content {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
   overflow: hidden;
 }
-.doodle-resizable-wrapper .move-adorner {
+.doodle-resizable-element-wrapper .move-adorner {
   display: none;
   height: 16px;
   width: 16px;
@@ -20,11 +20,11 @@
   background-position: center;
   background-size: cover contain;
 }
-.doodle-resizable-wrapper .move-adorner.move {
+.doodle-resizable-element-wrapper .move-adorner.move {
   display: inline-block;
   cursor: move;
 }
-.doodle-resizable-wrapper .resize-adorner {
+.doodle-resizable-element-wrapper .resize-adorner {
   display: none;
   height: 12px;
   width: 12px;
@@ -34,30 +34,30 @@
   border: solid 2px #3f6779;
   position: absolute;
 }
-.doodle-resizable-wrapper .resize-adorner.resize {
+.doodle-resizable-element-wrapper .resize-adorner.resize {
   display: inline-block;
 }
-.doodle-resizable-wrapper .resize-adorner.tl {
+.doodle-resizable-element-wrapper .resize-adorner.tl {
   top: -12px;
   left: -12px;
   cursor: nw-resize;
 }
-.doodle-resizable-wrapper .resize-adorner.tr {
+.doodle-resizable-element-wrapper .resize-adorner.tr {
   top: -12px;
   right: -12px;
   cursor: ne-resize;
 }
-.doodle-resizable-wrapper .resize-adorner.bl {
+.doodle-resizable-element-wrapper .resize-adorner.bl {
   bottom: -12px;
   left: -12px;
   cursor: sw-resize;
 }
-.doodle-resizable-wrapper .resize-adorner.br {
+.doodle-resizable-element-wrapper .resize-adorner.br {
   bottom: -12px;
   right: -12px;
   cursor: se-resize;
 }
-.doodle-resizable-wrapper.active {
+.doodle-resizable-element-wrapper.active {
   border: dotted 1px #3f6779;
   border-radius: 0.2rem;
 }

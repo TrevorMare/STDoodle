@@ -20,4 +20,10 @@ namespace Doodle.Abstractions.Common
         SVG = 2
     }
 
+    public enum ResizableContentType
+    {
+        Text = 1,
+        Image = 2
+    }
+
 }

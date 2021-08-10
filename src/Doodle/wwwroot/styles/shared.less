@@ -1,0 +1,96 @@
+@break-color: rgba(0, 0, 0, 0.2);
+
+@circle-button-default-margin: 0.2rem;
+@circle-button-outer-border: solid 1px @break-color;
+@circle-button-outer-size: 28px;
+@circle-button-inner-size: 20px;
+@circle-button-active-color: #485248;
+
+@img-circle-button-size: 28px;
+
+@canvas-z-index: 20;
+
+.img-circle-button {
+    height: @img-circle-button-size;
+    width: @img-circle-button-size;
+    margin-left: @circle-button-default-margin;
+    margin-right: @circle-button-default-margin;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0.2rem;
+    background-color: white;
+    &:active {
+        outline:0;
+    }
+    &:focus {
+        outline:0;
+    }
+    &:hover {
+        box-shadow: 0 12px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    &:disabled {
+        box-shadow: none !important;
+        .img-circle-button-content  {
+            opacity: 0.4;
+        }
+    }
+}
+
+.img-circle-button-content {
+    height: @img-circle-button-size;
+    width: @img-circle-button-size;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.circle-button-outer {
+    height: @circle-button-outer-size;
+    width: @circle-button-outer-size;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+    border: @circle-button-outer-border;
+    margin-left: @circle-button-default-margin;
+    margin-right: @circle-button-default-margin;
+    position: relative;
+    cursor: pointer;
+
+    &.active {
+        background-color: @circle-button-active-color;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    &:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    &.vertical {
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: @circle-button-default-margin;
+        margin-bottom: @circle-button-default-margin;
+    }
+
+    &:active {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.35), 0 6px 20px 0 rgba(0,0,0,0.59);
+    }
+
+    &.disabled {
+        opacity: 0.6;
+    }
+}
+
+.circle-button-inner {
+    box-sizing: border-box;
+    height: @circle-button-inner-size;
+    width: @circle-button-inner-size;
+    border-radius: 50%;
+}

@@ -1,32 +1,25 @@
 <div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName">
     <div class="doodle-draw-header" data-doodle-draw-header="@DataAttributeName">
+        <DoodleToolbar UndoButtonEnabled="@(DoodleCanvas?.CanUndo ?? false)" RedoButtonEnabled="@(DoodleCanvas?.CanRedo ?? false)"
+            ExportButtonEnabled="true" SaveButtonEnabled="@(DoodleCanvas?.Dirty ?? false)" ClearButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
+            ClearHistoryOnClear="true" UndoButtonClick="@(async() => await DoodleCanvas.Undo())" RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
+            ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))" ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
+        <div class="splitter"></div>
         <DoodleColorPicker 
             SelectedColor="@StrokeColor" 
             SelectedColorChanged="@((color) => this.StrokeColor = color)"
             Options="@Options"
             DataAttributeName="@DataAttributeName"></DoodleColorPicker> 
-
+        <div class="splitter"></div>
         <DoodleSizePicker 
            SelectedSize="@StrokeSize"
            SelectedSizeChanged="@((size) => this.StrokeSize = size)"
            DataAttributeName="@DataAttributeName"></DoodleSizePicker>    
+
+        <button @onclick="@((e) => IsResizableContainerActive = true)">Text</button>           
+        <button @onclick="@((e) => IsResizableContainerActive = false)">Draw</button>           
     </div>
     <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
-
-        <div class="doodle-draw-left-panel">
-            <DoodleToolbar 
-                UndoButtonEnabled="@(DoodleCanvas?.CanUndo ?? false)"
-                RedoButtonEnabled="@(DoodleCanvas?.CanRedo ?? false)"
-                ExportButtonEnabled="true"
-                SaveButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
-                ClearButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
-                ClearHistoryOnClear="true"
-                UndoButtonClick="@(async() => await DoodleCanvas.Undo())"
-                RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
-                ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))"
-                ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
-        </div>
-
         <div @ref="RenderWrapper" class="doodle-draw-content" >
 
             @if (Backgrounds != null && Backgrounds.Count() > 0)
@@ -36,6 +29,8 @@
                     <DoodleBackground BackgroundSource="@background"></DoodleBackground>
                 }
             }
+            
+            <DoodleResizableContainer Active="@IsResizableContainerActive"></DoodleResizableContainer>
 
             <DoodleCanvas 
                 DataAttributeName="@DataAttributeName" 
@@ -45,12 +40,9 @@
                 OnCommandPathsUpdated="@(() => StateHasChanged())"
                 @ref="DoodleCanvas"></DoodleCanvas>
         </div>
-
-        <div class="doodle-draw-right-panel"></div>
     </div>
-
 </div>
 
-<div style="height: 200px; width:200px; background-image: url('@imgSource');" ></div>
+<div style="height: 400px; width:400px; background-image: url('@imgSource');" ></div>
 
 

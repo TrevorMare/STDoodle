@@ -1,17 +1,19 @@
+@import url(../wwwroot/styles/shared.less);
+
 .doodle-canvas-resize {
-    box-sizing: border-box;
-    overflow: hidden;
-    background-color: transparent;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    .doodle-canvas {
-      background-color: transparent;
-    }
-    
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: @canvas-z-index;
+  .doodle-canvas {
+    background-color: transparent; 
   }
+}
   
 
   

@@ -98,19 +98,19 @@ namespace Doodle.Components
         #region Config Init
         private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
-            if (config == null) return;
+            if (config == null || config.SizePickerConfig == null) return;
 
-            this.Orientation = config.SizePickerConfig?.Orientation ?? Abstractions.Common.Orientation.Vertical;
-            this.FavouriteSizes = config.SizePickerConfig?.FavouriteSizes ?? new List<int>();
+            this.Orientation = config.SizePickerConfig.Orientation;
+            this.FavouriteSizes = config.SizePickerConfig.FavouriteSizes ?? new List<int>();
 
-            this.WrapperClass = config.SizePickerConfig?.WrapperClass;
-            this.FavouriteWrapperClass = config.SizePickerConfig?.FavouriteWrapperClass;
-            this.FavouriteOuterClass = config.SizePickerConfig?.FavouriteOuterClass;
-            this.FavouriteInnerClass = config.SizePickerConfig?.FavouriteInnerClass;
-            this.CustomWrapperClass = config.SizePickerConfig?.CustomWrapperClass;
-            this.NumberInputClass = config.SizePickerConfig?.NumberInputClass;
-            this.Visible = config.SizePickerConfig?.Visible ?? true;
-            this.ShowCustomNumber = config.SizePickerConfig?.ShowCustomNumber ?? true;
+            this.WrapperClass = config.SizePickerConfig.WrapperClass;
+            this.FavouriteWrapperClass = config.SizePickerConfig.FavouriteWrapperClass;
+            this.FavouriteOuterClass = config.SizePickerConfig.FavouriteOuterClass;
+            this.FavouriteInnerClass = config.SizePickerConfig.FavouriteInnerClass;
+            this.CustomWrapperClass = config.SizePickerConfig.CustomWrapperClass;
+            this.NumberInputClass = config.SizePickerConfig.NumberInputClass;
+            this.Visible = config.SizePickerConfig.Visible;
+            this.ShowCustomNumber = config.SizePickerConfig.ShowCustomNumber;
         }
         #endregion
 

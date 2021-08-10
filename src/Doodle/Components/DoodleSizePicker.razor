@@ -17,8 +17,7 @@
         @if (ShowCustomNumber)
         {
             <div class="doodle-size-picker-custom @CustomWrapperClass">
-                <span>Custom</span>
-                <input class="@NumberInputClass" type="number" @bind-value="@SelectedSize" />
+                <input class="doodle-size-picker-custom-input @NumberInputClass" type="number" @bind-value="@SelectedSize" />
             </div>
         }
     </div>
