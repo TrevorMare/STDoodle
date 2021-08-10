@@ -15,6 +15,9 @@
            SelectedSize="@StrokeSize"
            SelectedSizeChanged="@((size) => this.StrokeSize = size)"
            DataAttributeName="@DataAttributeName"></DoodleSizePicker>    
+
+        <button @onclick="@((e) => IsResizableContainerActive = true)">Text</button>           
+        <button @onclick="@((e) => IsResizableContainerActive = false)">Draw</button>           
     </div>
     <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
 
@@ -32,17 +35,9 @@
                 }
             }
 
-            <DoodleResizableContainer>
-                <DoodleResizableElement Top="50" Left="50" Height="50" Width="50">
-                    <img height="100%" width="100%" src="./_content/STDoodle/img/svg2.svg" />
-                </DoodleResizableElement>
-
-                <DoodleResizableElement Top="150" Left="150" Height="50" Width="50">
-                    <span>This is a text element that should be displayed</span>
-                </DoodleResizableElement>
-
+            <DoodleResizableContainer Active="@IsResizableContainerActive">
             </DoodleResizableContainer>
-
+           
             <DoodleCanvas 
                 DataAttributeName="@DataAttributeName" 
                 StrokeColor="@StrokeColor" 
@@ -50,6 +45,7 @@
                 StrokeSize="@StrokeSize"
                 OnCommandPathsUpdated="@(() => StateHasChanged())"
                 @ref="DoodleCanvas"></DoodleCanvas>
+
         </div>
 
         <div class="doodle-draw-right-panel"></div>

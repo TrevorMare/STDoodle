@@ -41,6 +41,7 @@ namespace Doodle.Components
 
         private DoodleCanvas DoodleCanvas { get; set; }
 
+        private bool IsResizableContainerActive { get; set; }
         #endregion
 
         #region Event Callbacks
