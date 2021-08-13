@@ -1,0 +1,10 @@
+primary : #8bc34a
+primary-light: #bef67a
+primary-dark: #5a9216
+
+secondary: #ff9800
+secondary-light: #ffc947
+secondary-dark: #c66900
+
+text-primary: #000000
+text-secondary: #000000

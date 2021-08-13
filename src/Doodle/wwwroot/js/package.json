@@ -13,6 +13,7 @@
     "dependencies": {
         "html2canvas": "^1.1.4",
         "less": "^4.1.1",
+        "material-icons-font": "^2.1.0",
         "requirejs": "^2.3.6",
         "typescript": "^4.3.5"
     },

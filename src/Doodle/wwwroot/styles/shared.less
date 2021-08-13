@@ -1,17 +1,48 @@
-@break-color: rgba(0, 0, 0, 0.2);
 
-@circle-button-default-margin: 0.2rem;
-@circle-button-outer-border: solid 1px @break-color; 
-@circle-button-outer-size: 28px;
-@circle-button-inner-size: 20px;
-@circle-button-active-color: #485248;
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/_content/fonts/googlefont/MaterialIcons-Regular.ttf'); /* For IE6-8 */
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url('/_content/fonts/googlefont/MaterialIcons-Regular.woff2') format('woff2'), url('/_content/fonts/googlefont/MaterialIcons-Regular.woff') format('woff'), url('/_content/fonts/googlefont/MaterialIcons-Regular.ttf') format('truetype');
+}
 
-@img-circle-button-size: 28px;
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
 
 /* General */
-@hover-brush: 0 12px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+@btn-hover-shadow: 0 12px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 @panel-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 @paper-elevation-4: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+@primary-color: #8bc34a;
+@primary-color-light: #bef67a;
+@primary-color-dark: #5a9216;
+@secondary-color: #ff9800;
+@secondary-color-light: #ffc947;
+@secondary-color-dark: #c66900;
+@primary-text-color: #000;
+@secondary-text-color: #000;
+
+/* Selected Icon Overlay */
 @selected-icon-overlay-size: 18px;
 
 /* Doodle Draw */
@@ -30,6 +61,19 @@
 @button-round-margin: 0rem 0.2rem;
 @button-round-padding: 0.2rem;
 @button-round-background: white;
+
+
+
+
+@break-color: rgba(0, 0, 0, 0.2);
+
+@circle-button-default-margin: 0.2rem;
+@circle-button-outer-border: solid 1px @break-color; 
+@circle-button-outer-size: 28px;
+@circle-button-inner-size: 20px;
+@circle-button-active-color: #485248;
+
+@img-circle-button-size: 28px;
 
 .btn-round {
     height: @button-round-size;
@@ -50,7 +94,7 @@
         outline:0;
     }
     &:hover {
-        box-shadow: @hover-brush;
+        box-shadow: @btn-hover-shadow;
     }
     &:disabled {
         box-shadow: none !important;
@@ -70,6 +114,18 @@
     background-position: center;
     background-size: contain;
 }
+
+.btn-text {
+    .btn-text-label {
+        color: @secondary-color;
+        text-transform: uppercase;
+    }
+    &:hover {
+        box-shadow: @btn-hover-shadow;
+    }
+
+}
+
 
 .selected-icon-overlay {
     content: "";

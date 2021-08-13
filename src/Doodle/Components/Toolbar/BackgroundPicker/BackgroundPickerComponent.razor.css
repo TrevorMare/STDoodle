@@ -1,4 +1,36 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/_content/fonts/googlefont/MaterialIcons-Regular.eot');
+  /* For IE6-8 */
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url('/_content/fonts/googlefont/MaterialIcons-Regular.woff2') format('woff2'), url('/_content/fonts/googlefont/MaterialIcons-Regular.woff') format('woff'), url('/_content/fonts/googlefont/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal; 
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
 /* General */
+/* Selected Icon Overlay */
 /* Doodle Draw */
 /* Canvas  */
 /* Canvas Background  */
@@ -41,6 +73,13 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+.btn-text .btn-text-label {
+  color: #ff9800;
+  text-transform: uppercase;
+}
+.btn-text:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 .selected-icon-overlay,
 .background-preview-wrapper .background-preview.selected::after {
