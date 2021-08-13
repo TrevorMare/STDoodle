@@ -106,8 +106,7 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 }
 /* Overlay element to indicate selection */
-.selected-icon-overlay,
-.background-preview-wrapper .background-preview.selected::after {
+.selected-icon-overlay {
   content: "";
   position: absolute;
   bottom: 0px;
@@ -194,21 +193,9 @@
   width: 20px;
   border-radius: 50%;
 }
-.doodle-canvas-background,
-.background-preview-wrapper .background-preview {
+.doodle-canvas-background {
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-}
-.background-preview-wrapper .background-preview {
-  height: 128px;
-  width: 128px;
-  min-height: 128px;
-  min-width: 128px;
-  margin: 0.4rem;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 }

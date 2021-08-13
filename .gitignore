@@ -38,3 +38,4 @@ node_modules
 Prerender/output
 src/Doodle/wwwroot/js/**.js 
 src/Doodle/wwwroot/styles/shared.css
+src/Doodle/wwwroot/fonts/**

@@ -1,3 +1,125 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+/* General */
+/* Selected Icon Overlay */
+/* Doodle Draw */
+/* Canvas  */
+/* Canvas Background  */
+/* Buttons */
+.btn-round {
+  height: 28px;
+  width: 28px;
+  margin: 0rem 0.2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  background-color: white;
+}
+.btn-round:active {
+  outline: 0;
+}
+.btn-round:focus {
+  outline: 0;
+}
+.btn-round:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.btn-round:disabled {
+  box-shadow: none !important;
+}
+.btn-round-content-image {
+  height: 28px;
+  width: 28px;
+  overflow: hidden;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.btn-text .btn-text-label {
+  color: #ff9800;
+  text-transform: uppercase;
+}
+.btn-text:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.selected-icon-overlay {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-size: contain;
+  display: block;
+  height: 18px;
+  width: 18px;
+  background-image: url("/_content/STDoodle/img/selected-icon.svg");
+  background-repeat: no-repeat;
+}
+.img-circle-button {
+  height: 28px;
+  width: 28px;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  background-color: white;
+}
+.img-circle-button:active {
+  outline: 0;
+}
+.img-circle-button:focus {
+  outline: 0;
+}
+.img-circle-button:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.img-circle-button:disabled {
+  box-shadow: none !important;
+}
+.img-circle-button:disabled .img-circle-button-content {
+  opacity: 0.4;
+}
+.img-circle-button-content {
+  height: 28px;
+  width: 28px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
 .circle-button-outer,
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer {
   height: 28px;
@@ -10,11 +132,12 @@
   border: solid 1px rgba(0, 0, 0, 0.2);
   margin-left: 0.2rem;
   margin-right: 0.2rem;
+  position: relative;
   cursor: pointer;
 }
 .circle-button-outer.active,
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.active {
-  background-color: #89fd85;
+  background-color: #485248;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .circle-button-outer:hover,
@@ -28,12 +151,26 @@
   margin-top: 0.2rem;
   margin-bottom: 0.2rem;
 }
+.circle-button-outer:active,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer:active {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
+}
+.circle-button-outer.disabled,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.disabled {
+  opacity: 0.6;
+}
 .circle-button-inner,
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner {
   box-sizing: border-box;
   height: 20px;
   width: 20px;
   border-radius: 50%;
+}
+.doodle-canvas-background {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 .doodle-size-picker-wrapper {
   display: flex;

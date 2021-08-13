@@ -3,15 +3,18 @@
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url('/_content/fonts/googlefont/MaterialIcons-Regular.ttf'); /* For IE6-8 */
-    src: local('Material Icons'), local('MaterialIcons-Regular'), url('/_content/fonts/googlefont/MaterialIcons-Regular.woff2') format('woff2'), url('/_content/fonts/googlefont/MaterialIcons-Regular.woff') format('woff'), url('/_content/fonts/googlefont/MaterialIcons-Regular.ttf') format('truetype');
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+        url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'),
+        url(/_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px; /* Preferred icon size */
+    font-size: 24px;  /* Preferred icon size */
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -19,12 +22,15 @@
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
+
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
     /* Support for Safari and Chrome. */
     text-rendering: optimizeLegibility;
+
     /* Support for Firefox. */
     -moz-osx-font-smoothing: grayscale;
+
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
@@ -41,6 +47,7 @@
 @secondary-color-dark: #c66900;
 @primary-text-color: #000;
 @secondary-text-color: #000;
+@text-color: #7b7b7b;
 
 /* Selected Icon Overlay */
 @selected-icon-overlay-size: 18px;
@@ -66,7 +73,6 @@
 
 
 @break-color: rgba(0, 0, 0, 0.2);
-
 @circle-button-default-margin: 0.2rem;
 @circle-button-outer-border: solid 1px @break-color; 
 @circle-button-outer-size: 28px;
@@ -75,6 +81,8 @@
 
 @img-circle-button-size: 28px;
 
+
+/* Round Button Element With Image */
 .btn-round {
     height: @button-round-size;
     width: @button-round-size;
@@ -115,18 +123,53 @@
     background-size: contain;
 }
 
+/* Text Button With Icon*/
 .btn-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     .btn-text-label {
-        color: @secondary-color;
+        color: @text-color;
         text-transform: uppercase;
     }
-    &:hover {
-        box-shadow: @btn-hover-shadow;
+    .btn-text-icon {
+        color: @text-color;
     }
 
+    &:hover {
+        text-shadow: 2px 2px 6px fade(@text-color, 60%);
+    }
+
+    &.expanded {
+        .btn-text-label {
+            color: @secondary-color;
+        }
+        .btn-text-icon {
+            color: @secondary-color;
+        }
+        &:hover {
+            text-shadow: 2px 2px 6px fade(@secondary-color, 60%);
+        }
+    }
 }
 
+/* Toolbar Layout */
+.doodle-toolbar-header-wrapper {
+    display: flex;
+}
 
+.doodle-toolbar-content-wrapper {
+    display: flex;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    transform: translate(0px, @header-height);
+    z-index: @canvas-z-index + 4;
+    box-shadow: @panel-box-shadow;
+}
+
+/* Overlay element to indicate selection */
 .selected-icon-overlay {
     content: "";
     position: absolute;

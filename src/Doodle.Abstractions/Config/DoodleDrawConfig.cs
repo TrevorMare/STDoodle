@@ -20,6 +20,8 @@ namespace Doodle.Abstractions.Config
         public ResizableElementConfig ResizableElementConfig { get; set; } = new ResizableElementConfig();
 
         public ResizableContainerConfig ResizableContainerConfig { get; set; } = new ResizableContainerConfig();
+
+        public BackgroundConfig BackgroundConfig { get; set; } = new BackgroundConfig();
         
     }
 

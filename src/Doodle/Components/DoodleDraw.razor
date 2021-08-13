@@ -1,55 +1,69 @@
-<div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName">
-    <div class="doodle-draw-header" data-doodle-draw-header="@DataAttributeName">
-        <DoodleToolbar UndoButtonEnabled="@(DoodleCanvas?.CanUndo ?? false)" RedoButtonEnabled="@(DoodleCanvas?.CanRedo ?? false)"
-            ExportButtonEnabled="true" SaveButtonEnabled="@(DoodleCanvas?.Dirty ?? false)" ClearButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
-            ClearHistoryOnClear="true" UndoButtonClick="@(async() => await DoodleCanvas.Undo())" RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
-            ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))" ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
-        <div class="splitter"></div>
-        <DoodleColorPicker 
-            SelectedColor="@StrokeColor" 
-            SelectedColorChanged="@((color) => this.StrokeColor = color)"
-            Options="@Options"
-            DataAttributeName="@DataAttributeName"></DoodleColorPicker> 
-        <div class="splitter"></div>
-        <DoodleSizePicker 
-           SelectedSize="@StrokeSize"
-           SelectedSizeChanged="@((size) => this.StrokeSize = size)"
-           DataAttributeName="@DataAttributeName"></DoodleSizePicker>    
+<CascadingValue Value="DataAttributeName" Name="DataAttributeName">
+    <CascadingValue Value="Options" Name="Options">
+      
+        <div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName">
+                <div class="doodle-draw-header" data-doodle-draw-header="@DataAttributeName">
+                    <DoodleToolbar UndoButtonEnabled="@(DoodleCanvas?.CanUndo ?? false)" RedoButtonEnabled="@(DoodleCanvas?.CanRedo ?? false)"
+                        ExportButtonEnabled="true" SaveButtonEnabled="@(DoodleCanvas?.Dirty ?? false)" ClearButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
+                        ClearHistoryOnClear="true" UndoButtonClick="@(async() => await DoodleCanvas.Undo())" RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
+                        ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))" ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
+                    <div class="splitter"></div>
+                    <DoodleColorPicker 
+                        SelectedColor="@StrokeColor" 
+                        SelectedColorChanged="@((color) => this.StrokeColor = color)"
+                        Options="@Options"
+                        DataAttributeName="@DataAttributeName"></DoodleColorPicker> 
+                    <div class="splitter"></div>
+                    <DoodleSizePicker 
+                    SelectedSize="@StrokeSize"
+                    SelectedSizeChanged="@((size) => this.StrokeSize = size)"
+                    DataAttributeName="@DataAttributeName"></DoodleSizePicker>    
 
 
 
-        <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent
-            SelectedBackgroundsChanged="@((e) => Backgrounds = e)">
+                    <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent
+                            SelectedBackgroundsChanged="@((e) => Backgrounds = e)">
+                    </Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
 
-        </Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
+                    <Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent>
+
+                    </Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent>
+
+                    <button @onclick="@((e) => IsResizableContainerActive = true)">Text</button>           
+                    <button @onclick="@((e) => IsResizableContainerActive = false)">Draw</button>           
+                </div>
+                <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
+                    <div @ref="RenderWrapper" class="doodle-draw-content" >
+
+                        @if (Backgrounds != null && Backgrounds.Count() > 0)
+                        {
+                            foreach (var background in Backgrounds)
+                            {
+                                <DoodleBackground BackgroundSource="@background"></DoodleBackground>
+                            }
+                        }
+                        
+                        <DoodleResizableContainer Active="@IsResizableContainerActive"></DoodleResizableContainer>
+
+                        <DoodleCanvas 
+                            DataAttributeName="@DataAttributeName" 
+                            StrokeColor="@StrokeColor" 
+                            Options="@Options"
+                            StrokeSize="@StrokeSize"
+                            OnCommandPathsUpdated="@(() => StateHasChanged())"
+                            @ref="DoodleCanvas"></DoodleCanvas>
+                    </div>
+                </div>
+            </div>
 
 
-        <button @onclick="@((e) => IsResizableContainerActive = true)">Text</button>           
-        <button @onclick="@((e) => IsResizableContainerActive = false)">Draw</button>           
-    </div>
-    <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
-        <div @ref="RenderWrapper" class="doodle-draw-content" >
+    </CascadingValue>
 
-            @if (Backgrounds != null && Backgrounds.Count() > 0)
-            {
-                foreach (var background in Backgrounds)
-                {
-                    <DoodleBackground BackgroundSource="@background"></DoodleBackground>
-                }
-            }
-            
-            <DoodleResizableContainer Active="@IsResizableContainerActive"></DoodleResizableContainer>
+    
 
-            <DoodleCanvas 
-                DataAttributeName="@DataAttributeName" 
-                StrokeColor="@StrokeColor" 
-                Options="@Options"
-                StrokeSize="@StrokeSize"
-                OnCommandPathsUpdated="@(() => StateHasChanged())"
-                @ref="DoodleCanvas"></DoodleCanvas>
-        </div>
-    </div>
-</div>
+</CascadingValue>
+
+
 
 <div style="height: 400px; width:400px; background-image: url('@imgSource');" ></div>
 

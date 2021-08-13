@@ -1,0 +1,14 @@
+@inherits Shared.DoodleBaseComponent
+
+<div data-toolbar-header-colorpicker="@DataAttributeName" class="doodle-toolbar-header-wrapper">
+    <div class="btn-text @(IsOpen ? "expanded" : "")" @onclick="@(() => IsOpen = !IsOpen)">
+        <span class="btn-text-label">Color</span>
+        <span class="btn-text-icon material-icons">
+            @(IsOpen ? "expand_less" : "expand_more")
+        </span>
+    </div>
+</div>
+
+<div hidden="@(!IsOpen)" data-toolbar-content-colorpicker="@DataAttributeName" class="doodle-toolbar-content-wrapper background-preview-wrapper">
+    <DoodleColorPicker></DoodleColorPicker>
+</div>

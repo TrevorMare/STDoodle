@@ -1,24 +1,18 @@
-<div data-toolbar-header-backgroundpicker class="doodle-toolbar-header-wrapper">
-     @* <button class="doodle-toolbar-button " 
-             @onclick="@(() => IsOpen = !IsOpen)"> 
-            
-             <div title="Background" class="background-button">A</div>
-    </button> *@
+@inherits Shared.DoodleBaseComponent
 
-    <div class="btn-text">
+<div data-toolbar-header-backgroundpicker="@DataAttributeName" class="doodle-toolbar-header-wrapper">
+    <div class="btn-text @(IsOpen ? "expanded" : "")" @onclick="@(() => IsOpen = !IsOpen)">
         <span class="btn-text-label">Background</span>
-        <span class="material-icons">
-            expand_less
+        <span class="btn-text-icon material-icons">
+            @(IsOpen ? "expand_less" : "expand_more")
         </span>
     </div>
-
 </div>
-<div hidden="@(!IsOpen)" data-toolbar-content-backgroundpicker class="background-preview-wrapper">
 
+<div hidden="@(!IsOpen)" data-toolbar-content-backgroundpicker="@DataAttributeName" class="doodle-toolbar-content-wrapper background-preview-wrapper">
     @foreach (var backgroundSource in BackgroundSources)
     {
         bool isSelected = SelectedBackgrounds.Contains(backgroundSource);
-
         if (backgroundSource.BackgroundSourceType == BackgroundSourceType.SVG)
         {
             <div @onclick="@(() => ToggleSelectedBackground(backgroundSource))" class="background-preview svg @(isSelected ? "selected" : "") @backgroundSource.BackgroundClass" >
@@ -31,5 +25,4 @@
             </div>
         }
     }
-
 </div>

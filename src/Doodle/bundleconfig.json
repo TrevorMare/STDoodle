@@ -69,6 +69,36 @@
         "renameLocals": false
       },
       "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/fonts/MaterialIcons-Regular.ttf",
+      "inputFiles": [
+        "wwwroot/js/node_modules/material-icons-font/fonts/MaterialIcons-Regular.ttf"
+      ],
+      "minify": {
+        "enabled": false,
+        "renameLocals": false
+      }
+    },
+    {
+      "outputFileName": "wwwroot/fonts/MaterialIcons-Regular.woff",
+      "inputFiles": [
+        "wwwroot/js/node_modules/material-icons-font/fonts/MaterialIcons-Regular.woff"
+      ],
+      "minify": {
+        "enabled": false,
+        "renameLocals": false
+      }
+    },
+    {
+      "outputFileName": "wwwroot/fonts/MaterialIcons-Regular.woff2",
+      "inputFiles": [
+        "wwwroot/js/node_modules/material-icons-font/fonts/MaterialIcons-Regular.woff2"
+      ],
+      "minify": {
+        "enabled": false,
+        "renameLocals": false
+      }
     }
     
   ]
