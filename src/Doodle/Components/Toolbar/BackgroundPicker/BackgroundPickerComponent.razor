@@ -1,0 +1,11 @@
+<div data-toolbar-header-backgroundpicker>
+     <button class="doodle-toolbar-button " 
+             @onclick="@(() => IsOpen = !IsOpen)"> 
+            
+             <div title="Undo" class="img-wrapper toolbar-button-undo"></div>
+    </button>
+
+</div>
+<div hidden="@(!IsOpen)" data-toolbar-content-backgroundpicker>
+
+</div>
