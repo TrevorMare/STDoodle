@@ -1,0 +1,162 @@
+/* General */
+/* Doodle Draw */
+/* Canvas  */
+/* Canvas Background  */
+/* Buttons */
+.btn-round,
+.doodle-toolbar-header-wrapper .doodle-toolbar-button {
+  height: 28px;
+  width: 28px;
+  margin: 0rem 0.2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  background-color: white;
+}
+.btn-round:active,
+.doodle-toolbar-header-wrapper .doodle-toolbar-button:active {
+  outline: 0;
+}
+.btn-round:focus,
+.doodle-toolbar-header-wrapper .doodle-toolbar-button:focus {
+  outline: 0;
+}
+.btn-round:hover,
+.doodle-toolbar-header-wrapper .doodle-toolbar-button:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.btn-round:disabled,
+.doodle-toolbar-header-wrapper .doodle-toolbar-button:disabled {
+  box-shadow: none !important;
+}
+.btn-round-content-image,
+.doodle-toolbar-header-wrapper .doodle-toolbar-button .background-button {
+  height: 28px;
+  width: 28px;
+  overflow: hidden;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.selected-icon-overlay,
+.background-preview-wrapper .background-preview.selected::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-size: contain;
+  display: block;
+  height: 18px;
+  width: 18px;
+  background-image: url("/_content/STDoodle/img/selected-icon.svg");
+  background-repeat: no-repeat;
+}
+.img-circle-button {
+  height: 28px;
+  width: 28px;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  background-color: white;
+}
+.img-circle-button:active {
+  outline: 0;
+}
+.img-circle-button:focus {
+  outline: 0;
+}
+.img-circle-button:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.img-circle-button:disabled {
+  box-shadow: none !important;
+}
+.img-circle-button:disabled .img-circle-button-content {
+  opacity: 0.4;
+}
+.img-circle-button-content {
+  height: 28px;
+  width: 28px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.circle-button-outer {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  position: relative;
+  cursor: pointer;
+}
+.circle-button-outer.active {
+  background-color: #485248;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.circle-button-outer:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.circle-button-outer.vertical {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+.circle-button-outer:active {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
+}
+.circle-button-outer.disabled {
+  opacity: 0.6;
+}
+.circle-button-inner {
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.doodle-canvas-background,
+.background-preview-wrapper .background-preview {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.doodle-toolbar-header-wrapper .doodle-toolbar-button .background-button {
+  background-image: url("/_content/STDoodle/img/wallpaper-icon.svg");
+}
+.background-preview-wrapper {
+  display: flex;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  transform: translate(0px, 50px);
+  z-index: 24;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+}
+.background-preview-wrapper .background-preview {
+  height: 128px;
+  width: 128px;
+  min-height: 128px;
+  min-width: 128px;
+  margin: 0.4rem;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+}

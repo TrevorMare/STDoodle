@@ -16,6 +16,14 @@
            SelectedSizeChanged="@((size) => this.StrokeSize = size)"
            DataAttributeName="@DataAttributeName"></DoodleSizePicker>    
 
+
+
+        <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent
+            SelectedBackgroundsChanged="@((e) => Backgrounds = e)">
+
+        </Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
+
+
         <button @onclick="@((e) => IsResizableContainerActive = true)">Text</button>           
         <button @onclick="@((e) => IsResizableContainerActive = false)">Draw</button>           
     </div>

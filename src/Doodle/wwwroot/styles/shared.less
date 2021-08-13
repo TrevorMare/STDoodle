@@ -1,14 +1,89 @@
 @break-color: rgba(0, 0, 0, 0.2);
 
 @circle-button-default-margin: 0.2rem;
-@circle-button-outer-border: solid 1px @break-color;
+@circle-button-outer-border: solid 1px @break-color; 
 @circle-button-outer-size: 28px;
 @circle-button-inner-size: 20px;
 @circle-button-active-color: #485248;
 
 @img-circle-button-size: 28px;
 
+/* General */
+@hover-brush: 0 12px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+@panel-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+@paper-elevation-4: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+@selected-icon-overlay-size: 18px;
+
+/* Doodle Draw */
+@header-height: 50px;
+
+/* Canvas  */
 @canvas-z-index: 20;
+
+/* Canvas Background  */
+@canvas-background-preview-height: 128px;
+@canvas-background-preview-width: 128px;
+@canvas-background-preview-margin: 0.4rem;
+
+/* Buttons */
+@button-round-size: 28px;
+@button-round-margin: 0rem 0.2rem;
+@button-round-padding: 0.2rem;
+@button-round-background: white;
+
+.btn-round {
+    height: @button-round-size;
+    width: @button-round-size;
+    margin: @button-round-margin;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: @button-round-padding;
+    background-color: @button-round-background;
+
+    &:active {
+        outline:0;
+    }
+    &:focus {
+        outline:0;
+    }
+    &:hover {
+        box-shadow: @hover-brush;
+    }
+    &:disabled {
+        box-shadow: none !important;
+     
+        // .img-circle-button-content  { TODO
+        //     opacity: 0.4;
+        // }
+    }
+}
+
+.btn-round-content-image {
+    height: @button-round-size;
+    width: @button-round-size;
+    overflow: hidden;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.selected-icon-overlay {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-size: contain;
+    display: block;
+    height: @selected-icon-overlay-size;
+    width: @selected-icon-overlay-size;
+    background-image: url("/_content/STDoodle/img/selected-icon.svg");
+    background-repeat: no-repeat;
+}
+
 
 .img-circle-button {
     height: @img-circle-button-size;
@@ -94,3 +169,10 @@
     width: @circle-button-inner-size;
     border-radius: 50%;
 }
+
+.doodle-canvas-background {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+} 

@@ -78,15 +78,7 @@ namespace Doodle.Components
         public int StrokeSize { get; set; }
 
         [Parameter]
-        public IEnumerable<BackgroundData> Backgrounds { get; set; } = new List<BackgroundData> 
-        { 
-            //new BackgroundData() { DataSource = "./_content/STDoodle/img/mono-kpresenter-kpr.svg" }, 
-            //new BackgroundData() { DataSource = "./_content/STDoodle/img/svg1.svg" }, 
-            //new BackgroundData() { DataSource = "./_content/STDoodle/img/svg2.svg" }, 
-            //new BackgroundData() { DataSource = "./_content/STDoodle/img/svg3.svg" } 
-            //new BackgroundData() { DataSource = "./_content/STDoodle/img/svg4.svg", BackgroundClass = "test-svg-stroke" },
-            //new BackgroundData() { DataSource = "<svg height='100' width='100'><circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' /></svg>", BackgroundClass="test-svg-circle", BackgroundSourceType = Abstractions.Common.BackgroundSourceType.SVG} 
-        };
+        public IEnumerable<BackgroundData> Backgrounds { get; set; } = new List<BackgroundData>();
         #endregion
         private string imgSource = "";
 

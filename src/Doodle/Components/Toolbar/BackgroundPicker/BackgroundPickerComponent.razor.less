@@ -1,0 +1,45 @@
+@import url(../../../wwwroot/styles/shared.less);
+
+
+.doodle-toolbar-header-wrapper {
+    .doodle-toolbar-button {
+        &:extend(.btn-round all);
+
+        .background-button {
+            &:extend(.btn-round-content-image all); 
+            background-image: url("/_content/STDoodle/img/wallpaper-icon.svg"); 
+            
+        }
+
+    }
+}
+
+.background-preview-wrapper { 
+    display: flex;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    transform: translate(0px, @header-height);
+    z-index: @canvas-z-index + 4;
+    box-shadow: @panel-box-shadow;
+    
+    .background-preview {
+        &:extend(.doodle-canvas-background all);
+        height: @canvas-background-preview-height;
+        width: @canvas-background-preview-width;
+        min-height: @canvas-background-preview-height;
+        min-width: @canvas-background-preview-width;
+        margin: @canvas-background-preview-margin;
+        position: relative; 
+        overflow: hidden;
+        box-sizing: border-box;
+        box-shadow: @paper-elevation-4;
+        &.selected {
+            &::after {
+               &:extend(.selected-icon-overlay all);
+            }
+        }
+    }
+
+
+}
