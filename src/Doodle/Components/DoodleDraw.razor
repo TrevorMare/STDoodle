@@ -8,11 +8,11 @@
                         ClearHistoryOnClear="true" UndoButtonClick="@(async() => await DoodleCanvas.Undo())" RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
                         ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))" ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
                     <div class="splitter"></div>
-                    <DoodleColorPicker 
+                    @* <DoodleColorPicker 
                         SelectedColor="@StrokeColor" 
                         SelectedColorChanged="@((color) => this.StrokeColor = color)"
                         Options="@Options"
-                        DataAttributeName="@DataAttributeName"></DoodleColorPicker> 
+                        DataAttributeName="@DataAttributeName"></DoodleColorPicker>  *@
                     <div class="splitter"></div>
                     <DoodleSizePicker 
                     SelectedSize="@StrokeSize"

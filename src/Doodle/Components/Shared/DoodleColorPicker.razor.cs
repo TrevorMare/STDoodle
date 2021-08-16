@@ -3,20 +3,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
-namespace Doodle.Components
+namespace Doodle.Components.Shared
 {
 
-    public partial class DoodleColorPicker : ComponentBase
+    public partial class DoodleColorPicker : Shared.DoodleBaseComponent
     {
 
         #region Members
         private string _selectedColor;
-        private Abstractions.Config.DoodleDrawConfig _options;
         #endregion
 
         #region "Parameters"
-        [Parameter]
-        public string DataAttributeName { get; set; }
 
         [Parameter]
         public string SelectedColor 
@@ -36,37 +33,10 @@ namespace Doodle.Components
         public EventCallback<string> SelectedColorChanged { get; set; }
 
         [Parameter]
-        public Abstractions.Config.DoodleDrawConfig Options 
-        { 
-            get => _options; 
-            set
-            {
-                if (_options != value)
-                {
-                    _options = value;
-                    this.InitConfigSettings(_options);
-                }
-            } 
-        }
-
-        [Parameter]
         public IEnumerable<string> FavouriteColors { get; set; } 
 
         [Parameter]
         public Abstractions.Common.Orientation Orientation { get; set; }
-
-        private Abstractions.Config.DoodleDrawConfig _config;
-
-        [Inject]
-        private Abstractions.Config.DoodleDrawConfig Config 
-        { 
-            get => this._config;
-            set 
-            {
-                this._config = value;
-                this.InitConfigSettings(this._config);
-            } 
-        }
 
         [Inject]
         private ILogger<DoodleColorPicker> Logger { get; set; }
@@ -97,7 +67,7 @@ namespace Doodle.Components
         #endregion
 
         #region Config Init
-        private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
+        protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
             if (config == null || config.ColorPickerConfig == null) return;
             this.Orientation = config.ColorPickerConfig.Orientation;

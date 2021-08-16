@@ -1,3 +1,5 @@
+@inherits Shared.DoodleBaseComponent
+
 @if (Visible)
 {
     <div data-doodle-color-picker="@DataAttributeName" class="doodle-color-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
