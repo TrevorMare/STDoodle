@@ -17,7 +17,7 @@ namespace Doodle.Components
         private bool _canRedo = false;
         private bool _disposed = false;
         
-        private int _strokeSize = 1;
+        
         [Inject]
         private ILogger<DoodleCanvas> Logger { get; set; }
 
@@ -53,17 +53,6 @@ namespace Doodle.Components
         #endregion
 
         #region Properties
-        [Parameter]
-        public bool DrawGrid { get; set; }
-
-        [Parameter]
-        public int GridSize { get; set; }
-
-        [Parameter]
-        public string GridColor { get; set; }
-
-        [Parameter]
-        public Abstractions.Common.GridType GridType { get; set; }
         
         [Parameter]
         public string CanvasClass { get; set; }
@@ -114,13 +103,21 @@ namespace Doodle.Components
         #region Config Init
         protected override void OnInitialized()
         {
-            this.DoodleDrawInteraction.OnStrokeColorChanged += (s, c) => {
-                this.SetBrushColor(c).ConfigureAwait(false);
+            this.DoodleDrawInteraction.OnStrokeColorChanged += (s, strokeColor) => {
+                this.SetBrushColor(strokeColor).ConfigureAwait(false);
             };  
-            this.DoodleDrawInteraction.OnStrokeWidthChanged += (s, w) => {
-                this.SetBrushWidth(w).ConfigureAwait(false);
+            this.DoodleDrawInteraction.OnStrokeWidthChanged += (s, strokeWidth) => {
+                this.SetBrushWidth(strokeWidth).ConfigureAwait(false);
             };
+            this.DoodleDrawInteraction.OnCanvasGridColorChanged += (s, gridColor) => {
 
+            };
+            this.DoodleDrawInteraction.OnCanvasGridSizeChanged += (s, gridSize) => {
+
+            };
+            this.DoodleDrawInteraction.OnCanvasGridTypeChanged += (s, gridType) => {
+
+            };
             base.OnInitialized();
         }
 
@@ -130,10 +127,6 @@ namespace Doodle.Components
             if (config == null || config.CanvasConfig == null) return;
 
             this.CanvasClass = config.CanvasConfig.CanvasClass;
-            this.DrawGrid = config.CanvasConfig.DrawGrid;
-            this.GridSize = config.CanvasConfig.GridSize;
-            this.GridColor = config.CanvasConfig.GridColor;
-            this.GridType = config.CanvasConfig.GridType;
         }
         #endregion
 
@@ -146,10 +139,10 @@ namespace Doodle.Components
                 await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, 
                     this.DoodleDrawInteraction.StrokeColor, 
                     (int)this.DoodleDrawInteraction.StrokeWidth, 
-                    this.DrawGrid, 
-                    this.GridSize, 
-                    this.GridColor, 
-                    this.GridType);
+                    this.DoodleDrawInteraction.GridType != Abstractions.Common.GridType.None, 
+                    this.DoodleDrawInteraction.GridSize, 
+                    this.DoodleDrawInteraction.GridColor, 
+                    this.DoodleDrawInteraction.GridType);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
                     Logger.LogDebug($"Updating state");

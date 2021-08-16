@@ -5,22 +5,33 @@ using System.Threading.Tasks;
 namespace Doodle.Abstractions.Interfaces
 {
 
-    public delegate void OnStrokeColorChangedHandler(object sender, string strokeColor);
-    public delegate void OnStrokeWidthChangedHandler(object sender, double strokeWidth);
-    public delegate void OnBackgroundAddedHandler(object sender, Models.BackgroundData backgroundData);
-    public delegate void OnBackgroundRemovedHandler(object sender, Models.BackgroundData backgroundData);
+    public delegate void OnColorChangedHandler(object sender, string color);
+    public delegate void OnSizeChangedHandler(object sender, double size);
+    public delegate void OnBoolChangedHandler(object sender, bool size);
+    public delegate void OnBackgroundChangedHandler(object sender, Models.BackgroundData backgroundData);
     public delegate void OnClearDoodleHandler(object sender, bool clearHistory);
-
+    public delegate void OnCanvasGridTypeChangedHandler(object sender, Abstractions.Common.GridType gridType);
+    
 
     public interface IDoodleDrawInteraction
     {
 
         #region Events
         event EventHandler OnStateHasChanged;
-        event OnStrokeColorChangedHandler OnStrokeColorChanged;
-        event OnStrokeWidthChangedHandler OnStrokeWidthChanged;
-        event OnBackgroundAddedHandler OnBackgroundAdded;
-        event OnBackgroundRemovedHandler OnBackgroundRemoved;
+        event OnColorChangedHandler OnStrokeColorChanged;
+        event OnSizeChangedHandler OnStrokeWidthChanged;
+        event OnBackgroundChangedHandler OnBackgroundAdded;
+        event OnBackgroundChangedHandler OnBackgroundRemoved;
+        event OnSizeChangedHandler OnCanvasGridSizeChanged;
+        event OnCanvasGridTypeChangedHandler OnCanvasGridTypeChanged;
+        event OnColorChangedHandler OnCanvasGridColorChanged;
+        event OnBoolChangedHandler OnCanRedoChanged;
+        event OnBoolChangedHandler OnCanUndoChanged;
+        
+        
+        
+        
+        
         event EventHandler OnUndoLastAction;
         event EventHandler OnRedoLastAction;
         event OnClearDoodleHandler OnClearDoodle;
@@ -36,8 +47,19 @@ namespace Doodle.Abstractions.Interfaces
         string StrokeColor { get; }
 
         double StrokeWidth { get; }
+
+        Abstractions.Common.GridType GridType { get; } 
+
+        int GridSize { get; } 
+
+        string GridColor { get; }
+
+        bool CanUndo { get; }
+
+        bool CanRedo { get; }
         #endregion
-        
+
+        #region Methods        
         Task SetStrokeColor(string color);
 
         Task SetStrokeWidth(double width);
@@ -47,6 +69,17 @@ namespace Doodle.Abstractions.Interfaces
         Task RemoveBackground(Models.BackgroundData backgroundData);
 
         Task<bool> ContainsBackground(Models.BackgroundData backgroundData);
+
+        Task SetCanvasGridType(Abstractions.Common.GridType gridType);
+
+        Task SetCanvasGridSize(int size);
+
+        Task SetCanvasGridColor(string color);
+
+        Task SetCanRedo(bool canRedo);
+        
+        Task SetCanUndo(bool canUndo);
+        #endregion
 
         Task UndoLastAction();
 

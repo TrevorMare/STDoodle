@@ -1,1 +1,29 @@
 @inherits Shared.DoodleBaseComponent
+
+<div @ref="@ResizeElement" data-doodle-resizable-element-wrapper class="doodle-resizable-element-wrapper @(ElementActive ? "active" : "") @ResizeElementClass" style="height: @(Height)px; width: @(Width)px; top: @(Top)px; left: @(Left)px;">
+    <div data-doodle-resizable-content class="doodle-resizable-content">
+        @if (ChildContent != null)
+        {
+            @ChildContent(this)
+        }
+        else
+        {
+            if (ElementActive == false)
+            {
+                @InActiveContent(this);
+            }
+            else
+            {
+                @ActiveContent(this);
+            }
+        }
+    </div>
+
+    <div data-doodle-resizable-adorner-tl class="resize-adorner tl @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
+    <div data-doodle-resizable-adorner-tr class="resize-adorner tr @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
+    <div data-doodle-resizable-adorner-bl class="resize-adorner bl @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
+    <div data-doodle-resizable-adorner-br class="resize-adorner br @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
+
+    <div data-doodle-move-adorner class="move-adorner br @(ElementActive && AllowMove ? "move" : "") @MoveAdornerClass"></div>
+
+</div>
