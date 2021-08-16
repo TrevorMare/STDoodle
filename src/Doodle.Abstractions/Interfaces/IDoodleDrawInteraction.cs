@@ -11,6 +11,7 @@ namespace Doodle.Abstractions.Interfaces
     public delegate void OnBackgroundChangedHandler(object sender, Models.BackgroundData backgroundData);
     public delegate void OnClearDoodleHandler(object sender, bool clearHistory);
     public delegate void OnCanvasGridTypeChangedHandler(object sender, Abstractions.Common.GridType gridType);
+    public delegate void OnDrawModeChangedHandler(object sender, Abstractions.Common.DrawMode drawMode);
     
 
     public interface IDoodleDrawInteraction
@@ -27,7 +28,8 @@ namespace Doodle.Abstractions.Interfaces
         event OnColorChangedHandler OnCanvasGridColorChanged;
         event OnBoolChangedHandler OnCanRedoChanged;
         event OnBoolChangedHandler OnCanUndoChanged;
-        
+        event OnDrawModeChangedHandler OnDrawModeChanged;
+        event OnBoolChangedHandler OnIsDirtyChanged;
         
         
         
@@ -57,6 +59,10 @@ namespace Doodle.Abstractions.Interfaces
         bool CanUndo { get; }
 
         bool CanRedo { get; }
+
+        bool IsDirty { get; }
+
+        Abstractions.Common.DrawMode DrawMode { get; }
         #endregion
 
         #region Methods        
@@ -79,6 +85,10 @@ namespace Doodle.Abstractions.Interfaces
         Task SetCanRedo(bool canRedo);
         
         Task SetCanUndo(bool canUndo);
+
+        Task SetDrawMode(Abstractions.Common.DrawMode drawMode);
+
+        Task SetIsDirty(bool value);
         #endregion
 
         Task UndoLastAction();

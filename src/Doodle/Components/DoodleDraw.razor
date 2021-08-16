@@ -4,23 +4,8 @@
 
 
             <div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName">
-                <div class="doodle-draw-header" data-doodle-draw-header="@DataAttributeName">
-                    <DoodleToolbar UndoButtonEnabled="@(DoodleCanvas?.CanUndo ?? false)" RedoButtonEnabled="@(DoodleCanvas?.CanRedo ?? false)"
-                        ExportButtonEnabled="true" SaveButtonEnabled="@(DoodleCanvas?.Dirty ?? false)" ClearButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
-                        ClearHistoryOnClear="true" UndoButtonClick="@(async() => await DoodleCanvas.Undo())" RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
-                        ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))" ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
-                    <div class="splitter"></div>
-     
+                <Doodle.Components.Toolbar.ToolbarComponent></Doodle.Components.Toolbar.ToolbarComponent>                
 
-                    <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent></Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
-
-                    <Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent>
-
-                    </Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent>
-
-                    <button @onclick="@((e) => IsResizableContainerActive = true)">Text</button>           
-                    <button @onclick="@((e) => IsResizableContainerActive = false)">Draw</button>           
-                </div>
                 <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
                     <div @ref="RenderWrapper" class="doodle-draw-content" >
 
@@ -36,10 +21,10 @@
                         <Doodle.Components.Resizable.ResizableListComponent
                             Active="@IsResizableContainerActive"></Doodle.Components.Resizable.ResizableListComponent>
 
-                        <DoodleCanvas 
+                        <Doodle.Components.Canvas.CanvasComponent 
                             
                             OnCommandPathsUpdated="@(() => StateHasChanged())"
-                            @ref="DoodleCanvas"></DoodleCanvas>
+                            @ref="DoodleCanvas"></Doodle.Components.Canvas.CanvasComponent>
                     </div>
                 </div>
             </div>

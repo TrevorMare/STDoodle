@@ -1,0 +1,25 @@
+@import url(../../wwwroot/styles/shared.less);    
+
+.toolbar-wrapper {
+    position: relative;
+    .toolbar-header {
+        display: flex;
+        align-content: center;
+        width: 100%;
+        height: @header-height;
+    }
+    
+    .toolbar-content-wrapper {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        min-height: 50px;
+        top: @header-height;
+        left: 0px;
+        z-index: @canvas-z-index + 3;
+    
+        .toolbar-content {
+            height: 100%;
+        }
+    }
+}

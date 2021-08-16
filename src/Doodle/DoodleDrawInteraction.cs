@@ -27,6 +27,10 @@ namespace Doodle
         public bool CanUndo { get; private set; } = false;
 
         public bool CanRedo { get; private set; } = false;
+
+        public bool IsDirty { get; private set; } = false;
+
+        public Abstractions.Common.DrawMode DrawMode { get; private set; } = Abstractions.Common.DrawMode.Canvas;
         #endregion
 
         #region Events
@@ -40,6 +44,8 @@ namespace Doodle
         public event OnColorChangedHandler OnCanvasGridColorChanged;
         public event OnBoolChangedHandler OnCanRedoChanged;
         public event OnBoolChangedHandler OnCanUndoChanged;
+        public event OnDrawModeChangedHandler OnDrawModeChanged;
+        public event OnBoolChangedHandler OnIsDirtyChanged;
         #endregion
 
         public event EventHandler OnUndoLastAction;
@@ -154,6 +160,28 @@ namespace Doodle
             {
                 this.CanUndo = canUndo;
                 this.OnCanUndoChanged?.Invoke(this, canUndo);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task SetDrawMode(Abstractions.Common.DrawMode drawMode)
+        {
+            if (drawMode != this.DrawMode)
+            {
+                this.DrawMode = drawMode;
+                this.OnDrawModeChanged?.Invoke(this, drawMode);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task SetIsDirty(bool value)
+        {
+            if (value != this.IsDirty)
+            {
+                this.IsDirty = value;
+                this.OnIsDirtyChanged?.Invoke(this, value);
                 this.OnStateHasChanged?.Invoke(this, null);
             }
             return Task.CompletedTask;

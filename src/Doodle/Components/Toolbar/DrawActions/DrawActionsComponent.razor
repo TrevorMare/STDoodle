@@ -1,7 +1,41 @@
 @inherits Shared.DoodleBaseComponent
 
-<div>
 
-    <span>Draw Actions</span>
+@if (Visible) 
+{
+    <div data-doodle-toolbar="@DataAttributeName" class="doodle-toolbar-wrapper @WrapperClass">
 
-</div>
+        <div class="doodle-toolbar-buttons @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")">
+
+            <button hidden="@(!UndoButtonVisible)"  disabled=@(!UndoButtonEnabled) 
+                    class="doodle-toolbar-button @UndoButtonClass" 
+                    @onclick="@(() => DoodleDrawInteraction.UndoLastAction())"> 
+                    <span>Undo</span>
+            </button>
+
+            <button hidden="@(!RedoButtonVisible)" disabled=@(!RedoButtonEnabled) 
+                    class="doodle-toolbar-button @RedoButtonClass" 
+                    @onclick="@(() => DoodleDrawInteraction.RedoLastAction())">
+                    <span>Redo</span>
+            </button>
+            
+            <button hidden="@(!ClearButtonVisible)" disabled=@(!ClearButtonEnabled) 
+                    class="doodle-toolbar-button @ClearButtonClass" 
+                    @onclick="@(() => DoodleDrawInteraction.ClearDoodle(ClearHistoryOnClear))">
+                    <span>Clear</span>
+            </button>
+
+            <button hidden="@(!SaveButtonVisible)" disabled=@(!SaveButtonEnabled) 
+                    class="doodle-toolbar-button @SaveButtonClass" 
+                    >
+                    <span>Save</span>
+            </button>
+
+            <button hidden="@(!ExportButtonVisible)" disabled=@(!ExportButtonEnabled) 
+                    class="doodle-toolbar-button @ExportButtonClass">
+                    <span>Export</span>
+            </button>
+        </div>
+    </div>
+} 
+

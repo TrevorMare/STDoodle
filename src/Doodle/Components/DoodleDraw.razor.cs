@@ -13,11 +13,6 @@ namespace Doodle.Components
     {
 
         #region Members
-
-
-
-
-
         [Inject]
         private ILogger<DoodleDraw> _logger { get; set;}
 
@@ -44,22 +39,9 @@ namespace Doodle.Components
         [Inject]
         private Abstractions.JsInterop.IJsInteropHtml2Canvas JsInteropHtml2Canvas { get; set; }
 
-        private DoodleCanvas DoodleCanvas { get; set; }
+        private Components.Canvas.CanvasComponent DoodleCanvas { get; set; }
 
-        private bool IsResizableContainerActive { get; set; }
-        #endregion
-
-        #region Event Callbacks
- 
-
-
-
-
-        [Parameter]
-        public EventCallback<string> StrokeColorChanged { get; set; }
-
-        [Parameter]
-        public EventCallback<int> StrokeSizeChanged { get; set; }
+        private bool IsResizableContainerActive => (DoodleDrawInteraction.DrawMode == Abstractions.Common.DrawMode.Resizable);
         #endregion
 
         #region Parameters
@@ -82,24 +64,12 @@ namespace Doodle.Components
 
         [Inject]
         public Abstractions.Interfaces.IDoodleDrawInteraction DoodleDrawInteraction { get; set; }
-
-        
-        
-        [Parameter]
-        public string StrokeColor { get; set; }
-
-        [Parameter]
-        public int StrokeSize { get; set; }
         #endregion
-        private string imgSource = "";
 
         #region Config Init
         private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
-            if (config == null) return;
-
-            this.StrokeColor = config.DefaultStrokeColor ?? "#000000";
-            this.StrokeSize = config.DefaultStrokeSize;
+           
         }
         #endregion
 
@@ -114,7 +84,7 @@ namespace Doodle.Components
             base.OnInitialized();
         }
         
-        
+        private string imgSource = "";
         public async Task<string> ExportDoodleToImage(Abstractions.Config.Html2CanvasConfig config = null)
         {
             try

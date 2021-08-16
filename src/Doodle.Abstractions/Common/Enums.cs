@@ -26,4 +26,10 @@ namespace Doodle.Abstractions.Common
         Image = 2
     }
 
+    public enum DrawMode
+    {
+        Canvas = 1,
+        Resizable = 2
+    }
+
 }

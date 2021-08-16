@@ -1,10 +1,18 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Doodle.Components.DrawActions
+namespace Doodle.Components.Toolbar.DrawActions
 {
 
     public partial class DrawActionsComponent : Shared.DoodleBaseComponent
     {
+
+        #region Members
+        public bool UndoButtonEnabled => DoodleDrawInteraction.CanUndo;
+        public bool RedoButtonEnabled => DoodleDrawInteraction.CanRedo;
+        public bool ClearButtonEnabled => DoodleDrawInteraction.IsDirty;
+        public bool SaveButtonEnabled => DoodleDrawInteraction.IsDirty;
+        public bool ExportButtonEnabled => DoodleDrawInteraction.IsDirty;
+        #endregion
 
         #region Properties
         [Parameter]
@@ -20,49 +28,19 @@ namespace Doodle.Components.DrawActions
         public bool UndoButtonVisible { get; set; }
 
         [Parameter]
-        public bool UndoButtonEnabled { get; set; } = false;
-
-        [Parameter]
         public string UndoButtonClass { get; set; }
-
-
-        [Parameter]
-        public RenderFragment UndoButtonContent { get; set; }
-
-        [Parameter]
-        public EventCallback UndoButtonClick { get; set; }
 
         [Parameter]
         public bool RedoButtonVisible { get; set; }
 
         [Parameter]
-        public bool RedoButtonEnabled { get; set; } = false;
-
-        [Parameter]
         public string RedoButtonClass { get; set; }
-
-
-        [Parameter]
-        public RenderFragment RedoButtonContent { get; set; }
-
-        [Parameter]
-        public EventCallback RedoButtonClick { get; set; }
 
         [Parameter]
         public bool ClearButtonVisible { get; set; }
 
         [Parameter]
-        public bool ClearButtonEnabled { get; set; } = false;
-
-        [Parameter]
         public string ClearButtonClass { get; set; }
-
-
-        [Parameter]
-        public RenderFragment ClearButtonContent { get; set; }
-
-        [Parameter]
-        public EventCallback<bool> ClearButtonClick { get; set; }
 
         [Parameter]
         public bool ClearHistoryOnClear { get; set; }
@@ -71,33 +49,13 @@ namespace Doodle.Components.DrawActions
         public bool SaveButtonVisible { get; set; }
 
         [Parameter]
-        public bool SaveButtonEnabled { get; set; } = false;
-
-        [Parameter]
         public string SaveButtonClass { get; set; }
-
-
-        [Parameter]
-        public RenderFragment SaveButtonContent { get; set; }
-
-        [Parameter]
-        public EventCallback SaveButtonClick { get; set; }
 
         [Parameter]
         public bool ExportButtonVisible { get; set; }
 
         [Parameter]
-        public bool ExportButtonEnabled { get; set; } = false;
-
-        [Parameter]
         public string ExportButtonClass { get; set; }
-
-
-        [Parameter]
-        public RenderFragment ExportButtonContent { get; set; }
-
-        [Parameter]
-        public EventCallback ExportButtonClick { get; set; }
         #endregion
 
         #region Config Init
@@ -120,7 +78,7 @@ namespace Doodle.Components.DrawActions
             this.ClearHistoryOnClear = config.ToolbarConfig.ClearHistoryOnClear;
 
             this.SaveButtonVisible = config.ToolbarConfig.SaveButtonVisible;
-             this.SaveButtonClass = config.ToolbarConfig.SaveButtonClass;
+            this.SaveButtonClass = config.ToolbarConfig.SaveButtonClass;
 
             this.ExportButtonVisible = config.ToolbarConfig.ExportButtonVisible;
             this.ExportButtonClass = config.ToolbarConfig.ExportButtonClass;

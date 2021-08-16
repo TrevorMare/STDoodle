@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -6,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
-namespace Doodle.Components 
+namespace Doodle.Components.Canvas
 {
 
-    public partial class DoodleCanvas : Shared.DoodleBaseComponent, IDisposable
+    public partial class CanvasComponent : Shared.DoodleBaseComponent
     {
-
+        
         #region Members
         private bool _canUndo = false;
         private bool _canRedo = false;
@@ -19,7 +18,7 @@ namespace Doodle.Components
         
         
         [Inject]
-        private ILogger<DoodleCanvas> Logger { get; set; }
+        private ILogger<CanvasComponent> Logger { get; set; }
 
         private ElementReference ResizeElement { get; set; }
         
@@ -281,4 +280,7 @@ namespace Doodle.Components
         #endregion
 
     }
+
+
+
 }
