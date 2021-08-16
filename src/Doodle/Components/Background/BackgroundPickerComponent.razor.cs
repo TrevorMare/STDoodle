@@ -4,15 +4,13 @@ using Doodle.Abstractions.Config;
 using Doodle.Abstractions.Models;
 using Microsoft.AspNetCore.Components;
 
-namespace Doodle.Components.Toolbar.BackgroundPicker
+namespace Doodle.Components.Background
 {
 
-    public partial class BackgroundPickerComponent : Shared.DoodleBaseComponent 
+    public partial class BackgroundPickerComponent : Shared.DoodleBaseComponent
     {
-
+       
         #region Properties
-        [Parameter]
-        public bool IsOpen { get; set; }
 
         [Parameter]
         public IEnumerable<BackgroundData> BackgroundSources { get; set; } = new List<Abstractions.Models.BackgroundData>();
@@ -38,8 +36,7 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
             }
         }
         #endregion
-       
+        
     }
-
 
 }

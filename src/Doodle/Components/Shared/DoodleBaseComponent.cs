@@ -13,6 +13,9 @@ namespace Doodle.Components.Shared
         #endregion
 
         #region Properties
+        [CascadingParameter(Name = "DoodleDrawInteraction")]
+        public Abstractions.Interfaces.IDoodleDrawInteraction DoodleDrawInteraction { get; set; }
+
         [CascadingParameter(Name = "DataAttributeName")]
         public string DataAttributeName { get; set; }
 

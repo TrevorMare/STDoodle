@@ -1,3 +1,4 @@
+@inherits Shared.DoodleBaseComponent
 <div data-doodle-resizable-container-wrapper class="doodle-resizable-container-wrapper @(Active ? "front" : "") @ResizeContainerClass">
    @if (Content != null && Content.Count() > 0)
    {
@@ -6,11 +7,11 @@
            var item = Content.ToList()[iItem];
            if (item.ResizableContentType == ResizableContentType.Text)
            {
-               <DoodleResizableText @bind-DataSource="@item"></DoodleResizableText>
+               <ResizableTextComponent @bind-DataSource="@item"></ResizableTextComponent>
            }
            else if (item.ResizableContentType == ResizableContentType.Image)
            {
-               <DoodleResizableImage @bind-DataSource="@item"></DoodleResizableImage>
+               <ResizableImageComponent @bind-DataSource="@item"></ResizableImageComponent>
            }
        }
    }

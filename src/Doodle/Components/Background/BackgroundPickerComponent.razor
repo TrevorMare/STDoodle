@@ -1,0 +1,15 @@
+@inherits Shared.DoodleBaseComponent
+
+<div data-toolbar-content-backgroundpicker="@DataAttributeName" class="background-picker-layout">
+    @foreach (var backgroundSource in BackgroundSources)
+    {
+        bool isSelected = DoodleDrawInteraction.SelectedBackgrounds.Contains(backgroundSource);
+        
+        <BackgroundSourceComponent 
+            IsPreview="true"
+            BackgroundSource="@backgroundSource"
+            IsSelected="@isSelected"
+            OnClick="@((backgroundSource) => ToggleSelectedBackground(backgroundSource))">
+        </BackgroundSourceComponent>
+    }
+</div>

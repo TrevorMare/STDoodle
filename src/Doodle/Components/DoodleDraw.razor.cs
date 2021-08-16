@@ -13,6 +13,11 @@ namespace Doodle.Components
     {
 
         #region Members
+
+
+
+
+
         [Inject]
         private ILogger<DoodleDraw> _logger { get; set;}
 
@@ -45,6 +50,10 @@ namespace Doodle.Components
         #endregion
 
         #region Event Callbacks
+ 
+
+
+
 
         [Parameter]
         public EventCallback<string> StrokeColorChanged { get; set; }
@@ -71,14 +80,16 @@ namespace Doodle.Components
             } 
         }
 
+        [Inject]
+        public Abstractions.Interfaces.IDoodleDrawInteraction DoodleDrawInteraction { get; set; }
+
+        
+        
         [Parameter]
         public string StrokeColor { get; set; }
 
         [Parameter]
         public int StrokeSize { get; set; }
-
-        [Parameter]
-        public IEnumerable<BackgroundData> Backgrounds { get; set; } = new List<BackgroundData>();
         #endregion
         private string imgSource = "";
 
@@ -93,6 +104,16 @@ namespace Doodle.Components
         #endregion
 
         #region Methods
+
+        protected override void OnInitialized()
+        {
+            this.DoodleDrawInteraction.OnStateHasChanged += (s, e) => {
+                StateHasChanged();
+            };
+
+            base.OnInitialized();
+        }
+        
         
         public async Task<string> ExportDoodleToImage(Abstractions.Config.Html2CanvasConfig config = null)
         {

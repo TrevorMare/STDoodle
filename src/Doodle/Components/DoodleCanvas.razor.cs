@@ -9,34 +9,17 @@ using Microsoft.Extensions.Logging;
 namespace Doodle.Components 
 {
 
-    public partial class DoodleCanvas : ComponentBase, IDisposable
+    public partial class DoodleCanvas : Shared.DoodleBaseComponent, IDisposable
     {
 
         #region Members
         private bool _canUndo = false;
         private bool _canRedo = false;
         private bool _disposed = false;
-        private string _strokeColor = "#000000";
+        
         private int _strokeSize = 1;
-        private Abstractions.Config.DoodleDrawConfig _config;
-        private Abstractions.Config.DoodleDrawConfig _options;
-
         [Inject]
         private ILogger<DoodleCanvas> Logger { get; set; }
-
-        [Inject]
-        private Abstractions.Config.DoodleDrawConfig Config 
-        { 
-            get => _config; 
-            set
-            {
-                if (_config != value)
-                {
-                    _config = value;
-                    InitConfigSettings(value);
-                }
-            } 
-        }
 
         private ElementReference ResizeElement { get; set; }
         
@@ -81,57 +64,12 @@ namespace Doodle.Components
 
         [Parameter]
         public Abstractions.Common.GridType GridType { get; set; }
-
-        [Parameter]
-        public Abstractions.Config.DoodleDrawConfig Options 
-        { 
-            get => _options; 
-            set 
-            {
-                if (_options != value)
-                {
-                    _options = value;
-                    InitConfigSettings(value);
-                }
-            } 
-        }
-
-        [Parameter]
-        public string DataAttributeName { get; set; }
-
+        
         [Parameter]
         public string CanvasClass { get; set; }
 
         [Inject]
         public Abstractions.JsInterop.IJsInteropCanvas JsInteropCanvas { get; set; }
-
-        [Parameter]
-        public string StrokeColor 
-        { 
-            get => _strokeColor; 
-            set 
-            {
-                if (this._strokeColor != value)
-                {
-                    this._strokeColor = value;
-                    this.SetBrushColor(value).ConfigureAwait(false);
-                }
-            } 
-        }
-
-        [Parameter]
-        public int StrokeSize 
-        { 
-            get => _strokeSize; 
-            set 
-            {
-                if (this._strokeSize != value)
-                {
-                    this._strokeSize = value;
-                    this.SetBrushSize(value).ConfigureAwait(false);
-                }
-            } 
-        }
 
         public bool CanUndo 
         { 
@@ -174,7 +112,20 @@ namespace Doodle.Components
         #endregion
 
         #region Config Init
-        private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
+        protected override void OnInitialized()
+        {
+            this.DoodleDrawInteraction.OnStrokeColorChanged += (s, c) => {
+                this.SetBrushColor(c).ConfigureAwait(false);
+            };  
+            this.DoodleDrawInteraction.OnStrokeWidthChanged += (s, w) => {
+                this.SetBrushWidth(w).ConfigureAwait(false);
+            };
+
+            base.OnInitialized();
+        }
+
+
+        protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
             if (config == null || config.CanvasConfig == null) return;
 
@@ -192,7 +143,13 @@ namespace Doodle.Components
             if (firstRender == true && CanvasInitialised == false)
             {
                 Logger.LogDebug($"Initialising Canvas");
-                await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, this.StrokeColor, this.StrokeSize, this.DrawGrid, this.GridSize, this.GridColor, this.GridType);
+                await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, 
+                    this.DoodleDrawInteraction.StrokeColor, 
+                    (int)this.DoodleDrawInteraction.StrokeWidth, 
+                    this.DrawGrid, 
+                    this.GridSize, 
+                    this.GridColor, 
+                    this.GridType);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
                     Logger.LogDebug($"Updating state");
@@ -216,12 +173,12 @@ namespace Doodle.Components
             }
         }
 
-        public async Task SetBrushSize(int size)
+        public async Task SetBrushWidth(double width)
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting brush size to {size}");
-                await this.JsInteropCanvas.SetBrushSize(size);
+                Logger.LogDebug($"Setting brush size to {width}");
+                await this.JsInteropCanvas.SetBrushSize((int)width);
             }
         }
         

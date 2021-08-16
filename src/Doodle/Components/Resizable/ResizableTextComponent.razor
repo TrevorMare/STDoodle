@@ -1,4 +1,4 @@
-<DoodleResizableElement @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
+<ResizableElementComponent @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
     <ActiveContent>
         <textarea class="text-area-display" @onchange="@((e) => Model.Text = e.Value.ToString())">@Model.Text</textarea>
     </ActiveContent>
@@ -8,4 +8,4 @@
         }
         <span class="span-display">@((MarkupString)outputText)</span>
     </InActiveContent>
-</DoodleResizableElement>
+</ResizableElementComponent>

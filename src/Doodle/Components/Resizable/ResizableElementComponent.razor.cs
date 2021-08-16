@@ -2,35 +2,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
-namespace Doodle.Components
+namespace Doodle.Components.Resizable
 {
-
-    public partial class DoodleResizableElement : ComponentBase
-    { 
+    public partial class ResizableElementComponent : Shared.DoodleBaseComponent
+    {
 
         #region Members 
-        private Abstractions.Config.DoodleDrawConfig _config;
-        private Abstractions.Config.DoodleDrawConfig _options;
-
         [Inject]
         private Abstractions.JsInterop.IJsInteropDragDrop JsInteropDragDrop { get; set;}
 
         [Inject]
-        private ILogger<DoodleResizableElement> Logger { get; set; }
-
-        [Inject]
-        private Abstractions.Config.DoodleDrawConfig Config 
-        { 
-            get => _config; 
-            set
-            {
-                if (_config != value)
-                {
-                    _config = value;
-                    InitConfigSettings(value);
-                }
-            } 
-        }
+        private ILogger<ResizableElementComponent> Logger { get; set; }
 
         private ElementReference ResizeElement { get; set; }
 
@@ -49,7 +31,7 @@ namespace Doodle.Components
 
         #region Events
         [Parameter]
-        public EventCallback<DoodleResizableElement> ResizeElementReady { get; set; }
+        public EventCallback<ResizableElementComponent> ResizeElementReady { get; set; }
 
         [Parameter]
         public EventCallback<double?> MinWidthChanged { get; set; }
@@ -84,13 +66,13 @@ namespace Doodle.Components
         public string ResizeAdornerClass { get; set; }
 
         [Parameter]
-        public RenderFragment<DoodleResizableElement> InActiveContent { get; set; }
+        public RenderFragment<ResizableElementComponent> InActiveContent { get; set; }
 
         [Parameter]
-        public RenderFragment<DoodleResizableElement> ActiveContent { get; set; }
+        public RenderFragment<ResizableElementComponent> ActiveContent { get; set; }
 
         [Parameter]
-        public RenderFragment<DoodleResizableElement> ChildContent { get; set; }
+        public RenderFragment<ResizableElementComponent> ChildContent { get; set; }
 
         [Parameter]
         public bool AutoHandleEvents 
@@ -245,24 +227,10 @@ namespace Doodle.Components
 
         [Parameter]
         public string MoveAdornerClass { get; set; }
-
-        [Parameter]
-        public Abstractions.Config.DoodleDrawConfig Options 
-        { 
-            get => _options; 
-            set 
-            {
-                if (_options != value)
-                {
-                    _options = value;
-                    InitConfigSettings(value);
-                }
-            } 
-        }
         #endregion
 
         #region Config Init
-        private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
+        protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
             if (config == null || config.ResizableElementConfig == null) return;
 

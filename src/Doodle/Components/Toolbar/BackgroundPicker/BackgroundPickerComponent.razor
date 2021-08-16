@@ -10,19 +10,5 @@
 </div>
 
 <div hidden="@(!IsOpen)" data-toolbar-content-backgroundpicker="@DataAttributeName" class="doodle-toolbar-content-wrapper background-preview-wrapper">
-    @foreach (var backgroundSource in BackgroundSources)
-    {
-        bool isSelected = SelectedBackgrounds.Contains(backgroundSource);
-        if (backgroundSource.BackgroundSourceType == BackgroundSourceType.SVG)
-        {
-            <div @onclick="@(() => ToggleSelectedBackground(backgroundSource))" class="background-preview svg @(isSelected ? "selected" : "") @backgroundSource.BackgroundClass" >
-                @((MarkupString)backgroundSource.DataSource)
-            </div>
-        }
-        else if (backgroundSource.BackgroundSourceType == BackgroundSourceType.Url)
-        {
-            <div @onclick="@(() => ToggleSelectedBackground(backgroundSource))" class="background-preview img @(isSelected ? "selected" : "") @backgroundSource.BackgroundClass" style="background-image: url('@backgroundSource.DataSource');">
-            </div>
-        }
-    }
+   <Doodle.Components.Background.BackgroundPickerComponent></Doodle.Components.Background.BackgroundPickerComponent>
 </div>

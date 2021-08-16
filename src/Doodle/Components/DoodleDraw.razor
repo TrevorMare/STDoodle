@@ -1,29 +1,18 @@
 <CascadingValue Value="DataAttributeName" Name="DataAttributeName">
     <CascadingValue Value="Options" Name="Options">
-      
-        <div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName">
+        <CascadingValue Value="DoodleDrawInteraction" Name="DoodleDrawInteraction">
+
+
+            <div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName">
                 <div class="doodle-draw-header" data-doodle-draw-header="@DataAttributeName">
                     <DoodleToolbar UndoButtonEnabled="@(DoodleCanvas?.CanUndo ?? false)" RedoButtonEnabled="@(DoodleCanvas?.CanRedo ?? false)"
                         ExportButtonEnabled="true" SaveButtonEnabled="@(DoodleCanvas?.Dirty ?? false)" ClearButtonEnabled="@(DoodleCanvas?.Dirty ?? false)"
                         ClearHistoryOnClear="true" UndoButtonClick="@(async() => await DoodleCanvas.Undo())" RedoButtonClick="@(async() => await DoodleCanvas.Redo())"
                         ClearButtonClick="@(async(c) => await DoodleCanvas.ClearCanvas(c))" ExportButtonClick="@(async() => await ExportDoodleToImage())"></DoodleToolbar>
                     <div class="splitter"></div>
-                    @* <DoodleColorPicker 
-                        SelectedColor="@StrokeColor" 
-                        SelectedColorChanged="@((color) => this.StrokeColor = color)"
-                        Options="@Options"
-                        DataAttributeName="@DataAttributeName"></DoodleColorPicker>  *@
-                    <div class="splitter"></div>
-                    <DoodleSizePicker 
-                    SelectedSize="@StrokeSize"
-                    SelectedSizeChanged="@((size) => this.StrokeSize = size)"
-                    DataAttributeName="@DataAttributeName"></DoodleSizePicker>    
+     
 
-
-
-                    <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent
-                            SelectedBackgroundsChanged="@((e) => Backgrounds = e)">
-                    </Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
+                    <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent></Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
 
                     <Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent>
 
@@ -35,21 +24,20 @@
                 <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
                     <div @ref="RenderWrapper" class="doodle-draw-content" >
 
-                        @if (Backgrounds != null && Backgrounds.Count() > 0)
+                        @if (DoodleDrawInteraction.SelectedBackgrounds != null && DoodleDrawInteraction.SelectedBackgrounds.Count() > 0)
                         {
-                            foreach (var background in Backgrounds)
+                            foreach (var background in DoodleDrawInteraction.SelectedBackgrounds)
                             {
-                                <DoodleBackground BackgroundSource="@background"></DoodleBackground>
+                                <Doodle.Components.Background.BackgroundSourceComponent BackgroundSource="@background" IsPreview="false">
+                                </Doodle.Components.Background.BackgroundSourceComponent>
                             }
                         }
                         
-                        <DoodleResizableContainer Active="@IsResizableContainerActive"></DoodleResizableContainer>
+                        <Doodle.Components.Resizable.ResizableListComponent
+                            Active="@IsResizableContainerActive"></Doodle.Components.Resizable.ResizableListComponent>
 
                         <DoodleCanvas 
-                            DataAttributeName="@DataAttributeName" 
-                            StrokeColor="@StrokeColor" 
-                            Options="@Options"
-                            StrokeSize="@StrokeSize"
+                            
                             OnCommandPathsUpdated="@(() => StateHasChanged())"
                             @ref="DoodleCanvas"></DoodleCanvas>
                     </div>
@@ -57,10 +45,8 @@
             </div>
 
 
+        </CascadingValue>
     </CascadingValue>
-
-    
-
 </CascadingValue>
 
 

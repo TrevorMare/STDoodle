@@ -1,45 +1,29 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
-namespace Doodle.Components.Shared
+namespace Doodle.Components.Color
 {
 
-    public partial class DoodleColorPicker : Shared.DoodleBaseComponent
+    public partial class ColorPickerComponent : Shared.DoodleBaseComponent
     {
-
-        #region Members
-        private string _selectedColor;
-        #endregion
-
+ 
         #region "Parameters"
-
         [Parameter]
         public string SelectedColor 
         { 
-            get => _selectedColor; 
+            get => DoodleDrawInteraction.StrokeColor; 
             set 
             {
-                if (_selectedColor != value)
-                {
-                    _selectedColor = value;
-                    SelectedColorChanged.InvokeAsync(_selectedColor);
-                }
+                DoodleDrawInteraction.SetStrokeColor(value).ConfigureAwait(false);
             } 
         }
-
-        [Parameter]
-        public EventCallback<string> SelectedColorChanged { get; set; }
 
         [Parameter]
         public IEnumerable<string> FavouriteColors { get; set; } 
 
         [Parameter]
         public Abstractions.Common.Orientation Orientation { get; set; }
-
-        [Inject]
-        private ILogger<DoodleColorPicker> Logger { get; set; }
 
         [Parameter]
         public string WrapperClass { get; set; }
@@ -60,9 +44,6 @@ namespace Doodle.Components.Shared
         public string ColorInputClass { get; set; }
 
         [Parameter]
-        public bool Visible { get; set; } = true;
-
-        [Parameter]
         public bool ShowCustomColor { get; set; }
         #endregion
 
@@ -79,7 +60,6 @@ namespace Doodle.Components.Shared
             this.CustomWrapperClass = config.ColorPickerConfig.CustomWrapperClass;
             this.ColorInputClass = config.ColorPickerConfig.ColorInputClass;
             this.ShowCustomColor = config.ColorPickerConfig.ShowCustomColor;
-            this.Visible = config.ColorPickerConfig.Visible;
         }
         #endregion
 

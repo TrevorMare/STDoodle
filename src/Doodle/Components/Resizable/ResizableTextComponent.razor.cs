@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Doodle.Components
+namespace Doodle.Components.Resizable
 {
 
-    public partial class DoodleResizableText : ComponentBase
+    public partial class ResizableTextComponent
     {
+        
         #region Members
         private Abstractions.Models.ResizableText Model => (Abstractions.Models.ResizableText)DataSource;
         #endregion
@@ -16,7 +17,6 @@ namespace Doodle.Components
         [Parameter]
         public EventCallback<Abstractions.Interfaces.IResizableContent> DataSourceChanged { get; set; }
         #endregion
-        
     }
 
 }

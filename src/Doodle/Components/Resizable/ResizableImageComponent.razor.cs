@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Doodle.Components
+namespace Doodle.Components.Resizable
 {
 
-    public partial class DoodleResizableImage : ComponentBase
+    public partial class ResizableImageComponent
     {
 
         #region Members
@@ -18,8 +18,6 @@ namespace Doodle.Components
         public EventCallback<Abstractions.Interfaces.IResizableContent> DataSourceChanged { get; set; }
 
         #endregion
-        
-
 
     }
 

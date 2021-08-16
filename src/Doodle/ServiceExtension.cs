@@ -25,6 +25,7 @@ namespace Doodle
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropBuffer, Interops.JsInteropBuffer>();
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropHtml2Canvas, Interops.JsInteropHtml2Canvas>();
             serviceCollection.AddTransient<Abstractions.JsInterop.IJsInteropDragDrop, Interops.JsInteropDragDrop>();
+            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleDrawInteraction, DoodleDrawInteraction>();
 
             return serviceCollection;
         }

@@ -1,0 +1,236 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+/* General */
+/* Selected Icon Overlay */
+/* Doodle Draw */
+/* Canvas  */
+/* Canvas Background  */
+/* Buttons */
+/* Round Button Element With Image */
+.btn-round {
+  height: 28px;
+  width: 28px;
+  margin: 0rem 0.2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  background-color: white;
+}
+.btn-round:active {
+  outline: 0;
+}
+.btn-round:focus {
+  outline: 0;
+}
+.btn-round:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.btn-round:disabled {
+  box-shadow: none !important;
+}
+.btn-round-content-image {
+  height: 28px;
+  width: 28px;
+  overflow: hidden;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+/* Text Button With Icon*/
+.btn-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-text .btn-text-label {
+  color: #7b7b7b;
+  text-transform: uppercase;
+}
+.btn-text .btn-text-icon {
+  color: #7b7b7b;
+}
+.btn-text:hover {
+  text-shadow: 2px 2px 6px rgba(123, 123, 123, 0.6);
+}
+.btn-text.expanded .btn-text-label {
+  color: #ff9800;
+}
+.btn-text.expanded .btn-text-icon {
+  color: #ff9800;
+}
+.btn-text.expanded:hover {
+  text-shadow: 2px 2px 6px rgba(255, 152, 0, 0.6);
+}
+/* Toolbar Layout */
+.doodle-toolbar-header-wrapper {
+  display: flex;
+}
+.doodle-toolbar-content-wrapper {
+  display: flex;
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  transform: translate(0px, 50px);
+  z-index: 24;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+}
+/* Overlay element to indicate selection */
+.selected-icon-overlay {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background-size: contain;
+  display: block;
+  height: 18px;
+  width: 18px;
+  background-image: url("/_content/STDoodle/img/selected-icon.svg");
+  background-repeat: no-repeat;
+}
+.img-circle-button {
+  height: 28px;
+  width: 28px;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.2rem;
+  background-color: white;
+}
+.img-circle-button:active {
+  outline: 0;
+}
+.img-circle-button:focus {
+  outline: 0;
+}
+.img-circle-button:hover {
+  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.img-circle-button:disabled {
+  box-shadow: none !important;
+}
+.img-circle-button:disabled .img-circle-button-content {
+  opacity: 0.4;
+}
+.img-circle-button-content {
+  height: 28px;
+  width: 28px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.circle-button-outer,
+.doodle-color-picker-wrapper .doodle-color-picker-favourites .doodle-color-picker-color-outer {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+  position: relative;
+  cursor: pointer;
+}
+.circle-button-outer.active,
+.doodle-color-picker-wrapper .doodle-color-picker-favourites .doodle-color-picker-color-outer.active {
+  background-color: #485248;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.circle-button-outer:hover,
+.doodle-color-picker-wrapper .doodle-color-picker-favourites .doodle-color-picker-color-outer:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.circle-button-outer.vertical,
+.doodle-color-picker-wrapper .doodle-color-picker-favourites .doodle-color-picker-color-outer.vertical {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+}
+.circle-button-outer:active,
+.doodle-color-picker-wrapper .doodle-color-picker-favourites .doodle-color-picker-color-outer:active {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
+}
+.circle-button-outer.disabled,
+.doodle-color-picker-wrapper .doodle-color-picker-favourites .doodle-color-picker-color-outer.disabled {
+  opacity: 0.6;
+}
+.circle-button-inner,
+.doodle-color-picker-wrapper .doodle-color-picker-favourites .doodle-color-picker-color-outer .doodle-color-picker-color-inner {
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.doodle-canvas-background {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.doodle-color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.doodle-color-picker-wrapper .doodle-color-picker-favourites {
+  display: flex;
+}
+.doodle-color-picker-wrapper .doodle-color-picker-custom {
+  display: flex;
+  padding-left: 0.2rem;
+  margin-left: 0.2rem;
+}
+.doodle-color-picker-wrapper.vertical {
+  flex-direction: column;
+}
+.doodle-color-picker-wrapper.vertical .doodle-color-picker-favourites {
+  flex-direction: column;
+}
+.doodle-color-picker-wrapper.vertical .doodle-color-picker-custom {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0rem;
+  margin-left: 0rem;
+  padding-top: 0.2rem;
+  margin-top: 0.2rem;
+}
