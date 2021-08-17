@@ -36,7 +36,7 @@
 }
 
 /* General */
-@btn-hover-shadow: 0 12px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+@btn-hover-shadow: 0 8px 8px 0 rgba(0,0,0,0.24), 0 12px 25px 0 rgba(0,0,0,0.19);
 @panel-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 @paper-elevation-4: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 @primary-color: #8bc34a;
@@ -48,6 +48,7 @@
 @primary-text-color: #000;
 @secondary-text-color: #000;
 @text-color: #7b7b7b;
+@disabled-color: rgb(90, 90, 90);
 
 /* Selected Icon Overlay */
 @selected-icon-overlay-size: 18px;
@@ -94,6 +95,8 @@
     box-sizing: border-box;
     padding: @button-round-padding;
     background-color: @button-round-background;
+    border: solid 1px @primary-color;
+    color: @primary-color;
 
     &:active {
         outline:0;
@@ -106,7 +109,8 @@
     }
     &:disabled {
         box-shadow: none !important;
-     
+        border: solid 1px @disabled-color;
+        color: @disabled-color;
         // .img-circle-button-content  { TODO
         //     opacity: 0.4;
         // }

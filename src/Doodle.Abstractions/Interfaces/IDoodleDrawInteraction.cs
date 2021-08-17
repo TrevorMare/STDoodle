@@ -12,7 +12,7 @@ namespace Doodle.Abstractions.Interfaces
     public delegate void OnClearDoodleHandler(object sender, bool clearHistory);
     public delegate void OnCanvasGridTypeChangedHandler(object sender, Abstractions.Common.GridType gridType);
     public delegate void OnDrawModeChangedHandler(object sender, Abstractions.Common.DrawMode drawMode);
-    
+    public delegate void OnRestoreHandler(object sender, string jsonContent);
 
     public interface IDoodleDrawInteraction
     {
@@ -30,16 +30,13 @@ namespace Doodle.Abstractions.Interfaces
         event OnBoolChangedHandler OnCanUndoChanged;
         event OnDrawModeChangedHandler OnDrawModeChanged;
         event OnBoolChangedHandler OnIsDirtyChanged;
-        
-        
-        
-        
         event EventHandler OnUndoLastAction;
         event EventHandler OnRedoLastAction;
         event OnClearDoodleHandler OnClearDoodle;
         event EventHandler OnExportImage;
         event EventHandler OnSaveDoodleData;
-        event EventHandler OnRestoreDoodleData;
+        event OnRestoreHandler OnRestoreDoodleData;
+        event EventHandler OnRedrawCanvas;
         #endregion
 
         #region Properties
@@ -89,7 +86,8 @@ namespace Doodle.Abstractions.Interfaces
         Task SetDrawMode(Abstractions.Common.DrawMode drawMode);
 
         Task SetIsDirty(bool value);
-        #endregion
+
+        Task RedrawCanvas();
 
         Task UndoLastAction();
 
@@ -101,7 +99,9 @@ namespace Doodle.Abstractions.Interfaces
 
         Task SaveDoodleData();
 
-        Task RestoreDoodleData();
+        Task RestoreDoodleData(string jsonData);
+
+        #endregion
 
     }
 

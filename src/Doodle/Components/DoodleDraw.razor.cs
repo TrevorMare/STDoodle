@@ -39,6 +39,12 @@ namespace Doodle.Components
         [Inject]
         private Abstractions.JsInterop.IJsInteropHtml2Canvas JsInteropHtml2Canvas { get; set; }
 
+        [Inject]
+        private Abstractions.Interfaces.IDoodleExportHandler DoodleExportHandler { get; set; }
+
+        [Inject]
+        private Abstractions.Interfaces.IDoodleSaveHandler DoodleSaveHandler { get; set; }
+
         private Components.Canvas.CanvasComponent DoodleCanvas { get; set; }
 
         private bool IsResizableContainerActive => (DoodleDrawInteraction.DrawMode == Abstractions.Common.DrawMode.Resizable);
@@ -80,6 +86,9 @@ namespace Doodle.Components
             this.DoodleDrawInteraction.OnStateHasChanged += (s, e) => {
                 StateHasChanged();
             };
+            this.DoodleDrawInteraction.OnExportImage += (s, e) => {
+                this.ExportDoodleToImage().ConfigureAwait(false);
+            };
 
             base.OnInitialized();
         }
@@ -106,6 +115,8 @@ namespace Doodle.Components
                 _logger.LogInformation($"Reading stream data from buffer.");
 
                 var base64ImageData = await JsInteropBuffer.ReadBuffer(bufferId);
+
+                await this.DoodleExportHandler.ExportImageBase64(base64ImageData);
 
                 this.imgSource = base64ImageData;
                 StateHasChanged();

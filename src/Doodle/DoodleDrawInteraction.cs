@@ -46,14 +46,14 @@ namespace Doodle
         public event OnBoolChangedHandler OnCanUndoChanged;
         public event OnDrawModeChangedHandler OnDrawModeChanged;
         public event OnBoolChangedHandler OnIsDirtyChanged;
-        #endregion
-
         public event EventHandler OnUndoLastAction;
         public event EventHandler OnRedoLastAction;
         public event OnClearDoodleHandler OnClearDoodle;
         public event EventHandler OnExportImage;
         public event EventHandler OnSaveDoodleData;
-        public event EventHandler OnRestoreDoodleData;
+        public event OnRestoreHandler OnRestoreDoodleData;
+        public event EventHandler OnRedrawCanvas;
+        #endregion
 
         #region Methods
         public Task AddBackground(BackgroundData backgroundData)
@@ -186,42 +186,55 @@ namespace Doodle
             }
             return Task.CompletedTask;
         }
-        #endregion
+
+        public Task RedoLastAction()
+        {
+            if (this.CanRedo)
+            {
+                OnRedoLastAction?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task UndoLastAction()
+        {
+            if (this.CanUndo)
+            {
+                OnUndoLastAction?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
 
         public Task ClearDoodle(bool clearHistory)
         {
-            throw new NotImplementedException();
+            OnClearDoodle?.Invoke(this, clearHistory);
+            return Task.CompletedTask;
         }
 
         public Task ExportImage()
         {
-            throw new NotImplementedException();
+            OnExportImage?.Invoke(this, null);
+            return Task.CompletedTask;
         }
 
-        public Task RedoLastAction()
+        public Task RestoreDoodleData(string jsonData)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task RestoreDoodleData()
-        {
-            throw new NotImplementedException();
+            OnRestoreDoodleData?.Invoke(this, jsonData);
+            return Task.CompletedTask;
         }
 
         public Task SaveDoodleData()
         {
-            throw new NotImplementedException();
+            OnSaveDoodleData?.Invoke(this, null);
+            return Task.CompletedTask;
         }
 
-        
-
-       
-
-        public Task UndoLastAction()
+         public Task RedrawCanvas()
         {
-            throw new NotImplementedException();
+            OnRedrawCanvas?.Invoke(this, null);
+            return Task.CompletedTask;
         }
+        #endregion
+        
     }
-
-
 }

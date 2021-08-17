@@ -20,6 +20,16 @@ namespace Doodle.Components.Resizable
         #endregion
 
         #region Config Init
+        protected override void OnInitialized()
+        {
+            this.DoodleDrawInteraction.OnClearDoodle += (s, clearHistory) => 
+            {
+                this.Content = new List<Abstractions.Interfaces.IResizableContent>();
+                StateHasChanged();
+            };
+            base.OnInitialized();
+        }
+
         protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
             this.Content = new List<Abstractions.Interfaces.IResizableContent>() 

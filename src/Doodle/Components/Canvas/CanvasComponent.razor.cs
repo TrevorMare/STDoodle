@@ -117,6 +117,15 @@ namespace Doodle.Components.Canvas
             this.DoodleDrawInteraction.OnCanvasGridTypeChanged += (s, gridType) => {
 
             };
+            this.DoodleDrawInteraction.OnClearDoodle += (s, clearHistory) => {
+                this.ClearCanvas(clearHistory).ConfigureAwait(false);
+            };
+            this.DoodleDrawInteraction.OnUndoLastAction += (s, e) =>  {
+                this.Undo().ConfigureAwait(false);
+            };
+            this.DoodleDrawInteraction.OnRedoLastAction += (s, e) =>  {
+                this.Redo().ConfigureAwait(false);
+            };
             base.OnInitialized();
         }
 
@@ -253,6 +262,11 @@ namespace Doodle.Components.Canvas
             this.CanRedo = await this.JsInteropCanvas.CanRedo();
 
             this.PathCommands = drawCommands;
+
+            await this.DoodleDrawInteraction.SetIsDirty(true);
+            await this.DoodleDrawInteraction.SetCanRedo(this.CanRedo);
+            await this.DoodleDrawInteraction.SetCanUndo(this.CanUndo);
+
 
             await this.OnCommandPathsUpdated.InvokeAsync(this.PathCommands);
             await this.OnCanvasUpdated.InvokeAsync();

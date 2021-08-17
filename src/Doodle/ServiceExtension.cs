@@ -27,6 +27,9 @@ namespace Doodle
             serviceCollection.AddTransient<Abstractions.JsInterop.IJsInteropDragDrop, Interops.JsInteropDragDrop>();
             serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleDrawInteraction, DoodleDrawInteraction>();
 
+            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleExportHandler, Helpers.DoodleExportHandler>();
+            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleSaveHandler, Helpers.DoodleSaveHandler>();
+
             return serviceCollection;
         }
 

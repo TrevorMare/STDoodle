@@ -3,37 +3,37 @@
 
 @if (Visible) 
 {
-    <div data-doodle-toolbar="@DataAttributeName" class="doodle-toolbar-wrapper @WrapperClass">
+    <div data-doodle-toolbar="@DataAttributeName" class="doodle-actionbar-wrapper @WrapperClass">
 
-        <div class="doodle-toolbar-buttons @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")">
+        <div class="doodle-actionbar-buttons @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")">
 
             <button hidden="@(!UndoButtonVisible)"  disabled=@(!UndoButtonEnabled) 
-                    class="doodle-toolbar-button @UndoButtonClass" 
+                    class="doodle-actionbar-button @UndoButtonClass" title="Undo"
                     @onclick="@(() => DoodleDrawInteraction.UndoLastAction())"> 
-                    <span>Undo</span>
+                    <span class="material-icons">undo</span>
             </button>
 
             <button hidden="@(!RedoButtonVisible)" disabled=@(!RedoButtonEnabled) 
-                    class="doodle-toolbar-button @RedoButtonClass" 
+                    class="doodle-actionbar-button @RedoButtonClass" title="Redo"
                     @onclick="@(() => DoodleDrawInteraction.RedoLastAction())">
-                    <span>Redo</span>
+                    <span class="material-icons">redo</span>
             </button>
             
             <button hidden="@(!ClearButtonVisible)" disabled=@(!ClearButtonEnabled) 
-                    class="doodle-toolbar-button @ClearButtonClass" 
+                    class="doodle-actionbar-button @ClearButtonClass" title="Clear"
                     @onclick="@(() => DoodleDrawInteraction.ClearDoodle(ClearHistoryOnClear))">
-                    <span>Clear</span>
+                    <span class="material-icons">clear</span>
             </button>
 
             <button hidden="@(!SaveButtonVisible)" disabled=@(!SaveButtonEnabled) 
-                    class="doodle-toolbar-button @SaveButtonClass" 
-                    >
-                    <span>Save</span>
+                    class="doodle-actionbar-button @SaveButtonClass" title="Save"> 
+                    <span class="material-icons">save</span>
             </button>
 
             <button hidden="@(!ExportButtonVisible)" disabled=@(!ExportButtonEnabled) 
-                    class="doodle-toolbar-button @ExportButtonClass">
-                    <span>Export</span>
+                    class="doodle-actionbar-button @ExportButtonClass" title="Export Image"
+                    @onclick="@(() => DoodleDrawInteraction.ExportImage())">
+                    <span class="material-icons">file_download</span>
             </button>
         </div>
     </div>

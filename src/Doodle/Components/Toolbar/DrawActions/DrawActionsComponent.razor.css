@@ -33,7 +33,8 @@
 /* Canvas Background  */
 /* Buttons */
 /* Round Button Element With Image */
-.btn-round {
+.btn-round,
+.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button {
   height: 28px;
   width: 28px;
   margin: 0rem 0.2rem;
@@ -44,18 +45,26 @@
   box-sizing: border-box;
   padding: 0.2rem;
   background-color: white;
+  border: solid 1px #8bc34a;
+  color: #8bc34a;
 }
-.btn-round:active {
+.btn-round:active,
+.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:active {
   outline: 0;
 }
-.btn-round:focus {
+.btn-round:focus,
+.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:focus {
   outline: 0;
 }
-.btn-round:hover {
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.btn-round:hover,
+.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:hover {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled {
+.btn-round:disabled,
+.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:disabled {
   box-shadow: none !important;
+  border: solid 1px #5a5a5a;
+  color: #5a5a5a;
 }
 .btn-round-content-image {
   height: 28px;
@@ -118,8 +127,7 @@
   background-image: url("/_content/STDoodle/img/selected-icon.svg");
   background-repeat: no-repeat;
 }
-.img-circle-button,
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button {
+.img-circle-button {
   height: 28px;
   width: 28px;
   margin-left: 0.2rem;
@@ -132,29 +140,22 @@
   padding: 0.2rem;
   background-color: white;
 }
-.img-circle-button:active,
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button:active {
+.img-circle-button:active {
   outline: 0;
 }
-.img-circle-button:focus,
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button:focus {
+.img-circle-button:focus {
   outline: 0;
 }
-.img-circle-button:hover,
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button:hover {
+.img-circle-button:hover {
   box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
-.img-circle-button:disabled,
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button:disabled {
+.img-circle-button:disabled {
   box-shadow: none !important;
 }
-.img-circle-button:disabled .img-circle-button-content,
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button:disabled .img-circle-button-content,
-.img-circle-button:disabled .doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper {
+.img-circle-button:disabled .img-circle-button-content {
   opacity: 0.4;
 }
-.img-circle-button-content,
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper {
+.img-circle-button-content {
   height: 28px;
   width: 28px;
   background-color: transparent;
@@ -207,29 +208,11 @@
   background-position: center;
   background-size: contain;
 }
-.doodle-toolbar-wrapper .doodle-toolbar-buttons {
+.doodle-actionbar-wrapper .doodle-actionbar-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-undo {
-  background-image: url("/_content/STDoodle/img/undo-icon.svg");
-}
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-redo {
-  background-image: url("/_content/STDoodle/img/redo-icon.svg");
-}
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-clear {
-  background-image: url("/_content/STDoodle/img/clear-icon.svg");
-}
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-save {
-  background-image: url("/_content/STDoodle/img/save-icon.svg");
-}
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button .img-wrapper.toolbar-button-export {
-  background-image: url("/_content/STDoodle/img/image-icon.svg");
-}
-.doodle-toolbar-wrapper .doodle-toolbar-buttons .doodle-toolbar-button:disabled .img-wrapper {
-  opacity: 0.4;
-}
-.doodle-toolbar-wrapper .doodle-toolbar-buttons.vertical {
+.doodle-actionbar-wrapper .doodle-actionbar-buttons.vertical {
   flex-direction: column;
 }
