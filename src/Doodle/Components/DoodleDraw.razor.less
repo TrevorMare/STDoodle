@@ -1,42 +1,20 @@
 @import url(../wwwroot/styles/shared.less);
 
-@break-color: rgba(0, 0, 0, 0.2);
 .doodle-draw-wrapper {
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
-
-    .splitter {
-        margin-right: 0.8rem;
-        margin-left: 0.8rem;
-        width: 1px;
-        box-sizing: border-box;
-        border-right: solid 2px #3b3b3b;
-    }
-
-    .doodle-draw-header {
-        display: flex;  
-        padding: 0.4rem;      
-        border-bottom: solid 1px @break-color;
-        height: @header-height;
-    }
-
+    box-shadow: @paper-elevation-4;
+    height: 100%;
     .doodle-draw-body {
-        display: flex; 
-        .doodle-draw-left-panel {
-
-        }
+        height: calc(100% - @header-height);
+        width: 100%;
+        display: flex;
         .doodle-draw-content {
-            height: 400px;
-            width: 400px;
+            display: flex;
+            flex-grow: 1;
+            width: 100%;
             background-color: whitesmoke;
             position: relative;
             
         }
-
-        .doodle-draw-right-panel {
-
-        }
-
-
     }
 }
 
