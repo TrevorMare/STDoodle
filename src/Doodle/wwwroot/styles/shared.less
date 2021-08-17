@@ -113,49 +113,8 @@
         box-shadow: none !important;
         border: solid 1px @disabled-color;
         color: @disabled-color;
-        // .img-circle-button-content  { TODO
-        //     opacity: 0.4;
-        // }
-    }
-}
-
-.btn-round-content-image {
-    height: @button-round-size;
-    width: @button-round-size;
-    overflow: hidden;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-/* Text Button With Icon*/
-.btn-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    .btn-text-label {
-        color: @text-color;
-        text-transform: uppercase;
-    }
-    .btn-text-icon {
-        color: @text-color;
-    }
-
-    &:hover {
-        text-shadow: 2px 2px 6px fade(@text-color, 60%);
-    }
-
-    &.expanded {
-        .btn-text-label {
-            color: @secondary-color;
-        }
-        .btn-text-icon {
-            color: @secondary-color;
-        }
-        &:hover {
-            text-shadow: 2px 2px 6px fade(@secondary-color, 60%);
+        span  { 
+            opacity: 0.4;
         }
     }
 }
@@ -190,94 +149,10 @@
 }
 
 
-.img-circle-button {
-    height: @img-circle-button-size;
-    width: @img-circle-button-size;
-    margin-left: @circle-button-default-margin;
-    margin-right: @circle-button-default-margin;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0.2rem;
-    background-color: white;
-    &:active {
-        outline:0;
-    }
-    &:focus {
-        outline:0;
-    }
-    &:hover {
-        box-shadow: 0 12px 12px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    }
-    &:disabled {
-        box-shadow: none !important;
-        .img-circle-button-content  {
-            opacity: 0.4;
-        }
-    }
-}
-
-.img-circle-button-content {
-    height: @img-circle-button-size;
-    width: @img-circle-button-size;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.circle-button-outer {
-    height: @circle-button-outer-size;
-    width: @circle-button-outer-size;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-
-    border: @circle-button-outer-border;
-    margin-left: @circle-button-default-margin;
-    margin-right: @circle-button-default-margin;
-    position: relative;
-    cursor: pointer;
-
-    &.active {
-        background-color: @circle-button-active-color;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    }
-
-    &:hover {
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    }
-
-    &.vertical {
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-top: @circle-button-default-margin;
-        margin-bottom: @circle-button-default-margin;
-    }
-
-    &:active {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.35), 0 6px 20px 0 rgba(0,0,0,0.59);
-    }
-
-    &.disabled {
-        opacity: 0.6;
-    }
-}
-
-.circle-button-inner {
-    box-sizing: border-box;
-    height: @circle-button-inner-size;
-    width: @circle-button-inner-size;
-    border-radius: 50%;
-}
-
 .doodle-canvas-background {
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
 } 
+

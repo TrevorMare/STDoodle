@@ -37,7 +37,8 @@ namespace Doodle.Abstractions.Common
         None = 0,
         ColorPicker = 1,
         BackgroundPicker = 2,
-        SizePicker = 3
+        SizePicker = 3,
+        CanvasGridOptions = 4
 
     }
 
