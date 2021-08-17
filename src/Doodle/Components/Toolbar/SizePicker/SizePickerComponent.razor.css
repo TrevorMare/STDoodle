@@ -34,7 +34,7 @@
 /* Buttons */
 /* Round Button Element With Image */
 .btn-round,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons .doodle-sizepicker-button {
   height: 36px;
   width: 36px;
   margin: 0rem 0.2rem;
@@ -49,23 +49,23 @@
   color: #5a9216;
 }
 .btn-round span,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button span {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons .doodle-sizepicker-button span {
   font-size: 1.4rem;
 }
 .btn-round:active,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:active {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons .doodle-sizepicker-button:active {
   outline: 0;
 }
 .btn-round:focus,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:focus {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons .doodle-sizepicker-button:focus {
   outline: 0;
 }
 .btn-round:hover,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:hover {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons .doodle-sizepicker-button:hover {
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
 .btn-round:disabled,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:disabled {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons .doodle-sizepicker-button:disabled {
   box-shadow: none !important;
   border: solid 1px #5a5a5a;
   color: #5a5a5a;
@@ -212,14 +212,14 @@
   background-position: center;
   background-size: contain;
 }
-.doodle-actionbar-wrapper {
+.doodle-sizepicker-wrapper {
   display: flex;
 }
-.doodle-actionbar-wrapper .doodle-actionbar-buttons {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.doodle-actionbar-wrapper .doodle-actionbar-buttons.vertical {
+.doodle-sizepicker-wrapper .doodle-sizepicker-buttons.vertical {
   flex-direction: column;
 }

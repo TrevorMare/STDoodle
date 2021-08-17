@@ -34,7 +34,7 @@
 /* Buttons */
 /* Round Button Element With Image */
 .btn-round,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button {
   height: 36px;
   width: 36px;
   margin: 0rem 0.2rem;
@@ -49,23 +49,23 @@
   color: #5a9216;
 }
 .btn-round span,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button span {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button span {
   font-size: 1.4rem;
 }
 .btn-round:active,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:active {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:active {
   outline: 0;
 }
 .btn-round:focus,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:focus {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:focus {
   outline: 0;
 }
 .btn-round:hover,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:hover {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:hover {
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
 .btn-round:disabled,
-.doodle-actionbar-wrapper .doodle-actionbar-buttons .doodle-actionbar-button:disabled {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:disabled {
   box-shadow: none !important;
   border: solid 1px #5a5a5a;
   color: #5a5a5a;
@@ -212,14 +212,14 @@
   background-position: center;
   background-size: contain;
 }
-.doodle-actionbar-wrapper {
+.doodle-drawtype-wrapper {
   display: flex;
 }
-.doodle-actionbar-wrapper .doodle-actionbar-buttons {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.doodle-actionbar-wrapper .doodle-actionbar-buttons.vertical {
+.doodle-drawtype-wrapper .doodle-drawtype-buttons.vertical {
   flex-direction: column;
 }

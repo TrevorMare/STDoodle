@@ -1,24 +1,18 @@
 @import url(../../../wwwroot/styles/shared.less);    
 
-.background-preview-wrapper {  
-     
-    .background-preview {
-        &:extend(.doodle-canvas-background all);
-        height: @canvas-background-preview-height;
-        width: @canvas-background-preview-width;
-        min-height: @canvas-background-preview-height;
-        min-width: @canvas-background-preview-width;
-        margin: @canvas-background-preview-margin;
-        position: relative; 
-        overflow: hidden;
-        box-sizing: border-box;
-        box-shadow: @paper-elevation-4;
-        &.selected {
-            &::after {
-               &:extend(.selected-icon-overlay all);
-            }
+.doodle-backgroundpicker-wrapper { 
+    display: flex; 
+    .doodle-backgroundpicker-buttons { 
+        display: flex;
+        justify-content: center;
+        align-items: center;  
+
+        .doodle-backgroundpicker-button {
+           &:extend(.btn-round all);
+        }
+
+        &.vertical {
+            flex-direction: column; 
         }
     }
-
-
 }

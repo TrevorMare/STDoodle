@@ -32,4 +32,13 @@ namespace Doodle.Abstractions.Common
         Resizable = 2
     }
 
+    public enum ToolbarContent
+    {
+        None = 0,
+        ColorPicker = 1,
+        BackgroundPicker = 2,
+        SizePicker = 3
+
+    }
+
 }

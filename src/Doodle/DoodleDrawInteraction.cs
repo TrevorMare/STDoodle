@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Doodle.Abstractions.Common;
 using Doodle.Abstractions.Interfaces;
 using Doodle.Abstractions.Models;
 
@@ -31,9 +32,12 @@ namespace Doodle
         public bool IsDirty { get; private set; } = false;
 
         public Abstractions.Common.DrawMode DrawMode { get; private set; } = Abstractions.Common.DrawMode.Canvas;
+
+        public ToolbarContent ToolbarContent { get; private set; } = ToolbarContent.None; 
         #endregion
 
         #region Events
+        public event OnToolbarContentChangedHandler OnToolbarContentChanged;
         public event OnBackgroundChangedHandler OnBackgroundAdded;
         public event OnBackgroundChangedHandler OnBackgroundRemoved;
         public event EventHandler OnStateHasChanged;
@@ -229,9 +233,41 @@ namespace Doodle
             return Task.CompletedTask;
         }
 
-         public Task RedrawCanvas()
+        public Task RedrawCanvas()
         {
             OnRedrawCanvas?.Invoke(this, null);
+            return Task.CompletedTask;
+        }
+
+        public Task SetToolbarContent(ToolbarContent toolbarContent)
+        {
+            if (toolbarContent != this.ToolbarContent)
+            {
+                this.ToolbarContent = toolbarContent;
+                this.OnToolbarContentChanged?.Invoke(this, toolbarContent);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task ToggleToolbarContent(ToolbarContent toolbarContent)
+        {
+            if (toolbarContent != ToolbarContent.None)
+            {
+                if (toolbarContent == this.ToolbarContent)
+                {
+                    this.ToolbarContent = ToolbarContent.None;
+                    this.OnToolbarContentChanged?.Invoke(this, ToolbarContent.None);
+                    this.OnStateHasChanged?.Invoke(this, null);
+                }
+                else
+                {
+                    this.ToolbarContent = toolbarContent;
+                    this.OnToolbarContentChanged?.Invoke(this, toolbarContent);
+                    this.OnStateHasChanged?.Invoke(this, null);
+                }
+            }
+
             return Task.CompletedTask;
         }
         #endregion

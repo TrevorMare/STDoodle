@@ -65,7 +65,7 @@
 @canvas-background-preview-margin: 0.4rem;
 
 /* Buttons */
-@button-round-size: 28px;
+@button-round-size: 36px;
 @button-round-margin: 0rem 0.2rem;
 @button-round-padding: 0.2rem;
 @button-round-background: white;
@@ -96,8 +96,10 @@
     padding: @button-round-padding;
     background-color: @button-round-background;
     border: solid 1px @primary-color;
-    color: @primary-color;
-
+    color: @primary-color-dark;
+    span {
+        font-size: 1.4rem;
+    }
     &:active {
         outline:0;
     }

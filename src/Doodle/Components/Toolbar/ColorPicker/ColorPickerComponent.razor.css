@@ -33,9 +33,10 @@
 /* Canvas Background  */
 /* Buttons */
 /* Round Button Element With Image */
-.btn-round {
-  height: 28px;
-  width: 28px;
+.btn-round,
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons .doodle-colorpicker-button {
+  height: 36px;
+  width: 36px;
   margin: 0rem 0.2rem;
   border-radius: 50%;
   display: flex;
@@ -44,22 +45,34 @@
   box-sizing: border-box;
   padding: 0.2rem;
   background-color: white;
+  border: solid 1px #8bc34a;
+  color: #5a9216;
 }
-.btn-round:active {
+.btn-round span,
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons .doodle-colorpicker-button span {
+  font-size: 1.4rem;
+}
+.btn-round:active,
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons .doodle-colorpicker-button:active {
   outline: 0;
 }
-.btn-round:focus {
+.btn-round:focus,
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons .doodle-colorpicker-button:focus {
   outline: 0;
 }
-.btn-round:hover {
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.btn-round:hover,
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons .doodle-colorpicker-button:hover {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled {
+.btn-round:disabled,
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons .doodle-colorpicker-button:disabled {
   box-shadow: none !important;
+  border: solid 1px #5a5a5a;
+  color: #5a5a5a;
 }
 .btn-round-content-image {
-  height: 28px;
-  width: 28px;
+  height: 36px;
+  width: 36px;
   overflow: hidden;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -198,4 +211,15 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+.doodle-colorpicker-wrapper {
+  display: flex;
+}
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.doodle-colorpicker-wrapper .doodle-colorpicker-buttons.vertical {
+  flex-direction: column;
 }

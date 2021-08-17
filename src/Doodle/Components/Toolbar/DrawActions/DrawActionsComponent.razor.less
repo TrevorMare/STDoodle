@@ -1,17 +1,18 @@
 @import url(../../../wwwroot/styles/shared.less);    
  
-.doodle-actionbar-wrapper {  
+.doodle-actionbar-wrapper { 
+    display: flex; 
     .doodle-actionbar-buttons { 
         display: flex;
         justify-content: center;
-        align-items: center; 
+        align-items: center;  
 
         .doodle-actionbar-button {
            &:extend(.btn-round all);
         }
 
         &.vertical {
-            flex-direction: column;
+            flex-direction: column;  
         }
     }
 }

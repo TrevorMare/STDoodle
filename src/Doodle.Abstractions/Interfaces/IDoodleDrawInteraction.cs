@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Doodle.Abstractions.Common;
 
 namespace Doodle.Abstractions.Interfaces
 {
 
+    public delegate void OnToolbarContentChangedHandler(object sender, ToolbarContent toolbarContent);
     public delegate void OnColorChangedHandler(object sender, string color);
     public delegate void OnSizeChangedHandler(object sender, double size);
     public delegate void OnBoolChangedHandler(object sender, bool size);
@@ -36,7 +38,8 @@ namespace Doodle.Abstractions.Interfaces
         event EventHandler OnExportImage;
         event EventHandler OnSaveDoodleData;
         event OnRestoreHandler OnRestoreDoodleData;
-        event EventHandler OnRedrawCanvas;
+        event EventHandler OnRedrawCanvas; 
+        event OnToolbarContentChangedHandler OnToolbarContentChanged;
         #endregion
 
         #region Properties
@@ -60,6 +63,8 @@ namespace Doodle.Abstractions.Interfaces
         bool IsDirty { get; }
 
         Abstractions.Common.DrawMode DrawMode { get; }
+
+        ToolbarContent ToolbarContent { get; }
         #endregion
 
         #region Methods        
@@ -101,6 +106,9 @@ namespace Doodle.Abstractions.Interfaces
 
         Task RestoreDoodleData(string jsonData);
 
+        Task SetToolbarContent(ToolbarContent toolbarContent);
+
+        Task ToggleToolbarContent(ToolbarContent toolbarContent);
         #endregion
 
     }

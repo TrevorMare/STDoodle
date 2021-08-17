@@ -33,9 +33,10 @@
 /* Canvas Background  */
 /* Buttons */
 /* Round Button Element With Image */
-.btn-round {
-  height: 28px;
-  width: 28px;
+.btn-round,
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons .doodle-backgroundpicker-button {
+  height: 36px;
+  width: 36px;
   margin: 0rem 0.2rem;
   border-radius: 50%;
   display: flex;
@@ -44,22 +45,34 @@
   box-sizing: border-box;
   padding: 0.2rem;
   background-color: white;
+  border: solid 1px #8bc34a;
+  color: #5a9216;
 }
-.btn-round:active {
+.btn-round span,
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons .doodle-backgroundpicker-button span {
+  font-size: 1.4rem;
+}
+.btn-round:active,
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons .doodle-backgroundpicker-button:active {
   outline: 0;
 }
-.btn-round:focus {
+.btn-round:focus,
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons .doodle-backgroundpicker-button:focus {
   outline: 0;
 }
-.btn-round:hover {
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.btn-round:hover,
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons .doodle-backgroundpicker-button:hover {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled {
+.btn-round:disabled,
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons .doodle-backgroundpicker-button:disabled {
   box-shadow: none !important;
+  border: solid 1px #5a5a5a;
+  color: #5a5a5a;
 }
 .btn-round-content-image {
-  height: 28px;
-  width: 28px;
+  height: 36px;
+  width: 36px;
   overflow: hidden;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -106,8 +119,7 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
 }
 /* Overlay element to indicate selection */
-.selected-icon-overlay,
-.background-preview-wrapper .background-preview.selected::after {
+.selected-icon-overlay {
   content: "";
   position: absolute;
   bottom: 0px;
@@ -194,21 +206,20 @@
   width: 20px;
   border-radius: 50%;
 }
-.doodle-canvas-background,
-.background-preview-wrapper .background-preview {
+.doodle-canvas-background {
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
-.background-preview-wrapper .background-preview {
-  height: 128px;
-  width: 128px;
-  min-height: 128px;
-  min-width: 128px;
-  margin: 0.4rem;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+.doodle-backgroundpicker-wrapper {
+  display: flex;
+}
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.doodle-backgroundpicker-wrapper .doodle-backgroundpicker-buttons.vertical {
+  flex-direction: column;
 }

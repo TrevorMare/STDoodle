@@ -1,17 +1,10 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbar-header-colorpicker="@DataAttributeName" class="doodle-toolbar-header-wrapper">
-    <div class="btn-text @(IsOpen ? "expanded" : "")" @onclick="@(() => IsOpen = !IsOpen)">
-        <span class="btn-text-label">Color</span>
-        <span class="btn-text-icon material-icons">
-            @(IsOpen ? "expand_less" : "expand_more")
-        </span>
+<div data-toolbar-header-colorpicker="@DataAttributeName" class="doodle-colorpicker-wrapper">
+    <div class="doodle-colorpicker-buttons">
+        <button class="doodle-colorpicker-button" title="Pick Color"
+                @onclick="@(() => DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ColorPicker))"> 
+                <span class="material-icons" style="color: @DoodleDrawInteraction.StrokeColor;">format_color_fill</span>
+        </button>
     </div>
-</div>
-
-<div hidden="@(!IsOpen)" data-toolbar-content-colorpicker="@DataAttributeName" class="doodle-toolbar-content-wrapper background-preview-wrapper">
-    <Doodle.Components.Color.ColorPickerComponent></Doodle.Components.Color.ColorPickerComponent>
-
-    <Doodle.Components.Size.SizePickerComponent></Doodle.Components.Size.SizePickerComponent>
-
 </div>
