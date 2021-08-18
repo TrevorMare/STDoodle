@@ -6,7 +6,7 @@ namespace Doodle.Abstractions.JsInterop
     public interface IJsInteropCommon
     {
 
-        
+        Task ClickElement(ElementReference element);
 
     }
 }

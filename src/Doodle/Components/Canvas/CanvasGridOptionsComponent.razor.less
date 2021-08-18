@@ -1,0 +1,66 @@
+@import url(../../wwwroot/styles/shared.less);  
+.doodle-canvasgridoptions-wrapper {
+    display: flex;
+    height: 150px;
+
+    .grid-option-gridtype {
+
+    }
+    .grid-option-gridsize {
+        .doodle-gridsize-buttons { 
+            display: flex;
+            justify-content: center;
+            align-items: center;  
+    
+            .doodle-gridsize-button {
+               &:extend(.btn-round all);
+            }
+    
+            &.vertical {
+                flex-direction: column; 
+            }
+        }
+    
+    }
+    .grid-option-gridcolor {
+    
+    }
+
+    .doodle-canvasgridoptions-button {
+        &:extend(.btn-round all);
+    }
+
+    .toolbar-panel {
+        padding: 0.8rem;
+        border-right: solid 1px @dark-color; 
+        .toolbar-panel-header {
+            width: 100%;
+            text-align: center;
+            span {
+                color: @secondary-color;
+                text-transform: uppercase;
+            }
+        }
+        .toolbar-panel-content {
+            align-self: center;
+            justify-self: center;
+        }
+    
+    }
+
+    input[type="radio"] {
+        display: none;
+    }
+      
+    input[type="radio"] ~ label {
+        display: flex;
+        opacity: 1;
+    }
+      
+    input[type="radio"]:checked ~ label {
+        opacity: 1;
+        color: @primary-color-dark;
+    }
+
+
+}

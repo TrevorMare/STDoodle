@@ -33,7 +33,9 @@
 /* Canvas Background  */
 /* Buttons */
 /* Round Button Element With Image */
-.btn-round {
+.btn-round,
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons .doodle-gridsize-button,
+.doodle-canvasgridoptions-wrapper .doodle-canvasgridoptions-button {
   height: 36px;
   width: 36px;
   margin: 0rem 0.2rem;
@@ -47,24 +49,36 @@
   border: solid 1px #8bc34a;
   color: #5a9216;
 }
-.btn-round span {
+.btn-round span,
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons .doodle-gridsize-button span,
+.doodle-canvasgridoptions-wrapper .doodle-canvasgridoptions-button span {
   font-size: 1.4rem;
 }
-.btn-round:active {
+.btn-round:active,
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons .doodle-gridsize-button:active,
+.doodle-canvasgridoptions-wrapper .doodle-canvasgridoptions-button:active {
   outline: 0;
 }
-.btn-round:focus {
+.btn-round:focus,
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons .doodle-gridsize-button:focus,
+.doodle-canvasgridoptions-wrapper .doodle-canvasgridoptions-button:focus {
   outline: 0;
 }
-.btn-round:hover {
+.btn-round:hover,
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons .doodle-gridsize-button:hover,
+.doodle-canvasgridoptions-wrapper .doodle-canvasgridoptions-button:hover {
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled {
+.btn-round:disabled,
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons .doodle-gridsize-button:disabled,
+.doodle-canvasgridoptions-wrapper .doodle-canvasgridoptions-button:disabled {
   box-shadow: none !important;
   border: solid 1px #5a5a5a;
   color: #5a5a5a;
 }
-.btn-round:disabled span {
+.btn-round:disabled span,
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons .doodle-gridsize-button:disabled span,
+.doodle-canvasgridoptions-wrapper .doodle-canvasgridoptions-button:disabled span {
   opacity: 0.4;
 }
 /* Toolbar Layout */
@@ -99,26 +113,42 @@
   background-position: center;
   background-size: contain;
 }
-.toolbar-wrapper {
-  position: relative;
-}
-.toolbar-wrapper .toolbar-header {
+.doodle-canvasgridoptions-wrapper {
   display: flex;
-  align-content: center;
-  width: 100%;
-  height: 50px;
+  height: 150px;
 }
-.toolbar-wrapper .toolbar-content-wrapper {
-  position: absolute;
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons {
   display: flex;
-  width: 100%;
-  min-height: 50px;
-  top: 50px;
-  left: 0px;
-  z-index: 23;
-  background: white;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+  justify-content: center;
+  align-items: center;
 }
-.toolbar-wrapper .toolbar-content-wrapper .toolbar-content {
-  height: 100%;
+.doodle-canvasgridoptions-wrapper .grid-option-gridsize .doodle-gridsize-buttons.vertical {
+  flex-direction: column;
+}
+.doodle-canvasgridoptions-wrapper .toolbar-panel {
+  padding: 0.8rem;
+  border-right: solid 1px rgba(0, 0, 0, 0.2);
+}
+.doodle-canvasgridoptions-wrapper .toolbar-panel .toolbar-panel-header {
+  width: 100%;
+  text-align: center;
+}
+.doodle-canvasgridoptions-wrapper .toolbar-panel .toolbar-panel-header span {
+  color: #ff9800;
+  text-transform: uppercase;
+}
+.doodle-canvasgridoptions-wrapper .toolbar-panel .toolbar-panel-content {
+  align-self: center;
+  justify-self: center;
+}
+.doodle-canvasgridoptions-wrapper input[type="radio"] {
+  display: none;
+}
+.doodle-canvasgridoptions-wrapper input[type="radio"] ~ label {
+  display: flex;
+  opacity: 1;
+}
+.doodle-canvasgridoptions-wrapper input[type="radio"]:checked ~ label {
+  opacity: 1;
+  color: #5a9216;
 }

@@ -1,13 +1,65 @@
 @inherits Shared.DoodleBaseComponent
 
-<div>
+<div data-doodle-canvasgridoptions-wrapper="@DataAttributeName" class="doodle-canvasgridoptions-wrapper">
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Grid Type</span>
+        </div>
+        
+        <div class="toolbar-panel-content">
 
-    <span>Grid On?</span>
-   
+            <input type="radio" name="grid_type" value="none" id="grid_type-none">
+            <label for="grid_type-none">
+                <span class="material-icons">check_box_outline_blank</span>
+                None
+            </label>
+
+            <input type="radio" name="grid_type" value="point" id="grid_type-point" checked="checked">
+            <label for="grid_type-point">
+                <span class="material-icons">apps</span>
+                Point
+            </label>
+
+            <input type="radio" name="grid_type" value="line" id="grid_type-line">
+            <label for="grid_type-line">
+                <span class="material-icons">window</span>
+                Line
+            </label>
+        
+        </div>
 
 
-    <span>Grid Size</span>
+    </div>
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Grid Size</span>
+        </div>
 
-    <span>Grid Color</span>
+        <div class="toolbar-panel-content">
+            <button class="doodle-canvasgridoptions-button" title="Decrease"
+                    @onclick="@(() => DoodleDrawInteraction.SetCanvasGridSize(10))"> 
+                    <span class="material-icons">remove_circle_outline</span>
+            </button>
 
+            <input type="number" value="@DoodleDrawInteraction.GridSize" @onchange="@((e) => DoodleDrawInteraction.SetCanvasGridSize((int)e.Value))" />
+
+            <button class="doodle-canvasgridoptions-button" title="Increase"
+                    @onclick="@(() => DoodleDrawInteraction.SetCanvasGridSize(20))"> 
+                    <span class="material-icons">add_circle_outline</span>
+            </button>
+        </div>
+
+    </div>
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Grid Color</span>
+        </div>
+        <div class="toolbar-panel-content">
+            <button class="doodle-canvasgridoptions-button" title="Pick Color"
+                    @onclick="@(() => OpenColorPicker())"> 
+                <span class="material-icons" style="color: @DoodleDrawInteraction.GridColor;">format_color_fill</span>
+            </button>
+            <input @ref="ColorPicker" style="display: none;" type="color" value="@DoodleDrawInteraction.GridColor" @onchange="@((e) => DoodleDrawInteraction.SetCanvasGridColor(e.Value.ToString()))" />
+        </div>
+    </div>
 </div>

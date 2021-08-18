@@ -21,6 +21,14 @@ namespace Doodle.Interops
         }
         #endregion
 
+        #region Methods
+        public async Task ClickElement(ElementReference element)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("ClickElement", element);
+        }
+        #endregion
+
         #region Dispose
         public async ValueTask DisposeAsync()
         {
