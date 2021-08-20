@@ -1,22 +1,43 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-doodle-color-picker="@DataAttributeName" class="doodle-color-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
-    <div class="doodle-color-picker-favourites @FavouriteWrapperClass">
-        @if (FavouriteColors?.Count() > 0)
-        {
-            foreach (var color in FavouriteColors)
-            {
-                <div class="doodle-color-picker-color-outer @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")  @((SelectedColor == color) ? "active" : "") @FavouriteOuterClass" 
-                        @onclick="@(() => SelectedColor = color)">
-                    <div class="doodle-color-picker-color-inner @FavouriteInnerClass" style="background-color: @color;"></div>
-                </div>
-            }
-        }
+<div data-doodle-color-picker="@DataAttributeName" class="doodle-color-picker-wrapper @WrapperClass">
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Quick Colors</span>
+        </div>
+
+        <div class="toolbar-panel-content content-quick-colors">
+            <div class="doodle-color-picker-favourites @FavouriteWrapperClass">
+                @if (FavouriteColors?.Count() > 0)
+                {
+                    foreach (var color in FavouriteColors)
+                    {
+                        <div class="doodle-color-picker-color-outer @((SelectedColor == color) ? "active" : "") @FavouriteOuterClass" 
+                                @onclick="@(() => SelectedColor = color)">
+                            <div class="doodle-color-picker-color-inner @FavouriteInnerClass" style="background-color: @color;"></div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
     </div>
     @if (ShowCustomColor)
     {
-        <div class="doodle-color-picker-custom @CustomWrapperClass">
-            <input class="@ColorInputClass" type="color" @bind-value="@SelectedColor" />
+        <div class="toolbar-panel">
+            <div class="toolbar-panel-header">
+                <span>Custom Color</span>
+            </div>
+
+            <div class="toolbar-panel-content content-custom-colors">
+                <div class="doodle-color-picker-custom @CustomWrapperClass">
+                    <button class="doodle-coloroptions-button" title="Pick Color"
+                            @onclick="@(() => OpenColorPicker())"> 
+                        <span class="material-icons" style="color: @SelectedColor">format_color_fill</span>
+                    </button>
+                    <input @ref="ColorPicker" class="@ColorInputClass"  type="color" @bind-value="@SelectedColor" />
+                </div>
+            </div>
         </div>
+
     }
 </div>
