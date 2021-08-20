@@ -2,6 +2,11 @@
 
 <div data-toolbar-header-colorpicker="@DataAttributeName" class="doodle-drawtype-wrapper">
     <div class="doodle-drawtype-buttons">
+         <button class="doodle-drawtype-button" title="Erasor"
+                @onclick="@(() => { DoodleDrawInteraction.SetDrawMode(DrawMode.Canvas); DoodleDrawInteraction.SetStrokeColor("#fff"); })"> 
+                <span class="material-icons">sell</span>
+        </button>
+
         <button class="doodle-drawtype-button" title="Draw Pen"
                 @onclick="@(() => DoodleDrawInteraction.SetDrawMode(DrawMode.Canvas))"> 
                 <span class="material-icons">draw</span>
@@ -19,7 +24,7 @@
 
         <button class="doodle-drawtype-button" title="Draw Image"
                 @onclick="@(() => DoodleDrawInteraction.SetDrawMode(DrawMode.Resizable))"> 
-                <span class="material-icons">circle</span>
+                <span class="material-icons">format_shapes</span>
         </button>
     </div>
 </div>
