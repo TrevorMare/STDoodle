@@ -33,10 +33,10 @@ namespace Doodle.Interops
         #endregion
 
         #region Interface Methods
-        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, bool drawGrid = false, int gridSize = 10, string gridColor = "", GridType gridType = GridType.Grid) 
+        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", GridType gridType = GridType.Grid) 
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize, drawGrid, gridSize, gridColor, gridType);
+            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize, gridSize, gridColor, gridType);
         }
 
         public async Task SetBrushColor(string color)
@@ -50,6 +50,7 @@ namespace Doodle.Interops
             var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("SetBrushSize", size);
         }
+
         public async Task SetGridSize(int size)
         {
             var module = await _moduleTask.Value;
@@ -62,16 +63,10 @@ namespace Doodle.Interops
             await module.InvokeVoidAsync("SetGridColor", color);
         }
 
-         public async Task SetGridType(GridType gridType)
+        public async Task SetGridType(GridType gridType)
         {
             var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("SetGridType", gridType);
-        }
-
-        public async Task ShowGrid(bool show)
-        {
-            var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("ShowGrid", show);
         }
 
         public async Task Destroy()

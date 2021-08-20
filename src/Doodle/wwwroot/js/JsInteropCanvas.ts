@@ -29,7 +29,6 @@ export class DoodleCanvas {
   private _commands: ICanvasPath[] = [];
   private _callbackRef: any;
   private _resizeElement: HTMLElement;
-  private _drawGrid: boolean;
   private _gridSize: number = 10;
   private _gridColor: string = "gray";
   private _gridType: GridType = GridType.Grid;
@@ -38,12 +37,11 @@ export class DoodleCanvas {
   private _brushSize: number = 1;
   private _brushColor: string = "#000000";
 
-  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, showGrid: boolean, gridSize: number, gridColor: string, gridType: GridType) {
+  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType) {
     this._canvas = canvas;
     this._context = this._canvas.getContext('2d');
     this._callbackRef = callbackRef;
     this._resizeElement = resizeElement;
-    this._drawGrid = showGrid;
     this._gridSize = gridSize;
     this._gridColor = gridColor;
     this._gridType = gridType;
@@ -61,11 +59,7 @@ export class DoodleCanvas {
     }
 
     this.ResizeComponent();
-
-    if (this._drawGrid === true) {
-      this.DrawGridLayout();
-    }
-
+    this.DrawGridLayout();
   }
 
   public SetBrushColor(color: string): void {
@@ -81,11 +75,6 @@ export class DoodleCanvas {
     this._commands = [];
     this._context = null;
     this._canvas = null;
-  }
-
-  public ShowGrid(show: boolean) {
-    this._drawGrid = show;
-    this.Refresh();
   }
 
   public SetGridSize(size: number): void {
@@ -109,10 +98,7 @@ export class DoodleCanvas {
     }
     this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
 
-    if (this._drawGrid == true) {
-      this.DrawGridLayout();
-    }
-
+    this.DrawGridLayout();
     this.NotifyBlazorCommands();
   }
 
@@ -349,8 +335,8 @@ export class DoodleCanvas {
 export let _doodleCanvas: DoodleCanvas;
 
 export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTMLElement, callbackRef: any, 
-                                 initColor: string, initSize: number, drawGrid: boolean, gridSize: number, gridColor: string,
-                                 gridType: GridType): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize, drawGrid, gridSize, gridColor, gridType); } 
+                                 initColor: string, initSize: number, gridSize: number, gridColor: string,
+                                 gridType: GridType): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType); } 
 export function SetBrushColor(color: string): void { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size: number): void { _doodleCanvas.SetBrushSize(size); }
 export function Destroy(): void { _doodleCanvas.Destroy() }
@@ -361,7 +347,6 @@ export function Undo(): boolean { return _doodleCanvas.Undo(); }
 export function Redo(): boolean { return _doodleCanvas.Redo(); }
 export function CanUndo(): boolean { return _doodleCanvas.CanUndo(); }
 export function CanRedo(): boolean { return _doodleCanvas.CanRedo(); }
-export function ShowGrid(show: boolean): void { _doodleCanvas.ShowGrid(show); }
 export function SetGridSize(size: number): void { _doodleCanvas.SetGridSize(size); }
 export function SetGridColor(color: string): void { _doodleCanvas.SetGridColor(color); }
 export function SetGridType(gridType: GridType): void { _doodleCanvas.SetGridType(gridType); }

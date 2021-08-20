@@ -127,8 +127,11 @@ namespace Doodle
 
         public Task SetCanvasGridSize(int gridSize)
         {
+            gridSize = Math.Max(gridSize, 5);
             if (gridSize != this.GridSize)
             {
+
+
                 this.GridSize = gridSize;
                 this.OnCanvasGridSizeChanged?.Invoke(this, gridSize);
                 this.OnStateHasChanged?.Invoke(this, null);

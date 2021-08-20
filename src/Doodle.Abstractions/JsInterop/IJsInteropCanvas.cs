@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Doodle.Abstractions.Common;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Abstractions.JsInterop
@@ -13,13 +14,11 @@ namespace Doodle.Abstractions.JsInterop
     {
         event OnCanvasUpdatedHandler CanvasCommandsUpdated;
 
-        Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, bool drawGrid = false, int gridSize = 10, string gridColor = "", Common.GridType gridType = Common.GridType.Grid);
+        Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", Common.GridType gridType = Common.GridType.Grid);
 
         Task SetBrushColor(string color);
 
         Task SetBrushSize(int size);
-
-        Task ShowGrid(bool show);
 
         Task SetGridSize(int size);
 
@@ -42,5 +41,7 @@ namespace Doodle.Abstractions.JsInterop
         ValueTask<bool> CanRedo();
 
         Task OnCanvasUpdated(string commandJson);
+        
+        Task SetGridType(GridType gridType);
     }
 }

@@ -109,13 +109,13 @@ namespace Doodle.Components.Canvas
                 this.SetBrushWidth(strokeWidth).ConfigureAwait(false);
             };
             this.DoodleDrawInteraction.OnCanvasGridColorChanged += (s, gridColor) => {
-
+                this.SetGridColor(gridColor).ConfigureAwait(false);
             };
             this.DoodleDrawInteraction.OnCanvasGridSizeChanged += (s, gridSize) => {
-
+                this.SetGridSize(gridSize).ConfigureAwait(false);
             };
             this.DoodleDrawInteraction.OnCanvasGridTypeChanged += (s, gridType) => {
-
+                this.SetGridType(gridType).ConfigureAwait(false);
             };
             this.DoodleDrawInteraction.OnClearDoodle += (s, clearHistory) => {
                 this.ClearCanvas(clearHistory).ConfigureAwait(false);
@@ -147,7 +147,6 @@ namespace Doodle.Components.Canvas
                 await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, 
                     this.DoodleDrawInteraction.StrokeColor, 
                     (int)this.DoodleDrawInteraction.StrokeWidth, 
-                    this.DoodleDrawInteraction.GridType != Abstractions.Common.GridType.None, 
                     this.DoodleDrawInteraction.GridSize, 
                     this.DoodleDrawInteraction.GridColor, 
                     this.DoodleDrawInteraction.GridType);
@@ -164,6 +163,32 @@ namespace Doodle.Components.Canvas
         #endregion
 
         #region Interop Methods
+        private async Task SetGridColor(string color)
+        {
+            if (this.CanvasInitialised)
+            {
+                Logger.LogDebug($"Setting Grid Color {color}");
+                await this.JsInteropCanvas.SetGridColor(color);
+            }
+        }
+
+        private async Task SetGridSize(double size)
+        {
+            if (this.CanvasInitialised)
+            {
+                Logger.LogDebug($"Setting Grid Size {size}");
+                await this.JsInteropCanvas.SetGridSize((int)size);
+            }
+        }
+
+        private async Task SetGridType(Abstractions.Common.GridType gridType)
+        {
+            if (this.CanvasInitialised)
+            {
+                Logger.LogDebug($"Setting Grid Type {gridType}");
+                await this.JsInteropCanvas.SetGridType(gridType);
+            }
+        }
 
         public async Task SetBrushColor(string color)
         {
