@@ -13,6 +13,7 @@ export interface ICanvasPath {
   Display: boolean;
   Points: ICanvasPathPoint[];
   Created: number;
+  Type: DrawType
 }
 
 const enum GridType {
@@ -39,17 +40,16 @@ export class DoodleCanvas {
   private _gridColor: string = "gray";
   private _gridType: GridType = GridType.Grid;
   private _drawType: DrawType = DrawType.Pen;
-
   private _currentCanvasPath: ICanvasPath;
-  
   private _brushSize: number = 1;
   private _brushColor: string = "#000000";
-
   private _erasorBrushSize: number = 5;
   private _erasorColor: string = "#ffffff";
-
   private _drawSize: number = 1;
   private _drawColor: string = "#000000";
+
+  private _drawPreviewCanvas: HTMLCanvasElement;
+  private _drawPreviewContext: CanvasRenderingContext2D;
 
   constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType, drawType: DrawType, eraserColor: string) {
     this._canvas = canvas;
@@ -61,6 +61,11 @@ export class DoodleCanvas {
    
     this._gridType = gridType;
     this._drawType = drawType;
+
+    this._drawPreviewCanvas = this._resizeElement.querySelector('.doodle-canvas-preview') as HTMLCanvasElement;
+    if (!!this._drawPreviewCanvas) {
+      this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
+    }
 
     this.SetupHandlers();
 
@@ -118,6 +123,19 @@ export class DoodleCanvas {
 
   public SetDrawType(drawType: DrawType): void {
     this._drawType = drawType;
+    this.PrepareDrawType();
+  }
+
+  private PrepareDrawType(): void {
+    if (!!this._drawPreviewCanvas) {
+
+      if (this._drawType === DrawType.Line) {
+        this._drawPreviewCanvas.style.display = 'block';
+      } else {
+        this._drawPreviewCanvas.style.display = 'none';
+      }
+
+    }
   }
 
   public Clear(clearCommands: boolean): void {
@@ -192,7 +210,17 @@ export class DoodleCanvas {
     return (this._commands.findIndex(c => c.Display === false) >= 0);
   }
 
+
+  private _drawStartHandler: any;
+  private _drawEndHandler: any;
+  private _drawMoveHandler: any;
+
   private SetupHandlers(): void {
+
+    this._drawStartHandler = this.StartDraw.bind(this);
+    this._drawEndHandler = this.EndDraw.bind(this);
+    this._drawMoveHandler = this.DrawMovement.bind(this);
+
     // Attach the event handlers
     this._canvas.addEventListener('touchstart', (e) => { this.StartDraw(e.touches[0]); }, false);
     this._canvas.addEventListener('mousedown', (e) => { this.StartDraw(e); }, false);
@@ -285,7 +313,7 @@ export class DoodleCanvas {
 
   private StartCurrentPath(x: number, y: number): void {
     const id: string = Date.now().toString(18) + Math.random().toString(36).substring(2);
-    const path: ICanvasPath = { BrushColor: this._brushColor, BrushSize: this._brushSize, Created: Date.now(), Display: true, Id: id, Points: [] };
+    const path: ICanvasPath = { BrushColor: this._brushColor, BrushSize: this._brushSize, Created: Date.now(), Display: true, Id: id, Points: [], Type: this._drawType };
     path.Points.push( { X: x, Y : y } );
     this._currentCanvasPath = path;
   }
@@ -326,6 +354,11 @@ export class DoodleCanvas {
     if (!!this._resizeElement) {
       this._canvas.width = this._resizeElement.clientWidth;
       this._canvas.height = this._resizeElement.clientHeight;
+
+      if (!!this._drawPreviewCanvas) {
+        this._drawPreviewCanvas.width = this._resizeElement.clientWidth;
+        this._drawPreviewCanvas.height = this._resizeElement.clientHeight;
+      }
     }
   }
 
@@ -369,6 +402,11 @@ export class DoodleCanvas {
       DOMURL.revokeObjectURL(url);
     }
     img.src = url;
+  }
+
+  private GetInternalEvent(e): any {
+    if ('touches' in e) { return e.touches[0]; }
+    return e;
   }
 }
 

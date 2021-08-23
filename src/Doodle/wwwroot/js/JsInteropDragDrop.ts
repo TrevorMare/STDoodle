@@ -316,7 +316,7 @@ export class DoodleResize {
     private AttachEventHandlers(): void {
         console.log(`Attaching event handlers`);
 
-        this._documentMoveRef = this.DocumentMoveEvent.bind(this);
+        this._documentMoveRef = this.DocumentMoveEvent.bind(this); 
         this._documentUpRef = this.DocumentUpEvent.bind(this);
         this._documentDownRef = this.DocumentDownEvent.bind(this);
         this._resizeElementDownRef = this.ResizeDownEvent.bind(this);
