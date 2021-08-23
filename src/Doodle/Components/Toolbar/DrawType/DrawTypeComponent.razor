@@ -3,27 +3,27 @@
 <div data-toolbar-header-colorpicker="@DataAttributeName" class="doodle-drawtype-wrapper">
     <div class="doodle-drawtype-buttons">
          <button class="doodle-drawtype-button" title="Erasor"
-                @onclick="@(() => { DoodleDrawInteraction.SetDrawMode(DrawMode.Canvas); DoodleDrawInteraction.SetStrokeColor("#fff"); })"> 
+                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Eraser))"> 
                 <span class="material-icons">sell</span>
         </button>
 
         <button class="doodle-drawtype-button" title="Draw Pen"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawMode(DrawMode.Canvas))"> 
+                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Pen))"> 
                 <span class="material-icons">draw</span>
         </button>
 
         <button class="doodle-drawtype-button" title="Draw Line"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawMode(DrawMode.Canvas))"> 
+                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Line))"> 
                 <span class="material-icons">timeline</span>
         </button>
 
         <button class="doodle-drawtype-button" title="Draw Text"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawMode(DrawMode.Resizable))"> 
+                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.ResizableText))"> 
                 <span class="material-icons">text_fields</span>
         </button>
 
         <button class="doodle-drawtype-button" title="Draw Image"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawMode(DrawMode.Resizable))"> 
+                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.ResizableImage))"> 
                 <span class="material-icons">format_shapes</span>
         </button>
     </div>

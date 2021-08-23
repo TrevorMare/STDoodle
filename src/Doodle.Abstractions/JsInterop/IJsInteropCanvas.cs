@@ -14,11 +14,15 @@ namespace Doodle.Abstractions.JsInterop
     {
         event OnCanvasUpdatedHandler CanvasCommandsUpdated;
 
-        Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", Common.GridType gridType = Common.GridType.Grid);
+        Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", Common.GridType gridType = Common.GridType.Grid, DrawType drawType = DrawType.Pen, string eraserColor = "#ffffff");
 
         Task SetBrushColor(string color);
 
         Task SetBrushSize(int size);
+
+        Task SetEraserSize(int size);
+
+        Task SetEraserColor(string color);
 
         Task SetGridSize(int size);
 
@@ -43,5 +47,7 @@ namespace Doodle.Abstractions.JsInterop
         Task OnCanvasUpdated(string commandJson);
         
         Task SetGridType(GridType gridType);
+
+        Task SetDrawType(DrawType drawType);
     }
 }

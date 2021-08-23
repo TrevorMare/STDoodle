@@ -32,6 +32,15 @@ namespace Doodle.Abstractions.Common
         Resizable = 2
     }
 
+    public enum DrawType
+    {
+        Pen = 1,
+        Line = 2,
+        Eraser = 3,
+        ResizableText = 4,
+        ResizableImage = 5
+    }
+
     public enum ToolbarContent
     {
         None = 0,

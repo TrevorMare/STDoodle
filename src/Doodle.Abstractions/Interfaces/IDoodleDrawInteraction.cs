@@ -14,6 +14,7 @@ namespace Doodle.Abstractions.Interfaces
     public delegate void OnClearDoodleHandler(object sender, bool clearHistory);
     public delegate void OnCanvasGridTypeChangedHandler(object sender, Abstractions.Common.GridType gridType);
     public delegate void OnDrawModeChangedHandler(object sender, Abstractions.Common.DrawMode drawMode);
+    public delegate void OnDrawTypeChangedHandler(object sender, Abstractions.Common.DrawType drawMode);
     public delegate void OnRestoreHandler(object sender, string jsonContent);
 
     public interface IDoodleDrawInteraction
@@ -22,10 +23,12 @@ namespace Doodle.Abstractions.Interfaces
         #region Events
         event EventHandler OnStateHasChanged;
         event OnColorChangedHandler OnStrokeColorChanged;
+        event OnColorChangedHandler OnEraserColorChanged;
         event OnSizeChangedHandler OnStrokeWidthChanged;
         event OnBackgroundChangedHandler OnBackgroundAdded;
         event OnBackgroundChangedHandler OnBackgroundRemoved;
         event OnSizeChangedHandler OnCanvasGridSizeChanged;
+        event OnSizeChangedHandler OnEraserSizeChanged;
         event OnCanvasGridTypeChangedHandler OnCanvasGridTypeChanged;
         event OnColorChangedHandler OnCanvasGridColorChanged;
         event OnBoolChangedHandler OnCanRedoChanged;
@@ -40,6 +43,7 @@ namespace Doodle.Abstractions.Interfaces
         event OnRestoreHandler OnRestoreDoodleData;
         event EventHandler OnRedrawCanvas; 
         event OnToolbarContentChangedHandler OnToolbarContentChanged;
+        event OnDrawTypeChangedHandler OnDrawTypeChanged;
         #endregion
 
         #region Properties
@@ -49,6 +53,10 @@ namespace Doodle.Abstractions.Interfaces
         string StrokeColor { get; }
 
         double StrokeWidth { get; }
+
+        double EraserWidth { get; }
+
+        string EraserColor { get; }
 
         Abstractions.Common.GridType GridType { get; } 
 
@@ -65,12 +73,18 @@ namespace Doodle.Abstractions.Interfaces
         Abstractions.Common.DrawMode DrawMode { get; }
 
         ToolbarContent ToolbarContent { get; }
+        
+        DrawType DrawType { get; }
         #endregion
 
         #region Methods        
         Task SetStrokeColor(string color);
 
         Task SetStrokeWidth(double width);
+
+        Task SetEraserWidth(double width);
+
+        Task SetEraserColor(string color);
 
         Task AddBackground(Models.BackgroundData backgroundData);
 
@@ -109,6 +123,8 @@ namespace Doodle.Abstractions.Interfaces
         Task SetToolbarContent(ToolbarContent toolbarContent);
 
         Task ToggleToolbarContent(ToolbarContent toolbarContent);
+        
+        Task SetDrawType(DrawType drawType);
         #endregion
 
     }

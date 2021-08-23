@@ -126,9 +126,26 @@ namespace Doodle.Components.Canvas
             this.DoodleDrawInteraction.OnRedoLastAction += (s, e) =>  {
                 this.Redo().ConfigureAwait(false);
             };
+            this.DoodleDrawInteraction.OnEraserSizeChanged += (s, size) => {
+                this.SetEraserSize(size).ConfigureAwait(false);
+            };
+            this.DoodleDrawInteraction.OnDrawTypeChanged += (s, drawType) => {
+                switch (drawType)
+                {
+                    case Abstractions.Common.DrawType.Pen:
+                    case Abstractions.Common.DrawType.Eraser:
+                    case Abstractions.Common.DrawType.Line:
+                    {
+                        this.SetDrawType(drawType).ConfigureAwait(false);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                
+            };
             base.OnInitialized();
         }
-
 
         protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
@@ -149,13 +166,17 @@ namespace Doodle.Components.Canvas
                     (int)this.DoodleDrawInteraction.StrokeWidth, 
                     this.DoodleDrawInteraction.GridSize, 
                     this.DoodleDrawInteraction.GridColor, 
-                    this.DoodleDrawInteraction.GridType);
+                    this.DoodleDrawInteraction.GridType,
+                    this.DoodleDrawInteraction.DrawType,
+                    this.DoodleDrawInteraction.EraserColor);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
                     Logger.LogDebug($"Updating state");
                     await UpdateState(e);
                 };
+
                 Logger.LogDebug($"Canvas Initialised");
+
                 this.CanvasInitialised = true;
                 await OnCanvasReady.InvokeAsync();
             }
@@ -163,6 +184,15 @@ namespace Doodle.Components.Canvas
         #endregion
 
         #region Interop Methods
+        private async Task SetDrawType(Abstractions.Common.DrawType drawType)
+        {
+            if (this.CanvasInitialised)
+            {
+                Logger.LogDebug($"Setting Draw Type {drawType}");
+                await this.JsInteropCanvas.SetDrawType(drawType);
+            }
+        }
+
         private async Task SetGridColor(string color)
         {
             if (this.CanvasInitialised)
@@ -205,6 +235,15 @@ namespace Doodle.Components.Canvas
             {
                 Logger.LogDebug($"Setting brush size to {width}");
                 await this.JsInteropCanvas.SetBrushSize((int)width);
+            }
+        }
+
+        public async Task SetEraserSize(double size)
+        {
+            if (this.CanvasInitialised)
+            {
+                Logger.LogDebug($"Setting eraser size to {size}");
+                await this.JsInteropCanvas.SetEraserSize((int)size);
             }
         }
         

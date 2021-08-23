@@ -42,6 +42,24 @@
                 </button>
             </div>
         </div>
-
     }
+
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Eraser Size</span>
+        </div>
+        <div class="toolbar-panel-content content-custom-sizes"> 
+            <button class="doodle-sizeoptions-button" title="Decrease"
+                @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth - 1))"> 
+                <span class="material-icons">remove_circle_outline</span>
+            </button>
+
+            <label>@DoodleDrawInteraction.EraserWidth </label>
+
+            <button class="doodle-sizeoptions-button" title="Increase"
+                    @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth + 1))"> 
+                    <span class="material-icons">add_circle_outline</span>
+            </button>
+        </div>
+    </div>
 </div>
