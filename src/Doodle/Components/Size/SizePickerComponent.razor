@@ -1,23 +1,47 @@
 @inherits Shared.DoodleBaseComponent
-
-<div data-doodle-size-picker="@DataAttributeName" class="doodle-size-picker-wrapper @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "") @WrapperClass">
-    <div class="doodle-size-picker-favourites @FavouriteWrapperClass">
-        @if (FavouriteSizes?.Count() > 0)
-        {
-            foreach (var size in FavouriteSizes) 
-            {
-                <div class="doodle-size-picker-outer @((SelectedSize == size) ? "active" : "") @FavouriteOuterClass" @onclick="@(() => SelectedSize = size)">
-                    <div class="doodle-size-picker-inner @FavouriteInnerClass">
-                        <div style="border-top-width: @(size)px;" class="doodle-size-picker-line"></div>
-                    </div>
-                </div>
-            }
-        }
+ 
+<div data-doodle-size-picker="@DataAttributeName" class="doodle-size-picker-wrapper @WrapperClass">
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Quick Sizes</span>
+        </div>
+        <div class="toolbar-panel-content content-quick-sizes">
+            <div class="doodle-size-picker-favourites @FavouriteWrapperClass">
+                @if (FavouriteSizes?.Count() > 0)
+                {
+                    foreach (var size in FavouriteSizes) 
+                    {
+                        <div class="doodle-size-picker-outer @((SelectedSize == size) ? "active" : "") @FavouriteOuterClass" @onclick="@(() => SelectedSize = size)">
+                            <div class="doodle-size-picker-inner @FavouriteInnerClass">
+                                <div style="border-top-width: @(size)px;" class="doodle-size-picker-line"></div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
     </div>
+
     @if (ShowCustomNumber)
     {
-        <div class="doodle-size-picker-custom @CustomWrapperClass">
-            <input class="doodle-size-picker-custom-input @NumberInputClass" type="number" @bind-value="@SelectedSize" />
+        <div class="toolbar-panel">
+            <div class="toolbar-panel-header">
+                <span>Custom Size</span>
+            </div>
+            <div class="toolbar-panel-content content-custom-sizes">
+                <button class="doodle-sizeoptions-button" title="Decrease"
+                    @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth - 1))"> 
+                    <span class="material-icons">remove_circle_outline</span>
+                </button>
+
+                <label>@DoodleDrawInteraction.StrokeWidth </label>
+
+                <button class="doodle-sizeoptions-button" title="Increase"
+                        @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth + 1))"> 
+                        <span class="material-icons">add_circle_outline</span>
+                </button>
+            </div>
         </div>
+
     }
 </div>

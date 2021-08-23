@@ -8,10 +8,10 @@ namespace Doodle.Abstractions.Config
 
         public IEnumerable<int> FavouriteSizes { get; set; } = new List<int>() 
         {
-            1, 2, 4, 6
+            1, 2, 3, 
+            4, 5, 6,
+            7, 8, 9
         }; 
-
-        public Common.Orientation Orientation { get; set; } = Common.Orientation.Horizontal;
 
         public string WrapperClass { get; set; }
         

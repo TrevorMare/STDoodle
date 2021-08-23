@@ -33,9 +33,10 @@
 /* Canvas Background  */
 /* Buttons */
 /* Round Button Element With Image */
-.btn-round {
-  height: 28px;
-  width: 28px;
+.btn-round,
+.doodle-size-picker-wrapper .doodle-sizeoptions-button {
+  height: 36px;
+  width: 36px;
   margin: 0rem 0.2rem;
   border-radius: 50%;
   display: flex;
@@ -44,53 +45,34 @@
   box-sizing: border-box;
   padding: 0.2rem;
   background-color: white;
+  border: solid 1px #8bc34a;
+  color: #5a9216;
 }
-.btn-round:active {
+.btn-round span,
+.doodle-size-picker-wrapper .doodle-sizeoptions-button span {
+  font-size: 1.4rem;
+}
+.btn-round:active,
+.doodle-size-picker-wrapper .doodle-sizeoptions-button:active {
   outline: 0;
 }
-.btn-round:focus {
+.btn-round:focus,
+.doodle-size-picker-wrapper .doodle-sizeoptions-button:focus {
   outline: 0;
 }
-.btn-round:hover {
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+.btn-round:hover,
+.doodle-size-picker-wrapper .doodle-sizeoptions-button:hover {
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled {
+.btn-round:disabled,
+.doodle-size-picker-wrapper .doodle-sizeoptions-button:disabled {
   box-shadow: none !important;
+  border: solid 1px #5a5a5a;
+  color: #5a5a5a;
 }
-.btn-round-content-image {
-  height: 28px;
-  width: 28px;
-  overflow: hidden;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-/* Text Button With Icon*/
-.btn-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.btn-text .btn-text-label {
-  color: #7b7b7b;
-  text-transform: uppercase;
-}
-.btn-text .btn-text-icon {
-  color: #7b7b7b;
-}
-.btn-text:hover {
-  text-shadow: 2px 2px 6px rgba(123, 123, 123, 0.6);
-}
-.btn-text.expanded .btn-text-label {
-  color: #ff9800;
-}
-.btn-text.expanded .btn-text-icon {
-  color: #ff9800;
-}
-.btn-text.expanded:hover {
-  text-shadow: 2px 2px 6px rgba(255, 152, 0, 0.6);
+.btn-round:disabled span,
+.doodle-size-picker-wrapper .doodle-sizeoptions-button:disabled span {
+  opacity: 0.4;
 }
 /* Toolbar Layout */
 .doodle-toolbar-header-wrapper {
@@ -118,37 +100,7 @@
   background-image: url("/_content/STDoodle/img/selected-icon.svg");
   background-repeat: no-repeat;
 }
-.img-circle-button {
-  height: 28px;
-  width: 28px;
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0.2rem;
-  background-color: white;
-}
-.img-circle-button:active {
-  outline: 0;
-}
-.img-circle-button:focus {
-  outline: 0;
-}
-.img-circle-button:hover {
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-.img-circle-button:disabled {
-  box-shadow: none !important;
-}
-.img-circle-button:disabled .img-circle-button-content {
-  opacity: 0.4;
-}
-.img-circle-button-content {
-  height: 28px;
-  width: 28px;
+.doodle-canvas-background {
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
@@ -164,14 +116,12 @@
   align-items: center;
   box-sizing: border-box;
   border: solid 1px rgba(0, 0, 0, 0.2);
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
   position: relative;
   cursor: pointer;
 }
 .circle-button-outer.active,
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.active {
-  background-color: #485248;
+  background-color: #ff9800;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .circle-button-outer:hover,
@@ -182,8 +132,6 @@
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.vertical {
   margin-left: 0px;
   margin-right: 0px;
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
 }
 .circle-button-outer:active,
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer:active {
@@ -200,11 +148,29 @@
   width: 20px;
   border-radius: 50%;
 }
-.doodle-canvas-background {
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+.toolbar-panel {
+  padding: 0.8rem;
+  border-right: solid 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+.toolbar-panel .toolbar-panel-header {
+  width: 100%;
+  text-align: center;
+}
+.toolbar-panel .toolbar-panel-header span {
+  color: #ff9800;
+  text-transform: uppercase;
+}
+.toolbar-panel .toolbar-panel-content {
+  align-self: center;
+  justify-self: center;
+  flex-grow: 1;
+}
+.toolbar-panel .toolbar-panel-content.content-custom-sizes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .doodle-size-picker-wrapper {
   display: flex;
@@ -212,13 +178,17 @@
   justify-content: center;
 }
 .doodle-size-picker-wrapper .doodle-size-picker-favourites {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(24px, 24px));
+  grid-template-rows: repeat(3, minmax(24px, 24px));
+  grid-auto-flow: column;
+  grid-gap: 0.4rem;
 }
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner {
   background-color: white;
   overflow: hidden;
   display: flex;
-  vertical-align: center();
+  vertical-align: center;
   align-content: center;
 }
 .doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner .doodle-size-picker-line {
@@ -230,32 +200,11 @@
 }
 .doodle-size-picker-wrapper .doodle-size-picker-custom {
   display: flex;
-  padding-left: 0.2rem;
-  margin-left: 0.2rem;
   justify-content: center;
-  align-content: center;
-}
-.doodle-size-picker-wrapper .doodle-size-picker-custom .doodle-size-picker-custom-input {
-  border-width: 0px;
-  border: none;
-  outline: none;
-}
-.doodle-size-picker-wrapper .doodle-size-picker-custom .doodle-size-picker-custom-input:focus {
-  outline: none;
-}
-.doodle-size-picker-wrapper.vertical {
-  flex-direction: column;
-}
-.doodle-size-picker-wrapper.vertical .doodle-size-picker-favourites {
-  flex-direction: column;
-}
-.doodle-size-picker-wrapper.vertical .doodle-size-picker-custom {
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding-left: 0rem;
-  margin-left: 0rem;
-  padding-top: 0.2rem;
-  margin-top: 0.2rem;
-  border-left: none;
+}
+.doodle-size-picker-wrapper .doodle-size-picker-custom label {
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  color: #7b7b7b;
 }

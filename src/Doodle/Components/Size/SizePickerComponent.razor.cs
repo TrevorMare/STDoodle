@@ -34,9 +34,6 @@ namespace Doodle.Components.Size
         }
 
         [Parameter]
-        public Abstractions.Common.Orientation Orientation { get; set; }
-
-        [Parameter]
         public IEnumerable<int> FavouriteSizes { get; set; }
 
         [Parameter]
@@ -51,7 +48,6 @@ namespace Doodle.Components.Size
         {
             if (config == null || config.SizePickerConfig == null) return;
 
-            this.Orientation = config.SizePickerConfig.Orientation;
             this.FavouriteSizes = config.SizePickerConfig.FavouriteSizes ?? new List<int>();
 
             this.WrapperClass = config.SizePickerConfig.WrapperClass;

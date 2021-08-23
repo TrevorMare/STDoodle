@@ -105,6 +105,8 @@ namespace Doodle
 
         public Task SetStrokeWidth(double width)
         {
+            width = Math.Max(width, 1);
+
             if (width != this.StrokeWidth)
             {
                 this.StrokeWidth = width;
