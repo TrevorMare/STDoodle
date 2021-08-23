@@ -32,7 +32,7 @@
 /* Canvas  */
 /* Canvas Background  */
 /* Buttons */
-/* Round Button Element With Image */
+/* Round Button Element With Material Icon */
 .btn-round,
 .doodle-size-picker-wrapper .doodle-sizeoptions-button {
   height: 36px;
@@ -74,6 +74,51 @@
 .doodle-size-picker-wrapper .doodle-sizeoptions-button:disabled span {
   opacity: 0.4;
 }
+/*
+    Round Button Element With Custom Round Inner
+*/
+.button-custom-outer,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  position: relative;
+  cursor: pointer;
+}
+.button-custom-outer.active,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.active {
+  background-color: #ff9800;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.button-custom-outer:hover,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.button-custom-outer.vertical,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.vertical {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.button-custom-outer:active,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer:active {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
+}
+.button-custom-outer.disabled,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.disabled {
+  opacity: 0.6;
+}
+.button-custom-inner,
+.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner {
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
 /* Toolbar Layout */
 .doodle-toolbar-header-wrapper {
   display: flex;
@@ -106,48 +151,6 @@
   background-position: center;
   background-size: contain;
 }
-.circle-button-outer,
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer {
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  border: solid 1px rgba(0, 0, 0, 0.2);
-  position: relative;
-  cursor: pointer;
-}
-.circle-button-outer.active,
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.active {
-  background-color: #ff9800;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.circle-button-outer:hover,
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer:hover {
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-.circle-button-outer.vertical,
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.vertical {
-  margin-left: 0px;
-  margin-right: 0px;
-}
-.circle-button-outer:active,
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer:active {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
-}
-.circle-button-outer.disabled,
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer.disabled {
-  opacity: 0.6;
-}
-.circle-button-inner,
-.doodle-size-picker-wrapper .doodle-size-picker-favourites .doodle-size-picker-outer .doodle-size-picker-inner {
-  box-sizing: border-box;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-}
 .toolbar-panel {
   padding: 0.8rem;
   border-right: solid 1px rgba(0, 0, 0, 0.2);
@@ -172,10 +175,13 @@
   justify-content: center;
   align-items: center;
 }
+.toolbar-panel .toolbar-panel-content.content-custom-sizes label {
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  color: #7b7b7b;
+}
 .doodle-size-picker-wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .doodle-size-picker-wrapper .doodle-size-picker-favourites {
   display: grid;
@@ -197,14 +203,4 @@
   border-top-style: solid;
   height: 1px;
   align-self: center;
-}
-.doodle-size-picker-wrapper .doodle-size-picker-custom {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.doodle-size-picker-wrapper .doodle-size-picker-custom label {
-  padding-left: 1.6rem;
-  padding-right: 1.6rem;
-  color: #7b7b7b;
 }
