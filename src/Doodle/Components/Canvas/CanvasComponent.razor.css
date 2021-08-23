@@ -155,7 +155,7 @@
   display: none;
   position: absolute;
   top: 0px;
-  background-color: yellow;
+  cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
 }
 .doodle-canvas-resize .doodle-canvas.pen {
   cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;

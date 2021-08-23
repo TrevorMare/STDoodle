@@ -47,9 +47,14 @@ export class DoodleCanvas {
   private _erasorColor: string = "#ffffff";
   private _drawSize: number = 1;
   private _drawColor: string = "#000000";
+  private _drawStartHandler: any;
+  private _drawEndHandler: any;
+  private _drawMoveHandler: any;
+  private _resizeHandler: any;
 
   private _drawPreviewCanvas: HTMLCanvasElement;
   private _drawPreviewContext: CanvasRenderingContext2D;
+  private _shapeDrawDownCoords: ICanvasPathPoint;
 
   constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType, drawType: DrawType, eraserColor: string) {
     this._canvas = canvas;
@@ -134,7 +139,6 @@ export class DoodleCanvas {
       } else {
         this._drawPreviewCanvas.style.display = 'none';
       }
-
     }
   }
 
@@ -210,46 +214,52 @@ export class DoodleCanvas {
     return (this._commands.findIndex(c => c.Display === false) >= 0);
   }
 
-
-  private _drawStartHandler: any;
-  private _drawEndHandler: any;
-  private _drawMoveHandler: any;
-
   private SetupHandlers(): void {
 
     this._drawStartHandler = this.StartDraw.bind(this);
     this._drawEndHandler = this.EndDraw.bind(this);
     this._drawMoveHandler = this.DrawMovement.bind(this);
+    this._resizeHandler = this.ResizeComponent.bind(this);
 
     // Attach the event handlers
-    this._canvas.addEventListener('touchstart', (e) => { this.StartDraw(e.touches[0]); }, false);
-    this._canvas.addEventListener('mousedown', (e) => { this.StartDraw(e); }, false);
-
-    this._canvas.addEventListener('touchend', (e) => { this.EndDraw(e.touches[0]); }, false);
-    this._canvas.addEventListener('mouseup', (e) => { this.EndDraw(e); }, false);
-
-    this._canvas.addEventListener('touchmove', (e) => { this.DrawMovement(e.touches[0]);  e.preventDefault(); }, false);
-    this._canvas.addEventListener('mousemove', (e) => { this.DrawMovement(e); }, false);
+    this.AttachHandlers(this._canvas);
+    this.AttachHandlers(this._drawPreviewCanvas);
 
     if (!!this._resizeElement) {
-      this._resizeElement.addEventListener('resize', (e) => { this.ResizeComponent(); })
+      this._resizeElement.addEventListener('resize', this._resizeHandler, false);
     }
+  }
+
+  private AttachHandlers(canvasElement: HTMLCanvasElement): void {
+    canvasElement.addEventListener('touchstart', this._drawStartHandler, false);
+    canvasElement.addEventListener('mousedown', this._drawStartHandler, false);
+
+    canvasElement.addEventListener('touchend', this._drawEndHandler, false);
+    canvasElement.addEventListener('mouseup', this._drawEndHandler, false);
+
+    canvasElement.addEventListener('touchmove', this._drawMoveHandler, false);
+    canvasElement.addEventListener('mousemove', this._drawMoveHandler, false);
   }
 
   private DestroyHandlers(): void {
     // Remove the event handlers
-    this._canvas.removeEventListener('touchstart', (e) => {});
-    this._canvas.removeEventListener('mousedown', (e) => {});
-
-    this._canvas.removeEventListener('touchend', (e) => {});
-    this._canvas.removeEventListener('mouseup', (e) => {});
-
-    this._canvas.removeEventListener('touchmove', (e) => {});
-    this._canvas.removeEventListener('mousemove', (e) => {});
+    this.RemoveHandlers(this._canvas);
+    this.RemoveHandlers(this._drawPreviewCanvas);
 
     if (!!this._resizeElement) {
-      this._resizeElement.removeEventListener('resize', (e) => { this.ResizeComponent(); })
+      this._resizeElement.removeEventListener('resize', this._resizeHandler);
     }
+  }
+
+  private RemoveHandlers(canvasElement: HTMLCanvasElement): void {
+    canvasElement.removeEventListener('touchstart', this._drawStartHandler);
+    canvasElement.removeEventListener('mousedown', this._drawStartHandler);
+
+    canvasElement.removeEventListener('touchend', this._drawEndHandler);
+    canvasElement.removeEventListener('mouseup', this._drawEndHandler);
+
+    canvasElement.removeEventListener('touchmove', this._drawMoveHandler);
+    canvasElement.removeEventListener('mousemove', this._drawMoveHandler);
   }
 
   private GetEventPosition(event: any) : any {
@@ -259,22 +269,25 @@ export class DoodleCanvas {
     return { x: x, y: y };
   }
 
-  private StartDraw(event): void {
+  private StartDraw(e: any): void {
     if (this._isDrawing == false) {
+      const event = this.GetInternalEvent(e);
+
       this.SetupBrush();
 
       // Calculate the coords
       const coords = this.GetEventPosition(event);
 
-      this._context.lineWidth = this._brushSize;
-      this._context.strokeStyle = this._brushColor;
-
-      this._context.beginPath();
-      this._context.moveTo(coords.x, coords.y);
-
-      // Initialise the current path command
-      this.StartCurrentPath(coords.x, coords.y);
-
+      if (this._drawType === DrawType.Line) {
+        this._shapeDrawDownCoords = {X: coords.x, Y: coords.y};
+      } else {
+        this._context.lineWidth = this._brushSize;
+        this._context.strokeStyle = this._brushColor;
+        this._context.beginPath();
+        this._context.moveTo(coords.x, coords.y);
+        // Initialise the current path command
+        this.StartCurrentPath(coords.x, coords.y);
+      }
       // Set the current is drawing value
       this._isDrawing = true;
     }
@@ -290,25 +303,48 @@ export class DoodleCanvas {
     }
   }
 
-  private DrawMovement(event): void {
+  private DrawMovement(e: any): void {
     if (this._isDrawing == false) return;
-
+    const event = this.GetInternalEvent(e);
      // Calculate the coords
     const coords = this.GetEventPosition(event);
-    this._context.lineTo(coords.x, coords.y);
-    this._context.stroke();
 
-    if (!!this._currentCanvasPath) {
-      this._currentCanvasPath.Points.push( { X: coords.x, Y: coords.y } );
+    if (this._drawType === DrawType.Line) {
+      this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
+      this._drawPreviewContext.lineWidth = this._brushSize;
+      this._drawPreviewContext.strokeStyle = this._brushColor;
+      this._drawPreviewContext.beginPath();
+      this._drawPreviewContext.moveTo(this._shapeDrawDownCoords.X, this._shapeDrawDownCoords.Y);
+      this._drawPreviewContext.lineTo(coords.x, coords.y);
+      this._drawPreviewContext.stroke();
+    } else {
+      this._context.lineTo(coords.x, coords.y);
+      this._context.stroke();
+  
+      if (!!this._currentCanvasPath) {
+        this._currentCanvasPath.Points.push( { X: coords.x, Y: coords.y } );
+      }
     }
   }
 
-  private EndDraw(event): void {
+  private EndDraw(e: any): void {
     if (this._isDrawing == false) return;
-    this.DrawMovement(event);
-    this._isDrawing = false;
-
-    this.EndCurrentPath();
+    
+    const event = this.GetInternalEvent(e);
+    
+    if (this._drawType === DrawType.Line) {
+      const coords = this.GetEventPosition(event);
+      this.StartCurrentPath(this._shapeDrawDownCoords.X, this._shapeDrawDownCoords.Y);
+      this._currentCanvasPath.Points.push( { X: coords.x, Y: coords.y } );
+      this.EndCurrentPath();
+      this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
+      this._isDrawing = false;
+      this.Refresh();
+    } else {
+      this.DrawMovement(event);
+      this._isDrawing = false;
+      this.EndCurrentPath();
+    }
   }
 
   private StartCurrentPath(x: number, y: number): void {
