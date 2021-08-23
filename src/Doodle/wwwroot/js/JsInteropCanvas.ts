@@ -15,10 +15,16 @@ export interface ICanvasPath {
   Created: number;
 }
 
-export enum GridType {
+const enum GridType {
   None = 0,
   Grid = 1,
   Point = 2
+}
+
+const enum DrawType {
+  Pen = 1,
+  Line = 2,
+  Eraser = 3
 }
 
 export class DoodleCanvas {
@@ -32,19 +38,29 @@ export class DoodleCanvas {
   private _gridSize: number = 10;
   private _gridColor: string = "gray";
   private _gridType: GridType = GridType.Grid;
+  private _drawType: DrawType = DrawType.Pen;
 
   private _currentCanvasPath: ICanvasPath;
+  
   private _brushSize: number = 1;
   private _brushColor: string = "#000000";
 
-  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType) {
+  private _erasorBrushSize: number = 5;
+  private _erasorColor: string = "#ffffff";
+
+  private _drawSize: number = 1;
+  private _drawColor: string = "#000000";
+
+  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType, drawType: DrawType, eraserColor: string) {
     this._canvas = canvas;
     this._context = this._canvas.getContext('2d');
     this._callbackRef = callbackRef;
     this._resizeElement = resizeElement;
     this._gridSize = gridSize;
     this._gridColor = gridColor;
+   
     this._gridType = gridType;
+    this._drawType = drawType;
 
     this.SetupHandlers();
 
@@ -63,11 +79,19 @@ export class DoodleCanvas {
   }
 
   public SetBrushColor(color: string): void {
-    this._brushColor = color;
+    this._drawColor = color;
   }
 
   public SetBrushSize(size: number): void {
-    this._brushSize = size;
+    this._drawSize = size;
+  }
+
+  public SetEraserSize(size: number): void {
+    this._erasorBrushSize = size;
+  }
+
+  public SetEraserColor(color: string): void {
+    this._erasorColor = color;
   }
 
   public Destroy(): void {
@@ -90,6 +114,10 @@ export class DoodleCanvas {
   public SetGridType(gridType: GridType): void {
     this._gridType = gridType;
     this.Refresh();
+  }
+
+  public SetDrawType(drawType: DrawType): void {
+    this._drawType = drawType;
   }
 
   public Clear(clearCommands: boolean): void {
@@ -205,6 +233,8 @@ export class DoodleCanvas {
 
   private StartDraw(event): void {
     if (this._isDrawing == false) {
+      this.SetupBrush();
+
       // Calculate the coords
       const coords = this.GetEventPosition(event);
 
@@ -219,6 +249,16 @@ export class DoodleCanvas {
 
       // Set the current is drawing value
       this._isDrawing = true;
+    }
+  }
+
+  private SetupBrush() {
+    if (this._drawType === DrawType.Eraser) {
+      this._brushSize = this._erasorBrushSize;
+      this._brushColor = this._erasorColor;
+    } else {
+      this._brushSize = this._drawSize;
+      this._brushColor = this._drawColor;
     }
   }
 
@@ -336,7 +376,7 @@ export let _doodleCanvas: DoodleCanvas;
 
 export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTMLElement, callbackRef: any, 
                                  initColor: string, initSize: number, gridSize: number, gridColor: string,
-                                 gridType: GridType): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType); } 
+                                 gridType: GridType, drawType: DrawType, eraserColor: string): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor); } 
 export function SetBrushColor(color: string): void { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size: number): void { _doodleCanvas.SetBrushSize(size); }
 export function Destroy(): void { _doodleCanvas.Destroy() }
@@ -350,4 +390,7 @@ export function CanRedo(): boolean { return _doodleCanvas.CanRedo(); }
 export function SetGridSize(size: number): void { _doodleCanvas.SetGridSize(size); }
 export function SetGridColor(color: string): void { _doodleCanvas.SetGridColor(color); }
 export function SetGridType(gridType: GridType): void { _doodleCanvas.SetGridType(gridType); }
+export function SetDrawType(drawType: DrawType): void { _doodleCanvas.SetDrawType(drawType); }
+export function SetEraserSize(size: number): void { _doodleCanvas.SetEraserSize(size); }
+export function SetEraserColor(color: string): void { _doodleCanvas.SetEraserColor(color); }
 

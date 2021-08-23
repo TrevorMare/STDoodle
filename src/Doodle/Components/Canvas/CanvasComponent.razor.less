@@ -12,6 +12,17 @@
   z-index: @canvas-z-index;
   .doodle-canvas {
     background-color: transparent; 
+
+    &.pen {
+      cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
+    }
+    &.line {
+      cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
+    }
+    &.eraser {
+      cursor: url('/_content/STDoodle/img/cursor-eraser.svg') 12 12, auto;
+    }
+
   }
 }
   

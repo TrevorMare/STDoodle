@@ -19,6 +19,8 @@ namespace Doodle
 
         public double StrokeWidth { get; private set; } = 1;
 
+        public double EraserWidth { get; private set; } = 5;
+
         public Abstractions.Common.GridType GridType { get; private set; } = Abstractions.Common.GridType.None;
         
         public int GridSize { get; private set; } = 20;
@@ -33,7 +35,11 @@ namespace Doodle
 
         public Abstractions.Common.DrawMode DrawMode { get; private set; } = Abstractions.Common.DrawMode.Canvas;
 
+        public Abstractions.Common.DrawType DrawType { get; private set; } = Abstractions.Common.DrawType.Pen;
+
         public ToolbarContent ToolbarContent { get; private set; } = ToolbarContent.None; 
+
+        public string EraserColor { get; private set; } = "#ffffff";
         #endregion
 
         #region Events
@@ -57,6 +63,9 @@ namespace Doodle
         public event EventHandler OnSaveDoodleData;
         public event OnRestoreHandler OnRestoreDoodleData;
         public event EventHandler OnRedrawCanvas;
+        public event OnDrawTypeChangedHandler OnDrawTypeChanged;
+        public event OnSizeChangedHandler OnEraserSizeChanged;
+        public event OnColorChangedHandler OnEraserColorChanged;
         #endregion
 
         #region Methods
@@ -103,6 +112,17 @@ namespace Doodle
             return Task.CompletedTask;
         }
 
+        public Task SetEraserColor(string color)
+        {
+            if (color != this.EraserColor)
+            {
+                this.EraserColor = color;
+                this.OnEraserColorChanged?.Invoke(this, color);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
+
         public Task SetStrokeWidth(double width)
         {
             width = Math.Max(width, 1);
@@ -111,6 +131,19 @@ namespace Doodle
             {
                 this.StrokeWidth = width;
                 this.OnStrokeWidthChanged?.Invoke(this, width);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task SetEraserWidth(double width)
+        {
+            width = Math.Max(width, 1);
+
+            if (width != this.EraserWidth)
+            {
+                this.EraserWidth = width;
+                this.OnEraserSizeChanged?.Invoke(this, width);
                 this.OnStateHasChanged?.Invoke(this, null);
             }
             return Task.CompletedTask;
@@ -180,6 +213,36 @@ namespace Doodle
             {
                 this.DrawMode = drawMode;
                 this.OnDrawModeChanged?.Invoke(this, drawMode);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task SetDrawType(Abstractions.Common.DrawType drawType)
+        {
+            if (drawType != this.DrawType)
+            {
+                switch (drawType)
+                {
+                    case DrawType.Pen:
+                    case DrawType.Eraser: 
+                    case DrawType.Line:
+                    {
+                        this.SetDrawMode(DrawMode.Canvas).ConfigureAwait(false);
+                        break;
+                    }
+                    case DrawType.ResizableText:
+                    case DrawType.ResizableImage:
+                    {
+                        this.SetDrawMode(DrawMode.Resizable).ConfigureAwait(false);
+                        break;
+                    }
+                    default:
+                        throw new ArgumentException($"Unknown value for draw type {drawType}");
+                }
+
+                this.DrawType = drawType;
+                this.OnDrawTypeChanged?.Invoke(this, drawType);
                 this.OnStateHasChanged?.Invoke(this, null);
             }
             return Task.CompletedTask;

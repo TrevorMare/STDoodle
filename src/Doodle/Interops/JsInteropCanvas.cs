@@ -33,10 +33,10 @@ namespace Doodle.Interops
         #endregion
 
         #region Interface Methods
-        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", GridType gridType = GridType.Grid) 
+        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", GridType gridType = GridType.Grid, DrawType drawType = DrawType.Pen, string eraserColor = "#ffffff") 
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize, gridSize, gridColor, gridType);
+            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize, gridSize, gridColor, gridType, drawType, eraserColor);
         }
 
         public async Task SetBrushColor(string color)
@@ -49,6 +49,18 @@ namespace Doodle.Interops
         {
             var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("SetBrushSize", size);
+        }
+
+        public async Task SetEraserSize(int size)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetEraserSize", size);
+        }
+
+        public async Task SetEraserColor(string color)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetEraserColor", color);
         }
 
         public async Task SetGridSize(int size)
@@ -67,6 +79,12 @@ namespace Doodle.Interops
         {
             var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("SetGridType", gridType);
+        }
+
+        public async Task SetDrawType(DrawType drawType)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetDrawType", drawType);
         }
 
         public async Task Destroy()

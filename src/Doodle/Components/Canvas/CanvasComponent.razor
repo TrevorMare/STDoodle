@@ -1,6 +1,24 @@
 @inherits Shared.DoodleBaseComponent
 
 <div @ref="ResizeElement" data-doodle-resize-wrapper="@DataAttributeName" class="doodle-canvas-resize">
-    <canvas data-doodle-canvas="@DataAttributeName" @ref="CanvasElement" class="doodle-canvas @CanvasClass"></canvas>
+    @{
+        string canvasCursorClass = "";
+        if (DoodleDrawInteraction.DrawType == DrawType.Pen)
+        {
+            canvasCursorClass = "pen";
+        }
+        else if (DoodleDrawInteraction.DrawType == DrawType.Line)
+        {
+            canvasCursorClass = "line";
+        }
+        else if (DoodleDrawInteraction.DrawType == DrawType.Eraser)
+        {
+            canvasCursorClass = "eraser";
+        }
+    }
+    <canvas 
+        data-doodle-canvas="@DataAttributeName" 
+        @ref="CanvasElement" 
+        class="doodle-canvas @canvasCursorClass @CanvasClass"></canvas>
 </div>
 
