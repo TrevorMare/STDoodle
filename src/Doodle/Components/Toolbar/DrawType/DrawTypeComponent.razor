@@ -2,27 +2,27 @@
 
 <div data-toolbar-header-colorpicker="@DataAttributeName" class="doodle-drawtype-wrapper">
     <div class="doodle-drawtype-buttons">
-         <button class="doodle-drawtype-button" title="Erasor"
+         <button class="doodle-drawtype-button @(DoodleDrawInteraction.DrawType == DrawType.Eraser ? "selected" : "")" title="Erasor"
                 @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Eraser))"> 
                 <span class="material-icons">sell</span>
         </button>
 
-        <button class="doodle-drawtype-button" title="Draw Pen"
+        <button class="doodle-drawtype-button @(DoodleDrawInteraction.DrawType == DrawType.Pen ? "selected" : "")" title="Draw Pen"
                 @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Pen))"> 
                 <span class="material-icons">draw</span>
         </button>
 
-        <button class="doodle-drawtype-button" title="Draw Line"
+        <button class="doodle-drawtype-button @(DoodleDrawInteraction.DrawType == DrawType.Line ? "selected" : "")" title="Draw Line"
                 @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Line))"> 
                 <span class="material-icons">timeline</span>
         </button>
 
-        <button class="doodle-drawtype-button" title="Draw Text"
+        <button class="doodle-drawtype-button @(DoodleDrawInteraction.DrawType == DrawType.ResizableText ? "selected" : "")" title="Draw Text"
                 @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.ResizableText))"> 
                 <span class="material-icons">text_fields</span>
         </button>
 
-        <button class="doodle-drawtype-button" title="Draw Image"
+        <button class="doodle-drawtype-button @(DoodleDrawInteraction.DrawType == DrawType.ResizableImage ? "selected" : "")" title="Draw Image"
                 @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.ResizableImage))"> 
                 <span class="material-icons">format_shapes</span>
         </button>

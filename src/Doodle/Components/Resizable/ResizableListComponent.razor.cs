@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Resizable
@@ -27,7 +28,37 @@ namespace Doodle.Components.Resizable
                 this.Content = new List<Abstractions.Interfaces.IResizableContent>();
                 StateHasChanged();
             };
+
+            this.DoodleDrawInteraction.OnDrawTypeChanged += (s, drawType) => {
+                switch (drawType)
+                {
+                    case Abstractions.Common.DrawType.ResizableText:
+                    case Abstractions.Common.DrawType.ResizableImage:
+                    {
+                        this.SetDrawTypeResizable();
+                        break;
+                    }
+                    default:
+                    {
+                        this.SetDrawTypeNonResizable();
+                        break;
+                    }
+                }
+
+            };
             base.OnInitialized();
+        }
+
+        private void SetDrawTypeResizable()
+        {
+            this.Active = true;
+            StateHasChanged();
+        }
+
+        private void SetDrawTypeNonResizable()
+        {
+            this.Active = false;
+            StateHasChanged();
         }
 
         protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
