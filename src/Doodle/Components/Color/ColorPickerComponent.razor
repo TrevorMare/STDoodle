@@ -38,6 +38,19 @@
                 </div>
             </div>
         </div>
-
     }
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Close</span>
+        </div>
+
+        <div class="toolbar-panel-content content-close">
+            <div class="doodle-color-picker-custom @CustomWrapperClass">
+                <button class="doodle-coloroptions-button" title="Close"
+                        @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
+                    <span class="material-icons" style="color: red;">close</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

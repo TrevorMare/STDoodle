@@ -50,6 +50,9 @@ namespace Doodle.Components.Color
 
         [Inject]
         public Abstractions.JsInterop.IJsInteropCommon JsInteropCommon { get; set; }
+
+        [Parameter]
+        public EventCallback OnCloseMenu { get; set; }
         #endregion
 
         #region Config Init

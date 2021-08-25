@@ -26,7 +26,7 @@
     {
         <div class="toolbar-panel">
             <div class="toolbar-panel-header">
-                <span>Custom Size</span>
+                <span>Drawing Size</span>
             </div>
             <div class="toolbar-panel-content content-custom-sizes"> 
                 <button class="doodle-sizeoptions-button" title="Decrease"
@@ -60,6 +60,21 @@
                     @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth + 1))"> 
                     <span class="material-icons">add_circle_outline</span>
             </button>
+        </div>
+    </div>
+
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Close</span>
+        </div>
+
+        <div class="toolbar-panel-content content-close">
+            <div class="doodle-color-picker-custom @CustomWrapperClass">
+                <button class="doodle-sizeoptions-button" title="Close"
+                        @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
+                    <span class="material-icons" style="color: red;">close</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>

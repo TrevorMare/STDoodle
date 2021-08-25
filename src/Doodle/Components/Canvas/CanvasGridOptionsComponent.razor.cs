@@ -12,7 +12,10 @@ namespace Doodle.Components.Canvas
         private ElementReference ColorPicker { get; set; }
         
         [Inject]
-        public Abstractions.JsInterop.IJsInteropCommon JsInteropCommon { get; set; }
+        public Abstractions.JsInterop.IJsInteropCommon JsInteropCommon { get; set; } 
+
+        [Parameter]
+        public EventCallback OnCloseMenu { get; set; }
         #endregion
 
         #region "Methods"
