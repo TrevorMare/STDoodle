@@ -46,6 +46,7 @@ namespace Doodle.Abstractions.Interfaces
         event OnToolbarContentChangedHandler OnToolbarContentChanged;
         event OnDrawTypeChangedHandler OnDrawTypeChanged;
         event OnResizableContentsChangedHandler OnResizableContentsChanged;
+        event OnColorChangedHandler OnBackgroundColorChanged;
         #endregion
 
         #region Properties
@@ -61,6 +62,8 @@ namespace Doodle.Abstractions.Interfaces
         double EraserWidth { get; }
 
         string EraserColor { get; }
+
+        string BackgroundColor { get; }
 
         Abstractions.Common.GridType GridType { get; } 
 
@@ -135,6 +138,8 @@ namespace Doodle.Abstractions.Interfaces
         Task RemoveResizableContent(IResizableContent content);
 
         Task ClearResizableContent();
+
+        Task SetBackgroundColor(string color, bool setEraserColor);
         #endregion
 
     }

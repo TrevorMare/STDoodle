@@ -32,9 +32,8 @@
 /* Canvas  */
 /* Canvas Background  */
 /* Buttons */
-/* Round Button Element With Image */
-.btn-round,
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons .doodle-canvasgrid-button {
+/* Round Button Element With Material Icon */
+.btn-round {
   height: 36px;
   width: 36px;
   margin: 0rem 0.2rem;
@@ -48,75 +47,108 @@
   border: solid 1px #8bc34a;
   color: #5a9216;
 }
-.btn-round span,
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons .doodle-canvasgrid-button span {
+.btn-round span {
   font-size: 1.4rem;
 }
-.btn-round:active,
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons .doodle-canvasgrid-button:active {
+.btn-round:active {
   outline: 0;
 }
-.btn-round:focus,
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons .doodle-canvasgrid-button:focus {
+.btn-round:focus {
   outline: 0;
 }
-.btn-round:hover,
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons .doodle-canvasgrid-button:hover {
+.btn-round:hover {
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled,
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons .doodle-canvasgrid-button:disabled {
+.btn-round:disabled {
   box-shadow: none !important;
   border: solid 1px #5a5a5a;
   color: #5a5a5a;
 }
-.btn-round-content-image {
-  height: 36px;
-  width: 36px;
-  overflow: hidden;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+.btn-round:disabled span {
+  opacity: 0.4;
 }
-/* Text Button With Icon*/
-.btn-text {
+/*
+    Round Button Element With Custom Round Inner
+*/
+.button-custom-outer {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  position: relative;
   cursor: pointer;
 }
-.btn-text .btn-text-label {
-  color: #7b7b7b;
+.button-custom-outer.active {
+  background-color: #ff9800;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.button-custom-outer:hover {
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+.button-custom-outer.vertical {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.button-custom-outer:active {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
+}
+.button-custom-outer.disabled {
+  opacity: 0.6;
+}
+.button-custom-inner {
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+/* Top Menu Toolbar Buttons */
+.doodle-toolbar-buttons-container {
+  display: flex;
+}
+.doodle-toolbar-buttons-container .doodle-toolbar-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.doodle-toolbar-buttons-container .doodle-toolbar-buttons .btn-round.selected {
+  background-color: #ffc947;
+}
+/* Toolbar Panels (Popup toolbar) */
+.doodle-toolbar-panels {
+  display: flex;
+}
+.doodle-toolbar-panels .doodle-toolbar-panel {
+  padding: 0.8rem;
+  border-right: solid 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.2rem;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-header span {
+  color: #ff9800;
   text-transform: uppercase;
 }
-.btn-text .btn-text-icon {
-  color: #7b7b7b;
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content {
+  align-self: center;
+  justify-self: center;
+  flex-grow: 1;
 }
-.btn-text:hover {
-  text-shadow: 2px 2px 6px rgba(123, 123, 123, 0.6);
-}
-.btn-text.expanded .btn-text-label {
-  color: #ff9800;
-}
-.btn-text.expanded .btn-text-icon {
-  color: #ff9800;
-}
-.btn-text.expanded:hover {
-  text-shadow: 2px 2px 6px rgba(255, 152, 0, 0.6);
-}
-/* Toolbar Layout */
-.doodle-toolbar-header-wrapper {
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.doodle-toolbar-content-wrapper {
-  display: flex;
-  position: absolute;
-  background-color: white;
-  width: 100%;
-  transform: translate(0px, 50px);
-  z-index: 24;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper .doodle-toolbar-close {
+  color: #ff4a4a;
 }
 /* Overlay element to indicate selection */
 .selected-icon-overlay {
@@ -131,95 +163,9 @@
   background-image: url("/_content/STDoodle/img/selected-icon.svg");
   background-repeat: no-repeat;
 }
-.img-circle-button {
-  height: 28px;
-  width: 28px;
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0.2rem;
-  background-color: white;
-}
-.img-circle-button:active {
-  outline: 0;
-}
-.img-circle-button:focus {
-  outline: 0;
-}
-.img-circle-button:hover {
-  box-shadow: 0 12px 12px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-.img-circle-button:disabled {
-  box-shadow: none !important;
-}
-.img-circle-button:disabled .img-circle-button-content {
-  opacity: 0.4;
-}
-.img-circle-button-content {
-  height: 28px;
-  width: 28px;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-.circle-button-outer {
-  height: 28px;
-  width: 28px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  border: solid 1px rgba(0, 0, 0, 0.2);
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
-  position: relative;
-  cursor: pointer;
-}
-.circle-button-outer.active {
-  background-color: #485248;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.circle-button-outer:hover {
-  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
-.circle-button-outer.vertical {
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
-}
-.circle-button-outer:active {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.35), 0 6px 20px 0 rgba(0, 0, 0, 0.59);
-}
-.circle-button-outer.disabled {
-  opacity: 0.6;
-}
-.circle-button-inner {
-  box-sizing: border-box;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-}
 .doodle-canvas-background {
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-}
-.doodle-canvasgrid-wrapper {
-  display: flex;
-}
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.doodle-canvasgrid-wrapper .doodle-canvasgrid-buttons.vertical {
-  flex-direction: column;
 }

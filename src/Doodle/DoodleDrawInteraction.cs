@@ -41,6 +41,8 @@ namespace Doodle
 
         public string EraserColor { get; private set; } = "#ffffff";
 
+        public string BackgroundColor { get; private set; } = "#ffffff";
+
         public IEnumerable<IResizableContent> ResizableContents { get; private set; } = new List<IResizableContent>();
         #endregion
 
@@ -69,6 +71,7 @@ namespace Doodle
         public event OnDrawTypeChangedHandler OnDrawTypeChanged;
         public event OnSizeChangedHandler OnEraserSizeChanged;
         public event OnColorChangedHandler OnEraserColorChanged;
+        public event OnColorChangedHandler OnBackgroundColorChanged;
         #endregion
 
         #region Methods
@@ -384,6 +387,20 @@ namespace Doodle
                 this.OnStateHasChanged?.Invoke(this, null);
             }
             return Task.CompletedTask;
+        }
+
+        public async Task SetBackgroundColor(string color, bool setEraserColor)
+        {
+            if (this.BackgroundColor != color)
+            {
+                if (setEraserColor)
+                {
+                    await this.SetEraserColor(color);
+                }
+                this.BackgroundColor = color;
+                this.OnBackgroundColorChanged?.Invoke(this, this.BackgroundColor);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
         }
         #endregion
         
