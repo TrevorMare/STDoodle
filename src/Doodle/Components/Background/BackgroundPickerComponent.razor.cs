@@ -14,6 +14,9 @@ namespace Doodle.Components.Background
 
         [Parameter]
         public IEnumerable<BackgroundData> BackgroundSources { get; set; } = new List<Abstractions.Models.BackgroundData>();
+
+        [Parameter]
+        public EventCallback OnCloseMenu { get; set; }
         #endregion
 
         #region Methods
