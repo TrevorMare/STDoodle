@@ -1,15 +1,42 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbar-content-backgroundpicker="@DataAttributeName" class="background-picker-layout">
-    @foreach (var backgroundSource in BackgroundSources)
-    {
-        bool isSelected = DoodleDrawInteraction.SelectedBackgrounds.Contains(backgroundSource);
-        
-        <BackgroundSourceComponent 
-            IsPreview="true"
-            BackgroundSource="@backgroundSource"
-            IsSelected="@isSelected"
-            OnClick="@((backgroundSource) => ToggleSelectedBackground(backgroundSource))">
-        </BackgroundSourceComponent>
-    }
+<div data-doodle-color-picker="@DataAttributeName" class="doodle-background-picker-wrapper">
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Backgrounds</span>
+        </div>
+
+        <div class="toolbar-panel-content">
+            <div data-toolbar-content-backgroundpicker="@DataAttributeName" class="background-picker-layout">
+                @foreach (var backgroundSource in BackgroundSources)
+                {
+                    bool isSelected = DoodleDrawInteraction.SelectedBackgrounds.Contains(backgroundSource);
+                    
+                    <BackgroundSourceComponent 
+                        IsPreview="true"
+                        BackgroundSource="@backgroundSource"
+                        IsSelected="@isSelected"
+                        OnClick="@((backgroundSource) => ToggleSelectedBackground(backgroundSource))">
+                    </BackgroundSourceComponent>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="toolbar-panel">
+        <div class="toolbar-panel-header">
+            <span>Close</span>
+        </div>
+
+        <div class="toolbar-panel-content content-close">
+            <div class="doodle-color-picker-custom">
+                <button class="doodle-backgroundpicker-button" title="Close"
+                        @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
+                    <span class="material-icons" style="color: red;">close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
 </div>
+

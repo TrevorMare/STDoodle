@@ -23,7 +23,7 @@
             }
             else if (ToolbarContent == ToolbarContent.BackgroundPicker)
             {
-                <Doodle.Components.Background.BackgroundPickerComponent></Doodle.Components.Background.BackgroundPickerComponent>
+                <Doodle.Components.Background.BackgroundPickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Background.BackgroundPickerComponent>
             }
             else if (ToolbarContent == ToolbarContent.SizePicker)
             {
