@@ -41,6 +41,9 @@ namespace Doodle.Components.Size
 
         [Parameter]
         public bool ShowCustomNumber { get; set; }
+
+        [Parameter]
+        public EventCallback OnCloseMenu { get; set; }
         #endregion
 
         #region Config Init

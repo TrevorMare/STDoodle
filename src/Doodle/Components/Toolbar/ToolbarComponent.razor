@@ -19,7 +19,7 @@
             
             @if (ToolbarContent == ToolbarContent.ColorPicker)
             {
-                <Doodle.Components.Color.ColorPickerComponent></Doodle.Components.Color.ColorPickerComponent>
+                <Doodle.Components.Color.ColorPickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Color.ColorPickerComponent>
             }
             else if (ToolbarContent == ToolbarContent.BackgroundPicker)
             {
@@ -27,11 +27,11 @@
             }
             else if (ToolbarContent == ToolbarContent.SizePicker)
             {
-                <Doodle.Components.Size.SizePickerComponent></Doodle.Components.Size.SizePickerComponent>
+                <Doodle.Components.Size.SizePickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Size.SizePickerComponent>
             }
             else if (ToolbarContent == ToolbarContent.CanvasGridOptions)
             {
-                <Doodle.Components.Canvas.CanvasGridOptionsComponent></Doodle.Components.Canvas.CanvasGridOptionsComponent>
+                <Doodle.Components.Canvas.CanvasGridOptionsComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Canvas.CanvasGridOptionsComponent>
             }
 
         </div>

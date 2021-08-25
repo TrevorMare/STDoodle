@@ -1,4 +1,6 @@
-<ResizableElementComponent @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left"  MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
+@inherits Shared.DoodleBaseComponent
+
+<ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left"  MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
    <div class="doodle-resizable-image-container" style="background-image: url('@Model.ImageSource');">
    </div>
 </ResizableElementComponent>

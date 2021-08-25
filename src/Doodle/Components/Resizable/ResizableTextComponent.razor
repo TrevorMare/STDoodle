@@ -1,4 +1,6 @@
-<ResizableElementComponent @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
+@inherits Shared.DoodleBaseComponent
+
+<ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
     <ActiveContent>
         <textarea class="text-area-display" @onchange="@((e) => Model.Text = e.Value.ToString())">@Model.Text</textarea>
     </ActiveContent>

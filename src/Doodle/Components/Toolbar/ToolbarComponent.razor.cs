@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Toolbar
@@ -13,6 +14,11 @@ namespace Doodle.Components.Toolbar
         #endregion
 
         #region Overrides
+        public async Task CloseMenu()
+        {
+            await this.DoodleDrawInteraction.SetToolbarContent(Abstractions.Common.ToolbarContent.None);
+        }
+
         protected override void OnInitialized()
         {
             this.DoodleDrawInteraction.OnToolbarContentChanged += (s, toolbarContent) => 

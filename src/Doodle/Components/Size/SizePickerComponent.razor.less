@@ -8,6 +8,8 @@
     .toolbar-panel-header {
         width: 100%;
         text-align: center;
+        margin-bottom: 0.2rem;
+        border-bottom: solid 1px @dark-color;
         span {
             color: @secondary-color;
             text-transform: uppercase;
@@ -28,6 +30,11 @@
                 padding-right: 1.6rem;
                 color: @text-color;
             }
+        }
+        &.content-close {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 }
@@ -66,8 +73,4 @@
             }
         }
     }
-
-    
-    
-   
 }
