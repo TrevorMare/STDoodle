@@ -8,6 +8,7 @@ namespace Doodle.Components.Resizable
         
         #region Members
         private bool _elementActive = false;
+
         private Abstractions.Models.ResizableText Model => (Abstractions.Models.ResizableText)DataSource;
         #endregion
         
@@ -30,12 +31,14 @@ namespace Doodle.Components.Resizable
                 }
             } 
         }
+
         public EventCallback<bool> ElementActiveChanged { get; set; }
         #endregion
 
         #region Methods
         protected override void OnInitialized()
         {
+            this.ElementActive = (DoodleDrawInteraction.DrawType == Abstractions.Common.DrawType.ResizableText);
             this.DoodleDrawInteraction.OnDrawTypeChanged += (s, drawType) => {
                 this.ElementActive = (drawType == Abstractions.Common.DrawType.ResizableText);
             };

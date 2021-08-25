@@ -16,6 +16,7 @@ namespace Doodle.Abstractions.Interfaces
     public delegate void OnDrawModeChangedHandler(object sender, Abstractions.Common.DrawMode drawMode);
     public delegate void OnDrawTypeChangedHandler(object sender, Abstractions.Common.DrawType drawMode);
     public delegate void OnRestoreHandler(object sender, string jsonContent);
+    public delegate void OnResizableContentsChangedHandler(object sender, IEnumerable<IResizableContent> contents);
 
     public interface IDoodleDrawInteraction
     {
@@ -44,11 +45,14 @@ namespace Doodle.Abstractions.Interfaces
         event EventHandler OnRedrawCanvas; 
         event OnToolbarContentChangedHandler OnToolbarContentChanged;
         event OnDrawTypeChangedHandler OnDrawTypeChanged;
+        event OnResizableContentsChangedHandler OnResizableContentsChanged;
         #endregion
 
         #region Properties
 
         IEnumerable<Models.BackgroundData> SelectedBackgrounds { get; }
+
+        IEnumerable<IResizableContent> ResizableContents { get; }
 
         string StrokeColor { get; }
 
@@ -125,6 +129,12 @@ namespace Doodle.Abstractions.Interfaces
         Task ToggleToolbarContent(ToolbarContent toolbarContent);
         
         Task SetDrawType(DrawType drawType);
+
+        Task AddResizableContent(IResizableContent content);
+
+        Task RemoveResizableContent(IResizableContent content);
+
+        Task ClearResizableContent();
         #endregion
 
     }

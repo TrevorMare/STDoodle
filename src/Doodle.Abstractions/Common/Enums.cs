@@ -47,7 +47,9 @@ namespace Doodle.Abstractions.Common
         ColorPicker = 1,
         BackgroundPicker = 2,
         SizePicker = 3,
-        CanvasGridOptions = 4
+        CanvasGridOptions = 4,
+        ResizableText = 5,
+        ResizableImage = 6
 
     }
 

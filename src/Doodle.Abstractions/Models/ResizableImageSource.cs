@@ -3,14 +3,12 @@ using Doodle.Abstractions.Common;
 namespace Doodle.Abstractions.Models
 {
 
-    public class BackgroundData
+    public class ResizableImageSource
     {
-
-        public BackgroundSourceType BackgroundSourceType { get; set; } = BackgroundSourceType.Url;
         
         public string DataSource { get; set; }
 
-        public string BackgroundClass { get; set; }
+        public string ImageClass { get; set; }
 
         public string Name { get; set; }
         
