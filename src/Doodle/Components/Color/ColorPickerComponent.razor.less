@@ -1,63 +1,26 @@
 @import url(../../wwwroot/styles/shared.less);    
 
-.toolbar-panel {
-    padding: 0.8rem;
-    border-right: solid 1px @dark-color; 
-    display: flex;
-    flex-direction: column;
-    .toolbar-panel-header {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 0.2rem;
-        border-bottom: solid 1px @dark-color;
-        span {
-            color: @secondary-color;
-            text-transform: uppercase;
-        }
-    }
-    .toolbar-panel-content {
-        align-self: center;
-        justify-self: center;
-        flex-grow: 1;
-        &.content-custom-colors {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            input {
-                opacity: 0;
-                position: absolute;
-            }
-        }
 
-        &.content-close {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.doodle-color-picker-custom {
 
+    input {
+        opacity: 0;
+        position: absolute;
     }
 }
 
-.doodle-color-picker-wrapper {
-    display: flex;
+.doodle-color-picker-favourites {
+    display: grid !important;
+    grid-template-columns: repeat(10, minmax(24px, 24px));
+    grid-template-rows: repeat(6, minmax(24px, 24px));
+    grid-auto-flow: column;
+    grid-gap: 0.4rem;
 
-    .doodle-coloroptions-button {
-        &:extend(.btn-round all);
-    }
+    .doodle-color-picker-color-outer {
+        &:extend(.button-custom-outer all);
 
-    .doodle-color-picker-favourites {
-        display: grid;
-        grid-template-columns: repeat(10, minmax(24px, 24px));
-        grid-template-rows: repeat(6, minmax(24px, 24px));
-        grid-auto-flow: column;
-        grid-gap: 0.4rem;
-
-        .doodle-color-picker-color-outer {
-            &:extend(.button-custom-outer all);
-
-            .doodle-color-picker-color-inner {
-                &:extend(.button-custom-inner all);
-            }
+        .doodle-color-picker-color-inner {
+            &:extend(.button-custom-inner all);
         }
     }
 }

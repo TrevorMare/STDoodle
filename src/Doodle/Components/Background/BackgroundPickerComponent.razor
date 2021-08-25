@@ -1,13 +1,13 @@
-@inherits Shared.DoodleBaseComponent
+@inherits Shared.DoodleBaseComponent 
 
-<div data-doodle-color-picker="@DataAttributeName" class="doodle-background-picker-wrapper">
-    <div class="toolbar-panel">
-        <div class="toolbar-panel-header">
+<div data-toolbarmenu-backgroundpickercomponent="@DataAttributeName" class="doodle-toolbar-panels">
+    <div class="doodle-toolbar-panel">
+        <div class="doodle-toolbar-panel-header">
             <span>Backgrounds</span>
         </div>
 
-        <div class="toolbar-panel-content">
-            <div data-toolbar-content-backgroundpicker="@DataAttributeName" class="background-picker-layout">
+        <div class="doodle-toolbar-panel-content">
+            <div data-toolbarmenu-backgroundpickercomponent-menubackgrounds="@DataAttributeName" class="background-picker-layout">
                 @foreach (var backgroundSource in BackgroundSources)
                 {
                     bool isSelected = DoodleDrawInteraction.SelectedBackgrounds.Contains(backgroundSource);
@@ -22,22 +22,19 @@
             </div>
         </div>
     </div>
-    
-    <div class="toolbar-panel">
-        <div class="toolbar-panel-header">
+    <div class="doodle-toolbar-panel">
+        <div class="doodle-toolbar-panel-header">
             <span>Close</span>
         </div>
 
-        <div class="toolbar-panel-content content-close">
-            <div class="doodle-color-picker-custom">
-                <button class="doodle-backgroundpicker-button" title="Close"
+        <div class="doodle-toolbar-panel-content">
+            <div data-toolbarmenu-backgroundpickercomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
+                <button class="btn-round" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
-                    <span class="material-icons" style="color: red;">close</span>
+                    <span class="material-icons doodle-toolbar-close" >close</span>
                 </button>
             </div>
         </div>
     </div>
-
-
 </div>
 

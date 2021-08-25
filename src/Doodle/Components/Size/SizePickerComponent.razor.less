@@ -1,76 +1,37 @@
 @import url(../../wwwroot/styles/shared.less);    
 
-.toolbar-panel {
-    padding: 0.8rem;
-    border-right: solid 1px @dark-color; 
-    display: flex;
-    flex-direction: column;
-    .toolbar-panel-header {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 0.2rem;
-        border-bottom: solid 1px @dark-color;
-        span {
-            color: @secondary-color;
-            text-transform: uppercase;
-        }
-    }
-    .toolbar-panel-content {
-        align-self: center;
-        justify-self: center;
-        flex-grow: 1;
-
-        &.content-custom-sizes {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            label {
-                padding-left: 1.6rem;
-                padding-right: 1.6rem;
-                color: @text-color;
-            }
-        }
-        &.content-close {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+.content-custom-sizes {
+    label {
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
+        color: @text-color;
     }
 }
 
-.doodle-size-picker-wrapper {
-    display: flex;
+.doodle-size-picker-favourites {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(24px, 24px));
+    grid-template-rows: repeat(3, minmax(24px, 24px));
+    grid-auto-flow: column;
+    grid-gap: 0.4rem;
+    
+    .doodle-size-picker-outer {
+        &:extend(.button-custom-outer all);
+        .doodle-size-picker-inner {
+            &:extend(.button-custom-inner all);
+            background-color: white;
+            overflow: hidden;
+            display: flex;
+            vertical-align: center;
+            align-content: center;
 
-    .doodle-sizeoptions-button {
-        &:extend(.btn-round all);
-    }
-
-    .doodle-size-picker-favourites {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(24px, 24px));
-        grid-template-rows: repeat(3, minmax(24px, 24px));
-        grid-auto-flow: column;
-        grid-gap: 0.4rem;
-        
-        .doodle-size-picker-outer {
-            &:extend(.button-custom-outer all);
-            .doodle-size-picker-inner {
-                &:extend(.button-custom-inner all);
-                background-color: white;
-                overflow: hidden;
-                display: flex;
-                vertical-align: center;
-                align-content: center;
-
-                .doodle-size-picker-line {
-                    width: 100%;
-                    border-top-color: rgb(94, 94, 94);;
-                    border-top-style: solid;
-                    height: 1px;
-                    align-self: center;
-                } 
-            }
+            .doodle-size-picker-line {
+                width: 100%;
+                border-top-color: rgb(94, 94, 94);;
+                border-top-style: solid;
+                height: 1px;
+                align-self: center;
+            } 
         }
     }
 }
