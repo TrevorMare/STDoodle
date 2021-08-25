@@ -33,6 +33,15 @@
             {
                 <Doodle.Components.Canvas.CanvasGridOptionsComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Canvas.CanvasGridOptionsComponent>
             }
+            else if (ToolbarContent == ToolbarContent.ResizableImage)
+            {
+                <Doodle.Components.Resizable.ResizableImageToolbarComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Resizable.ResizableImageToolbarComponent>
+            }
+            else if (ToolbarContent == ToolbarContent.ResizableText)
+            {
+                <Doodle.Components.Resizable.ResizableTextToolbarComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Resizable.ResizableTextToolbarComponent>
+            }
+
 
         </div>
     </div>

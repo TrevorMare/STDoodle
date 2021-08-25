@@ -18,12 +18,12 @@
         </button>
 
         <button class="doodle-drawtype-button @(DoodleDrawInteraction.DrawType == DrawType.ResizableText ? "selected" : "")" title="Draw Text"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.ResizableText))"> 
+                @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.ResizableText); DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ResizableText); })"> 
                 <span class="material-icons">text_fields</span>
         </button>
 
         <button class="doodle-drawtype-button @(DoodleDrawInteraction.DrawType == DrawType.ResizableImage ? "selected" : "")" title="Draw Image"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.ResizableImage))"> 
+                @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.ResizableImage); DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ResizableImage); })"> 
                 <span class="material-icons">format_shapes</span>
         </button>
     </div>

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Doodle.Abstractions.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Resizable
@@ -12,6 +14,7 @@ namespace Doodle.Components.Resizable
         #endregion
         
         #region Properties
+  
         [Parameter]
         public Abstractions.Interfaces.IResizableContent DataSource { get; set; }
 
@@ -37,6 +40,7 @@ namespace Doodle.Components.Resizable
         #region Methods
         protected override void OnInitialized()
         {
+            this.ElementActive = (DoodleDrawInteraction.DrawType == Abstractions.Common.DrawType.ResizableImage);
             this.DoodleDrawInteraction.OnDrawTypeChanged += (s, drawType) => {
                 this.ElementActive = (drawType == Abstractions.Common.DrawType.ResizableImage);
             };

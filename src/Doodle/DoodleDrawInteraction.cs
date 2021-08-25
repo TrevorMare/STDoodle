@@ -40,9 +40,12 @@ namespace Doodle
         public ToolbarContent ToolbarContent { get; private set; } = ToolbarContent.None; 
 
         public string EraserColor { get; private set; } = "#ffffff";
+
+        public IEnumerable<IResizableContent> ResizableContents { get; private set; } = new List<IResizableContent>();
         #endregion
 
         #region Events
+        public event OnResizableContentsChangedHandler OnResizableContentsChanged;
         public event OnToolbarContentChangedHandler OnToolbarContentChanged;
         public event OnBackgroundChangedHandler OnBackgroundAdded;
         public event OnBackgroundChangedHandler OnBackgroundRemoved;
@@ -277,10 +280,11 @@ namespace Doodle
             return Task.CompletedTask;
         }
 
-        public Task ClearDoodle(bool clearHistory)
+        public async Task ClearDoodle(bool clearHistory)
         {
+            await this.ClearResizableContent();
+
             OnClearDoodle?.Invoke(this, clearHistory);
-            return Task.CompletedTask;
         }
 
         public Task ExportImage()
@@ -336,6 +340,49 @@ namespace Doodle
                 }
             }
 
+            return Task.CompletedTask;
+        }
+
+        public Task AddResizableContent(IResizableContent content)
+        {
+            if (content != null)
+            {
+                if (!this.ResizableContents.Contains(content))
+                {
+                    var resizableList = this.ResizableContents.ToList();
+                    resizableList.Add(content);
+                    this.ResizableContents = resizableList;
+                    this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
+                    this.OnStateHasChanged?.Invoke(this, null);
+                }
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task RemoveResizableContent(IResizableContent content)
+        {
+            if (content != null)
+            {
+                if (this.ResizableContents.Contains(content))
+                {
+                    var resizableList = this.ResizableContents.ToList();
+                    resizableList.Remove(content);
+                    this.ResizableContents = resizableList;
+                    this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
+                    this.OnStateHasChanged?.Invoke(this, null);
+                }
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task ClearResizableContent()
+        {
+            if (this.ResizableContents.Count() > 0)
+            {
+                var resizableList = new List<IResizableContent>();
+                this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
             return Task.CompletedTask;
         }
         #endregion
