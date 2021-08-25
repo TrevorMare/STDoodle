@@ -70,12 +70,17 @@ namespace Doodle.Components
 
         [Inject]
         public Abstractions.Interfaces.IDoodleDrawInteraction DoodleDrawInteraction { get; set; }
+
+        public string BackgroundColor => DoodleDrawInteraction.BackgroundColor;
         #endregion
 
         #region Config Init
         private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
-           
+           if (config != null)
+           {
+               
+           }
         }
         #endregion
 

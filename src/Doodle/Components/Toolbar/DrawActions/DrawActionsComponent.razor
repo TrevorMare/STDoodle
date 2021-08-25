@@ -1,37 +1,41 @@
 @inherits Shared.DoodleBaseComponent
 
-
 @if (Visible) 
 {
-    <div data-doodle-toolbar="@DataAttributeName" class="doodle-actionbar-wrapper @WrapperClass">
+    <div data-toolbarbuttons-drawactionscomponent="@DataAttributeName" class="doodle-toolbar-buttons-container">
 
-        <div class="doodle-actionbar-buttons @(Orientation == Abstractions.Common.Orientation.Vertical ? "vertical" : "")">
+        <div class="doodle-toolbar-buttons">
 
-            <button hidden="@(!UndoButtonVisible)"  disabled=@(!UndoButtonEnabled) 
-                    class="doodle-actionbar-button @UndoButtonClass" title="Undo"
+            <button data-toolbarbuttons-drawactionscomponent-undobutton="@DataAttributeName"
+                    hidden="@(!UndoButtonVisible)" disabled=@(!UndoButtonEnabled) 
+                    class="btn-round @UndoButtonClass" title="Undo"
                     @onclick="@(() => DoodleDrawInteraction.UndoLastAction())"> 
                     <span class="material-icons">undo</span>
             </button>
 
-            <button hidden="@(!RedoButtonVisible)" disabled=@(!RedoButtonEnabled) 
-                    class="doodle-actionbar-button @RedoButtonClass" title="Redo"
+            <button data-toolbarbuttons-drawactionscomponent-redobutton="@DataAttributeName"
+                    hidden="@(!RedoButtonVisible)" disabled=@(!RedoButtonEnabled) 
+                    class="btn-round @RedoButtonClass" title="Redo"
                     @onclick="@(() => DoodleDrawInteraction.RedoLastAction())">
                     <span class="material-icons">redo</span>
             </button>
             
-            <button hidden="@(!ClearButtonVisible)" disabled=@(!ClearButtonEnabled) 
-                    class="doodle-actionbar-button @ClearButtonClass" title="Clear"
+            <button data-toolbarbuttons-drawactionscomponent-clearbutton="@DataAttributeName"
+                    hidden="@(!ClearButtonVisible)" disabled=@(!ClearButtonEnabled) 
+                    class="btn-round @ClearButtonClass" title="Clear"
                     @onclick="@(() => DoodleDrawInteraction.ClearDoodle(ClearHistoryOnClear))">
                     <span class="material-icons">clear</span>
             </button>
 
-            <button hidden="@(!SaveButtonVisible)" disabled=@(!SaveButtonEnabled) 
-                    class="doodle-actionbar-button @SaveButtonClass" title="Save"> 
+            <button data-toolbarbuttons-drawactionscomponent-savebutton="@DataAttributeName"
+                    hidden="@(!SaveButtonVisible)" disabled=@(!SaveButtonEnabled) 
+                    class="btn-round @SaveButtonClass" title="Save"> 
                     <span class="material-icons">save</span>
             </button>
 
-            <button hidden="@(!ExportButtonVisible)" disabled=@(!ExportButtonEnabled) 
-                    class="doodle-actionbar-button @ExportButtonClass" title="Export Image"
+            <button data-toolbarbuttons-drawactionscomponent-exportbutton="@DataAttributeName"
+                    hidden="@(!ExportButtonVisible)" disabled=@(!ExportButtonEnabled) 
+                    class="btn-round @ExportButtonClass" title="Export Image"
                     @onclick="@(() => DoodleDrawInteraction.ExportImage())">
                     <span class="material-icons">file_download</span>
             </button>

@@ -1,14 +1,11 @@
 <CascadingValue Value="DataAttributeName" Name="DataAttributeName">
     <CascadingValue Value="Options" Name="Options">
         <CascadingValue Value="DoodleDrawInteraction" Name="DoodleDrawInteraction">
-
-
-            <div class="doodle-draw-wrapper" data-doodle-draw="@DataAttributeName"> 
+            <div data-doodledrawcomponent-wrapper="@DataAttributeName" class="doodle-draw-wrapper" > 
                 <Doodle.Components.Toolbar.ToolbarComponent></Doodle.Components.Toolbar.ToolbarComponent>                
-
-                <div class="doodle-draw-body" data-doodle-draw-body="@DataAttributeName">
-                    <div @ref="RenderWrapper" class="doodle-draw-content" >
-
+                <div data-doodledrawcomponent-body="@DataAttributeName" class="doodle-draw-body">
+                    <div data-doodledrawcomponent-content="@DataAttributeName" @ref="RenderWrapper" 
+                         class="doodle-draw-content" style="background-color: @BackgroundColor;" >
                         @if (DoodleDrawInteraction.SelectedBackgrounds != null && DoodleDrawInteraction.SelectedBackgrounds.Count() > 0)
                         {
                             foreach (var background in DoodleDrawInteraction.SelectedBackgrounds)
@@ -17,24 +14,16 @@
                                 </Doodle.Components.Background.BackgroundSourceComponent>
                             }
                         }
-                        
                         <Doodle.Components.Resizable.ResizableListComponent
                             Active="@IsResizableContainerActive"></Doodle.Components.Resizable.ResizableListComponent>
-
                         <Doodle.Components.Canvas.CanvasComponent 
                             OnCommandPathsUpdated="@(() => StateHasChanged())"
                             @ref="DoodleCanvas"></Doodle.Components.Canvas.CanvasComponent>
                     </div>
                 </div>
             </div>
-
-
         </CascadingValue>
     </CascadingValue>
 </CascadingValue>
-
-
-
-<div style="height: 400px; width:400px; background-image: url('@imgSource');" ></div>
 
 

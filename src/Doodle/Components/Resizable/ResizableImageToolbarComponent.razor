@@ -1,13 +1,13 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-doodle-toolbar-text="@DataAttributeName" class="doodle-toolbar-panels">  
+<div data-toolbarmenu-resizableimagecomponent="@DataAttributeName" class="doodle-toolbar-panels">  
     <div class="doodle-toolbar-panel">
         <div class="doodle-toolbar-panel-header">
             <span>Select Image</span>
         </div>
 
         <div class="doodle-toolbar-panel-content">
-            <div class="doodle-toolbar-panel-content-wrapper">
+            <div data-toolbarmenu-resizableimagecomponent-menusources="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
                 @foreach (var imageSource in ImageSources)
                 {
                     <div @onclick="@((e) => { AddResizableContentImage(imageSource).ConfigureAwait(false); OnCloseMenu.InvokeAsync(); })" 
@@ -24,7 +24,7 @@
         </div>
 
         <div class="doodle-toolbar-panel-content">
-            <div class="doodle-toolbar-panel-content-wrapper">
+            <div data-toolbarmenu-resizableimagecomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
                 <button class="btn-round" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
                     <span class="material-icons doodle-toolbar-close">close</span>

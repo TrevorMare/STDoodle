@@ -159,19 +159,19 @@
     border-radius: 50%;
 }
 
-/* Toolbar Layout */
-.doodle-toolbar-header-wrapper {
-    display: flex;
-}
-
-.doodle-toolbar-content-wrapper {
-    display: flex;
-    position: absolute;
-    background-color: white;
-    width: 100%;
-    transform: translate(0px, @header-height);
-    z-index: @canvas-z-index + 4;
-    box-shadow: @panel-box-shadow;
+/* Top Menu Toolbar Buttons */
+.doodle-toolbar-buttons-container {
+    display: flex; 
+    .doodle-toolbar-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .btn-round {
+            &.selected {
+                background-color: @secondary-color-light;
+            }
+        }  
+    }
 }
 
 /* Toolbar Panels (Popup toolbar) */
@@ -197,6 +197,7 @@
             align-self: center;
             justify-self: center;
             flex-grow: 1;
+            display: flex;
             .doodle-toolbar-panel-content-wrapper {
                 display: flex;
                 justify-content: center;

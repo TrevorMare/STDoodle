@@ -1,10 +1,11 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbar-header-backgroundpicker="@DataAttributeName" class="doodle-backgroundpicker-wrapper">
-    <div class="doodle-backgroundpicker-buttons">
-        <button class="doodle-backgroundpicker-button" title="Pick Backgrounds"
+<div data-toolbar-header-backgroundpicker="@DataAttributeName" class="doodle-toolbar-buttons-container">
+    <div class="doodle-toolbar-buttons">
+        <button data-toolbar-header-backgroundpicker-pickbackgroundbutton="@DataAttributeName"
+                class="btn-round" title="Pick Backgrounds"
                 @onclick="@(() => DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.BackgroundPicker))"> 
-                <span class="material-icons">wallpaper</span>
+            <span class="material-icons">wallpaper</span>
         </button>
     </div>
 </div>

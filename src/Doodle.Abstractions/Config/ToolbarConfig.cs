@@ -5,8 +5,6 @@ namespace Doodle.Abstractions.Config
 
     public class ToolbarConfig
     {
-        public Common.Orientation Orientation { get; set; } = Common.Orientation.Horizontal;
-
         public string WrapperClass { get; set; }
         
         public bool Visible { get; set; } = true;

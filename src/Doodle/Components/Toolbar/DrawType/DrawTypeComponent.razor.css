@@ -33,8 +33,7 @@
 /* Canvas Background  */
 /* Buttons */
 /* Round Button Element With Material Icon */
-.btn-round,
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button {
+.btn-round {
   height: 36px;
   width: 36px;
   margin: 0rem 0.2rem;
@@ -48,30 +47,24 @@
   border: solid 1px #8bc34a;
   color: #5a9216;
 }
-.btn-round span,
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button span {
+.btn-round span {
   font-size: 1.4rem;
 }
-.btn-round:active,
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:active {
+.btn-round:active {
   outline: 0;
 }
-.btn-round:focus,
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:focus {
+.btn-round:focus {
   outline: 0;
 }
-.btn-round:hover,
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:hover {
+.btn-round:hover {
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled,
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:disabled {
+.btn-round:disabled {
   box-shadow: none !important;
   border: solid 1px #5a5a5a;
   color: #5a5a5a;
 }
-.btn-round:disabled span,
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button:disabled span {
+.btn-round:disabled span {
   opacity: 0.4;
 }
 /*
@@ -112,18 +105,50 @@
   width: 20px;
   border-radius: 50%;
 }
-/* Toolbar Layout */
-.doodle-toolbar-header-wrapper {
+/* Top Menu Toolbar Buttons */
+.doodle-toolbar-buttons-container {
   display: flex;
 }
-.doodle-toolbar-content-wrapper {
+.doodle-toolbar-buttons-container .doodle-toolbar-buttons {
   display: flex;
-  position: absolute;
-  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
+.doodle-toolbar-buttons-container .doodle-toolbar-buttons .btn-round.selected {
+  background-color: #ffc947;
+}
+/* Toolbar Panels (Popup toolbar) */
+.doodle-toolbar-panels {
+  display: flex;
+}
+.doodle-toolbar-panels .doodle-toolbar-panel {
+  padding: 0.8rem;
+  border-right: solid 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-header {
   width: 100%;
-  transform: translate(0px, 50px);
-  z-index: 24;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  text-align: center;
+  margin-bottom: 0.2rem;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-header span {
+  color: #ff9800;
+  text-transform: uppercase;
+}
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content {
+  align-self: center;
+  justify-self: center;
+  flex-grow: 1;
+}
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper .doodle-toolbar-close {
+  color: #ff4a4a;
 }
 /* Overlay element to indicate selection */
 .selected-icon-overlay {
@@ -143,18 +168,4 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-}
-.doodle-drawtype-wrapper {
-  display: flex;
-}
-.doodle-drawtype-wrapper .doodle-drawtype-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.doodle-drawtype-wrapper .doodle-drawtype-buttons .doodle-drawtype-button.selected {
-  background-color: #ff9800;
-}
-.doodle-drawtype-wrapper .doodle-drawtype-buttons.vertical {
-  flex-direction: column;
 }

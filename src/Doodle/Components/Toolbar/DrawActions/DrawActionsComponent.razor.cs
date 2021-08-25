@@ -22,9 +22,6 @@ namespace Doodle.Components.Toolbar.DrawActions
         public string WrapperClass { get; set; }
 
         [Parameter]
-        public Abstractions.Common.Orientation Orientation { get; set; }
-
-        [Parameter]
         public bool UndoButtonVisible { get; set; }
 
         [Parameter]
@@ -62,8 +59,7 @@ namespace Doodle.Components.Toolbar.DrawActions
         protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
             if (config == null || config.ToolbarConfig == null) return;
-
-            this.Orientation = config.ToolbarConfig.Orientation;
+            
             this.WrapperClass = config.ToolbarConfig.WrapperClass;
             this.Visible = config.ToolbarConfig.Visible;
 

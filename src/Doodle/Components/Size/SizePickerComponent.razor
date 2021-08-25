@@ -1,12 +1,12 @@
 @inherits Shared.DoodleBaseComponent
  
-<div data-doodle-size-picker="@DataAttributeName" class="doodle-size-picker-wrapper @WrapperClass">
-    <div class="toolbar-panel">
-        <div class="toolbar-panel-header">
+<div data-toolbarmenu-sizepickercomponent="@DataAttributeName" class="doodle-toolbar-panels">
+    <div class="doodle-toolbar-panel">
+        <div class="doodle-toolbar-panel-header">
             <span>Quick Sizes</span>
         </div>
-        <div class="toolbar-panel-content content-quick-sizes">
-            <div class="doodle-size-picker-favourites @FavouriteWrapperClass">
+        <div class="doodle-toolbar-panel-content content-quick-sizes">
+            <div data-toolbarmenu-sizepickercomponent-menufavourites="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper doodle-size-picker-favourites">
                 @if (FavouriteSizes?.Count() > 0)
                 {
                     foreach (var size in FavouriteSizes) 
@@ -24,53 +24,57 @@
 
     @if (ShowCustomNumber)
     {
-        <div class="toolbar-panel">
-            <div class="toolbar-panel-header">
+        <div class="doodle-toolbar-panel">
+            <div class="doodle-toolbar-panel-header">
                 <span>Drawing Size</span>
             </div>
-            <div class="toolbar-panel-content content-custom-sizes"> 
-                <button class="doodle-sizeoptions-button" title="Decrease"
-                    @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth - 1))"> 
-                    <span class="material-icons">remove_circle_outline</span>
-                </button>
+            <div class="doodle-toolbar-panel-content content-custom-sizes"> 
+                <div data-toolbarmenu-sizepickercomponent-menudrawsize="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
+                    <button class="btn-round" title="Decrease"
+                        @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth - 1))"> 
+                        <span class="material-icons">remove_circle_outline</span>
+                    </button>
 
-                <label>@DoodleDrawInteraction.StrokeWidth </label>
+                    <label>@DoodleDrawInteraction.StrokeWidth </label>
 
-                <button class="doodle-sizeoptions-button" title="Increase"
-                        @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth + 1))"> 
-                        <span class="material-icons">add_circle_outline</span>
-                </button>
+                    <button class="btn-round" title="Increase"
+                            @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth + 1))"> 
+                            <span class="material-icons">add_circle_outline</span>
+                    </button>
+                </div>
             </div>
         </div>
     }
 
-    <div class="toolbar-panel">
-        <div class="toolbar-panel-header">
+    <div class="doodle-toolbar-panel">
+        <div class="doodle-toolbar-panel-header">
             <span>Eraser Size</span>
         </div>
-        <div class="toolbar-panel-content content-custom-sizes"> 
-            <button class="doodle-sizeoptions-button" title="Decrease"
-                @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth - 1))"> 
-                <span class="material-icons">remove_circle_outline</span>
-            </button>
+        <div class="doodle-toolbar-panel-content content-custom-sizes"> 
+            <div data-toolbarmenu-sizepickercomponent-menuerasersize="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
+                <button class="btn-round" title="Decrease"
+                    @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth - 1))"> 
+                    <span class="material-icons">remove_circle_outline</span>
+                </button>
 
-            <label>@DoodleDrawInteraction.EraserWidth </label>
+                <label>@DoodleDrawInteraction.EraserWidth </label>
 
-            <button class="doodle-sizeoptions-button" title="Increase"
-                    @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth + 1))"> 
-                    <span class="material-icons">add_circle_outline</span>
-            </button>
+                <button class="btn-round" title="Increase"
+                        @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth + 1))"> 
+                        <span class="material-icons">add_circle_outline</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="toolbar-panel">
-        <div class="toolbar-panel-header">
+    <div class="doodle-toolbar-panel">
+        <div class="doodle-toolbar-panel-header">
             <span>Close</span>
         </div>
 
-        <div class="toolbar-panel-content content-close">
-            <div class="doodle-color-picker-custom @CustomWrapperClass">
-                <button class="doodle-sizeoptions-button" title="Close"
+        <div class="doodle-toolbar-panel-content">
+            <div data-toolbarmenu-sizepickercomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
+                <button class="btn-round" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
                     <span class="material-icons" style="color: red;">close</span>
                 </button>

@@ -1,13 +1,13 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-doodle-color-picker="@DataAttributeName" class="doodle-color-picker-wrapper @WrapperClass">  
-    <div class="toolbar-panel">
-        <div class="toolbar-panel-header">
+<div data-toolbarmenu-colorpickercomponent="@DataAttributeName" class="doodle-toolbar-panels">   
+    <div class="doodle-toolbar-panel">
+        <div class="doodle-toolbar-panel-header">
             <span>Quick Colors</span>
         </div>
 
-        <div class="toolbar-panel-content content-quick-colors">
-            <div class="doodle-color-picker-favourites @FavouriteWrapperClass">
+        <div class="doodle-toolbar-panel-content">
+            <div data-toolbarmenu-colorpickercomponent-menufavourite="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper doodle-color-picker-favourites @FavouriteWrapperClass">
                 @if (FavouriteColors?.Count() > 0)
                 {
                     foreach (var color in FavouriteColors)
@@ -23,14 +23,14 @@
     </div>
     @if (ShowCustomColor)
     {
-        <div class="toolbar-panel">
-            <div class="toolbar-panel-header">
+        <div class="doodle-toolbar-panel">
+            <div class="doodle-toolbar-panel-header">
                 <span>Custom Color</span>
             </div>
 
-            <div class="toolbar-panel-content content-custom-colors">
-                <div class="doodle-color-picker-custom @CustomWrapperClass">
-                    <button class="doodle-coloroptions-button" title="Pick Color"
+            <div class="doodle-toolbar-panel-content">
+                <div data-toolbarmenu-colorpickercomponent-menucustomcolor="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper doodle-color-picker-custom @CustomWrapperClass">
+                    <button class="btn-round" title="Pick Color"
                             @onclick="@(() => OpenColorPicker())"> 
                         <span class="material-icons" style="color: @SelectedColor">format_color_fill</span>
                     </button>
@@ -39,16 +39,16 @@
             </div>
         </div>
     }
-    <div class="toolbar-panel">
-        <div class="toolbar-panel-header">
+    <div class="doodle-toolbar-panel">
+        <div class="doodle-toolbar-panel-header">
             <span>Close</span>
         </div>
 
-        <div class="toolbar-panel-content content-close">
-            <div class="doodle-color-picker-custom @CustomWrapperClass">
-                <button class="doodle-coloroptions-button" title="Close"
+        <div class="doodle-toolbar-panel-content">
+            <div data-toolbarmenu-colorpickercomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
+                <button class="btn-round" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
-                    <span class="material-icons" style="color: red;">close</span>
+                    <span class="material-icons doodle-toolbar-close" >close</span>
                 </button>
             </div>
         </div>

@@ -1,10 +1,11 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbar-header-colorpicker="@DataAttributeName" class="doodle-canvasgrid-wrapper">
-    <div class="doodle-canvasgrid-buttons">
-        <button class="doodle-canvasgrid-button" title="Canvas Grid"
+<div data-toolbarbuttons-canvasgridcomponent="@DataAttributeName" class="doodle-toolbar-buttons-container">
+    <div class="doodle-toolbar-buttons">
+        <button data-toolbarbuttons-canvasgridcomponent-canvasgridbutton="@DataAttributeName"
+                class="btn-round" title="Canvas Grid"
                 @onclick="@(() => DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.CanvasGridOptions))"> 
-                <span class="material-icons">grid_4x4</span>
+            <span class="material-icons">grid_4x4</span>
         </button>
     </div>
 </div>

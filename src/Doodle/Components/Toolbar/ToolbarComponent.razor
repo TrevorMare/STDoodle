@@ -1,8 +1,8 @@
 @inherits Shared.DoodleBaseComponent
 
-<div class="toolbar-wrapper">
+<div data-doodletoolbarcomponent-wrapper="@DataAttributeName" class="toolbar-wrapper">
 
-    <div class="toolbar-header">
+    <div data-doodletoolbarcomponent-header="@DataAttributeName" class="toolbar-header">
         <Doodle.Components.Toolbar.DrawActions.DrawActionsComponent></Doodle.Components.Toolbar.DrawActions.DrawActionsComponent>
         <div class="toolbar-splitter"></div>
         <Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent></Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent>
@@ -13,9 +13,8 @@
         <Doodle.Components.Toolbar.DrawType.DrawTypeComponent></Doodle.Components.Toolbar.DrawType.DrawTypeComponent>
     </div>
 
-
-    <div hidden="@(!IsMenuOpen)" class="toolbar-content-wrapper">
-        <div class="toolbar-content">
+    <div data-doodletoolbarcomponent-contentwrapper="@DataAttributeName" hidden="@(!IsMenuOpen)" class="toolbar-content-wrapper">
+        <div data-doodletoolbarcomponent-content="@DataAttributeName" class="toolbar-content">
             
             @if (ToolbarContent == ToolbarContent.ColorPicker)
             {
@@ -41,8 +40,6 @@
             {
                 <Doodle.Components.Resizable.ResizableTextToolbarComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Resizable.ResizableTextToolbarComponent>
             }
-
-
         </div>
     </div>
 
