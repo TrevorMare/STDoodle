@@ -106,15 +106,15 @@
   border-radius: 50%;
 }
 /* Top Menu Toolbar Buttons */
-.doodle-toolbar-buttons-container {
+.toolbar-buttons-container {
   display: flex;
 }
-.doodle-toolbar-buttons-container .doodle-toolbar-buttons {
+.toolbar-buttons-container .toolbar-buttons {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.doodle-toolbar-buttons-container .doodle-toolbar-buttons .btn-round.selected {
+.toolbar-buttons-container .toolbar-buttons.doodle-toolbar-buttons .btn-round.selected {
   background-color: #ffc947;
 }
 /* Toolbar Panels (Popup toolbar) */

@@ -14,7 +14,7 @@ namespace Doodle
                 serviceCollection.AddScoped<Abstractions.Config.DoodleDrawConfig>((s) => { 
                     return new Abstractions.Config.DoodleDrawConfig()
                     {
-                        Theme = new Themes.Default()
+                        Theme = new Themes.Bootstrap()
                     };
                 });
             }
@@ -24,7 +24,7 @@ namespace Doodle
                 config.Invoke(configValue);
                 if (configValue.Theme == null)
                 {
-                    configValue.Theme = new Themes.Default();
+                    configValue.Theme = new Themes.Bootstrap();
                 }
                 serviceCollection.AddScoped<Abstractions.Config.DoodleDrawConfig>((s) => configValue);
             }

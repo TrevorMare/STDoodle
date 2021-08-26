@@ -19,6 +19,12 @@ namespace Doodle.Abstractions.Config
         public bool ShowCanvasGrid { get; set; } = true;
 
         /// <summary>
+        /// Gets or sets a value indicating if the background picker toolbar button should be displayed
+        /// </summary>
+        /// <value></value>
+        public bool ShowBackgroundPicker { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets a value indicating if the color picker toolbar button should be displayed
         /// </summary>
         /// <value></value>
@@ -70,7 +76,7 @@ namespace Doodle.Abstractions.Config
         /// Gets or sets a value indicating if the draw actions should be displayed
         /// </summary>
         /// <value></value>
-        public bool ShowDrawActions { get; set; }
+        public bool ShowDrawActions { get; set; } = true;
 
         /// <summary>
         /// Gets or sets a value indicating if the draw actions undo button should be displayed

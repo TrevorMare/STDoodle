@@ -2,9 +2,9 @@
 
 @if (Show)
 {
-    <div data-doodletoolbarcomponent-wrapper="@DataAttributeName" class="toolbar-wrapper">
+    <div data-doodletoolbarcomponent-wrapper="@DataAttributeName" class="toolbar-wrapper @Theme.ToolbarWrapperClass">
 
-        <div data-doodletoolbarcomponent-header="@DataAttributeName" class="toolbar-header">
+        <div data-doodletoolbarcomponent-header="@DataAttributeName" class="toolbar-header @Theme.ToolbarHeaderClass">
             <Doodle.Components.Toolbar.DrawActions.DrawActionsComponent></Doodle.Components.Toolbar.DrawActions.DrawActionsComponent>
             <div class="toolbar-splitter"></div>
             <Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent></Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent>
@@ -15,8 +15,8 @@
             <Doodle.Components.Toolbar.DrawType.DrawTypeComponent></Doodle.Components.Toolbar.DrawType.DrawTypeComponent>
         </div>
 
-        <div data-doodletoolbarcomponent-contentwrapper="@DataAttributeName" hidden="@(!IsMenuOpen)" class="toolbar-content-wrapper">
-            <div data-doodletoolbarcomponent-content="@DataAttributeName" class="toolbar-content">
+        <div data-doodletoolbarcomponent-contentwrapper="@DataAttributeName" hidden="@(!IsMenuOpen)" class="toolbar-content-wrapper @Theme.ToolbarContentWrapperClass">
+            <div data-doodletoolbarcomponent-content="@DataAttributeName" class="toolbar-content @Theme.ToolbarContentClass">
                 
                 @if (ToolbarContent == ToolbarContent.ColorPicker)
                 {

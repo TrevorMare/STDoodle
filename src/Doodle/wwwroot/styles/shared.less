@@ -160,19 +160,23 @@
 }
 
 /* Top Menu Toolbar Buttons */
-.doodle-toolbar-buttons-container {
+.toolbar-buttons-container {
     display: flex; 
-    .doodle-toolbar-buttons {
+    .toolbar-buttons {
         display: flex;
         justify-content: center;
         align-items: center;
-        .btn-round {
-            &.selected {
-                background-color: @secondary-color-light;
-            }
-        }  
+        &.doodle-toolbar-buttons {
+            .btn-round {
+                &.selected {
+                    background-color: @secondary-color-light;
+                }
+            }  
+        }
     }
+
 }
+
 
 /* Toolbar Panels (Popup toolbar) */
 .doodle-toolbar-panels {

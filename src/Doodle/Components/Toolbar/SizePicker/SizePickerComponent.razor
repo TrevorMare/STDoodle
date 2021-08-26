@@ -1,11 +1,14 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbarbuttons-sizepickercomponent="@DataAttributeName" class="doodle-toolbar-buttons-container" @attributes="AdditionalAttributes">
-    <div class="doodle-toolbar-buttons">
-        <button data-toolbarbuttons-sizepickercomponent-picksizebutton="@DataAttributeName" 
-                class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-picksize" title="Pick Stroke Width"
-                @onclick="@(() => DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.SizePicker))"> 
-            <span class="material-icons">line_weight</span>
-        </button>
+@if (Show)
+{
+    <div data-toolbarbuttons-sizepickercomponent="@DataAttributeName" class="toolbar-buttons-container  @Theme.ToolbarMenuButtonsContainerClass" @attributes="AdditionalAttributes">
+        <div class="toolbar-buttons @Theme.ToolbarMenuButtonsClass">
+            <button data-toolbarbuttons-sizepickercomponent-picksizebutton="@DataAttributeName" 
+                    class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-picksize" title="Pick Stroke Width"
+                    @onclick="@(() => DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.SizePicker))"> 
+                <span class="material-icons">line_weight</span>
+            </button>
+        </div>
     </div>
-</div>
+}

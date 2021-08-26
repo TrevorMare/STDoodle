@@ -2,8 +2,8 @@
 
 @if (Show)
 {
-    <div data-toolbarbuttons-canvasgridcomponent="@DataAttributeName" class="doodle-toolbar-buttons-container" @attributes="AdditionalAttributes">
-        <div class="doodle-toolbar-buttons">
+    <div data-toolbarbuttons-canvasgridcomponent="@DataAttributeName" class="toolbar-buttons-container @Theme.ToolbarMenuButtonsContainerClass" @attributes="AdditionalAttributes">
+        <div class="toolbar-buttons @Theme.ToolbarMenuButtonsClass">
             <button data-toolbarbuttons-canvasgridcomponent-canvasgridbutton="@DataAttributeName"
                     class="toolbar-button @Theme.ToolbarMenuButtonClass btn-canvasgridcomponent-setgrid" title="Canvas Grid"
                     @onclick="@(() => DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.CanvasGridOptions))"> 

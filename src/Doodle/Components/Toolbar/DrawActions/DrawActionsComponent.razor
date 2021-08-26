@@ -2,9 +2,9 @@
 
 @if (Show) 
 {
-    <div data-toolbarbuttons-drawactionscomponent="@DataAttributeName" class="doodle-toolbar-buttons-container" @attributes="AdditionalAttributes">
+    <div data-toolbarbuttons-drawactionscomponent="@DataAttributeName" class="toolbar-buttons-container @Theme.ToolbarMenuButtonsContainerClass" @attributes="AdditionalAttributes">
 
-        <div class="doodle-toolbar-buttons">
+        <div class="toolbar-buttons @Theme.ToolbarMenuButtonsClass">
 
             <button data-toolbarbuttons-drawactionscomponent-undobutton="@DataAttributeName"
                     hidden="@(!UndoButtonVisible)" disabled=@(!UndoButtonEnabled) 

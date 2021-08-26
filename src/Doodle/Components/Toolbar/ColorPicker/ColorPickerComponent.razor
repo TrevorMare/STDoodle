@@ -2,8 +2,8 @@
 
 @if (Show)
 {
-    <div data-toolbarbuttons-colorpickercomponent="@DataAttributeName" class="doodle-toolbar-buttons-container" @attributes="AdditionalAttributes"> 
-        <div class="doodle-toolbar-buttons">
+    <div data-toolbarbuttons-colorpickercomponent="@DataAttributeName" class="toolbar-buttons-container @Theme.ToolbarMenuButtonsContainerClass" @attributes="AdditionalAttributes"> 
+        <div class="toolbar-buttons @Theme.ToolbarMenuButtonsClass">
             <button data-toolbarbuttons-colorpickercomponent-pickcolorbutton="@DataAttributeName"
                     class="toolbar-button @Theme.ToolbarMenuButtonClass btn-colorpickercomponent-pickcolor" title="Pick Color"
                     @onclick="@(() => DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ColorPicker))"> 
