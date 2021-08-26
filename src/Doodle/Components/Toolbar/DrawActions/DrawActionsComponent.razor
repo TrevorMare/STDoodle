@@ -1,41 +1,41 @@
 @inherits Shared.DoodleBaseComponent
 
-@if (Visible) 
+@if (Show) 
 {
-    <div data-toolbarbuttons-drawactionscomponent="@DataAttributeName" class="doodle-toolbar-buttons-container">
+    <div data-toolbarbuttons-drawactionscomponent="@DataAttributeName" class="doodle-toolbar-buttons-container" @attributes="AdditionalAttributes">
 
         <div class="doodle-toolbar-buttons">
 
             <button data-toolbarbuttons-drawactionscomponent-undobutton="@DataAttributeName"
                     hidden="@(!UndoButtonVisible)" disabled=@(!UndoButtonEnabled) 
-                    class="btn-round @UndoButtonClass" title="Undo"
+                    class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-undo" title="Undo"
                     @onclick="@(() => DoodleDrawInteraction.UndoLastAction())"> 
                     <span class="material-icons">undo</span>
             </button>
 
             <button data-toolbarbuttons-drawactionscomponent-redobutton="@DataAttributeName"
                     hidden="@(!RedoButtonVisible)" disabled=@(!RedoButtonEnabled) 
-                    class="btn-round @RedoButtonClass" title="Redo"
+                    class="btn-roundtoolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-redo" title="Redo"
                     @onclick="@(() => DoodleDrawInteraction.RedoLastAction())">
                     <span class="material-icons">redo</span>
             </button>
             
             <button data-toolbarbuttons-drawactionscomponent-clearbutton="@DataAttributeName"
                     hidden="@(!ClearButtonVisible)" disabled=@(!ClearButtonEnabled) 
-                    class="btn-round @ClearButtonClass" title="Clear"
+                    class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-clear" title="Clear"
                     @onclick="@(() => DoodleDrawInteraction.ClearDoodle(ClearHistoryOnClear))">
                     <span class="material-icons">clear</span>
             </button>
 
             <button data-toolbarbuttons-drawactionscomponent-savebutton="@DataAttributeName"
                     hidden="@(!SaveButtonVisible)" disabled=@(!SaveButtonEnabled) 
-                    class="btn-round @SaveButtonClass" title="Save"> 
+                    class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-save" title="Save"> 
                     <span class="material-icons">save</span>
             </button>
 
             <button data-toolbarbuttons-drawactionscomponent-exportbutton="@DataAttributeName"
                     hidden="@(!ExportButtonVisible)" disabled=@(!ExportButtonEnabled) 
-                    class="btn-round @ExportButtonClass" title="Export Image"
+                    class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-export" title="Export Image"
                     @onclick="@(() => DoodleDrawInteraction.ExportImage())">
                     <span class="material-icons">file_download</span>
             </button>

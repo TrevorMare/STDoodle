@@ -33,7 +33,7 @@
 /* Canvas Background  */
 /* Buttons */
 /* Round Button Element With Material Icon */
-.btn-round {
+.doodle-btn-round {
   height: 36px;
   width: 36px;
   margin: 0rem 0.2rem;
@@ -47,24 +47,24 @@
   border: solid 1px #8bc34a;
   color: #5a9216;
 }
-.btn-round span {
+.doodle-btn-round span {
   font-size: 1.4rem;
 }
-.btn-round:active {
+.doodle-btn-round:active {
   outline: 0;
 }
-.btn-round:focus {
+.doodle-btn-round:focus {
   outline: 0;
 }
-.btn-round:hover {
+.doodle-btn-round:hover {
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.24), 0 12px 25px 0 rgba(0, 0, 0, 0.19);
 }
-.btn-round:disabled {
+.doodle-btn-round:disabled {
   box-shadow: none !important;
   border: solid 1px #5a5a5a;
   color: #5a5a5a;
 }
-.btn-round:disabled span {
+.doodle-btn-round:disabled span {
   opacity: 0.4;
 }
 /*
@@ -105,6 +105,7 @@
   width: 20px;
   border-radius: 50%;
 }
+/* Top Menu Toolbar Buttons */
 .doodle-toolbar-buttons-container {
   display: flex;
 }
@@ -112,6 +113,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.doodle-toolbar-buttons-container .doodle-toolbar-buttons .btn-round.selected {
+  background-color: #ffc947;
 }
 /* Toolbar Panels (Popup toolbar) */
 .doodle-toolbar-panels {
@@ -137,6 +141,7 @@
   align-self: center;
   justify-self: center;
   flex-grow: 1;
+  display: flex;
 }
 .doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper {
   display: flex;

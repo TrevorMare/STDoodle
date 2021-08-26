@@ -3,6 +3,8 @@ namespace Doodle.Abstractions.Config
 
     public class DoodleDrawConfig
     {
+        public Interfaces.ITheme Theme { get; set; }
+
         public int DefaultStrokeSize { get; set; } = 1;
 
         public string DefaultStrokeColor { get; set; } = "#000000";

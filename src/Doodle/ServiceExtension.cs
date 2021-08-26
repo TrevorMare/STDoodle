@@ -11,12 +11,21 @@ namespace Doodle
 
             if (config == null)
             {
-                serviceCollection.AddScoped<Abstractions.Config.DoodleDrawConfig>((s) => new Abstractions.Config.DoodleDrawConfig());
+                serviceCollection.AddScoped<Abstractions.Config.DoodleDrawConfig>((s) => { 
+                    return new Abstractions.Config.DoodleDrawConfig()
+                    {
+                        Theme = new Themes.Default()
+                    };
+                });
             }
             else
             {
                 var configValue = new Abstractions.Config.DoodleDrawConfig();
                 config.Invoke(configValue);
+                if (configValue.Theme == null)
+                {
+                    configValue.Theme = new Themes.Default();
+                }
                 serviceCollection.AddScoped<Abstractions.Config.DoodleDrawConfig>((s) => configValue);
             }
 

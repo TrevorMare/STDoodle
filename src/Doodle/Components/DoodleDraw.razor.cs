@@ -51,6 +51,9 @@ namespace Doodle.Components
         #endregion
 
         #region Parameters
+        [Parameter(CaptureUnmatchedValues = true)]
+        public Dictionary<string, object> AdditionalAttributes { get; set; }
+
         [Parameter]
         public string DataAttributeName { get; set; }
 
@@ -77,10 +80,7 @@ namespace Doodle.Components
         #region Config Init
         private void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
         {
-           if (config != null)
-           {
-               
-           }
+           
         }
         #endregion
 
@@ -97,8 +97,7 @@ namespace Doodle.Components
 
             base.OnInitialized();
         }
-        
-        private string imgSource = "";
+       
         public async Task<string> ExportDoodleToImage(Abstractions.Config.Html2CanvasConfig config = null)
         {
             try
@@ -122,9 +121,6 @@ namespace Doodle.Components
                 var base64ImageData = await JsInteropBuffer.ReadBuffer(bufferId);
 
                 await this.DoodleExportHandler.ExportImageBase64(base64ImageData);
-
-                this.imgSource = base64ImageData;
-                StateHasChanged();
 
                 return base64ImageData;
             }

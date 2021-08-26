@@ -1,36 +1,53 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbarbuttons-drawtypecomponent="@DataAttributeName" class="doodle-toolbar-buttons-container">
-    <div class="doodle-toolbar-buttons">
+@if (Show)
+{
+    <div data-toolbarbuttons-drawtypecomponent="@DataAttributeName" class="doodle-toolbar-buttons-container" @attributes="AdditionalAttributes">
+        <div class="doodle-toolbar-buttons">
+            @if (ShowEraser)
+            {
+                <button data-toolbarbuttons-drawtypecomponent-erasorbutton="@DataAttributeName" 
+                        class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-eraser @(DoodleDrawInteraction.DrawType == DrawType.Eraser ? "selected" : "")" title="Erasor"
+                        @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Eraser))"> 
+                        <span class="material-icons">sell</span>
+                </button>
+            }
 
-        <button data-toolbarbuttons-drawtypecomponent-erasorbutton="@DataAttributeName" 
-                class="btn-round @(DoodleDrawInteraction.DrawType == DrawType.Eraser ? "selected" : "")" title="Erasor"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Eraser))"> 
-                <span class="material-icons">sell</span>
-        </button>
+            @if (ShowPen)
+            {
+                <button data-toolbarbuttons-drawtypecomponent-penbutton="@DataAttributeName" 
+                        class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-pen @(DoodleDrawInteraction.DrawType == DrawType.Pen ? "selected" : "")" title="Draw Pen"
+                        @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Pen))"> 
+                        <span class="material-icons">draw</span>
+                </button>
+            }
+            
+            @if (ShowLine)
+            {
+                <button data-toolbarbuttons-drawtypecomponent-linebutton="@DataAttributeName" 
+                        class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-line @(DoodleDrawInteraction.DrawType == DrawType.Line ? "selected" : "")" title="Draw Line"
+                        @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Line))"> 
+                        <span class="material-icons">timeline</span>
+                </button>
+            }
 
-        <button data-toolbarbuttons-drawtypecomponent-penbutton="@DataAttributeName" 
-                class="btn-round @(DoodleDrawInteraction.DrawType == DrawType.Pen ? "selected" : "")" title="Draw Pen"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Pen))"> 
-                <span class="material-icons">draw</span>
-        </button>
-
-        <button data-toolbarbuttons-drawtypecomponent-linebutton="@DataAttributeName" 
-                class="btn-round @(DoodleDrawInteraction.DrawType == DrawType.Line ? "selected" : "")" title="Draw Line"
-                @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Line))"> 
-                <span class="material-icons">timeline</span>
-        </button>
-
-        <button data-toolbarbuttons-drawtypecomponent-textbutton="@DataAttributeName" 
-                class="btn-round @(DoodleDrawInteraction.DrawType == DrawType.ResizableText ? "selected" : "")" title="Draw Text"
-                @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.ResizableText); DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ResizableText); })"> 
-                <span class="material-icons">text_fields</span>
-        </button>
-
-        <button data-toolbarbuttons-drawtypecomponent-imagebutton="@DataAttributeName" 
-                class="btn-round @(DoodleDrawInteraction.DrawType == DrawType.ResizableImage ? "selected" : "")" title="Draw Image"
-                @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.ResizableImage); DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ResizableImage); })"> 
-                <span class="material-icons">format_shapes</span>
-        </button>
+            @if (ShowResizableText)
+            {
+                <button data-toolbarbuttons-drawtypecomponent-textbutton="@DataAttributeName" 
+                        class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-text @(DoodleDrawInteraction.DrawType == DrawType.ResizableText ? "selected" : "")" title="Draw Text"
+                        @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.ResizableText); DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ResizableText); })"> 
+                        <span class="material-icons">text_fields</span>
+                </button>
+            }
+            @if (ShowResizableImage)
+            {
+                <button data-toolbarbuttons-drawtypecomponent-imagebutton="@DataAttributeName" 
+                        class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-image @(DoodleDrawInteraction.DrawType == DrawType.ResizableImage ? "selected" : "")" title="Draw Image"
+                        @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.ResizableImage); DoodleDrawInteraction.ToggleToolbarContent(ToolbarContent.ResizableImage); })"> 
+                        <span class="material-icons">format_shapes</span>
+                </button>
+            }
+        </div>
     </div>
-</div>
+}
+

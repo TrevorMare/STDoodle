@@ -22,7 +22,6 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
         protected override void InitConfigSettings(DoodleDrawConfig config)
         {
             if (config?.BackgroundConfig == null ) return;
-
             this.BackgroundSources = config.BackgroundConfig.BackgroundSources ?? new  List<Abstractions.Models.BackgroundData>();
         }
 

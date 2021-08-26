@@ -105,6 +105,18 @@
   width: 20px;
   border-radius: 50%;
 }
+/* Top Menu Toolbar Buttons */
+.doodle-toolbar-buttons-container {
+  display: flex;
+}
+.doodle-toolbar-buttons-container .doodle-toolbar-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.doodle-toolbar-buttons-container .doodle-toolbar-buttons .btn-round.selected {
+  background-color: #ffc947;
+}
 /* Toolbar Panels (Popup toolbar) */
 .doodle-toolbar-panels {
   display: flex;
@@ -129,6 +141,7 @@
   align-self: center;
   justify-self: center;
   flex-grow: 1;
+  display: flex;
 }
 .doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper {
   display: flex;
@@ -170,6 +183,5 @@
   display: flex;
   flex-grow: 1;
   width: 100%;
-  background-color: whitesmoke;
   position: relative;
 }

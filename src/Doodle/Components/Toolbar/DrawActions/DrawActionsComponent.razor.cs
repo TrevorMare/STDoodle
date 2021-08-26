@@ -16,28 +16,16 @@ namespace Doodle.Components.Toolbar.DrawActions
 
         #region Properties
         [Parameter]
-        public bool Visible { get; set; } = true;
-
-        [Parameter]
-        public string WrapperClass { get; set; }
+        public bool Show { get; set; } = true;
 
         [Parameter]
         public bool UndoButtonVisible { get; set; }
 
         [Parameter]
-        public string UndoButtonClass { get; set; }
-
-        [Parameter]
         public bool RedoButtonVisible { get; set; }
 
         [Parameter]
-        public string RedoButtonClass { get; set; }
-
-        [Parameter]
         public bool ClearButtonVisible { get; set; }
-
-        [Parameter]
-        public string ClearButtonClass { get; set; }
 
         [Parameter]
         public bool ClearHistoryOnClear { get; set; }
@@ -46,13 +34,8 @@ namespace Doodle.Components.Toolbar.DrawActions
         public bool SaveButtonVisible { get; set; }
 
         [Parameter]
-        public string SaveButtonClass { get; set; }
-
-        [Parameter]
         public bool ExportButtonVisible { get; set; }
 
-        [Parameter]
-        public string ExportButtonClass { get; set; }
         #endregion
 
         #region Config Init
@@ -60,24 +43,14 @@ namespace Doodle.Components.Toolbar.DrawActions
         {
             if (config == null || config.ToolbarConfig == null) return;
             
-            this.WrapperClass = config.ToolbarConfig.WrapperClass;
-            this.Visible = config.ToolbarConfig.Visible;
+            this.Show = config.ToolbarConfig.ShowDrawActions;
 
-            this.UndoButtonVisible = config.ToolbarConfig.UndoButtonVisible;
-            this.UndoButtonClass = config.ToolbarConfig.UndoButtonClass;
-
-            this.RedoButtonVisible = config.ToolbarConfig.RedoButtonVisible;
-            this.RedoButtonClass = config.ToolbarConfig.RedoButtonClass;
- 
-            this.ClearButtonVisible = config.ToolbarConfig.ClearButtonVisible;
-            this.ClearButtonClass = config.ToolbarConfig.ClearButtonClass;
+            this.UndoButtonVisible = config.ToolbarConfig.ShowDrawActionsUndo;
+            this.RedoButtonVisible = config.ToolbarConfig.ShowDrawActionsRedo;
+            this.ClearButtonVisible = config.ToolbarConfig.ShowDrawActionsClear;
             this.ClearHistoryOnClear = config.ToolbarConfig.ClearHistoryOnClear;
-
-            this.SaveButtonVisible = config.ToolbarConfig.SaveButtonVisible;
-            this.SaveButtonClass = config.ToolbarConfig.SaveButtonClass;
-
-            this.ExportButtonVisible = config.ToolbarConfig.ExportButtonVisible;
-            this.ExportButtonClass = config.ToolbarConfig.ExportButtonClass;
+            this.SaveButtonVisible = config.ToolbarConfig.ShowDrawActionsSave;
+            this.ExportButtonVisible = config.ToolbarConfig.ShowDrawActionsExport;
         }
         #endregion
 
