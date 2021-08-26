@@ -1,13 +1,13 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbarmenu-colorpickercomponent="@DataAttributeName" class="doodle-toolbar-panels">   
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Quick Colors</span>
+<div data-toolbarmenu-colorpickercomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass">   
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Quick Colors</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content">
-            <div data-toolbarmenu-colorpickercomponent-menufavourite="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper doodle-color-picker-favourites @FavouriteWrapperClass">
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
+            <div data-toolbarmenu-colorpickercomponent-menufavourite="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass doodle-color-picker-favourites @FavouriteWrapperClass">
                 @if (FavouriteColors?.Count() > 0)
                 {
                     foreach (var color in FavouriteColors)
@@ -23,14 +23,14 @@
     </div>
     @if (ShowCustomColor)
     {
-        <div class="doodle-toolbar-panel">
-            <div class="doodle-toolbar-panel-header">
-                <span>Custom Color</span>
+        <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+            <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+                <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Custom Color</span>
             </div>
 
-            <div class="doodle-toolbar-panel-content">
-                <div data-toolbarmenu-colorpickercomponent-menucustomcolor="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper doodle-color-picker-custom @CustomWrapperClass">
-                    <button class="btn-round" title="Pick Color"
+            <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
+                <div data-toolbarmenu-colorpickercomponent-menucustomcolor="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass doodle-color-picker-custom @CustomWrapperClass">
+                    <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-colorpickercomponent-pickcolor" title="Pick Color"
                             @onclick="@(() => OpenColorPicker())"> 
                         <span class="material-icons" style="color: @SelectedColor">format_color_fill</span>
                     </button>
@@ -39,16 +39,16 @@
             </div>
         </div>
     }
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Close</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Close</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content">
-            <div data-toolbarmenu-colorpickercomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Close"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
+            <div data-toolbarmenu-colorpickercomponent-menuclose="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-colorpickercomponent-close" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
-                    <span class="material-icons doodle-toolbar-close" >close</span>
+                    <span class="material-icons toolbar-close @Theme.ToolbarContentPanelContentCloseClass">close</span>
                 </button>
             </div>
         </div>

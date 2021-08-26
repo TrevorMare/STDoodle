@@ -1,14 +1,14 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbarmenu-canvasgridcomponent="@DataAttributeName" class="doodle-toolbar-panels"> 
+<div data-toolbarmenu-canvasgridcomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass"> 
     
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Grid Type</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Grid Type</span>
         </div>
         
-        <div class="doodle-toolbar-panel-content ">
-            <div data-toolbarmenu-canvasgridcomponent-menutype="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper content-grid-type">
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass ">
+            <div data-toolbarmenu-canvasgridcomponent-menutype="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass content-grid-type">
                 <div>
                     <input type="radio" name="grid_type" value="none" id="grid_type-none" 
                         checked="@(DoodleDrawInteraction.GridType == GridType.None)" 
@@ -45,21 +45,21 @@
 
 
     </div>
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Grid Size</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Grid Size</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content content-grid-size"> 
-            <div data-toolbarmenu-canvasgridcomponent-menugridsize="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Decrease"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-grid-size"> 
+            <div data-toolbarmenu-canvasgridcomponent-menugridsize="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-canvasgridcomponent-decrease" title="Decrease"
                         @onclick="@(() => DoodleDrawInteraction.SetCanvasGridSize(DoodleDrawInteraction.GridSize - 5))"> 
                         <span class="material-icons">remove_circle_outline</span>
                 </button>
 
                 <label>@DoodleDrawInteraction.GridSize </label>
 
-                <button class="btn-round" title="Increase"
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-canvasgridcomponent-increase" title="Increase"
                         @onclick="@(() => DoodleDrawInteraction.SetCanvasGridSize(DoodleDrawInteraction.GridSize + 5))"> 
                         <span class="material-icons">add_circle_outline</span>
                 </button>
@@ -67,13 +67,13 @@
         </div>
 
     </div>
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Grid Color</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Grid Color</span>
         </div>
-        <div class="doodle-toolbar-panel-content content-grid-color">
-            <div data-toolbarmenu-canvasgridcomponent-menugridcolor="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Pick Color"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-grid-color">
+            <div data-toolbarmenu-canvasgridcomponent-menugridcolor="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-canvasgridcomponent-pickcolor" title="Pick Color"
                         @onclick="@(() => OpenColorPicker())"> 
                     <span class="material-icons" style="color: @DoodleDrawInteraction.GridColor;">format_color_fill</span>
                 </button>
@@ -81,16 +81,16 @@
             </div>
         </div>
     </div>
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Close</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Close</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content content-close">
-            <div data-toolbarmenu-canvasgridcomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Close"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-close">
+            <div data-toolbarmenu-canvasgridcomponent-menuclose="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-cavasgridcomponent-close" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
-                    <span class="material-icons doodle-toolbar-close">close</span>
+                    <span class="material-icons toolbar-close @Theme.ToolbarContentPanelContentCloseClass">close</span>
                 </button>
             </div>
         </div>

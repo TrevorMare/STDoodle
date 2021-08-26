@@ -113,6 +113,9 @@
             opacity: 0.4;
         }
     }
+    &.selected {
+        background-color: @secondary-color-light;
+    }
 }
 
 /*
@@ -179,35 +182,38 @@
 
 
 /* Toolbar Panels (Popup toolbar) */
-.doodle-toolbar-panels {
+.toolbar-panels { 
     display: flex;
-    .doodle-toolbar-panel {
+    .toolbar-panel {
         padding: 0.8rem;
-        border-right: solid 1px @dark-color; 
         display: flex;
         flex-direction: column;
-    
-        .doodle-toolbar-panel-header {
+        border-right: solid 1px @dark-color; 
+        .toolbar-panel-header {
             width: 100%;
             text-align: center;
             margin-bottom: 0.2rem;
             border-bottom: solid 1px @dark-color;
-            span {
-                color: @secondary-color;
+            .toolbar-panel-header-text {
                 text-transform: uppercase;
+                &.doodle-toolbar-panel-header-text {
+                    color: @secondary-color;
+                }
             }
         }
-        .doodle-toolbar-panel-content {
+        .toolbar-panel-content {
             align-self: center;
             justify-self: center;
             flex-grow: 1;
             display: flex;
-            .doodle-toolbar-panel-content-wrapper {
+            .toolbar-panel-content-wrapper {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                .doodle-toolbar-close {
-                    color: @close-color;
+                .toolbar-close {
+                    &.doodle-toolbar-close {
+                        color: @close-color;
+                    }
                 }
             }
         }

@@ -18,6 +18,19 @@ namespace Doodle.Themes
 
         public string ToolbarMenuButtonsClass { get; set; } = "doodle-toolbar-buttons";
 
+        public string ToolbarContentPanelsClass { get; set; } = "";
+
+        public string ToolbarContentPanelClass { get; set; } = "";
+    
+        public string ToolbarContentPanelHeaderClass { get; set; } = "";
+
+        public string ToolbarContentPanelHeaderTextClass { get; set; } = "doodle-toolbar-panel-header-text";  
+
+        public string ToolbarContentPanelContentClass { get; set; } = "";  
+
+        public string ToolbarContentPanelContentWrapperClass { get; set; } = "";
+
+        public string ToolbarContentPanelContentCloseClass { get; set; } = "";
     }
 
 }

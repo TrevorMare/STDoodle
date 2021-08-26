@@ -1,12 +1,12 @@
 @inherits Shared.DoodleBaseComponent 
 
-<div data-toolbarmenu-backgroundpickercomponent="@DataAttributeName" class="doodle-toolbar-panels">
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Backgrounds</span>
+<div data-toolbarmenu-backgroundpickercomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass">
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Backgrounds</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content">
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
             <div data-toolbarmenu-backgroundpickercomponent-menubackgrounds="@DataAttributeName" class="background-picker-layout">
                 @foreach (var backgroundSource in BackgroundSources)
                 {
@@ -22,16 +22,16 @@
             </div>
         </div>
     </div>
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Close</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Close</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content">
-            <div data-toolbarmenu-backgroundpickercomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Close"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
+            <div data-toolbarmenu-backgroundpickercomponent-menuclose="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-backgroundpickercomponent-close" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
-                    <span class="material-icons doodle-toolbar-close" >close</span>
+                    <span class="material-icons toolbar-close @Theme.ToolbarContentPanelContentCloseClass">close</span>
                 </button>
             </div>
         </div>

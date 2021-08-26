@@ -137,18 +137,18 @@
   color: #ff9800;
   text-transform: uppercase;
 }
-.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content {
+.doodle-toolbar-panels .doodle-toolbar-panel .toolbar-panel-content @Theme.ToolbarContentPanelContentClass {
   align-self: center;
   justify-self: center;
   flex-grow: 1;
   display: flex;
 }
-.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper {
+.doodle-toolbar-panels .doodle-toolbar-panel .toolbar-panel-content @Theme.ToolbarContentPanelContentClass .toolbar-panel-content @Theme.ToolbarContentPanelContentClass-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.doodle-toolbar-panels .doodle-toolbar-panel .doodle-toolbar-panel-content .doodle-toolbar-panel-content-wrapper .doodle-toolbar-close {
+.doodle-toolbar-panels .doodle-toolbar-panel .toolbar-panel-content @Theme.ToolbarContentPanelContentClass .toolbar-panel-content @Theme.ToolbarContentPanelContentClass-wrapper .doodle-toolbar-close {
   color: #ff4a4a;
 }
 /* Overlay element to indicate selection */
