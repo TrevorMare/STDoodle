@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Doodle.Abstractions.Config;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Canvas
@@ -6,7 +7,6 @@ namespace Doodle.Components.Canvas
 
     public partial class CanvasGridOptionsComponent : Shared.DoodleBaseComponent
     {
-
         
         #region Members
         private ElementReference ColorPicker { get; set; }
@@ -19,6 +19,10 @@ namespace Doodle.Components.Canvas
         #endregion
 
         #region "Methods"
+        protected override void InitConfigSettings(DoodleDrawConfig config)
+        {
+            base.InitConfigSettings(config);
+        }
 
         protected override void OnInitialized()
         {

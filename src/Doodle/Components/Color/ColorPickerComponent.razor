@@ -6,15 +6,15 @@
             <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Quick Colors</span>
         </div>
 
-        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
-            <div data-toolbarmenu-colorpickercomponent-menufavourite="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass doodle-color-picker-favourites @FavouriteWrapperClass">
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass @Theme.ColorPickerWrapperClass">
+            <div data-toolbarmenu-colorpickercomponent-menufavourite="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass color-picker-favourites @Theme.ColorPickerFavouritesWrapperClass">
                 @if (FavouriteColors?.Count() > 0)
                 {
                     foreach (var color in FavouriteColors)
                     {
-                        <div class="doodle-color-picker-color-outer @((SelectedColor == color) ? "active" : "") @FavouriteOuterClass" 
+                        <div class="button-custom-outer @((SelectedColor == color) ? "active" : "") @Theme.ColorPickerFavouriteOuterClass" 
                                 @onclick="@(() => SelectedColor = color)">
-                            <div class="doodle-color-picker-color-inner @FavouriteInnerClass" style="background-color: @color;"></div>
+                            <div class="button-custom-inner @Theme.ColorPickerFavouriteInnerClass" style="background-color: @color;"></div>
                         </div>
                     }
                 }
@@ -29,12 +29,12 @@
             </div>
 
             <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
-                <div data-toolbarmenu-colorpickercomponent-menucustomcolor="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass doodle-color-picker-custom @CustomWrapperClass">
+                <div data-toolbarmenu-colorpickercomponent-menucustomcolor="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass color-picker-custom @Theme.ColorPickerCustomColorWrapperClass">
                     <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-colorpickercomponent-pickcolor" title="Pick Color"
                             @onclick="@(() => OpenColorPicker())"> 
                         <span class="material-icons" style="color: @SelectedColor">format_color_fill</span>
                     </button>
-                    <input @ref="ColorPicker" class="@ColorInputClass"  type="color" @bind-value="@SelectedColor" />
+                    <input @ref="ColorPicker" class="@Theme.ColorPickerCustomColorInputClass" type="color" @bind-value="@SelectedColor" />
                 </div>
             </div>
         </div>

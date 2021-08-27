@@ -1,26 +1,17 @@
 @import url(../../wwwroot/styles/shared.less);    
 
   
-.doodle-color-picker-custom {
-
+.color-picker-custom {
     input {
         opacity: 0;
         position: absolute;
     }
-}
+} 
 
-.doodle-color-picker-favourites {
+.color-picker-favourites {
     display: grid !important;
     grid-template-columns: repeat(10, minmax(24px, 24px));
     grid-template-rows: repeat(6, minmax(24px, 24px));
     grid-auto-flow: column;
     grid-gap: 0.4rem;
-
-    .doodle-color-picker-color-outer {
-        &:extend(.button-custom-outer all);
-
-        .doodle-color-picker-color-inner {
-            &:extend(.button-custom-inner all);
-        }
-    }
 }

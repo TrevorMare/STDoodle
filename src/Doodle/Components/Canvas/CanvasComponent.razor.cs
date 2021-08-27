@@ -52,10 +52,7 @@ namespace Doodle.Components.Canvas
         #endregion
 
         #region Properties
-        
-        [Parameter]
-        public string CanvasClass { get; set; }
-
+  
         [Inject]
         public Abstractions.JsInterop.IJsInteropCanvas JsInteropCanvas { get; set; }
 
@@ -100,6 +97,11 @@ namespace Doodle.Components.Canvas
         #endregion
 
         #region Config Init
+        protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
+        {
+            
+        }
+
         protected override void OnInitialized()
         {
             this.DoodleDrawInteraction.OnStrokeColorChanged += (s, strokeColor) => {
@@ -145,13 +147,6 @@ namespace Doodle.Components.Canvas
                 
             };
             base.OnInitialized();
-        }
-
-        protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
-        {
-            if (config == null || config.CanvasConfig == null) return;
-
-            this.CanvasClass = config.CanvasConfig.CanvasClass;
         }
         #endregion
 

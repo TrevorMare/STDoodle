@@ -12,6 +12,43 @@ namespace Doodle
     public class DoodleDrawInteraction : Abstractions.Interfaces.IDoodleDrawInteraction
     {
 
+        #region Members
+        private readonly Abstractions.Config.DoodleDrawConfig _config;
+        #endregion
+
+        #region ctor
+        public DoodleDrawInteraction(Abstractions.Config.DoodleDrawConfig config)
+        {
+            this._config = config;
+            this.InitialiseConfiguration();
+        }
+        #endregion
+
+        #region Initialise Methods
+        private void InitialiseConfiguration()
+        {
+            // Setup the Canvas Configuration
+            if (this._config == null) return;
+
+            this.StrokeColor = this._config.DefaultStrokeColor ?? "#000";
+            this.StrokeWidth = this._config.DefaultStrokeSize;
+            this.EraserWidth = this._config.DefaultEraserSize;
+            this.EraserColor = this._config.BackgroundColor ?? "#ffffff";
+            this.BackgroundColor = this._config.BackgroundColor ?? "#ffffff";
+
+            // Setup the canvas grid configuration
+            if (this._config.CanvasConfig != null)
+            {
+                this.GridColor = this._config.CanvasConfig.GridColor ?? "#000";
+                this.GridSize = this._config.CanvasConfig.GridSize;
+                this.GridSize = this._config.CanvasConfig.GridSize;
+            }
+
+            
+        }
+
+        #endregion
+
         #region Properties
         public IEnumerable<BackgroundData> SelectedBackgrounds { get; private set; } = new List<BackgroundData>();
 

@@ -67,6 +67,9 @@
 .doodle-btn-round:disabled span {
   opacity: 0.4;
 }
+.doodle-btn-round.selected {
+  background-color: #ffc947;
+}
 /*
     Round Button Element With Custom Round Inner
 */
@@ -172,7 +175,7 @@
   background-position: center;
   background-size: contain;
 }
-.doodle-canvas-resize {
+.canvas-resize {
   box-sizing: border-box;
   overflow: hidden;
   background-color: transparent;
@@ -183,21 +186,21 @@
   left: 0px;
   z-index: 20;
 }
-.doodle-canvas-resize .doodle-canvas {
+.canvas-resize .canvas {
   background-color: transparent;
 }
-.doodle-canvas-resize .doodle-canvas.doodle-canvas-preview {
+.canvas-resize .canvas.canvas-preview {
   display: none;
   position: absolute;
   top: 0px;
   cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
 }
-.doodle-canvas-resize .doodle-canvas.pen {
+.canvas-resize .canvas.doodle-canvas.pen {
   cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
 }
-.doodle-canvas-resize .doodle-canvas.line {
+.canvas-resize .canvas.doodle-canvas.line {
   cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
 }
-.doodle-canvas-resize .doodle-canvas.eraser {
+.canvas-resize .canvas.doodle-canvas.eraser {
   cursor: url('/_content/STDoodle/img/cursor-eraser.svg') 12 12, auto;
 }

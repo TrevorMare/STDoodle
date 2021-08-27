@@ -124,32 +124,29 @@
 .button-custom-outer {
     height: @button-custom-outer-size;
     width: @button-custom-outer-size;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    border: @button-custom-outer-border;
     position: relative;
     cursor: pointer;
+
+    &.doodle-button-custom-outer {
+        border-radius: 50%;
+        border: @button-custom-outer-border;
+        &:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        &:active {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.35), 0 6px 20px 0 rgba(0,0,0,0.59);
+        }
+        &.active {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+    }
     &.active {
         background-color: @button-custom-active-color;
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     }
-
-    &:hover {
-        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-    }
-
-    &.vertical {
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-
-    &:active {
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.35), 0 6px 20px 0 rgba(0,0,0,0.59);
-    }
-
     &.disabled {
         opacity: 0.6;
     }
@@ -159,7 +156,9 @@
     box-sizing: border-box;
     height: @button-custom-inner-size;
     width: @button-custom-inner-size;
-    border-radius: 50%;
+    &.doodle-button-custom-inner {
+        border-radius: 50%;
+    }
 }
 
 /* Top Menu Toolbar Buttons */

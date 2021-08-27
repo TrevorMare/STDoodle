@@ -1,15 +1,19 @@
+@inherits Shared.DoodleBaseComponent
+
 @if (Visible && !string.IsNullOrEmpty(BackgroundSource?.DataSource))
 {
     if (BackgroundSource.BackgroundSourceType == BackgroundSourceType.Url)
     {
-        <div data-doodle-background style="background-image: url(@BackgroundSource.DataSource);" 
-             class="background-source-wrapper img @(IsPreview ? "preview" : "") @(IsSelected ? "selected" : "")  @BackgroundSource.BackgroundClass" 
+        <div data-doodle-backgroundsourcecomponent 
+             style="background-image: url(@BackgroundSource.DataSource);" 
+             class="background-source-wrapper img @(IsPreview ? "preview" : "") @(IsSelected ? "selected" : "") @Theme.BackgroundPickerSourceImageClass  @BackgroundSource.BackgroundClass" 
              @onclick="@(() => OnBackgroundSourceClick(BackgroundSource))">
         </div>
     }
     else if (BackgroundSource.BackgroundSourceType == BackgroundSourceType.SVG)
     {
-        <div data-doodle-background class="background-source-wrapper svg @(IsPreview ? "preview" : "") @(IsSelected ? "selected" : "") @BackgroundSource.BackgroundClass" 
+        <div data-doodle-backgroundsourcecomponent 
+             class="background-source-wrapper svg @(IsPreview ? "preview" : "") @(IsSelected ? "selected" : "") @Theme.BackgroundPickerSourceImageClass @BackgroundSource.BackgroundClass" 
              @onclick="@(() => OnBackgroundSourceClick(BackgroundSource))">
             @((MarkupString)BackgroundSource.DataSource)
         </div>

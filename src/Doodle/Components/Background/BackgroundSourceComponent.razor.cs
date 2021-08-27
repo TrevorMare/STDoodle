@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 namespace Doodle.Components.Background
 {
 
-    public partial class BackgroundSourceComponent : ComponentBase
+    public partial class BackgroundSourceComponent : Shared.DoodleBaseComponent
     {
 
         #region Properties

@@ -30,7 +30,39 @@ namespace Doodle.Themes
 
         public string ToolbarContentPanelContentWrapperClass { get; set; } = "";
 
-        public string ToolbarContentPanelContentCloseClass { get; set; } = "doodle-toolbar-close";
+        public string ToolbarContentPanelContentCloseClass { get; set; } = "";
+
+        public string BackgroundPickerSourceImageClass { get; set; } = "";
+
+        public string CanvasResizeContainerClass { get; set; } = "";
+
+        public string CanvasDrawClass { get; set; } = "";
+
+        public string CanvasPreviewDrawClass { get; set; } = "";
+
+        public string ColorPickerWrapperClass { get; set; } = "";
+        
+        public string ColorPickerFavouritesWrapperClass { get; set; } = "";
+
+        public string ColorPickerFavouriteOuterClass { get; set; } = "";
+
+        public string ColorPickerFavouriteInnerClass { get; set; } = "";
+
+        public string ColorPickerCustomColorWrapperClass { get; set; } = "";
+
+        public string ColorPickerCustomColorInputClass { get; set; } = "";
+
+        public string SizePickerWrapperClass { get; set; } = "";
+        
+        public string SizePickerFavouritesWrapperClass { get; set; } = "";
+
+        public string SizePickerFavouriteOuterClass { get; set; } = "";
+
+        public string SizePickerFavouriteInnerClass { get; set; } = "";
+
+        public string SizePickerCustomDrawSizeWrapperClass { get; set; } = "";
+
+        public string SizePickerCustomEraserSizeWrapperClass { get; set; } = "";
     }
 
 }

@@ -1,19 +1,19 @@
 @inherits Shared.DoodleBaseComponent
  
-<div data-toolbarmenu-sizepickercomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass"> 
+<div data-toolbarmenu-sizepickercomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass @Theme.SizePickerWrapperClass"> 
     <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
         <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
-            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Quick Sizes</span>
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Quick Sizes</span> 
         </div>
         <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-quick-sizes">
-            <div data-toolbarmenu-sizepickercomponent-menufavourites="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass doodle-size-picker-favourites">
+            <div data-toolbarmenu-sizepickercomponent-menufavourites="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass size-picker-favourites @Theme.SizePickerFavouritesWrapperClass">
                 @if (FavouriteSizes?.Count() > 0)
                 {
                     foreach (var size in FavouriteSizes) 
                     {
-                        <div class="doodle-size-picker-outer @((SelectedSize == size) ? "active" : "") @FavouriteOuterClass" @onclick="@(() => SelectedSize = size)">
-                            <div class="doodle-size-picker-inner @FavouriteInnerClass">
-                                <div style="border-top-width: @(size)px;" class="doodle-size-picker-line"></div>
+                        <div class="button-custom-outer @((SelectedSize == size) ? "active" : "") @Theme.SizePickerFavouriteOuterClass" @onclick="@(() => SelectedSize = size)">
+                            <div class="button-custom-inner @Theme.SizePickerFavouriteInnerClass">
+                                <div style="border-top-width: @(size)px;" class="size-picker-line"></div>
                             </div>
                         </div>
                     }
@@ -29,7 +29,7 @@
                 <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Drawing Size</span>
             </div>
             <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-custom-sizes"> 
-                <div data-toolbarmenu-sizepickercomponent-menudrawsize="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <div data-toolbarmenu-sizepickercomponent-menudrawsize="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass @Theme.SizePickerCustomDrawSizeWrapperClass">
                     <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-decreasestroke" title="Decrease"
                         @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth - 1))"> 
                         <span class="material-icons">remove_circle_outline</span>
@@ -51,7 +51,7 @@
             <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Eraser Size</span>
         </div>
         <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-custom-sizes"> 
-            <div data-toolbarmenu-sizepickercomponent-menuerasersize="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+            <div data-toolbarmenu-sizepickercomponent-menuerasersize="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass @Theme.SizePickerCustomEraserSizeWrapperClass">
                 <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-decreaseerasor" title="Decrease"
                     @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth - 1))"> 
                     <span class="material-icons">remove_circle_outline</span>

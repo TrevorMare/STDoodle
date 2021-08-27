@@ -67,6 +67,9 @@
 .doodle-btn-round:disabled span {
   opacity: 0.4;
 }
+.doodle-btn-round.selected {
+  background-color: #ffc947;
+}
 /*
     Round Button Element With Custom Round Inner
 */
@@ -194,5 +197,7 @@
   min-width: 128px;
   margin: 0.4rem;
   position: relative;
+}
+.background-source-wrapper.preview.doodle-background-source-wrapper {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 }
