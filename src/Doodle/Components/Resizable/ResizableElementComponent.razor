@@ -1,7 +1,7 @@
 @inherits Shared.DoodleBaseComponent
 
-<div @ref="@ResizeElement" data-doodle-resizable-element-wrapper class="doodle-resizable-element-wrapper @(ElementActive ? "active" : "") @ResizeElementClass" style="height: @(Height)px; width: @(Width)px; top: @(Top)px; left: @(Left)px;">
-    <div data-doodle-resizable-content class="doodle-resizable-content">
+<div @ref="@ResizeElement" data-doodle-resizable-element-wrapper class="resizable-element-wrapper @(ElementActive ? "active" : "") @Theme.ResizableElementWrapperClass" style="height: @(Height)px; width: @(Width)px; top: @(Top)px; left: @(Left)px;">
+    <div data-doodle-resizable-content class="resizable-element-content @Theme.ResizableElementContentClass">
         @if (ChildContent != null)
         {
             @ChildContent(this)
@@ -19,11 +19,11 @@
         }
     </div>
 
-    <div data-doodle-resizable-adorner-tl class="resize-adorner tl @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
-    <div data-doodle-resizable-adorner-tr class="resize-adorner tr @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
-    <div data-doodle-resizable-adorner-bl class="resize-adorner bl @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
-    <div data-doodle-resizable-adorner-br class="resize-adorner br @(ElementActive && AllowResize ? "resize" : "") @ResizeAdornerClass"></div>
+    <div data-doodle-resizable-adorner-tl class="resize-adorner tl @Theme.ResizableElementSizeAdornerClass @(ElementActive && AllowResize ? "resize" : "") "></div>
+    <div data-doodle-resizable-adorner-tr class="resize-adorner tr @Theme.ResizableElementSizeAdornerClass @(ElementActive && AllowResize ? "resize" : "") "></div>
+    <div data-doodle-resizable-adorner-bl class="resize-adorner bl @Theme.ResizableElementSizeAdornerClass @(ElementActive && AllowResize ? "resize" : "") "></div>
+    <div data-doodle-resizable-adorner-br class="resize-adorner br @Theme.ResizableElementSizeAdornerClass @(ElementActive && AllowResize ? "resize" : "") "></div>
 
-    <div data-doodle-move-adorner class="move-adorner br @(ElementActive && AllowMove ? "move" : "") @MoveAdornerClass"></div>
+    <div data-doodle-move-adorner class="move-adorner @Theme.ResizableElementMoveAdornerClass @(ElementActive && AllowMove ? "move" : "") "></div>
 
 </div>

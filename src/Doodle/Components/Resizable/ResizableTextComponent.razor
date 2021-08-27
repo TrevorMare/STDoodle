@@ -2,12 +2,12 @@
 
 <ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
     <ActiveContent>
-        <textarea class="text-area-display" @onchange="@((e) => Model.Text = e.Value.ToString())">@Model.Text</textarea>
+        <textarea class="resizable-element-input @Theme.ResizableTextElementInputClass" @onchange="@((e) => Model.Text = e.Value.ToString())">@Model.Text</textarea>
     </ActiveContent>
     <InActiveContent>
         @{
             var outputText = string.IsNullOrEmpty(Model.Text) ? "" : Model.Text.Replace("\n", "<br />");
         }
-        <span class="span-display">@((MarkupString)outputText)</span>
+        <span class="resizable-element-label @Theme.ResizableTextElementLabelClass">@((MarkupString)outputText)</span>
     </InActiveContent>
 </ResizableElementComponent>

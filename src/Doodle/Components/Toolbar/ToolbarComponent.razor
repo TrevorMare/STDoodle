@@ -2,7 +2,7 @@
 
 @if (Show)
 {
-    <div data-doodletoolbarcomponent-wrapper="@DataAttributeName" class="toolbar-wrapper @Theme.ToolbarWrapperClass">
+    <div data-doodletoolbarcomponent-wrapper="@DataAttributeName" class="toolbar-wrapper @Theme.ToolbarWrapperClass" @attributes="AdditionalAttributes">
 
         <div data-doodletoolbarcomponent-header="@DataAttributeName" class="toolbar-header @Theme.ToolbarHeaderClass">
             <Doodle.Components.Toolbar.DrawActions.DrawActionsComponent></Doodle.Components.Toolbar.DrawActions.DrawActionsComponent>

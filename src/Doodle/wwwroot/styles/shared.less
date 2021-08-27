@@ -179,15 +179,16 @@
 
 }
 
-
 /* Toolbar Panels (Popup toolbar) */
 .toolbar-panels { 
     display: flex;
+    width: 100%;
     .toolbar-panel {
         padding: 0.8rem;
         display: flex;
         flex-direction: column;
         border-right: solid 1px @dark-color; 
+        overflow: hidden;
         .toolbar-panel-header {
             width: 100%;
             text-align: center;
@@ -201,11 +202,15 @@
             }
         }
         .toolbar-panel-content {
+            padding: 0.6rem;
             align-self: center;
             justify-self: center;
             flex-grow: 1;
             display: flex;
+            width: 100%;
+            overflow: auto;
             .toolbar-panel-content-wrapper {
+                width: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;

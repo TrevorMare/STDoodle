@@ -1,6 +1,6 @@
 @import url(../../wwwroot/styles/shared.less);    
 
-.doodle-resizable-container-wrapper {
+.resizable-container-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
@@ -8,7 +8,7 @@
     overflow: hidden;
     z-index: @canvas-z-index - 1; 
 
-    &.front {
+    &.front { 
         z-index: @canvas-z-index + 1;
     }
 }

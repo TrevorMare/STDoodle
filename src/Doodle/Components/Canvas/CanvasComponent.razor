@@ -1,6 +1,6 @@
 @inherits Shared.DoodleBaseComponent
 
-<div @ref="ResizeElement" data-doodle-resize-wrapper="@DataAttributeName" class="canvas-resize @Theme.CanvasResizeContainerClass">
+<div @ref="ResizeElement" data-doodle-resize-wrapper="@DataAttributeName" class="canvas-resize @Theme.CanvasResizeContainerClass" @attributes="AdditionalAttributes">
     @{
         string canvasCursorClass = "";
         if (DoodleDrawInteraction.DrawType == DrawType.Pen)

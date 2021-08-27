@@ -1,6 +1,6 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbarmenu-canvasgridcomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass"> 
+<div data-toolbarmenu-canvasgridcomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass" @attributes="AdditionalAttributes"> 
     
     <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
         <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
@@ -39,11 +39,7 @@
                     </label>
                 </div>
             </div>
-            
-        
         </div>
-
-
     </div>
     <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
         <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
@@ -57,7 +53,7 @@
                         <span class="material-icons">remove_circle_outline</span>
                 </button>
 
-                <label>@DoodleDrawInteraction.GridSize </label>
+                <label class="indicator-label">@DoodleDrawInteraction.GridSize </label>
 
                 <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-canvasgridcomponent-increase" title="Increase"
                         @onclick="@(() => DoodleDrawInteraction.SetCanvasGridSize(DoodleDrawInteraction.GridSize + 5))"> 

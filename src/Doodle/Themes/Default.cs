@@ -64,7 +64,21 @@ namespace Doodle.Themes
 
         public string SizePickerCustomEraserSizeWrapperClass { get; set; } = "";
 
-        
+        public string ResizableListWrapperClass { get; set; }  = "";
+
+        public string ResizableImageElementClass { get; set; }  = "";
+
+        public string ResizableTextElementInputClass { get; set; }  = "";
+
+        public string ResizableTextElementLabelClass { get; set; }  = "";
+
+        public string ResizableElementWrapperClass { get; set; } = "";
+
+        public string ResizableElementContentClass { get; set; } = "";
+
+        public string ResizableElementSizeAdornerClass { get; set; } = "doodle-resize-adorner";
+
+        public string ResizableElementMoveAdornerClass { get; set; } = "";
 
     }
 

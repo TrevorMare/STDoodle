@@ -9,6 +9,8 @@ namespace Doodle.Abstractions.Models
         #region Properties
         public string ImageSource { get; set; }
 
+        public string ImageClass { get; set; }
+
         public ResizableContentType ResizableContentType => ResizableContentType.Image;
         #endregion
 

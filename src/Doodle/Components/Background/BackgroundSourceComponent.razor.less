@@ -1,6 +1,6 @@
 @import url(../../wwwroot/styles/shared.less);   
- 
-.background-source-wrapper {
+  
+.background-source-wrapper { 
     position: absolute;
     top: 0px;
     left: 0px;
@@ -12,7 +12,6 @@
     box-sizing: border-box;
     background-size: contain;
     overflow: hidden;
-
     &.preview {
         &:extend(.doodle-canvas-background all);
         height: @canvas-background-preview-height;
@@ -21,12 +20,10 @@
         min-width: @canvas-background-preview-width;
         margin: @canvas-background-preview-margin;
         position: relative; 
-
         &.doodle-background-source-wrapper {
             box-shadow: @paper-elevation-4;
         }
     }
-
     &.selected {
         &::after {
             &:extend(.selected-icon-overlay all);

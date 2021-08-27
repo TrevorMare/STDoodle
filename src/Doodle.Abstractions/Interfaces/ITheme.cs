@@ -63,7 +63,22 @@ namespace Doodle.Abstractions.Interfaces
         string SizePickerCustomDrawSizeWrapperClass { get; set; } 
 
         string SizePickerCustomEraserSizeWrapperClass { get; set; } 
-        
+
+        string ResizableListWrapperClass { get; set; }   
+
+        string ResizableImageElementClass { get; set; }    
+
+        string ResizableTextElementInputClass { get; set; } 
+
+        string ResizableTextElementLabelClass { get; set; }
+
+        string ResizableElementWrapperClass { get; set; } 
+
+        string ResizableElementContentClass { get; set; } 
+
+        string ResizableElementSizeAdornerClass { get; set; } 
+
+        string ResizableElementMoveAdornerClass { get; set; } 
 
     }
 

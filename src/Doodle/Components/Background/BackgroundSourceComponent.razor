@@ -4,7 +4,7 @@
 {
     if (BackgroundSource.BackgroundSourceType == BackgroundSourceType.Url)
     {
-        <div data-doodle-backgroundsourcecomponent 
+        <div data-doodle-backgroundsourcecomponent @attributes="AdditionalAttributes" 
              style="background-image: url(@BackgroundSource.DataSource);" 
              class="background-source-wrapper img @(IsPreview ? "preview" : "") @(IsSelected ? "selected" : "") @Theme.BackgroundPickerSourceImageClass  @BackgroundSource.BackgroundClass" 
              @onclick="@(() => OnBackgroundSourceClick(BackgroundSource))">
@@ -12,7 +12,7 @@
     }
     else if (BackgroundSource.BackgroundSourceType == BackgroundSourceType.SVG)
     {
-        <div data-doodle-backgroundsourcecomponent 
+        <div data-doodle-backgroundsourcecomponent @attributes="AdditionalAttributes"
              class="background-source-wrapper svg @(IsPreview ? "preview" : "") @(IsSelected ? "selected" : "") @Theme.BackgroundPickerSourceImageClass @BackgroundSource.BackgroundClass" 
              @onclick="@(() => OnBackgroundSourceClick(BackgroundSource))">
             @((MarkupString)BackgroundSource.DataSource)
