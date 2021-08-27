@@ -221,12 +221,6 @@ namespace Doodle.Components.Resizable
                 }
             } 
         }
-
-        [Parameter]
-        public string ResizeElementClass { get; set; }
-
-        [Parameter]
-        public string MoveAdornerClass { get; set; }
         #endregion
 
         #region Config Init
@@ -243,9 +237,7 @@ namespace Doodle.Components.Resizable
             this.Left = config.ResizableElementConfig.Left;
             this.MinWidth = config.ResizableElementConfig.MinWidth;
             this.MinHeight = config.ResizableElementConfig.MinHeight;
-            this.ResizeElementClass = config.ResizableElementConfig.ResizeElementClass;
-            this.MoveAdornerClass = config.ResizableElementConfig.MoveAdornerClass;
-        }
+         }
         #endregion
 
         #region Overrides

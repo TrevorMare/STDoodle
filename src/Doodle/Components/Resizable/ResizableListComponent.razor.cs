@@ -9,10 +9,6 @@ namespace Doodle.Components.Resizable
     {
 
         #region Parameters
-        
-        [Parameter]
-        public string ResizeContainerClass { get; set; }
-
         public IEnumerable<Abstractions.Interfaces.IResizableContent> Content => DoodleDrawInteraction.ResizableContents;
 
         [Parameter]
@@ -57,13 +53,6 @@ namespace Doodle.Components.Resizable
         {
             this.Active = false;
             StateHasChanged();
-        }
-
-        protected override void InitConfigSettings(Abstractions.Config.DoodleDrawConfig config)
-        {
-            if (config == null || config.ResizableContainerConfig == null) return;
-
-            this.ResizeContainerClass = config.ResizableContainerConfig.ResizeContainerClass;
         }
         #endregion
 

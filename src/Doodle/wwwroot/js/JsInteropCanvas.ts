@@ -67,7 +67,7 @@ export class DoodleCanvas {
     this._gridType = gridType;
     this._drawType = drawType;
 
-    this._drawPreviewCanvas = this._resizeElement.querySelector('.doodle-canvas-preview') as HTMLCanvasElement;
+    this._drawPreviewCanvas = this._resizeElement.querySelector('.canvas-preview') as HTMLCanvasElement;
     if (!!this._drawPreviewCanvas) {
       this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
     }

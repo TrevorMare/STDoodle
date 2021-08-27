@@ -1,10 +1,10 @@
-.text-area-display {
+.resizable-element-input {
   display: inline-block;
   height: 100%;
   width: 100%;
   overflow-y: scroll;
 }
-.span-display {
+.resizable-element-label {
   height: 100%;
   width: 100%;
   padding-right: 24px;

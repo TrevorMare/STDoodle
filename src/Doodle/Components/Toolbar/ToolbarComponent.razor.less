@@ -1,11 +1,14 @@
-@import url(../../wwwroot/styles/shared.less);    
+@import url(../../wwwroot/styles/shared.less);     
 
 @toolbar-content-background: white;
-
+ 
 .toolbar-wrapper { 
     position: relative;
     border-bottom: solid 1px @dark-color;
-    
+    &.doodle-toolbar-wrapper {
+        border-bottom: solid 1px @dark-color;
+    }
+
     .toolbar-header {
         display: flex;
         align-content: center;
@@ -20,6 +23,7 @@
     }
     
     .toolbar-content-wrapper {
+        overflow: hidden;
         position: absolute;
         display: flex;
         width: 100%;
@@ -28,9 +32,15 @@
         left: 0px;
         z-index: @canvas-z-index + 3;
         background: @toolbar-content-background;
-        box-shadow: @paper-elevation-4;
+        border: solid 1px @dark-color;
+        &.doodle-toolbar-content-wrapper {
+            border: none;
+            box-shadow: @paper-elevation-4;
+        }
         .toolbar-content {
             height: 100%;
+            width: 100%;
         }
     }
-}
+} 
+ 

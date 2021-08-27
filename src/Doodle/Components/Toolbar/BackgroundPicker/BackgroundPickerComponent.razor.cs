@@ -12,7 +12,7 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
 
         #region Properties
         [Parameter]
-        public bool IsOpen { get; set; }
+        public bool Show { get; set; }
 
         [Parameter]
         public IEnumerable<BackgroundData> BackgroundSources { get; set; } = new List<Abstractions.Models.BackgroundData>();
@@ -21,8 +21,12 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
         #region Methods
         protected override void InitConfigSettings(DoodleDrawConfig config)
         {
-            if (config?.BackgroundConfig == null ) return;
+            if (config.ToolbarConfig != null)
+            {
+                this.Show = config.ToolbarConfig.ShowBackgroundPicker;
+            }
 
+            if (config?.BackgroundConfig == null ) return;
             this.BackgroundSources = config.BackgroundConfig.BackgroundSources ?? new  List<Abstractions.Models.BackgroundData>();
         }
 
@@ -40,6 +44,5 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
         #endregion
        
     }
-
 
 }

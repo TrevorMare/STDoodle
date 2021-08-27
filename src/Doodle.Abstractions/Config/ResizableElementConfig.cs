@@ -22,9 +22,6 @@ namespace Doodle.Abstractions.Config
 
         public double? MinHeight { get; set; }
 
-        public string ResizeElementClass { get; set; }
-
-        public string MoveAdornerClass { get; set; }
 
     }
 

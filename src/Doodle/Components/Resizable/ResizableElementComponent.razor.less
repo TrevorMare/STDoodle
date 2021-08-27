@@ -3,18 +3,16 @@
 @resize-adorner-size: 12px;
 @move-adorner-size: 16px;
 @move-adorner-size-half: @move-adorner-size / 2;
-
-.doodle-resizable-element-wrapper {
+ 
+.resizable-element-wrapper { 
     box-sizing: border-box;
-    position: absolute;
-
-    .doodle-resizable-content {
+    position: absolute; 
+    .resizable-element-content {
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         overflow: hidden;
     }
-
     .move-adorner {
         display: none;
         height: @move-adorner-size;
@@ -22,6 +20,7 @@
         position: absolute;
         top: -@resize-adorner-size * 2;
         left: calc(50% - @move-adorner-size-half);
+        
         background-image: url('/_content/STDoodle/img/move-icon.svg');
         background-repeat: no-repeat;
         background-position: center;
@@ -31,52 +30,45 @@
             cursor: move;
         }
     }
-    
     .resize-adorner {
         display: none;
         height: @resize-adorner-size;
         width: @resize-adorner-size;
-        border-radius: 50%;
-        background-color: @secondary-color-light;
         box-sizing: border-box;
-        border: solid 2px @primary-color-dark; 
         position: absolute;
-
+        border: solid 1px @dark-color; 
+        background-color: @dark-color;
+        &.doodle-resize-adorner {
+            border: solid 2px @primary-color-dark; 
+            border-radius: 50%;
+            background-color: @secondary-color-light;
+        }
         &.resize {
             display: inline-block;
         }
-
         &.tl {
             top: -@resize-adorner-size;
             left: -@resize-adorner-size;
             cursor: nw-resize;
         }
-
         &.tr {
             top: -@resize-adorner-size;
             right: -@resize-adorner-size;
             cursor: ne-resize;
         }
-
         &.bl {
             bottom: -@resize-adorner-size;
             left: -@resize-adorner-size;
             cursor: sw-resize;
         }
-
         &.br {
             bottom: -@resize-adorner-size;
             right: -@resize-adorner-size;
             cursor: se-resize;
         }
     }
-
     &.active {
         border: dotted 1px #3f6779;
         border-radius: 0.2rem;
     } 
-
-   
-
-
 }

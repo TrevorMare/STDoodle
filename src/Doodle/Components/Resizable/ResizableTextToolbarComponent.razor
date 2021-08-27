@@ -1,14 +1,14 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-toolbarmenu-resizabletextcomponent="@DataAttributeName" data-doodle-toolbar-text="@DataAttributeName" class="doodle-toolbar-panels">  
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>New Text</span>
+<div data-toolbarmenu-resizabletextcomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass">  
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">New Text</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content">
-            <div data-toolbarmenu-resizabletextcomponent-menunew="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-               <button class="btn-round" title="New Text"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
+            <div data-toolbarmenu-resizabletextcomponent-menunew="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+               <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-resizabletextcomponent-new" title="New Text"
                         @onclick="@(() => { AddResizableText().ConfigureAwait(false); OnCloseMenu.InvokeAsync(); })">  
                     <span class="material-icons">add</span>
                 </button>
@@ -16,16 +16,16 @@
         </div>
     </div>
    
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Close</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Close</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content">
-            <div data-toolbarmenu-resizabletextcomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Close"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
+            <div data-toolbarmenu-resizabletextcomponent-menuclose="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-resizabletextcomponent-close" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
-                    <span class="material-icons doodle-toolbar-close">close</span>
+                    <span class="material-icons toolbar-close @Theme.ToolbarContentPanelContentCloseClass">close</span>
                 </button>
             </div>
         </div>

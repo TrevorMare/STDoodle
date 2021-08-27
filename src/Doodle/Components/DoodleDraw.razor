@@ -1,7 +1,7 @@
 <CascadingValue Value="DataAttributeName" Name="DataAttributeName">
     <CascadingValue Value="Options" Name="Options">
         <CascadingValue Value="DoodleDrawInteraction" Name="DoodleDrawInteraction">
-            <div data-doodledrawcomponent-wrapper="@DataAttributeName" class="doodle-draw-wrapper" > 
+            <div data-doodledrawcomponent-wrapper="@DataAttributeName" class="doodle-draw-wrapper" @attributes="AdditionalAttributes"> 
                 <Doodle.Components.Toolbar.ToolbarComponent></Doodle.Components.Toolbar.ToolbarComponent>                
                 <div data-doodledrawcomponent-body="@DataAttributeName" class="doodle-draw-body">
                     <div data-doodledrawcomponent-content="@DataAttributeName" @ref="RenderWrapper" 

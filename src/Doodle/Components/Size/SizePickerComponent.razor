@@ -1,19 +1,19 @@
 @inherits Shared.DoodleBaseComponent
  
-<div data-toolbarmenu-sizepickercomponent="@DataAttributeName" class="doodle-toolbar-panels">
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Quick Sizes</span>
+<div data-toolbarmenu-sizepickercomponent="@DataAttributeName" class="toolbar-panels @Theme.ToolbarContentPanelsClass @Theme.SizePickerWrapperClass" @attributes="AdditionalAttributes"> 
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Quick Sizes</span> 
         </div>
-        <div class="doodle-toolbar-panel-content content-quick-sizes">
-            <div data-toolbarmenu-sizepickercomponent-menufavourites="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper doodle-size-picker-favourites">
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-quick-sizes">
+            <div data-toolbarmenu-sizepickercomponent-menufavourites="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass size-picker-favourites @Theme.SizePickerFavouritesWrapperClass">
                 @if (FavouriteSizes?.Count() > 0)
                 {
                     foreach (var size in FavouriteSizes) 
                     {
-                        <div class="doodle-size-picker-outer @((SelectedSize == size) ? "active" : "") @FavouriteOuterClass" @onclick="@(() => SelectedSize = size)">
-                            <div class="doodle-size-picker-inner @FavouriteInnerClass">
-                                <div style="border-top-width: @(size)px;" class="doodle-size-picker-line"></div>
+                        <div class="button-custom-outer @((SelectedSize == size) ? "active" : "") @Theme.SizePickerFavouriteOuterClass" @onclick="@(() => SelectedSize = size)">
+                            <div class="button-custom-inner @Theme.SizePickerFavouriteInnerClass">
+                                <div style="border-top-width: @(size)px;" class="size-picker-line"></div>
                             </div>
                         </div>
                     }
@@ -24,20 +24,20 @@
 
     @if (ShowCustomNumber)
     {
-        <div class="doodle-toolbar-panel">
-            <div class="doodle-toolbar-panel-header">
-                <span>Drawing Size</span>
+        <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+            <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+                <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Drawing Size</span>
             </div>
-            <div class="doodle-toolbar-panel-content content-custom-sizes"> 
-                <div data-toolbarmenu-sizepickercomponent-menudrawsize="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                    <button class="btn-round" title="Decrease"
+            <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-custom-sizes"> 
+                <div data-toolbarmenu-sizepickercomponent-menudrawsize="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass @Theme.SizePickerCustomDrawSizeWrapperClass">
+                    <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-decreasestroke" title="Decrease"
                         @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth - 1))"> 
                         <span class="material-icons">remove_circle_outline</span>
                     </button>
 
-                    <label>@DoodleDrawInteraction.StrokeWidth </label>
+                    <label class="indicator-label">@DoodleDrawInteraction.StrokeWidth </label>
 
-                    <button class="btn-round" title="Increase"
+                    <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-increasestroke" title="Increase"
                             @onclick="@(() => DoodleDrawInteraction.SetStrokeWidth(DoodleDrawInteraction.StrokeWidth + 1))"> 
                             <span class="material-icons">add_circle_outline</span>
                     </button>
@@ -46,20 +46,20 @@
         </div>
     }
 
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Eraser Size</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Eraser Size</span>
         </div>
-        <div class="doodle-toolbar-panel-content content-custom-sizes"> 
-            <div data-toolbarmenu-sizepickercomponent-menuerasersize="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Decrease"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass content-custom-sizes"> 
+            <div data-toolbarmenu-sizepickercomponent-menuerasersize="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass @Theme.SizePickerCustomEraserSizeWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-decreaseerasor" title="Decrease"
                     @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth - 1))"> 
                     <span class="material-icons">remove_circle_outline</span>
                 </button>
 
-                <label>@DoodleDrawInteraction.EraserWidth </label>
+                <label class="indicator-label">@DoodleDrawInteraction.EraserWidth </label>
 
-                <button class="btn-round" title="Increase"
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-increaseerasor" title="Increase"
                         @onclick="@(() => DoodleDrawInteraction.SetEraserWidth(DoodleDrawInteraction.EraserWidth + 1))"> 
                         <span class="material-icons">add_circle_outline</span>
                 </button>
@@ -67,16 +67,16 @@
         </div>
     </div>
 
-    <div class="doodle-toolbar-panel">
-        <div class="doodle-toolbar-panel-header">
-            <span>Close</span>
+    <div class="toolbar-panel @Theme.ToolbarContentPanelClass">
+        <div class="toolbar-panel-header @Theme.ToolbarContentPanelHeaderClass">
+            <span class="toolbar-panel-header-text @Theme.ToolbarContentPanelHeaderTextClass">Close</span>
         </div>
 
-        <div class="doodle-toolbar-panel-content">
-            <div data-toolbarmenu-sizepickercomponent-menuclose="@DataAttributeName" class="doodle-toolbar-panel-content-wrapper">
-                <button class="btn-round" title="Close"
+        <div class="toolbar-panel-content @Theme.ToolbarContentPanelContentClass">
+            <div data-toolbarmenu-sizepickercomponent-menuclose="@DataAttributeName" class="toolbar-panel-content-wrapper @Theme.ToolbarContentPanelContentWrapperClass">
+                <button class="toolbar-button @Theme.ToolbarMenuButtonClass btn-sizepickercomponent-close" title="Close"
                         @onclick="@(() => OnCloseMenu.InvokeAsync())"> 
-                    <span class="material-icons" style="color: red;">close</span>
+                    <span class="material-icons toolbar-close @Theme.ToolbarContentPanelContentCloseClass">close</span>
                 </button>
             </div>
         </div>

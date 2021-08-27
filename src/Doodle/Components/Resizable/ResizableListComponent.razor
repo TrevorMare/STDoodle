@@ -1,5 +1,5 @@
 @inherits Shared.DoodleBaseComponent
-<div data-doodle-resizable-container-wrapper class="doodle-resizable-container-wrapper @(Active ? "front" : "") @ResizeContainerClass">
+<div data-doodle-resizable-container-wrapper class="resizable-container-wrapper @(Active ? "front" : "") @Theme.ResizableListWrapperClass" @attributes="AdditionalAttributes">
    @if (Content != null && Content.Count() > 0)
    {
        for (var iItem = 0; iItem < Content.Count(); iItem++)

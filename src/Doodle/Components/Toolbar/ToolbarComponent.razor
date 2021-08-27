@@ -1,47 +1,52 @@
 @inherits Shared.DoodleBaseComponent
 
-<div data-doodletoolbarcomponent-wrapper="@DataAttributeName" class="toolbar-wrapper">
+@if (Show)
+{
+    <div data-doodletoolbarcomponent-wrapper="@DataAttributeName" class="toolbar-wrapper @Theme.ToolbarWrapperClass" @attributes="AdditionalAttributes">
 
-    <div data-doodletoolbarcomponent-header="@DataAttributeName" class="toolbar-header">
-        <Doodle.Components.Toolbar.DrawActions.DrawActionsComponent></Doodle.Components.Toolbar.DrawActions.DrawActionsComponent>
-        <div class="toolbar-splitter"></div>
-        <Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent></Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent>
-        <Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent></Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent>
-        <Doodle.Components.Toolbar.SizePicker.SizePickerComponent></Doodle.Components.Toolbar.SizePicker.SizePickerComponent>
-        <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent></Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
-        <div class="toolbar-splitter"></div>
-        <Doodle.Components.Toolbar.DrawType.DrawTypeComponent></Doodle.Components.Toolbar.DrawType.DrawTypeComponent>
-    </div>
-
-    <div data-doodletoolbarcomponent-contentwrapper="@DataAttributeName" hidden="@(!IsMenuOpen)" class="toolbar-content-wrapper">
-        <div data-doodletoolbarcomponent-content="@DataAttributeName" class="toolbar-content">
-            
-            @if (ToolbarContent == ToolbarContent.ColorPicker)
-            {
-                <Doodle.Components.Color.ColorPickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Color.ColorPickerComponent>
-            }
-            else if (ToolbarContent == ToolbarContent.BackgroundPicker)
-            {
-                <Doodle.Components.Background.BackgroundPickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Background.BackgroundPickerComponent>
-            }
-            else if (ToolbarContent == ToolbarContent.SizePicker)
-            {
-                <Doodle.Components.Size.SizePickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Size.SizePickerComponent>
-            }
-            else if (ToolbarContent == ToolbarContent.CanvasGridOptions)
-            {
-                <Doodle.Components.Canvas.CanvasGridOptionsComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Canvas.CanvasGridOptionsComponent>
-            }
-            else if (ToolbarContent == ToolbarContent.ResizableImage)
-            {
-                <Doodle.Components.Resizable.ResizableImageToolbarComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Resizable.ResizableImageToolbarComponent>
-            }
-            else if (ToolbarContent == ToolbarContent.ResizableText)
-            {
-                <Doodle.Components.Resizable.ResizableTextToolbarComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Resizable.ResizableTextToolbarComponent>
-            }
+        <div data-doodletoolbarcomponent-header="@DataAttributeName" class="toolbar-header @Theme.ToolbarHeaderClass">
+            <Doodle.Components.Toolbar.DrawActions.DrawActionsComponent></Doodle.Components.Toolbar.DrawActions.DrawActionsComponent>
+            <div class="toolbar-splitter"></div>
+            <Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent></Doodle.Components.Toolbar.CanvasGrid.CanvasGridComponent>
+            <Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent></Doodle.Components.Toolbar.ColorPicker.ColorPickerComponent>
+            <Doodle.Components.Toolbar.SizePicker.SizePickerComponent></Doodle.Components.Toolbar.SizePicker.SizePickerComponent>
+            <Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent></Doodle.Components.Toolbar.BackgroundPicker.BackgroundPickerComponent>
+            <div class="toolbar-splitter"></div>
+            <Doodle.Components.Toolbar.DrawType.DrawTypeComponent></Doodle.Components.Toolbar.DrawType.DrawTypeComponent>
         </div>
-    </div>
 
-</div>
+        <div data-doodletoolbarcomponent-contentwrapper="@DataAttributeName" hidden="@(!IsMenuOpen)" class="toolbar-content-wrapper @Theme.ToolbarContentWrapperClass">
+            <div data-doodletoolbarcomponent-content="@DataAttributeName" class="toolbar-content @Theme.ToolbarContentClass">
+                
+                @if (ToolbarContent == ToolbarContent.ColorPicker)
+                {
+                    <Doodle.Components.Color.ColorPickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Color.ColorPickerComponent>
+                }
+                else if (ToolbarContent == ToolbarContent.BackgroundPicker)
+                {
+                    <Doodle.Components.Background.BackgroundPickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Background.BackgroundPickerComponent>
+                }
+                else if (ToolbarContent == ToolbarContent.SizePicker)
+                {
+                    <Doodle.Components.Size.SizePickerComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Size.SizePickerComponent>
+                }
+                else if (ToolbarContent == ToolbarContent.CanvasGridOptions)
+                {
+                    <Doodle.Components.Canvas.CanvasGridOptionsComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Canvas.CanvasGridOptionsComponent>
+                }
+                else if (ToolbarContent == ToolbarContent.ResizableImage)
+                {
+                    <Doodle.Components.Resizable.ResizableImageToolbarComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Resizable.ResizableImageToolbarComponent>
+                }
+                else if (ToolbarContent == ToolbarContent.ResizableText)
+                {
+                    <Doodle.Components.Resizable.ResizableTextToolbarComponent OnCloseMenu="@(() => CloseMenu())"></Doodle.Components.Resizable.ResizableTextToolbarComponent>
+                }
+            </div>
+        </div>
+
+    </div>
+}
+
+
 
