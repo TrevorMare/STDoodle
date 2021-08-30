@@ -32,7 +32,6 @@ namespace Doodle.Components.Background
                 this._selectedBackgrounds = this.DoodleDrawInteraction.DoodleStateManager.SelectedBackgrounds.ToList();
                 this.StateHasChanged();
             };
-
             base.OnInitialized();
         }
 
@@ -43,11 +42,17 @@ namespace Doodle.Components.Background
             this.BackgroundSources = config.BackgroundConfig.BackgroundSources ?? new  List<Abstractions.Models.BackgroundData>();
         }
 
+        private bool IsBackgroundSelected(Abstractions.Models.BackgroundData backgroundData)
+        {
+            if (backgroundData == null) return false;
+            return this._selectedBackgrounds.Any(x => x.Id == backgroundData.Id);
+        }
+
         private async Task ToggleSelectedBackground(Abstractions.Models.BackgroundData backgroundData)
         {
-            if (this._selectedBackgrounds.Contains(backgroundData)) 
+            if (this.IsBackgroundSelected(backgroundData)) 
             {
-                this._selectedBackgrounds.Remove(backgroundData);
+                this._selectedBackgrounds.Remove(this._selectedBackgrounds.First(x => x.Id == backgroundData.Id));
             }
             else
             {

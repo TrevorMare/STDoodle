@@ -18,7 +18,12 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
         public IEnumerable<BackgroundData> BackgroundSources { get; set; } = new List<Abstractions.Models.BackgroundData>();
         #endregion
 
-        #region Methods
+        #region Methods 
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+        }
         protected override void InitConfigSettings(DoodleDrawConfig config)
         {
             if (config.ToolbarConfig != null)

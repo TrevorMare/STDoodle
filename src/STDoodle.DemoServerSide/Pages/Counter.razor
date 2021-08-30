@@ -10,11 +10,11 @@
 
 </STDoodle.DemoComponents.Pages.HelpDoodleDraw>
 
-<GuidedTour TourId="tour1">
+@* <GuidedTour TourId="tour1">
     <GuidedTourStep TourStepSequence="1" ElementSelector="[data-tour-step1]">
         This is my content
     </GuidedTourStep>
-</GuidedTour>
+</GuidedTour> *@
 
 
 @code {
@@ -26,6 +26,6 @@
 
     private async Task IncrementCount()
     {
-        await GTourService.StartTour("tour1");
+        //await GTourService.StartTour("tour1");
     }
 }

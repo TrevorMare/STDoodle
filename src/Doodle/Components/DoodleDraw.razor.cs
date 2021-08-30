@@ -91,6 +91,9 @@ namespace Doodle.Components
             this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) => {
                 this.StateHasChanged();
             };
+            this.DoodleDrawInteraction.DoodleStateManager.OnDoodleDrawStateChanged += (s, e) => {
+                this.StateHasChanged();
+            };
             this.DoodleDrawInteraction.OnStateHasChanged += (s, e) => {
                 StateHasChanged();
             };

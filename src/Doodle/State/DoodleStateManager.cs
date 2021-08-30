@@ -94,23 +94,27 @@ namespace Doodle.State
             {
                 this.CurrentState = sequencedItems[0];
             }
-
+            else 
+            {
+                this.CurrentState = new DoodleStateDetail();
+            }
+            await this.SetupState();
             this.OnRestoreState?.Invoke(this, null);
         }
 
         public async Task RedoLastAction()
         {
-            var sequencedItems = this.StateHistory.Where(x => x.Reverted == true && x.Sequence > this.CurrentState.Sequence).OrderBy(x => x.Sequence).ToList();
+            var sequencedItems = this.StateHistory.Where(x => x.Reverted == true && x.Sequence >= this.CurrentState.Sequence).OrderBy(x => x.Sequence).ToList();
             if (sequencedItems.Count > 0)
             {
                 this.CurrentState = sequencedItems[0];
                 await this.CurrentState.SetReverted(false);
             }
-
+            await this.SetupState();
             this.OnRestoreState?.Invoke(this, null);
         }
 
-        public Task ClearDoodle(bool clearHistory)
+        public async Task ClearDoodle(bool clearHistory)
         {
             if (clearHistory == true)
             {
@@ -119,9 +123,9 @@ namespace Doodle.State
                 this._currentSequence = 0;
             }
             this.CurrentState = new DoodleStateDetail();
+            await this.SetupState();
+            
             this.OnRestoreState?.Invoke(this, null);
-
-            return Task.CompletedTask;
         }
         #endregion
 

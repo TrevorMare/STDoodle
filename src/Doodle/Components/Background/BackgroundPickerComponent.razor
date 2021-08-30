@@ -10,7 +10,7 @@
             <div data-toolbarmenu-backgroundpickercomponent-menubackgrounds="@DataAttributeName" class="background-picker-layout">
                 @foreach (var backgroundSource in BackgroundSources)
                 {
-                    bool isSelected = _selectedBackgrounds.Contains(backgroundSource);
+                    bool isSelected = this.IsBackgroundSelected(backgroundSource);
                     
                     <BackgroundSourceComponent 
                         IsPreview="true"
