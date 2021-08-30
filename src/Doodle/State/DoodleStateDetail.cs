@@ -13,14 +13,16 @@ namespace Doodle.State
         #region Properties
         public int Sequence { get; internal set; }
 
+        public bool Reverted { get; internal set; }
+
         [JsonConverter(typeof(BackgroundStateConverter))]
-        public IDoodleDrawState BackgroundState { get; set; }
+        public IDoodleDrawState BackgroundState { get; internal set; }
 
         [JsonConverter(typeof(CanvasStateConverter))]
-        public IDoodleDrawState CanvasState { get; set; }
+        public IDoodleDrawState CanvasState { get; internal set; }
 
         [JsonConverter(typeof(ResizableStateConverter))]
-        public IDoodleDrawState ResizableState { get; set; }
+        public IDoodleDrawState ResizableState { get; internal set; }
         #endregion
 
         #region Methods
@@ -39,6 +41,12 @@ namespace Doodle.State
         public Task SetResizableState(IDoodleDrawState state)
         {
             this.ResizableState = state;
+            return Task.CompletedTask;
+        }
+
+        public Task SetReverted(bool reverted)
+        {
+            this.Reverted = reverted;
             return Task.CompletedTask;
         }
 

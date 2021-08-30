@@ -8,15 +8,18 @@ using Microsoft.Extensions.Logging;
 namespace Doodle.State
 {
 
-    public class DoodleStateManager : Abstractions.Interfaces.IDoodleStateManager
+    public class DoodleStateManager : Abstractions.Interfaces.IDoodleStateManager 
     {
 
         #region Events
         public event EventHandler OnDoodleDrawStateChanged;
+
+        public event EventHandler OnRestoreState;
         #endregion
 
         #region Members
         private int _currentSequence = 0;
+        private bool _isDirty = false;
         private readonly ILogger<DoodleStateManager> _logger;
         #endregion
 
@@ -28,6 +31,12 @@ namespace Doodle.State
         #endregion
 
         #region Properties
+        public bool CanUndo => StateHistory.Any(x => x.Reverted == false);
+
+        public bool CanRedo => StateHistory.Any(x => x.Reverted == true);
+
+        public bool IsDirty => _isDirty;
+
         public IDoodleStateDetail CurrentState { get; private set; } = new DoodleStateDetail();
         
         public IEnumerable<IDoodleStateDetail> StateHistory { get; private set; } = new List<IDoodleStateDetail>();
@@ -70,6 +79,45 @@ namespace Doodle.State
                 await PushNewState(newState);
             }
         }
+
+        public async Task UndoLastAction()
+        {
+            await this.CurrentState.SetReverted(true);
+
+            var sequencedItems = this.StateHistory.Where(x => x.Reverted == false && x.Sequence < this.CurrentState.Sequence).OrderByDescending(x => x.Sequence).ToList();
+            if (sequencedItems.Count > 0)
+            {
+                this.CurrentState = sequencedItems[0];
+            }
+
+            this.OnRestoreState?.Invoke(this, null);
+        }
+
+        public async Task RedoLastAction()
+        {
+            var sequencedItems = this.StateHistory.Where(x => x.Reverted == true && x.Sequence > this.CurrentState.Sequence).OrderBy(x => x.Sequence).ToList();
+            if (sequencedItems.Count > 0)
+            {
+                this.CurrentState = sequencedItems[0];
+                await this.CurrentState.SetReverted(false);
+            }
+
+            this.OnRestoreState?.Invoke(this, null);
+        }
+
+        public Task ClearDoodle(bool clearHistory)
+        {
+            if (clearHistory == true)
+            {
+                this.StateHistory = new List<IDoodleStateDetail>();
+                this._isDirty = false;
+                this._currentSequence = 0;
+            }
+            this.CurrentState = new DoodleStateDetail();
+            this.OnRestoreState?.Invoke(this, null);
+
+            return Task.CompletedTask;
+        }
         #endregion
 
         #region Private Methods
@@ -81,6 +129,7 @@ namespace Doodle.State
             this.StateHistory = stateList;
             // Set the current state
             this.CurrentState = newState;
+            this._isDirty = true;
             this.OnDoodleDrawStateChanged?.Invoke(this, null);
             
             return Task.CompletedTask;

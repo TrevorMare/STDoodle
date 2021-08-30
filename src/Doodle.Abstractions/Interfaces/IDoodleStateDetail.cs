@@ -9,11 +9,13 @@ namespace Doodle.Abstractions.Interfaces
 
         int Sequence { get; }
 
-        IDoodleDrawState BackgroundState { get; set; }
+        bool Reverted { get; }
 
-        IDoodleDrawState CanvasState { get; set; }
+        IDoodleDrawState BackgroundState { get; }
 
-        IDoodleDrawState ResizableState { get; set; }
+        IDoodleDrawState CanvasState { get; }
+
+        IDoodleDrawState ResizableState { get; }
 
         Task<IDoodleStateDetail> CloneState(int sequence);
 
@@ -22,6 +24,8 @@ namespace Doodle.Abstractions.Interfaces
         Task SetCanvasState(IDoodleDrawState state);
 
         Task SetResizableState(IDoodleDrawState state);
+
+        Task SetReverted(bool reverted);
 
     }
 

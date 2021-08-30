@@ -15,7 +15,6 @@ namespace Doodle
         #region Members
         private readonly Abstractions.Config.DoodleDrawConfig _config;
         private readonly IDoodleStateManager _doodleStateManager;
-        
         #endregion
 
         #region ctor
@@ -65,12 +64,6 @@ namespace Doodle
 
         public string GridColor { get; private set; } = "#000";
 
-        public bool CanUndo { get; private set; } = false;
-
-        public bool CanRedo { get; private set; } = false;
-
-        public bool IsDirty { get; private set; } = false;
-
         public Abstractions.Common.DrawMode DrawMode { get; private set; } = Abstractions.Common.DrawMode.Canvas;
 
         public Abstractions.Common.DrawType DrawType { get; private set; } = Abstractions.Common.DrawType.Pen;
@@ -97,13 +90,7 @@ namespace Doodle
         public event OnSizeChangedHandler OnCanvasGridSizeChanged;
         public event OnCanvasGridTypeChangedHandler OnCanvasGridTypeChanged;
         public event OnColorChangedHandler OnCanvasGridColorChanged;
-        public event OnBoolChangedHandler OnCanRedoChanged;
-        public event OnBoolChangedHandler OnCanUndoChanged;
         public event OnDrawModeChangedHandler OnDrawModeChanged;
-        public event OnBoolChangedHandler OnIsDirtyChanged;
-        public event EventHandler OnUndoLastAction;
-        public event EventHandler OnRedoLastAction;
-        public event OnClearDoodleHandler OnClearDoodle;
         public event EventHandler OnExportImage;
         public event EventHandler OnSaveDoodleData;
         public event OnRestoreHandler OnRestoreDoodleData;
@@ -231,28 +218,6 @@ namespace Doodle
             return Task.CompletedTask;
         }
 
-        public Task SetCanRedo(bool canRedo)
-        {
-            if (canRedo != this.CanRedo)
-            {
-                this.CanRedo = canRedo;
-                this.OnCanRedoChanged?.Invoke(this, canRedo);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-        
-        public Task SetCanUndo(bool canUndo)
-        {
-            if (canUndo != this.CanUndo)
-            {
-                this.CanUndo = canUndo;
-                this.OnCanUndoChanged?.Invoke(this, canUndo);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
         public Task SetDrawMode(Abstractions.Common.DrawMode drawMode)
         {
             if (drawMode != this.DrawMode)
@@ -292,42 +257,6 @@ namespace Doodle
                 this.OnStateHasChanged?.Invoke(this, null);
             }
             return Task.CompletedTask;
-        }
-
-        public Task SetIsDirty(bool value)
-        {
-            if (value != this.IsDirty)
-            {
-                this.IsDirty = value;
-                this.OnIsDirtyChanged?.Invoke(this, value);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task RedoLastAction()
-        {
-            if (this.CanRedo)
-            {
-                OnRedoLastAction?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task UndoLastAction()
-        {
-            if (this.CanUndo)
-            {
-                OnUndoLastAction?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public async Task ClearDoodle(bool clearHistory)
-        {
-            await this.ClearResizableContent();
-
-            OnClearDoodle?.Invoke(this, clearHistory);
         }
 
         public Task ExportImage()
@@ -418,16 +347,7 @@ namespace Doodle
             return Task.CompletedTask;
         }
 
-        public Task ClearResizableContent()
-        {
-            if (this.ResizableContents.Count() > 0)
-            {
-                var resizableList = new List<IResizableContent>();
-                this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
+       
 
         public async Task SetBackgroundColor(string color, bool setEraserColor)
         {
@@ -441,19 +361,6 @@ namespace Doodle
                 this.OnBackgroundColorChanged?.Invoke(this, this.BackgroundColor);
                 this.OnStateHasChanged?.Invoke(this, null);
             }
-        }
-
-        public Task PushDoodleDrawState(IDoodleDrawState state)
-        {
-            if (state != null)
-            {
-                // Get the last captured state
-                
-
-
-
-            }
-            return Task.CompletedTask;
         }
         #endregion
         

@@ -20,6 +20,16 @@ namespace Doodle.Components.Background
         #endregion
 
         #region Methods
+        protected override void OnInitialized()
+        {
+            this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) => 
+            {
+
+            };
+
+            base.OnInitialized();
+        }
+
         protected override void InitConfigSettings(DoodleDrawConfig config)
         {
             if (config?.BackgroundConfig == null ) return;
@@ -37,8 +47,6 @@ namespace Doodle.Components.Background
             {
                 await this.DoodleDrawInteraction.AddBackground(backgroundData); 
             }
-
-            // TODO - Move to interaction ???
             await this.DoodleDrawInteraction.DoodleStateManager.PushBackgroundState(new State.BackgroundState(this.DoodleDrawInteraction.SelectedBackgrounds));
         }
         #endregion

@@ -11,7 +11,6 @@ namespace Doodle.Abstractions.Interfaces
     public delegate void OnSizeChangedHandler(object sender, double size);
     public delegate void OnBoolChangedHandler(object sender, bool size);
     public delegate void OnBackgroundChangedHandler(object sender, Models.BackgroundData backgroundData);
-    public delegate void OnClearDoodleHandler(object sender, bool clearHistory);
     public delegate void OnCanvasGridTypeChangedHandler(object sender, Abstractions.Common.GridType gridType);
     public delegate void OnDrawModeChangedHandler(object sender, Abstractions.Common.DrawMode drawMode);
     public delegate void OnDrawTypeChangedHandler(object sender, Abstractions.Common.DrawType drawMode);
@@ -32,13 +31,7 @@ namespace Doodle.Abstractions.Interfaces
         event OnSizeChangedHandler OnEraserSizeChanged;
         event OnCanvasGridTypeChangedHandler OnCanvasGridTypeChanged;
         event OnColorChangedHandler OnCanvasGridColorChanged;
-        event OnBoolChangedHandler OnCanRedoChanged;
-        event OnBoolChangedHandler OnCanUndoChanged;
         event OnDrawModeChangedHandler OnDrawModeChanged;
-        event OnBoolChangedHandler OnIsDirtyChanged;
-        event EventHandler OnUndoLastAction;
-        event EventHandler OnRedoLastAction;
-        event OnClearDoodleHandler OnClearDoodle;
         event EventHandler OnExportImage;
         event EventHandler OnSaveDoodleData;
         event OnRestoreHandler OnRestoreDoodleData;
@@ -71,12 +64,6 @@ namespace Doodle.Abstractions.Interfaces
 
         string GridColor { get; }
 
-        bool CanUndo { get; }
-
-        bool CanRedo { get; }
-
-        bool IsDirty { get; }
-
         Abstractions.Common.DrawMode DrawMode { get; }
 
         ToolbarContent ToolbarContent { get; }
@@ -107,21 +94,9 @@ namespace Doodle.Abstractions.Interfaces
 
         Task SetCanvasGridColor(string color);
 
-        Task SetCanRedo(bool canRedo);
-        
-        Task SetCanUndo(bool canUndo);
-
         Task SetDrawMode(Abstractions.Common.DrawMode drawMode);
 
-        Task SetIsDirty(bool value);
-
         Task RedrawCanvas();
-
-        Task UndoLastAction();
-
-        Task RedoLastAction();
-
-        Task ClearDoodle(bool clearHistory);
 
         Task ExportImage();
 
@@ -138,8 +113,6 @@ namespace Doodle.Abstractions.Interfaces
         Task AddResizableContent(IResizableContent content);
 
         Task RemoveResizableContent(IResizableContent content);
-
-        Task ClearResizableContent();
 
         Task SetBackgroundColor(string color, bool setEraserColor);
 

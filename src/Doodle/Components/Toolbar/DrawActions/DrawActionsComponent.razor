@@ -9,21 +9,21 @@
             <button data-toolbarbuttons-drawactionscomponent-undobutton="@DataAttributeName"
                     hidden="@(!UndoButtonVisible)" disabled=@(!UndoButtonEnabled) 
                     class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-undo" title="Undo"
-                    @onclick="@(() => DoodleDrawInteraction.UndoLastAction())"> 
+                    @onclick="@(() => DoodleDrawInteraction.DoodleStateManager.UndoLastAction())"> 
                     <span class="material-icons">undo</span>
             </button>
 
             <button data-toolbarbuttons-drawactionscomponent-redobutton="@DataAttributeName"
                     hidden="@(!RedoButtonVisible)" disabled=@(!RedoButtonEnabled) 
                     class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-redo" title="Redo"
-                    @onclick="@(() => DoodleDrawInteraction.RedoLastAction())">
+                    @onclick="@(() => DoodleDrawInteraction.DoodleStateManager.RedoLastAction())">
                     <span class="material-icons">redo</span>
             </button>
             
             <button data-toolbarbuttons-drawactionscomponent-clearbutton="@DataAttributeName"
                     hidden="@(!ClearButtonVisible)" disabled=@(!ClearButtonEnabled) 
                     class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-clear" title="Clear"
-                    @onclick="@(() => DoodleDrawInteraction.ClearDoodle(ClearHistoryOnClear))">
+                    @onclick="@(() => DoodleDrawInteraction.DoodleStateManager.ClearDoodle(ClearHistoryOnClear))">
                     <span class="material-icons">clear</span>
             </button>
 

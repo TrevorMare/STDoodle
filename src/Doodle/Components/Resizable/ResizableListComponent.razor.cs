@@ -19,9 +19,10 @@ namespace Doodle.Components.Resizable
         #region Config Init
         protected override void OnInitialized()
         {
-            this.DoodleDrawInteraction.OnClearDoodle += (s, clearHistory) => 
+
+            this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) => 
             {
-                StateHasChanged();
+
             };
 
             this.DoodleDrawInteraction.OnDrawTypeChanged += (s, drawType) => {
