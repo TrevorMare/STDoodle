@@ -72,13 +72,10 @@ namespace Doodle
 
         public string BackgroundColor { get; private set; } = "#ffffff";
 
-        public IEnumerable<IResizableContent> ResizableContents { get; private set; } = new List<IResizableContent>();
-
         public IDoodleStateManager DoodleStateManager => _doodleStateManager; 
         #endregion
 
         #region Events
-        public event OnResizableContentsChangedHandler OnResizableContentsChanged;
         public event OnToolbarContentChangedHandler OnToolbarContentChanged;
         public event EventHandler OnStateHasChanged;
         public event OnColorChangedHandler OnStrokeColorChanged;
@@ -278,40 +275,6 @@ namespace Doodle
 
             return Task.CompletedTask;
         }
-
-        public Task AddResizableContent(IResizableContent content)
-        {
-            if (content != null)
-            {
-                if (!this.ResizableContents.Contains(content))
-                {
-                    var resizableList = this.ResizableContents.ToList();
-                    resizableList.Add(content);
-                    this.ResizableContents = resizableList;
-                    this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
-                    this.OnStateHasChanged?.Invoke(this, null);
-                }
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task RemoveResizableContent(IResizableContent content)
-        {
-            if (content != null)
-            {
-                if (this.ResizableContents.Contains(content))
-                {
-                    var resizableList = this.ResizableContents.ToList();
-                    resizableList.Remove(content);
-                    this.ResizableContents = resizableList;
-                    this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
-                    this.OnStateHasChanged?.Invoke(this, null);
-                }
-            }
-            return Task.CompletedTask;
-        }
-
-       
 
         public async Task SetBackgroundColor(string color, bool setEraserColor)
         {

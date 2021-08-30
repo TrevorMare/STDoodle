@@ -10,7 +10,7 @@ namespace Doodle.Components.Resizable
     {
 
         #region Parameters
-        public IEnumerable<Abstractions.Interfaces.IResizableContent> Content => DoodleDrawInteraction.ResizableContents;
+        public IEnumerable<Abstractions.Interfaces.IResizableContent> Content => DoodleDrawInteraction.DoodleStateManager.ResizableContent;
 
         [Parameter]
         public bool Active { get; set; } = false;
@@ -19,10 +19,8 @@ namespace Doodle.Components.Resizable
         #region Config Init
         protected override void OnInitialized()
         {
-
-            this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) => 
-            {
-
+            this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) =>  {
+                StateHasChanged();
             };
 
             this.DoodleDrawInteraction.OnDrawTypeChanged += (s, drawType) => {

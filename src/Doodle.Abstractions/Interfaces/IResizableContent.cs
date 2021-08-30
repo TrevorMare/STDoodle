@@ -7,6 +7,8 @@ namespace Doodle.Abstractions.Interfaces
         #region Properties
         Common.ResizableContentType ResizableContentType { get; }
 
+        string Id { get; set; }
+
         double Height { get; set; }
 
         double Width { get; set; }

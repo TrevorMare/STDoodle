@@ -25,6 +25,8 @@ namespace Doodle.Abstractions.Interfaces
 
         IEnumerable<BackgroundData> SelectedBackgrounds { get; }
 
+        IEnumerable<IResizableContent> ResizableContent { get; }
+
         bool CanUndo { get; }
 
         bool CanRedo { get; }

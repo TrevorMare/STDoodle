@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Doodle.Abstractions.Interfaces;
 using Doodle.Abstractions.Models;
@@ -24,6 +25,8 @@ namespace Doodle.State
         private readonly ILogger<DoodleStateManager> _logger;
 
         private IEnumerable<BackgroundData> _selectedBackgrounds = new List<BackgroundData>();
+
+        private IEnumerable<IResizableContent> _resizableContent = new List<IResizableContent>();
         #endregion
 
         #region ctor
@@ -51,6 +54,8 @@ namespace Doodle.State
         public IDoodleDrawState ResizableState => CurrentState.ResizableState;
 
         public IEnumerable<BackgroundData> SelectedBackgrounds => _selectedBackgrounds;
+
+        public IEnumerable<IResizableContent> ResizableContent => _resizableContent;
         #endregion
 
         #region Public Methods
@@ -147,6 +152,7 @@ namespace Doodle.State
         private Task SetupState()
         {
             this._selectedBackgrounds = new List<BackgroundData>();
+            this._resizableContent = new List<IResizableContent>();
             if (this.CurrentState != null)
             {
                 string jsonBackgroundData = this.CurrentState?.BackgroundState?.Detail;
@@ -155,6 +161,14 @@ namespace Doodle.State
                     this._selectedBackgrounds = System.Text.Json.JsonSerializer.Deserialize<List<BackgroundData>>(jsonBackgroundData);
                 }
                 
+                string jsonResizableContent = this.CurrentState?.ResizableState?.Detail;
+                if (!string.IsNullOrEmpty(jsonResizableContent))
+                {
+                    var serializeOptions = new JsonSerializerOptions();
+                    serializeOptions.Converters.Add(new JsonConverters.ResizableElementConverter());
+                    this._resizableContent = System.Text.Json.JsonSerializer.Deserialize<List<IResizableContent>>(jsonResizableContent, serializeOptions);
+                }
+
             }
             return Task.CompletedTask;
         }
