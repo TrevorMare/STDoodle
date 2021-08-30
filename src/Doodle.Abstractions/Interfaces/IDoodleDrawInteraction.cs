@@ -82,6 +82,8 @@ namespace Doodle.Abstractions.Interfaces
         ToolbarContent ToolbarContent { get; }
         
         DrawType DrawType { get; }
+
+        IDoodleStateManager DoodleStateManager { get; }
         #endregion
 
         #region Methods        
@@ -140,6 +142,7 @@ namespace Doodle.Abstractions.Interfaces
         Task ClearResizableContent();
 
         Task SetBackgroundColor(string color, bool setEraserColor);
+
         #endregion
 
     }

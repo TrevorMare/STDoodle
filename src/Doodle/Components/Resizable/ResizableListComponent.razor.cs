@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Doodle.State;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Resizable
@@ -41,6 +42,11 @@ namespace Doodle.Components.Resizable
 
             };
             base.OnInitialized();
+        }
+
+        private async Task ContentUpdated()
+        {
+            await DoodleDrawInteraction.DoodleStateManager.PushResziableState(new ResizableState(this.Content));
         }
 
         private void SetDrawTypeResizable()

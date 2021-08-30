@@ -1,8 +1,12 @@
 @inherits Shared.DoodleBaseComponent
 
-<ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
+<ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" 
+                          @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" 
+                          MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth"
+                          ElementUpdated="@(() => ContentUpdated.InvokeAsync())">
     <ActiveContent>
-        <textarea class="resizable-element-input @Theme.ResizableTextElementInputClass" @onchange="@((e) => Model.Text = e.Value.ToString())">@Model.Text</textarea>
+        <textarea class="resizable-element-input @Theme.ResizableTextElementInputClass" 
+                  @onchange="@((e) => { Model.Text = e.Value.ToString(); ContentUpdated.InvokeAsync(); })">@Model.Text</textarea>
     </ActiveContent>
     <InActiveContent>
         @{

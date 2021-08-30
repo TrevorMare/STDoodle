@@ -21,6 +21,9 @@ namespace Doodle.Components.Resizable
         [Parameter]
         public EventCallback<Abstractions.Interfaces.IResizableContent> DataSourceChanged { get; set; }
 
+        [Parameter]
+        public EventCallback ContentUpdated { get; set; }
+        
         public bool ElementActive 
         { 
             get => _elementActive; 

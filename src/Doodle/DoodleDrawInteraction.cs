@@ -14,12 +14,16 @@ namespace Doodle
 
         #region Members
         private readonly Abstractions.Config.DoodleDrawConfig _config;
+        private readonly IDoodleStateManager _doodleStateManager;
+        
         #endregion
 
         #region ctor
-        public DoodleDrawInteraction(Abstractions.Config.DoodleDrawConfig config)
+        public DoodleDrawInteraction(Abstractions.Config.DoodleDrawConfig config,
+                                     IDoodleStateManager stateManager)
         {
             this._config = config;
+            this._doodleStateManager = stateManager ?? throw new ArgumentNullException(nameof(stateManager));
             this.InitialiseConfiguration();
         }
         #endregion
@@ -43,10 +47,7 @@ namespace Doodle
                 this.GridSize = this._config.CanvasConfig.GridSize;
                 this.GridSize = this._config.CanvasConfig.GridSize;
             }
-
-            
         }
-
         #endregion
 
         #region Properties
@@ -81,6 +82,8 @@ namespace Doodle
         public string BackgroundColor { get; private set; } = "#ffffff";
 
         public IEnumerable<IResizableContent> ResizableContents { get; private set; } = new List<IResizableContent>();
+
+        public IDoodleStateManager DoodleStateManager => _doodleStateManager; 
         #endregion
 
         #region Events
@@ -438,6 +441,19 @@ namespace Doodle
                 this.OnBackgroundColorChanged?.Invoke(this, this.BackgroundColor);
                 this.OnStateHasChanged?.Invoke(this, null);
             }
+        }
+
+        public Task PushDoodleDrawState(IDoodleDrawState state)
+        {
+            if (state != null)
+            {
+                // Get the last captured state
+                
+
+
+
+            }
+            return Task.CompletedTask;
         }
         #endregion
         

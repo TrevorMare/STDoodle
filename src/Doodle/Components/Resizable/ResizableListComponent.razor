@@ -7,11 +7,11 @@
            var item = Content.ToList()[iItem];
            if (item.ResizableContentType == ResizableContentType.Text)
            {
-               <ResizableTextComponent @bind-DataSource="@item"></ResizableTextComponent>
+               <ResizableTextComponent ContentUpdated="@(() => ContentUpdated())" @bind-DataSource="@item"></ResizableTextComponent>
            }
            else if (item.ResizableContentType == ResizableContentType.Image)
            {
-               <ResizableImageComponent @bind-DataSource="@item"></ResizableImageComponent>
+               <ResizableImageComponent ContentUpdated="@(() => ContentUpdated())" @bind-DataSource="@item"></ResizableImageComponent>
            }
        }
    }

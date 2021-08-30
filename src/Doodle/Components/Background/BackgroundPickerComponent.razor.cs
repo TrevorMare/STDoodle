@@ -35,8 +35,11 @@ namespace Doodle.Components.Background
             }
             else
             {
-                await this.DoodleDrawInteraction.AddBackground(backgroundData);
+                await this.DoodleDrawInteraction.AddBackground(backgroundData); 
             }
+
+            // TODO - Move to interaction ???
+            await this.DoodleDrawInteraction.DoodleStateManager.PushBackgroundState(new State.BackgroundState(this.DoodleDrawInteraction.SelectedBackgrounds));
         }
         #endregion
         

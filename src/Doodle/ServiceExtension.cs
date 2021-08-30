@@ -33,11 +33,12 @@ namespace Doodle
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropCommon, Interops.JsInteropCommon>();
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropBuffer, Interops.JsInteropBuffer>();
             serviceCollection.AddScoped<Abstractions.JsInterop.IJsInteropHtml2Canvas, Interops.JsInteropHtml2Canvas>();
+
             serviceCollection.AddTransient<Abstractions.JsInterop.IJsInteropDragDrop, Interops.JsInteropDragDrop>();
             serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleDrawInteraction, DoodleDrawInteraction>();
-
             serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleExportHandler, Helpers.DoodleExportHandler>();
             serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleSaveHandler, Helpers.DoodleSaveHandler>();
+            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleStateManager, State.DoodleStateManager>();
 
             return serviceCollection;
         }

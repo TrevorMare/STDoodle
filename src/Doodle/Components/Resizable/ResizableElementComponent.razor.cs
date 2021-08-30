@@ -58,6 +58,9 @@ namespace Doodle.Components.Resizable
         public EventCallback<Abstractions.Models.ElementDimensions> DimensionsChanged { get; set; }
 
         [Parameter]
+        public EventCallback ElementUpdated { get; set; }
+
+        [Parameter]
         public EventCallback<bool> AutoHandleEventsChanged { get; set; }
         #endregion
 
@@ -245,13 +248,11 @@ namespace Doodle.Components.Resizable
         {
             if (firstRender == true && ElementInitialised == false)
             {
-                Logger.LogDebug($"Initialising Resize component");
                 await JsInteropDragDrop.InitialiseResizable(ResizeElement, this.AutoHandleEvents, this.ElementActive, this.AllowResize, this.AllowMove, this.MinWidth, this.MinHeight);
 
                 this.JsInteropDragDrop.OnElementUpdated += JsInteropDragDrop_OnElementUpdated;
                 this.JsInteropDragDrop.OnSetIsActive += JsInteropDragDrop_OnSetIsActive;
                 
-                Logger.LogDebug($"Resize component Initialised");
                 this.ElementInitialised = true;
                 await ResizeElementReady.InvokeAsync(this);
             }
@@ -311,14 +312,11 @@ namespace Doodle.Components.Resizable
                 await this.JsInteropDragDrop.SetAutoHandleEvents(this.AutoHandleEvents);
             }
         }
-
-
         #endregion
 
         #region Event Handlers
         private void JsInteropDragDrop_OnSetIsActive(object sender, bool isActive)
         {
-            Logger.LogDebug($"Resize element Updated");
             if (this.ElementActive != isActive)
             {
                 this.ElementActive = isActive;
@@ -328,13 +326,11 @@ namespace Doodle.Components.Resizable
 
         private void JsInteropDragDrop_OnElementUpdated(object sender, Abstractions.Models.ElementDimensions dimensions)
         {
-            Logger.LogDebug($"Resize element Updated");
-            
             this.Height = dimensions.Height;
             this.Width = dimensions.Width;
             this.Left = dimensions.Left;
             this.Top = dimensions.Top;
-            
+            this.ElementUpdated.InvokeAsync();
         }
         #endregion
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Doodle.State;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
@@ -155,7 +156,6 @@ namespace Doodle.Components.Canvas
         {
             if (firstRender == true && CanvasInitialised == false)
             {
-                Logger.LogDebug($"Initialising Canvas");
                 await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, 
                     this.DoodleDrawInteraction.StrokeColor, 
                     (int)this.DoodleDrawInteraction.StrokeWidth, 
@@ -166,11 +166,8 @@ namespace Doodle.Components.Canvas
                     this.DoodleDrawInteraction.EraserColor);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
-                    Logger.LogDebug($"Updating state");
                     await UpdateState(e);
                 };
-
-                Logger.LogDebug($"Canvas Initialised");
 
                 this.CanvasInitialised = true;
                 await OnCanvasReady.InvokeAsync();
@@ -183,7 +180,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Draw Type {drawType}");
                 await this.JsInteropCanvas.SetDrawType(drawType);
             }
         }
@@ -192,7 +188,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Grid Color {color}");
                 await this.JsInteropCanvas.SetGridColor(color);
             }
         }
@@ -201,7 +196,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Grid Size {size}");
                 await this.JsInteropCanvas.SetGridSize((int)size);
             }
         }
@@ -210,7 +204,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Grid Type {gridType}");
                 await this.JsInteropCanvas.SetGridType(gridType);
             }
         }
@@ -219,7 +212,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting brush color to {color}");
                 await this.JsInteropCanvas.SetBrushColor(color);
             }
         }
@@ -228,7 +220,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting brush size to {width}");
                 await this.JsInteropCanvas.SetBrushSize((int)width);
             }
         }
@@ -237,7 +228,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting eraser size to {size}");
                 await this.JsInteropCanvas.SetEraserSize((int)size);
             }
         }
@@ -307,9 +297,7 @@ namespace Doodle.Components.Canvas
 
         public async Task Redraw()
         {
-            Logger.LogWarning($"Redrawing the canvas");
             await this.JsInteropCanvas.Refresh();
-            Logger.LogWarning($"Redraw canvas complete");
             await OnRedrawCompleted.InvokeAsync();
         }
         #endregion
@@ -322,10 +310,11 @@ namespace Doodle.Components.Canvas
 
             this.PathCommands = drawCommands;
 
+            await this.DoodleDrawInteraction.DoodleStateManager.PushCanvasState(new CanvasState(drawCommands));
+
             await this.DoodleDrawInteraction.SetIsDirty(true);
             await this.DoodleDrawInteraction.SetCanRedo(this.CanRedo);
             await this.DoodleDrawInteraction.SetCanUndo(this.CanUndo);
-
 
             await this.OnCommandPathsUpdated.InvokeAsync(this.PathCommands);
             await this.OnCanvasUpdated.InvokeAsync();
