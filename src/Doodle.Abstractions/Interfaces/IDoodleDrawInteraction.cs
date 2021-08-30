@@ -10,7 +10,6 @@ namespace Doodle.Abstractions.Interfaces
     public delegate void OnColorChangedHandler(object sender, string color);
     public delegate void OnSizeChangedHandler(object sender, double size);
     public delegate void OnBoolChangedHandler(object sender, bool size);
-    public delegate void OnBackgroundChangedHandler(object sender, Models.BackgroundData backgroundData);
     public delegate void OnCanvasGridTypeChangedHandler(object sender, Abstractions.Common.GridType gridType);
     public delegate void OnDrawModeChangedHandler(object sender, Abstractions.Common.DrawMode drawMode);
     public delegate void OnDrawTypeChangedHandler(object sender, Abstractions.Common.DrawType drawMode);
@@ -25,8 +24,6 @@ namespace Doodle.Abstractions.Interfaces
         event OnColorChangedHandler OnStrokeColorChanged;
         event OnColorChangedHandler OnEraserColorChanged;
         event OnSizeChangedHandler OnStrokeWidthChanged;
-        event OnBackgroundChangedHandler OnBackgroundAdded;
-        event OnBackgroundChangedHandler OnBackgroundRemoved;
         event OnSizeChangedHandler OnCanvasGridSizeChanged;
         event OnSizeChangedHandler OnEraserSizeChanged;
         event OnCanvasGridTypeChangedHandler OnCanvasGridTypeChanged;
@@ -43,9 +40,6 @@ namespace Doodle.Abstractions.Interfaces
         #endregion
 
         #region Properties
-
-        IEnumerable<Models.BackgroundData> SelectedBackgrounds { get; }
-
         IEnumerable<IResizableContent> ResizableContents { get; }
 
         string StrokeColor { get; }
@@ -81,12 +75,6 @@ namespace Doodle.Abstractions.Interfaces
         Task SetEraserWidth(double width);
 
         Task SetEraserColor(string color);
-
-        Task AddBackground(Models.BackgroundData backgroundData);
-
-        Task RemoveBackground(Models.BackgroundData backgroundData);
-
-        Task<bool> ContainsBackground(Models.BackgroundData backgroundData);
 
         Task SetCanvasGridType(Abstractions.Common.GridType gridType);
 

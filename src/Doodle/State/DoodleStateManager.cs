@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Doodle.Abstractions.Interfaces;
+using Doodle.Abstractions.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Doodle.State
@@ -21,6 +22,8 @@ namespace Doodle.State
         private int _currentSequence = 0;
         private bool _isDirty = false;
         private readonly ILogger<DoodleStateManager> _logger;
+
+        private IEnumerable<BackgroundData> _selectedBackgrounds = new List<BackgroundData>();
         #endregion
 
         #region ctor
@@ -46,6 +49,8 @@ namespace Doodle.State
         public IDoodleDrawState CanvasState => CurrentState.CanvasState;
 
         public IDoodleDrawState ResizableState => CurrentState.ResizableState;
+
+        public IEnumerable<BackgroundData> SelectedBackgrounds => _selectedBackgrounds;
         #endregion
 
         #region Public Methods
@@ -121,7 +126,7 @@ namespace Doodle.State
         #endregion
 
         #region Private Methods
-        private Task PushNewState(IDoodleStateDetail newState)
+        private async Task PushNewState(IDoodleStateDetail newState)
         {
             // Push the change to the history
             var stateList = StateHistory.ToList();
@@ -130,8 +135,23 @@ namespace Doodle.State
             // Set the current state
             this.CurrentState = newState;
             this._isDirty = true;
+           
+            await this.SetupState();
             this.OnDoodleDrawStateChanged?.Invoke(this, null);
-            
+        }
+       
+        private Task SetupState()
+        {
+            this._selectedBackgrounds = new List<BackgroundData>();
+            if (this.CurrentState != null)
+            {
+                string jsonBackgroundData = this.CurrentState?.BackgroundState?.Detail;
+                if (!string.IsNullOrEmpty(jsonBackgroundData))
+                {
+                    this._selectedBackgrounds = System.Text.Json.JsonSerializer.Deserialize<List<BackgroundData>>(jsonBackgroundData);
+                }
+                
+            }
             return Task.CompletedTask;
         }
         #endregion

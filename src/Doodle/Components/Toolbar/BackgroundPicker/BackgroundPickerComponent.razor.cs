@@ -29,18 +29,6 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
             if (config?.BackgroundConfig == null ) return;
             this.BackgroundSources = config.BackgroundConfig.BackgroundSources ?? new  List<Abstractions.Models.BackgroundData>();
         }
-
-        private async Task ToggleSelectedBackground(Abstractions.Models.BackgroundData backgroundData)
-        {
-            if (await this.DoodleDrawInteraction.ContainsBackground(backgroundData))
-            {
-                await this.DoodleDrawInteraction.RemoveBackground(backgroundData);
-            }
-            else
-            {
-                await this.DoodleDrawInteraction.AddBackground(backgroundData);
-            }
-        }
         #endregion
        
     }

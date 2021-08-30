@@ -6,9 +6,9 @@
                 <div data-doodledrawcomponent-body="@DataAttributeName" class="doodle-draw-body">
                     <div data-doodledrawcomponent-content="@DataAttributeName" @ref="RenderWrapper" 
                          class="doodle-draw-content" style="background-color: @BackgroundColor;" >
-                        @if (DoodleDrawInteraction.SelectedBackgrounds != null && DoodleDrawInteraction.SelectedBackgrounds.Count() > 0)
+                        @if (DoodleDrawInteraction.DoodleStateManager.SelectedBackgrounds != null && DoodleDrawInteraction.DoodleStateManager.SelectedBackgrounds.Count() > 0)
                         {
-                            foreach (var background in DoodleDrawInteraction.SelectedBackgrounds)
+                            foreach (var background in DoodleDrawInteraction.DoodleStateManager.SelectedBackgrounds)
                             {
                                 <Doodle.Components.Background.BackgroundSourceComponent BackgroundSource="@background" IsPreview="false">
                                 </Doodle.Components.Background.BackgroundSourceComponent>

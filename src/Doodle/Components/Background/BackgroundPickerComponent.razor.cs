@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Doodle.Abstractions.Config;
 using Doodle.Abstractions.Models;
@@ -9,6 +10,10 @@ namespace Doodle.Components.Background
 
     public partial class BackgroundPickerComponent : Shared.DoodleBaseComponent
     {
+
+        #region Members
+        private List<BackgroundData> _selectedBackgrounds = new List<BackgroundData>();
+        #endregion
        
         #region Properties
 
@@ -24,7 +29,8 @@ namespace Doodle.Components.Background
         {
             this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) => 
             {
-
+                this._selectedBackgrounds = this.DoodleDrawInteraction.DoodleStateManager.SelectedBackgrounds.ToList();
+                this.StateHasChanged();
             };
 
             base.OnInitialized();
@@ -39,15 +45,15 @@ namespace Doodle.Components.Background
 
         private async Task ToggleSelectedBackground(Abstractions.Models.BackgroundData backgroundData)
         {
-            if (await this.DoodleDrawInteraction.ContainsBackground(backgroundData))
+            if (this._selectedBackgrounds.Contains(backgroundData)) 
             {
-                await this.DoodleDrawInteraction.RemoveBackground(backgroundData);
+                this._selectedBackgrounds.Remove(backgroundData);
             }
             else
             {
-                await this.DoodleDrawInteraction.AddBackground(backgroundData); 
+                this._selectedBackgrounds.Add(backgroundData);
             }
-            await this.DoodleDrawInteraction.DoodleStateManager.PushBackgroundState(new State.BackgroundState(this.DoodleDrawInteraction.SelectedBackgrounds));
+            await this.DoodleDrawInteraction.DoodleStateManager.PushBackgroundState(new State.BackgroundState(this._selectedBackgrounds));
         }
         #endregion
         

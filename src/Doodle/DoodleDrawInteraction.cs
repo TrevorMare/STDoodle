@@ -50,8 +50,6 @@ namespace Doodle
         #endregion
 
         #region Properties
-        public IEnumerable<BackgroundData> SelectedBackgrounds { get; private set; } = new List<BackgroundData>();
-
         public string StrokeColor { get; private set; } = "#000";
 
         public double StrokeWidth { get; private set; } = 1;
@@ -82,8 +80,6 @@ namespace Doodle
         #region Events
         public event OnResizableContentsChangedHandler OnResizableContentsChanged;
         public event OnToolbarContentChangedHandler OnToolbarContentChanged;
-        public event OnBackgroundChangedHandler OnBackgroundAdded;
-        public event OnBackgroundChangedHandler OnBackgroundRemoved;
         public event EventHandler OnStateHasChanged;
         public event OnColorChangedHandler OnStrokeColorChanged;
         public event OnSizeChangedHandler OnStrokeWidthChanged;
@@ -102,38 +98,6 @@ namespace Doodle
         #endregion
 
         #region Methods
-        public Task AddBackground(BackgroundData backgroundData)
-        {
-            if (!this.SelectedBackgrounds.Contains(backgroundData))
-            {
-                var workingList = this.SelectedBackgrounds.ToList();
-                workingList.Add(backgroundData);
-                this.SelectedBackgrounds = workingList;
-                this.OnBackgroundAdded?.Invoke(this, backgroundData);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task RemoveBackground(BackgroundData backgroundData)
-        {
-            if (this.SelectedBackgrounds.Contains(backgroundData))
-            {
-                var workingList = this.SelectedBackgrounds.ToList();
-                workingList.Remove(backgroundData);
-                this.SelectedBackgrounds = workingList;
-                this.OnBackgroundRemoved?.Invoke(this, backgroundData);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-        
-        public Task<bool> ContainsBackground(BackgroundData backgroundData)
-        {
-            bool result = this.SelectedBackgrounds.Contains(backgroundData);
-            return Task.FromResult(result);
-        }
-
         public Task SetStrokeColor(string color)
         {
             if (color != this.StrokeColor)

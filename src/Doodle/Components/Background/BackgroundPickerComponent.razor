@@ -10,7 +10,7 @@
             <div data-toolbarmenu-backgroundpickercomponent-menubackgrounds="@DataAttributeName" class="background-picker-layout">
                 @foreach (var backgroundSource in BackgroundSources)
                 {
-                    bool isSelected = DoodleDrawInteraction.SelectedBackgrounds.Contains(backgroundSource);
+                    bool isSelected = _selectedBackgrounds.Contains(backgroundSource);
                     
                     <BackgroundSourceComponent 
                         IsPreview="true"

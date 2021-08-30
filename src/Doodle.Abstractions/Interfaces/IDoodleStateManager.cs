@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Doodle.Abstractions.Models;
 
 namespace Doodle.Abstractions.Interfaces
 {
@@ -21,6 +22,8 @@ namespace Doodle.Abstractions.Interfaces
         IDoodleDrawState CanvasState { get; }
 
         IDoodleDrawState ResizableState { get; }
+
+        IEnumerable<BackgroundData> SelectedBackgrounds { get; }
 
         bool CanUndo { get; }
 
