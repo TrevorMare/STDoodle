@@ -38,7 +38,8 @@ namespace Doodle.JsonConverters
 
         public override void Write(Utf8JsonWriter writer, IResizableContent value, JsonSerializerOptions options)
         {
-            JsonSerializer.Serialize(writer, value, options);
+            var elementType = value.GetType();
+            JsonSerializer.Serialize(writer, value, elementType, null);
         }
 
         private Abstractions.Common.ResizableContentType? GetContentType(Utf8JsonReader reader)

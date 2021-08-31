@@ -24,7 +24,9 @@ namespace Doodle.State
 
         public ResizableState(IEnumerable<Abstractions.Interfaces.IResizableContent> elements)
         {
-            this.Detail = JsonSerializer.Serialize(elements);
+            var serializeOptions = new JsonSerializerOptions();
+            serializeOptions.Converters.Add(new JsonConverters.ResizableElementConverter());
+            this.Detail = JsonSerializer.Serialize(elements, serializeOptions);
         }
         #endregion
 
