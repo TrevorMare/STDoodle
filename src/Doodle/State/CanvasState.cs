@@ -24,7 +24,7 @@ namespace Doodle.State
 
         public CanvasState(IEnumerable<Abstractions.Models.CanvasPath> commands)
         {
-            this.Detail = JsonSerializer.Serialize(commands);
+            this.Detail = JsonConverters.Serialization.Serialize(commands);
         }
         #endregion
 

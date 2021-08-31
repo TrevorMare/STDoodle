@@ -11,12 +11,6 @@ namespace Doodle.Abstractions.Interfaces
 
         bool Reverted { get; }
 
-        IDoodleDrawState BackgroundState { get; }
-
-        IDoodleDrawState CanvasState { get; }
-
-        IDoodleDrawState ResizableState { get; }
-
         Task<IDoodleStateDetail> CloneState(int sequence);
 
         Task SetBackgroundState(IDoodleDrawState state);

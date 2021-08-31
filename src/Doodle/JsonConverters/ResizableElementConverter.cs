@@ -21,14 +21,13 @@ namespace Doodle.JsonConverters
 
             Abstractions.Common.ResizableContentType? contentType = GetContentType(readerClone);
 
-
             if (contentType == Abstractions.Common.ResizableContentType.Text)
             {
-                return JsonSerializer.Deserialize<Abstractions.Models.ResizableText>(ref reader);
+                return JsonSerializer.Deserialize<Abstractions.Models.ResizableText>(ref reader, Serialization.GetJsonSerializerOptionsNoConverters());
             }
             else if (contentType == Abstractions.Common.ResizableContentType.Image)
             {
-                return JsonSerializer.Deserialize<Abstractions.Models.ResizableImage>(ref reader);
+                return JsonSerializer.Deserialize<Abstractions.Models.ResizableImage>(ref reader, Serialization.GetJsonSerializerOptionsNoConverters());
             }
             else
             {
@@ -39,7 +38,7 @@ namespace Doodle.JsonConverters
         public override void Write(Utf8JsonWriter writer, IResizableContent value, JsonSerializerOptions options)
         {
             var elementType = value.GetType();
-            JsonSerializer.Serialize(writer, value, elementType, null);
+            JsonSerializer.Serialize(writer, value, elementType, Serialization.GetJsonSerializerOptionsNoConverters());
         }
 
         private Abstractions.Common.ResizableContentType? GetContentType(Utf8JsonReader reader)
@@ -54,7 +53,7 @@ namespace Doodle.JsonConverters
                 if (reader.TokenType == JsonTokenType.PropertyName)
                 {
                     string propertyName = reader.GetString();
-                    if (propertyName == "ResizableContentType")
+                    if (propertyName.ToLower() == "resizablecontenttype")
                     {
                         reader.Read();
 
@@ -67,6 +66,4 @@ namespace Doodle.JsonConverters
             return null;
         }
     }
-
-
 }

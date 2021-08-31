@@ -45,7 +45,7 @@ namespace Doodle.State
 
         public bool IsDirty => _isDirty;
 
-        public IDoodleStateDetail CurrentState { get; private set; } = new DoodleStateDetail();
+        public DoodleStateDetail CurrentState { get; private set; } = new DoodleStateDetail();
         
         public IEnumerable<IDoodleStateDetail> StateHistory { get; private set; } = new List<IDoodleStateDetail>();
 
@@ -68,7 +68,7 @@ namespace Doodle.State
         {
             if (backgroundState != null)
             {
-                var newState = await CurrentState.CloneState(this._currentSequence++);
+                var newState = await CurrentState.CloneState(this._currentSequence++); 
                 await newState.SetBackgroundState(backgroundState);
                 await PushNewState(newState);
             }
@@ -101,7 +101,7 @@ namespace Doodle.State
             var sequencedItems = this.StateHistory.Where(x => x.Reverted == false && x.Sequence < this.CurrentState.Sequence).OrderByDescending(x => x.Sequence).ToList();
             if (sequencedItems.Count > 0)
             {
-                this.CurrentState = sequencedItems[0];
+                this.CurrentState = (DoodleStateDetail)sequencedItems[0];
             }
             else 
             {
@@ -116,7 +116,7 @@ namespace Doodle.State
             var sequencedItems = this.StateHistory.Where(x => x.Reverted == true && x.Sequence >= this.CurrentState.Sequence).OrderBy(x => x.Sequence).ToList();
             if (sequencedItems.Count > 0)
             {
-                this.CurrentState = sequencedItems[0];
+                this.CurrentState = (DoodleStateDetail)sequencedItems[0];
                 await this.CurrentState.SetReverted(false);
             }
             await this.SetupState();
@@ -146,7 +146,7 @@ namespace Doodle.State
             stateList.Add(newState);
             this.StateHistory = stateList;
             // Set the current state
-            this.CurrentState = newState;
+            this.CurrentState = (DoodleStateDetail)newState;
             this._isDirty = true;
            
             await this.SetupState();
@@ -162,21 +162,19 @@ namespace Doodle.State
                 string jsonBackgroundData = this.CurrentState?.BackgroundState?.Detail;
                 if (!string.IsNullOrEmpty(jsonBackgroundData))
                 {
-                    this._selectedBackgrounds = System.Text.Json.JsonSerializer.Deserialize<List<BackgroundData>>(jsonBackgroundData);
+                    this._selectedBackgrounds = JsonConverters.Serialization.Deserialize<List<BackgroundData>>(jsonBackgroundData);
                 }
                 
                 string jsonResizableContent = this.CurrentState?.ResizableState?.Detail;
                 if (!string.IsNullOrEmpty(jsonResizableContent))
                 {
-                    var serializeOptions = new JsonSerializerOptions();
-                    serializeOptions.Converters.Add(new JsonConverters.ResizableElementConverter());
-                    this._resizableContent = System.Text.Json.JsonSerializer.Deserialize<List<IResizableContent>>(jsonResizableContent, serializeOptions);
+                    this._resizableContent = JsonConverters.Serialization.Deserialize<List<IResizableContent>>(jsonResizableContent);
                 }
 
                 string jsonCanvasData = this.CurrentState?.CanvasState?.Detail;
                 if (!string.IsNullOrEmpty(jsonCanvasData))
                 {
-                    this._canvasContent = System.Text.Json.JsonSerializer.Deserialize<List<CanvasPath>>(jsonCanvasData);
+                    this._canvasContent = JsonConverters.Serialization.Deserialize<List<CanvasPath>>(jsonCanvasData);
                 }
             }
             return Task.CompletedTask;

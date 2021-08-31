@@ -13,8 +13,6 @@ namespace Doodle.Abstractions.Interfaces
 
         event EventHandler OnRestoreState;
 
-        IDoodleStateDetail CurrentState { get; }
-
         IEnumerable<IDoodleStateDetail> StateHistory { get; }
 
         IDoodleDrawState BackgroundState { get; }

@@ -15,33 +15,30 @@ namespace Doodle.State
         public int Sequence { get; internal set; }
 
         public bool Reverted { get; internal set; }
-
-        [JsonConverter(typeof(BackgroundStateConverter))]
-        public IDoodleDrawState BackgroundState { get; internal set; }
-
-        [JsonConverter(typeof(CanvasStateConverter))]
-        public IDoodleDrawState CanvasState { get; internal set; }
-
-        [JsonConverter(typeof(ResizableStateConverter))]
-        public IDoodleDrawState ResizableState { get; internal set; }
+        
+        public BackgroundState BackgroundState { get; internal set; }
+        
+        public CanvasState CanvasState { get; internal set; }
+        
+        public ResizableState ResizableState { get; internal set; }
         #endregion
 
         #region Methods
         public Task SetBackgroundState(IDoodleDrawState state)
         {
-            this.BackgroundState = state;
+            this.BackgroundState = (BackgroundState)state;
             return Task.CompletedTask;
         }
 
         public Task SetCanvasState(IDoodleDrawState state)
         {
-            this.CanvasState = state;
+            this.CanvasState = (CanvasState)state;
             return Task.CompletedTask;
         }
 
         public Task SetResizableState(IDoodleDrawState state)
         {
-            this.ResizableState = state;
+            this.ResizableState = (ResizableState)state;
             return Task.CompletedTask;
         }
 
@@ -53,18 +50,11 @@ namespace Doodle.State
 
         public Task<IDoodleStateDetail> CloneState(int sequence)
         {
-            var serializerOptions = new JsonSerializerOptions 
-            {
-                WriteIndented = false, 
-                IgnoreNullValues = true,
-            };
-            serializerOptions.Converters.Add(new JsonConverters.ResizableElementConverter());
-
-            var jsonData = System.Text.Json.JsonSerializer.Serialize(this, serializerOptions);
+            var jsonData = JsonConverters.Serialization.Serialize(this);
 
             Console.WriteLine($"Json Data: {jsonData}");
 
-            var result = System.Text.Json.JsonSerializer.Deserialize<DoodleStateDetail>(jsonData, serializerOptions);
+            var result = JsonConverters.Serialization.Deserialize<DoodleStateDetail>(jsonData);
             
             result.Sequence = sequence;
 

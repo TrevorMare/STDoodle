@@ -24,7 +24,7 @@ namespace Doodle.State
 
         public BackgroundState(IEnumerable<Abstractions.Models.BackgroundData> sources)
         {
-            this.Detail = JsonSerializer.Serialize(sources);
+            this.Detail = JsonConverters.Serialization.Serialize(sources);
         }
         #endregion
 

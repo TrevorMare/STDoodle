@@ -120,14 +120,7 @@ namespace Doodle.Interops
             {
                 return null;
             }
-
-            var options = new JsonSerializerOptions 
-            {
-                WriteIndented = false, 
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                IgnoreNullValues = true
-            };
-            var dimensions = JsonSerializer.Deserialize<ElementDimensions>(dimensionJson, options);
+            var dimensions = JsonConverters.Serialization.Deserialize<ElementDimensions>(dimensionJson);
             return dimensions;
         }
         #endregion 

@@ -121,7 +121,7 @@ namespace Doodle.Interops
             }
             else
             {
-                var paths = JsonSerializer.Deserialize<List<Abstractions.Models.CanvasPath>>(commandJson);
+                var paths = JsonConverters.Serialization.Deserialize<List<Abstractions.Models.CanvasPath>>(commandJson);
                 CanvasCommandsUpdated?.Invoke(this, paths);
             }
             return Task.CompletedTask;
