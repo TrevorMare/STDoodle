@@ -10,7 +10,7 @@ namespace Doodle.JsonConverters
         {
             var serializerOptions = new JsonSerializerOptions 
             {
-                WriteIndented = false, 
+                WriteIndented = true, 
                 IgnoreNullValues = true,
                 PropertyNameCaseInsensitive = true,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
