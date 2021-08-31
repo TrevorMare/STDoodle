@@ -12,15 +12,15 @@ namespace Doodle.State
     {
 
         #region Properties
-        public int Sequence { get; internal set; }
+        public int Sequence { get; set; }
 
-        public bool Reverted { get; internal set; }
+        public bool Reverted { get; set; }
         
-        public BackgroundState BackgroundState { get; internal set; }
+        public BackgroundState BackgroundState { get; set; }
         
-        public CanvasState CanvasState { get; internal set; }
+        public CanvasState CanvasState { get; set; }
         
-        public ResizableState ResizableState { get; internal set; }
+        public ResizableState ResizableState { get; set; }
         #endregion
 
         #region Methods
@@ -51,13 +51,8 @@ namespace Doodle.State
         public Task<IDoodleStateDetail> CloneState(int sequence)
         {
             var jsonData = JsonConverters.Serialization.Serialize(this);
-
-            Console.WriteLine($"Json Data: {jsonData}");
-
             var result = JsonConverters.Serialization.Deserialize<DoodleStateDetail>(jsonData);
-            
             result.Sequence = sequence;
-
             return Task.FromResult<IDoodleStateDetail>(result);
         }
         #endregion
