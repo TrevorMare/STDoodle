@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Doodle.State;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
 
@@ -12,10 +13,7 @@ namespace Doodle.Components.Canvas
     {
         
         #region Members
-        private bool _canUndo = false;
-        private bool _canRedo = false;
         private bool _disposed = false;
-        
         
         [Inject]
         private ILogger<CanvasComponent> Logger { get; set; }
@@ -34,19 +32,7 @@ namespace Doodle.Components.Canvas
 
         [Parameter]
         public EventCallback OnCanvasReady { get; set; }
-
-        [Parameter]
-        public EventCallback<bool> OnRedoCompleted { get; set; }
-
-        [Parameter]
-        public EventCallback<bool> OnUndoCompleted { get; set; }
-
-        [Parameter]
-        public EventCallback OnCanvasCleared { get; set; }
-
-        [Parameter]
-        public EventCallback OnCanvasRestored { get; set; }
-        
+       
         [Parameter]
         public EventCallback OnRedrawCompleted { get; set; }
         #endregion
@@ -55,41 +41,6 @@ namespace Doodle.Components.Canvas
   
         [Inject]
         public Abstractions.JsInterop.IJsInteropCanvas JsInteropCanvas { get; set; }
-
-        public bool CanUndo 
-        { 
-            get => _canUndo; 
-            private set
-            {
-                if (_canUndo != value)
-                {
-                    _canUndo = value;
-                    this.CanUndoChanged.InvokeAsync(_canUndo);
-                }
-            } 
-        }
-
-        public bool Dirty 
-        {
-            get => (this.PathCommands?.Count() > 0);
-        }
-
-        public EventCallback<bool> CanUndoChanged { get; set; }
-
-        public bool CanRedo 
-        { 
-            get => _canRedo; 
-            private set
-            {
-                if (_canRedo != value)
-                {
-                    _canRedo = value;
-                    this.CanRedoChanged.InvokeAsync(_canRedo);
-                }
-            } 
-        }
-
-        public EventCallback<bool> CanRedoChanged { get; set; }
 
         public bool CanvasInitialised { get; private set; }
 
@@ -107,30 +58,36 @@ namespace Doodle.Components.Canvas
             this.DoodleDrawInteraction.OnStrokeColorChanged += (s, strokeColor) => {
                 this.SetBrushColor(strokeColor).ConfigureAwait(false);
             };  
+
             this.DoodleDrawInteraction.OnStrokeWidthChanged += (s, strokeWidth) => {
                 this.SetBrushWidth(strokeWidth).ConfigureAwait(false);
             };
+
             this.DoodleDrawInteraction.OnCanvasGridColorChanged += (s, gridColor) => {
                 this.SetGridColor(gridColor).ConfigureAwait(false);
             };
+
             this.DoodleDrawInteraction.OnCanvasGridSizeChanged += (s, gridSize) => {
                 this.SetGridSize(gridSize).ConfigureAwait(false);
             };
+
             this.DoodleDrawInteraction.OnCanvasGridTypeChanged += (s, gridType) => {
                 this.SetGridType(gridType).ConfigureAwait(false);
             };
-            this.DoodleDrawInteraction.OnClearDoodle += (s, clearHistory) => {
-                this.ClearCanvas(clearHistory).ConfigureAwait(false);
+            
+            this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) =>  {
+                if (string.IsNullOrEmpty(DoodleDrawInteraction.DoodleStateManager?.CanvasState?.Detail)) {
+                    this.ClearCanvas().ConfigureAwait(false);
+                } 
+                else {
+                    this.Restore(DoodleDrawInteraction.DoodleStateManager.CanvasState.Detail).ConfigureAwait(false);
+                }
             };
-            this.DoodleDrawInteraction.OnUndoLastAction += (s, e) =>  {
-                this.Undo().ConfigureAwait(false);
-            };
-            this.DoodleDrawInteraction.OnRedoLastAction += (s, e) =>  {
-                this.Redo().ConfigureAwait(false);
-            };
+
             this.DoodleDrawInteraction.OnEraserSizeChanged += (s, size) => {
                 this.SetEraserSize(size).ConfigureAwait(false);
             };
+
             this.DoodleDrawInteraction.OnDrawTypeChanged += (s, drawType) => {
                 switch (drawType)
                 {
@@ -155,7 +112,6 @@ namespace Doodle.Components.Canvas
         {
             if (firstRender == true && CanvasInitialised == false)
             {
-                Logger.LogDebug($"Initialising Canvas");
                 await JsInteropCanvas.InitialiseCanvas(CanvasElement, ResizeElement, 
                     this.DoodleDrawInteraction.StrokeColor, 
                     (int)this.DoodleDrawInteraction.StrokeWidth, 
@@ -166,11 +122,8 @@ namespace Doodle.Components.Canvas
                     this.DoodleDrawInteraction.EraserColor);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
-                    Logger.LogDebug($"Updating state");
                     await UpdateState(e);
                 };
-
-                Logger.LogDebug($"Canvas Initialised");
 
                 this.CanvasInitialised = true;
                 await OnCanvasReady.InvokeAsync();
@@ -183,7 +136,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Draw Type {drawType}");
                 await this.JsInteropCanvas.SetDrawType(drawType);
             }
         }
@@ -192,7 +144,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Grid Color {color}");
                 await this.JsInteropCanvas.SetGridColor(color);
             }
         }
@@ -201,7 +152,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Grid Size {size}");
                 await this.JsInteropCanvas.SetGridSize((int)size);
             }
         }
@@ -210,7 +160,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting Grid Type {gridType}");
                 await this.JsInteropCanvas.SetGridType(gridType);
             }
         }
@@ -219,7 +168,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting brush color to {color}");
                 await this.JsInteropCanvas.SetBrushColor(color);
             }
         }
@@ -228,7 +176,6 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting brush size to {width}");
                 await this.JsInteropCanvas.SetBrushSize((int)width);
             }
         }
@@ -237,58 +184,16 @@ namespace Doodle.Components.Canvas
         {
             if (this.CanvasInitialised)
             {
-                Logger.LogDebug($"Setting eraser size to {size}");
                 await this.JsInteropCanvas.SetEraserSize((int)size);
             }
         }
-        
-        public async ValueTask<bool> Undo()
+
+        public async Task ClearCanvas()
         {
-            if (this.CanUndo)
-            {
-                Logger.LogDebug($"Undo the previous step");
-                var result = await this.JsInteropCanvas.Undo();
-
-                Logger.LogDebug($"Undo reported {result}");
-                await OnUndoCompleted.InvokeAsync(result);
-                
-                return result;
-            }
-            else
-                Logger.LogWarning($"Unable to Undo as there is not more steps.");
-            return false;
-        }
-        
-        public async ValueTask<bool> Redo()
-        {
-            if (this.CanRedo)
-            {
-                Logger.LogDebug($"Redo the previous step");
-                var result = await this.JsInteropCanvas.Redo();
-
-                Logger.LogDebug($"Redo reported {result}");
-                await OnRedoCompleted.InvokeAsync(result);
-
-                return result;
-            }
-            else 
-                Logger.LogWarning($"Unable to Redo as there is not more steps.");
-            return false;
+            await this.JsInteropCanvas.Clear();
         }
 
-        public async Task ClearCanvas(bool clearAllCommands)
-        {
-            Logger.LogDebug($"Clearing canvas - Clear All Commands: {clearAllCommands}");
-            await this.JsInteropCanvas.Clear(clearAllCommands);
-            await OnCanvasCleared.InvokeAsync();
-        }
-
-        public async Task Restore()
-        {
-            await Restore("");
-        }
-
-        public async Task Restore(string restoreCommandsJson)
+        private async Task Restore(string restoreCommandsJson)
         {
             if (string.IsNullOrEmpty(restoreCommandsJson) || restoreCommandsJson.Trim() == "")
                 Logger.LogWarning($"Restoring canvas with no commands");
@@ -296,20 +201,11 @@ namespace Doodle.Components.Canvas
                 Logger.LogDebug($"Restoring canvas with Json Commands {restoreCommandsJson}");
 
             await this.JsInteropCanvas.Restore(restoreCommandsJson);
-            await OnCanvasRestored.InvokeAsync();
-        }
-
-        public async Task Restore(List<Abstractions.Models.CanvasPath> restoreCommands)
-        {
-            string jsonCommands = JsonSerializer.Serialize(restoreCommands);
-            await Restore(jsonCommands);
         }
 
         public async Task Redraw()
         {
-            Logger.LogWarning($"Redrawing the canvas");
             await this.JsInteropCanvas.Refresh();
-            Logger.LogWarning($"Redraw canvas complete");
             await OnRedrawCompleted.InvokeAsync();
         }
         #endregion
@@ -317,16 +213,8 @@ namespace Doodle.Components.Canvas
         #region Update Methods
         private async Task UpdateState(List<Abstractions.Models.CanvasPath> drawCommands)
         {
-            this.CanUndo = await this.JsInteropCanvas.CanUndo();
-            this.CanRedo = await this.JsInteropCanvas.CanRedo();
-
             this.PathCommands = drawCommands;
-
-            await this.DoodleDrawInteraction.SetIsDirty(true);
-            await this.DoodleDrawInteraction.SetCanRedo(this.CanRedo);
-            await this.DoodleDrawInteraction.SetCanUndo(this.CanUndo);
-
-
+            await this.DoodleDrawInteraction.DoodleStateManager.PushCanvasState(new CanvasState(drawCommands));
             await this.OnCommandPathsUpdated.InvokeAsync(this.PathCommands);
             await this.OnCanvasUpdated.InvokeAsync();
 

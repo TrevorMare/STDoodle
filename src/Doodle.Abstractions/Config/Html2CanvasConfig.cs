@@ -1,5 +1,9 @@
 namespace Doodle.Abstractions.Config
 {
+
+    /// <summary>
+    /// Class exposing properties for the Html2Canvas JS Component
+    /// </summary>
     public class Html2CanvasConfig
     {
         

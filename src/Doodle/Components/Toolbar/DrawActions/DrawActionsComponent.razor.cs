@@ -7,11 +7,11 @@ namespace Doodle.Components.Toolbar.DrawActions
     {
 
         #region Members
-        public bool UndoButtonEnabled => DoodleDrawInteraction.CanUndo;
-        public bool RedoButtonEnabled => DoodleDrawInteraction.CanRedo;
-        public bool ClearButtonEnabled => DoodleDrawInteraction.IsDirty;
-        public bool SaveButtonEnabled => DoodleDrawInteraction.IsDirty;
-        public bool ExportButtonEnabled => DoodleDrawInteraction.IsDirty;
+        public bool UndoButtonEnabled => DoodleDrawInteraction.DoodleStateManager.CanUndo;
+        public bool RedoButtonEnabled => DoodleDrawInteraction.DoodleStateManager.CanRedo;
+        public bool ClearButtonEnabled => DoodleDrawInteraction.DoodleStateManager.IsDirty;
+        public bool SaveButtonEnabled => DoodleDrawInteraction.DoodleStateManager.IsDirty;
+        public bool ExportButtonEnabled => DoodleDrawInteraction.DoodleStateManager.IsDirty;
         #endregion
 
         #region Properties

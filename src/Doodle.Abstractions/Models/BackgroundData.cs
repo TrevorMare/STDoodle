@@ -1,3 +1,4 @@
+using System;
 using Doodle.Abstractions.Common;
 
 namespace Doodle.Abstractions.Models
@@ -5,6 +6,7 @@ namespace Doodle.Abstractions.Models
 
     public class BackgroundData
     {
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         public BackgroundSourceType BackgroundSourceType { get; set; } = BackgroundSourceType.Url;
         

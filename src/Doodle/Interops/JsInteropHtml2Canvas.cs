@@ -30,13 +30,7 @@ namespace Doodle.Interops
             string configOptionsJson = "";
             if (config != null)
             {
-                var options = new JsonSerializerOptions 
-                {
-                    WriteIndented = false, 
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    IgnoreNullValues = true
-                };
-                configOptionsJson = JsonSerializer.Serialize(config, options);
+                configOptionsJson = JsonConverters.Serialization.Serialize(config);
             }
 
             var module = await _moduleTask.Value;

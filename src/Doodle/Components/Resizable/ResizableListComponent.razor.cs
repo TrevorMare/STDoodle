@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Doodle.State;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Resizable
@@ -9,7 +10,7 @@ namespace Doodle.Components.Resizable
     {
 
         #region Parameters
-        public IEnumerable<Abstractions.Interfaces.IResizableContent> Content => DoodleDrawInteraction.ResizableContents;
+        public IEnumerable<Abstractions.Interfaces.IResizableContent> Content => DoodleDrawInteraction.DoodleStateManager.ResizableContent;
 
         [Parameter]
         public bool Active { get; set; } = false;
@@ -18,8 +19,7 @@ namespace Doodle.Components.Resizable
         #region Config Init
         protected override void OnInitialized()
         {
-            this.DoodleDrawInteraction.OnClearDoodle += (s, clearHistory) => 
-            {
+            this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) =>  {
                 StateHasChanged();
             };
 
@@ -41,6 +41,11 @@ namespace Doodle.Components.Resizable
 
             };
             base.OnInitialized();
+        }
+
+        private async Task ContentUpdated()
+        {
+            await DoodleDrawInteraction.DoodleStateManager.PushResziableState(new ResizableState(this.Content));
         }
 
         private void SetDrawTypeResizable()

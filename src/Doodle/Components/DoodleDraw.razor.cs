@@ -88,6 +88,12 @@ namespace Doodle.Components
 
         protected override void OnInitialized()
         {
+            this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) => {
+                this.StateHasChanged();
+            };
+            this.DoodleDrawInteraction.DoodleStateManager.OnDoodleDrawStateChanged += (s, e) => {
+                this.StateHasChanged();
+            };
             this.DoodleDrawInteraction.OnStateHasChanged += (s, e) => {
                 StateHasChanged();
             };

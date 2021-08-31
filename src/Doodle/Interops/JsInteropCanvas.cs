@@ -93,10 +93,10 @@ namespace Doodle.Interops
             await module.InvokeVoidAsync("Destroy");
         }
 
-        public async Task Clear(bool clearHistory)
+        public async Task Clear()
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("Clear", clearHistory);            
+            await module.InvokeVoidAsync("Clear");            
         }
 
         public async Task Refresh()
@@ -111,29 +111,6 @@ namespace Doodle.Interops
             await module.InvokeVoidAsync("Restore", commandJson);
         }
 
-        public async ValueTask<bool> Undo()
-        {
-            var module = await _moduleTask.Value;
-            return await module.InvokeAsync<bool>("Undo");
-        }
-
-        public async ValueTask<bool> Redo()
-        {
-            var module = await _moduleTask.Value;
-            return await module.InvokeAsync<bool>("Redo");
-        }
-
-        public async ValueTask<bool> CanUndo()
-        {
-            var module = await _moduleTask.Value;
-            return await module.InvokeAsync<bool>("CanUndo");
-        }
-
-        public async ValueTask<bool> CanRedo()
-        {
-            var module = await _moduleTask.Value;
-            return await module.InvokeAsync<bool>("CanRedo");
-        }
 
         [JSInvokable("OnCanvasUpdated")]
         public Task OnCanvasUpdated(string commandJson)
@@ -144,7 +121,7 @@ namespace Doodle.Interops
             }
             else
             {
-                var paths = JsonSerializer.Deserialize<List<Abstractions.Models.CanvasPath>>(commandJson);
+                var paths = JsonConverters.Serialization.DeserializeNoConverter<List<Abstractions.Models.CanvasPath>>(commandJson);
                 CanvasCommandsUpdated?.Invoke(this, paths);
             }
             return Task.CompletedTask;

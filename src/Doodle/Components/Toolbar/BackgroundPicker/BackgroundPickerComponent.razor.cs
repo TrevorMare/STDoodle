@@ -18,7 +18,12 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
         public IEnumerable<BackgroundData> BackgroundSources { get; set; } = new List<Abstractions.Models.BackgroundData>();
         #endregion
 
-        #region Methods
+        #region Methods 
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+        }
         protected override void InitConfigSettings(DoodleDrawConfig config)
         {
             if (config.ToolbarConfig != null)
@@ -28,18 +33,6 @@ namespace Doodle.Components.Toolbar.BackgroundPicker
 
             if (config?.BackgroundConfig == null ) return;
             this.BackgroundSources = config.BackgroundConfig.BackgroundSources ?? new  List<Abstractions.Models.BackgroundData>();
-        }
-
-        private async Task ToggleSelectedBackground(Abstractions.Models.BackgroundData backgroundData)
-        {
-            if (await this.DoodleDrawInteraction.ContainsBackground(backgroundData))
-            {
-                await this.DoodleDrawInteraction.RemoveBackground(backgroundData);
-            }
-            else
-            {
-                await this.DoodleDrawInteraction.AddBackground(backgroundData);
-            }
         }
         #endregion
        

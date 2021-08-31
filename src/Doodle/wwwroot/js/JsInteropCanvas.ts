@@ -2,18 +2,18 @@
 //import './vendor.min.js';
 
 export interface ICanvasPathPoint {
-  X: number;
-  Y: number;
+  x: number;
+  y: number;
 }
 
 export interface ICanvasPath {
-  BrushSize: number;
-  BrushColor: string;
-  Id: string;
-  Display: boolean;
-  Points: ICanvasPathPoint[];
-  Created: number;
-  Type: DrawType
+  brushSize: number;
+  brushColor: string;
+  id: string;
+  display: boolean;
+  points: ICanvasPathPoint[];
+  created: number;
+  type: DrawType
 }
 
 const enum GridType {
@@ -76,12 +76,10 @@ export class DoodleCanvas {
 
     if (!!initColor && initColor !== '') {
       this.SetBrushColor(initColor);
-      console.log(`Setting initial color to ${initColor}`)
     }
 
     if (!!initSize && initSize > 0) {
       this.SetBrushSize(initSize);
-      console.log(`Setting initial size to ${initSize}`)
     }
 
     this.ResizeComponent();
@@ -141,19 +139,20 @@ export class DoodleCanvas {
       }
     }
   }
+  
+  public Restore(commandJson: string): void {
 
-  public Clear(clearCommands: boolean): void {
-    if (clearCommands === true) {
+    if (!!commandJson && commandJson !== '') {
+      this._commands = JSON.parse(commandJson);
+    } else {
       this._commands = [];
     }
-    this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-
-    this.DrawGridLayout();
-    this.NotifyBlazorCommands();
+    
+    this.Refresh();
   }
 
   public Refresh(): void {
-    this.Clear(false);
+    this.Clear();
 
     if (!!this._commands && this._commands.length > 0) {
       this._commands.forEach(command => {
@@ -162,56 +161,9 @@ export class DoodleCanvas {
     }
   }
 
-  public Restore(commandJson: string): void {
-    this.Clear(true);
-    if (!!commandJson && commandJson !== '') {
-      this._commands = JSON.parse(commandJson);
-    }
-    this.Refresh();
-  }
-
-  public Undo(): boolean {
-    let result: boolean = false;
-    if (this.CanUndo()) {
-
-      for (let iCommand: number = this._commands.length - 1; iCommand >= 0; iCommand--) {
-        if (this._commands[iCommand].Display === true) {
-          this._commands[iCommand].Display = false;
-          result = true;
-          break;
-        }
-      }
-
-      this.Refresh();
-      this.NotifyBlazorCommands();
-    }
-    return result;
-  }
-
-  public Redo(): boolean {
-    let result: boolean = false;
-    if (this.CanRedo()) {
-
-      for (let iCommand: number = 0; iCommand < this._commands.length; iCommand++) {
-        if (this._commands[iCommand].Display === false) {
-          this._commands[iCommand].Display = true;
-          result = true;
-          break;
-        }
-      }
-
-      this.Refresh();
-      this.NotifyBlazorCommands();
-    }
-    return result;
-  }
-
-  public CanUndo(): boolean {
-    return (this._commands.findIndex(c => c.Display === true) >= 0);
-  }
-
-  public CanRedo(): boolean {
-    return (this._commands.findIndex(c => c.Display === false) >= 0);
+  public Clear(): void {
+    this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
+    this.DrawGridLayout();
   }
 
   private SetupHandlers(): void {
@@ -279,7 +231,7 @@ export class DoodleCanvas {
       const coords = this.GetEventPosition(event);
 
       if (this._drawType === DrawType.Line) {
-        this._shapeDrawDownCoords = {X: coords.x, Y: coords.y};
+        this._shapeDrawDownCoords = {x: coords.x, y: coords.y};
       } else {
         this._context.lineWidth = this._brushSize;
         this._context.strokeStyle = this._brushColor;
@@ -314,7 +266,7 @@ export class DoodleCanvas {
       this._drawPreviewContext.lineWidth = this._brushSize;
       this._drawPreviewContext.strokeStyle = this._brushColor;
       this._drawPreviewContext.beginPath();
-      this._drawPreviewContext.moveTo(this._shapeDrawDownCoords.X, this._shapeDrawDownCoords.Y);
+      this._drawPreviewContext.moveTo(this._shapeDrawDownCoords.x, this._shapeDrawDownCoords.y);
       this._drawPreviewContext.lineTo(coords.x, coords.y);
       this._drawPreviewContext.stroke();
     } else {
@@ -322,7 +274,7 @@ export class DoodleCanvas {
       this._context.stroke();
   
       if (!!this._currentCanvasPath) {
-        this._currentCanvasPath.Points.push( { X: coords.x, Y: coords.y } );
+        this._currentCanvasPath.points.push( { x: coords.x, y: coords.y } );
       }
     }
   }
@@ -334,8 +286,8 @@ export class DoodleCanvas {
     
     if (this._drawType === DrawType.Line) {
       const coords = this.GetEventPosition(event);
-      this.StartCurrentPath(this._shapeDrawDownCoords.X, this._shapeDrawDownCoords.Y);
-      this._currentCanvasPath.Points.push( { X: coords.x, Y: coords.y } );
+      this.StartCurrentPath(this._shapeDrawDownCoords.x, this._shapeDrawDownCoords.y);
+      this._currentCanvasPath.points.push( { x: coords.x, y: coords.y } );
       this.EndCurrentPath();
       this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
       this._isDrawing = false;
@@ -349,8 +301,8 @@ export class DoodleCanvas {
 
   private StartCurrentPath(x: number, y: number): void {
     const id: string = Date.now().toString(18) + Math.random().toString(36).substring(2);
-    const path: ICanvasPath = { BrushColor: this._brushColor, BrushSize: this._brushSize, Created: Date.now(), Display: true, Id: id, Points: [], Type: this._drawType };
-    path.Points.push( { X: x, Y : y } );
+    const path: ICanvasPath = { brushColor: this._brushColor, brushSize: this._brushSize, created: Date.now(), display: true, id: id, points: [], type: this._drawType };
+    path.points.push( { x: x, y : y } );
     this._currentCanvasPath = path;
   }
 
@@ -364,15 +316,15 @@ export class DoodleCanvas {
   }
 
   private DrawPathFromCommand(path: ICanvasPath) {
-    if (!!path && path.Display === true && path.Points.length > 0) {
-      this._context.lineWidth = path.BrushSize;
-      this._context.strokeStyle = path.BrushColor;
+    if (!!path && path.display === true && path.points.length > 0) {
+      this._context.lineWidth = path.brushSize;
+      this._context.strokeStyle = path.brushColor;
 
       this._context.beginPath();
-      this._context.moveTo(path.Points[0].X, path.Points[0].Y);
+      this._context.moveTo(path.points[0].x, path.points[0].y);
 
-      for (let iPoint:number = 0; iPoint < path.Points.length; iPoint++) {
-        this._context.lineTo(path.Points[iPoint].X, path.Points[iPoint].Y);
+      for (let iPoint:number = 0; iPoint < path.points.length; iPoint++) {
+        this._context.lineTo(path.points[iPoint].x, path.points[iPoint].y);
       }
 
       this._context.stroke();
@@ -454,13 +406,9 @@ export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTML
 export function SetBrushColor(color: string): void { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size: number): void { _doodleCanvas.SetBrushSize(size); }
 export function Destroy(): void { _doodleCanvas.Destroy() }
-export function Clear(clearCommands: boolean): void { _doodleCanvas.Clear(clearCommands); }
+export function Clear(): void { _doodleCanvas.Clear(); }
 export function Refresh(): void { _doodleCanvas.Refresh(); }
 export function Restore(commandJson: string): void { _doodleCanvas.Restore(commandJson); }
-export function Undo(): boolean { return _doodleCanvas.Undo(); }
-export function Redo(): boolean { return _doodleCanvas.Redo(); }
-export function CanUndo(): boolean { return _doodleCanvas.CanUndo(); }
-export function CanRedo(): boolean { return _doodleCanvas.CanRedo(); }
 export function SetGridSize(size: number): void { _doodleCanvas.SetGridSize(size); }
 export function SetGridColor(color: string): void { _doodleCanvas.SetGridColor(color); }
 export function SetGridType(gridType: GridType): void { _doodleCanvas.SetGridType(gridType); }

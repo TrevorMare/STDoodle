@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Doodle.Abstractions.Config;
 using Doodle.Abstractions.Models;
+using Doodle.State;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Resizable
@@ -21,10 +23,14 @@ namespace Doodle.Components.Resizable
         #region Methods
         private async Task AddResizableContentImage(Abstractions.Models.ResizableImageSource resizableImageSource)
         {
-            await DoodleDrawInteraction.AddResizableContent(new Abstractions.Models.ResizableImage() 
+
+            var items = DoodleDrawInteraction.DoodleStateManager.ResizableContent.ToList();
+
+            items.Add(new Abstractions.Models.ResizableImage() 
             {
                 Height = 100, Width = 100, Top = 100, Left = 100, ImageSource = resizableImageSource.DataSource 
             });
+            await  DoodleDrawInteraction.DoodleStateManager.PushResziableState(new ResizableState(items));
         }
 
         protected override void InitConfigSettings(DoodleDrawConfig config)

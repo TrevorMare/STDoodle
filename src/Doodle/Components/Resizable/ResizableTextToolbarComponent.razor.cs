@@ -1,4 +1,6 @@
+using System.Linq;
 using System.Threading.Tasks;
+using Doodle.State;
 using Microsoft.AspNetCore.Components;
 
 namespace Doodle.Components.Resizable
@@ -15,10 +17,13 @@ namespace Doodle.Components.Resizable
         #region Methods
         private async Task AddResizableText()
         {
-            await DoodleDrawInteraction.AddResizableContent(new Abstractions.Models.ResizableText() 
+            var items = DoodleDrawInteraction.DoodleStateManager.ResizableContent.ToList();
+
+            items.Add(new Abstractions.Models.ResizableText() 
             {
                 Text = "My Text", Top = 100, Left = 100
             });
+            await  DoodleDrawInteraction.DoodleStateManager.PushResziableState(new ResizableState(items));
         }
         #endregion
 

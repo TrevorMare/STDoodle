@@ -1,6 +1,9 @@
 @inherits Shared.DoodleBaseComponent
 
-<ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left"  MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth">
+<ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" 
+                           @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" 
+                           MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth"
+                           ElementUpdated="@(() => ContentUpdated.InvokeAsync())">
    <div class="resizable-image-element @Model.ImageClass @Theme.ResizableImageElementClass" style="background-image: url('@Model.ImageSource');">
    </div>
 </ResizableElementComponent>

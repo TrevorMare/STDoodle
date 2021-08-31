@@ -14,12 +14,15 @@ namespace Doodle
 
         #region Members
         private readonly Abstractions.Config.DoodleDrawConfig _config;
+        private readonly IDoodleStateManager _doodleStateManager;
         #endregion
 
         #region ctor
-        public DoodleDrawInteraction(Abstractions.Config.DoodleDrawConfig config)
+        public DoodleDrawInteraction(Abstractions.Config.DoodleDrawConfig config,
+                                     IDoodleStateManager stateManager)
         {
             this._config = config;
+            this._doodleStateManager = stateManager ?? throw new ArgumentNullException(nameof(stateManager));
             this.InitialiseConfiguration();
         }
         #endregion
@@ -43,15 +46,10 @@ namespace Doodle
                 this.GridSize = this._config.CanvasConfig.GridSize;
                 this.GridSize = this._config.CanvasConfig.GridSize;
             }
-
-            
         }
-
         #endregion
 
         #region Properties
-        public IEnumerable<BackgroundData> SelectedBackgrounds { get; private set; } = new List<BackgroundData>();
-
         public string StrokeColor { get; private set; } = "#000";
 
         public double StrokeWidth { get; private set; } = 1;
@@ -64,12 +62,6 @@ namespace Doodle
 
         public string GridColor { get; private set; } = "#000";
 
-        public bool CanUndo { get; private set; } = false;
-
-        public bool CanRedo { get; private set; } = false;
-
-        public bool IsDirty { get; private set; } = false;
-
         public Abstractions.Common.DrawMode DrawMode { get; private set; } = Abstractions.Common.DrawMode.Canvas;
 
         public Abstractions.Common.DrawType DrawType { get; private set; } = Abstractions.Common.DrawType.Pen;
@@ -80,27 +72,18 @@ namespace Doodle
 
         public string BackgroundColor { get; private set; } = "#ffffff";
 
-        public IEnumerable<IResizableContent> ResizableContents { get; private set; } = new List<IResizableContent>();
+        public IDoodleStateManager DoodleStateManager => _doodleStateManager; 
         #endregion
 
         #region Events
-        public event OnResizableContentsChangedHandler OnResizableContentsChanged;
         public event OnToolbarContentChangedHandler OnToolbarContentChanged;
-        public event OnBackgroundChangedHandler OnBackgroundAdded;
-        public event OnBackgroundChangedHandler OnBackgroundRemoved;
         public event EventHandler OnStateHasChanged;
         public event OnColorChangedHandler OnStrokeColorChanged;
         public event OnSizeChangedHandler OnStrokeWidthChanged;
         public event OnSizeChangedHandler OnCanvasGridSizeChanged;
         public event OnCanvasGridTypeChangedHandler OnCanvasGridTypeChanged;
         public event OnColorChangedHandler OnCanvasGridColorChanged;
-        public event OnBoolChangedHandler OnCanRedoChanged;
-        public event OnBoolChangedHandler OnCanUndoChanged;
         public event OnDrawModeChangedHandler OnDrawModeChanged;
-        public event OnBoolChangedHandler OnIsDirtyChanged;
-        public event EventHandler OnUndoLastAction;
-        public event EventHandler OnRedoLastAction;
-        public event OnClearDoodleHandler OnClearDoodle;
         public event EventHandler OnExportImage;
         public event EventHandler OnSaveDoodleData;
         public event OnRestoreHandler OnRestoreDoodleData;
@@ -112,38 +95,6 @@ namespace Doodle
         #endregion
 
         #region Methods
-        public Task AddBackground(BackgroundData backgroundData)
-        {
-            if (!this.SelectedBackgrounds.Contains(backgroundData))
-            {
-                var workingList = this.SelectedBackgrounds.ToList();
-                workingList.Add(backgroundData);
-                this.SelectedBackgrounds = workingList;
-                this.OnBackgroundAdded?.Invoke(this, backgroundData);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task RemoveBackground(BackgroundData backgroundData)
-        {
-            if (this.SelectedBackgrounds.Contains(backgroundData))
-            {
-                var workingList = this.SelectedBackgrounds.ToList();
-                workingList.Remove(backgroundData);
-                this.SelectedBackgrounds = workingList;
-                this.OnBackgroundRemoved?.Invoke(this, backgroundData);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-        
-        public Task<bool> ContainsBackground(BackgroundData backgroundData)
-        {
-            bool result = this.SelectedBackgrounds.Contains(backgroundData);
-            return Task.FromResult(result);
-        }
-
         public Task SetStrokeColor(string color)
         {
             if (color != this.StrokeColor)
@@ -228,28 +179,6 @@ namespace Doodle
             return Task.CompletedTask;
         }
 
-        public Task SetCanRedo(bool canRedo)
-        {
-            if (canRedo != this.CanRedo)
-            {
-                this.CanRedo = canRedo;
-                this.OnCanRedoChanged?.Invoke(this, canRedo);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-        
-        public Task SetCanUndo(bool canUndo)
-        {
-            if (canUndo != this.CanUndo)
-            {
-                this.CanUndo = canUndo;
-                this.OnCanUndoChanged?.Invoke(this, canUndo);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
         public Task SetDrawMode(Abstractions.Common.DrawMode drawMode)
         {
             if (drawMode != this.DrawMode)
@@ -289,42 +218,6 @@ namespace Doodle
                 this.OnStateHasChanged?.Invoke(this, null);
             }
             return Task.CompletedTask;
-        }
-
-        public Task SetIsDirty(bool value)
-        {
-            if (value != this.IsDirty)
-            {
-                this.IsDirty = value;
-                this.OnIsDirtyChanged?.Invoke(this, value);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task RedoLastAction()
-        {
-            if (this.CanRedo)
-            {
-                OnRedoLastAction?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task UndoLastAction()
-        {
-            if (this.CanUndo)
-            {
-                OnUndoLastAction?.Invoke(this, null);
-            }
-            return Task.CompletedTask;
-        }
-
-        public async Task ClearDoodle(bool clearHistory)
-        {
-            await this.ClearResizableContent();
-
-            OnClearDoodle?.Invoke(this, clearHistory);
         }
 
         public Task ExportImage()
@@ -380,49 +273,6 @@ namespace Doodle
                 }
             }
 
-            return Task.CompletedTask;
-        }
-
-        public Task AddResizableContent(IResizableContent content)
-        {
-            if (content != null)
-            {
-                if (!this.ResizableContents.Contains(content))
-                {
-                    var resizableList = this.ResizableContents.ToList();
-                    resizableList.Add(content);
-                    this.ResizableContents = resizableList;
-                    this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
-                    this.OnStateHasChanged?.Invoke(this, null);
-                }
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task RemoveResizableContent(IResizableContent content)
-        {
-            if (content != null)
-            {
-                if (this.ResizableContents.Contains(content))
-                {
-                    var resizableList = this.ResizableContents.ToList();
-                    resizableList.Remove(content);
-                    this.ResizableContents = resizableList;
-                    this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
-                    this.OnStateHasChanged?.Invoke(this, null);
-                }
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task ClearResizableContent()
-        {
-            if (this.ResizableContents.Count() > 0)
-            {
-                var resizableList = new List<IResizableContent>();
-                this.OnResizableContentsChanged?.Invoke(this, this.ResizableContents);
-                this.OnStateHasChanged?.Invoke(this, null);
-            }
             return Task.CompletedTask;
         }
 

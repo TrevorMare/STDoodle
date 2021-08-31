@@ -1,3 +1,4 @@
+using System;
 using Doodle.Abstractions.Common;
 
 namespace Doodle.Abstractions.Models
@@ -7,6 +8,8 @@ namespace Doodle.Abstractions.Models
     {
 
         #region Properties
+        public string Id { get; set; } = Guid.NewGuid().ToString();
+
         public string ImageSource { get; set; }
 
         public string ImageClass { get; set; }
