@@ -141,19 +141,19 @@ export class DoodleCanvas {
       }
     }
   }
-
-  public Clear(clearCommands: boolean): void {
-    if (clearCommands === true) {
+  
+  public Restore(commandJson: string): void {
+    if (!!commandJson && commandJson !== '') {
+      this._commands = JSON.parse(commandJson);
+    } else {
       this._commands = [];
     }
-    this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-
-    this.DrawGridLayout();
-    this.NotifyBlazorCommands();
+    
+    this.Refresh();
   }
 
   public Refresh(): void {
-    this.Clear(false);
+    this.Clear();
 
     if (!!this._commands && this._commands.length > 0) {
       this._commands.forEach(command => {
@@ -162,56 +162,9 @@ export class DoodleCanvas {
     }
   }
 
-  public Restore(commandJson: string): void {
-    this.Clear(true);
-    if (!!commandJson && commandJson !== '') {
-      this._commands = JSON.parse(commandJson);
-    }
-    this.Refresh();
-  }
-
-  public Undo(): boolean {
-    let result: boolean = false;
-    if (this.CanUndo()) {
-
-      for (let iCommand: number = this._commands.length - 1; iCommand >= 0; iCommand--) {
-        if (this._commands[iCommand].Display === true) {
-          this._commands[iCommand].Display = false;
-          result = true;
-          break;
-        }
-      }
-
-      this.Refresh();
-      this.NotifyBlazorCommands();
-    }
-    return result;
-  }
-
-  public Redo(): boolean {
-    let result: boolean = false;
-    if (this.CanRedo()) {
-
-      for (let iCommand: number = 0; iCommand < this._commands.length; iCommand++) {
-        if (this._commands[iCommand].Display === false) {
-          this._commands[iCommand].Display = true;
-          result = true;
-          break;
-        }
-      }
-
-      this.Refresh();
-      this.NotifyBlazorCommands();
-    }
-    return result;
-  }
-
-  public CanUndo(): boolean {
-    return (this._commands.findIndex(c => c.Display === true) >= 0);
-  }
-
-  public CanRedo(): boolean {
-    return (this._commands.findIndex(c => c.Display === false) >= 0);
+  public Clear(): void {
+    this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
+    this.DrawGridLayout();
   }
 
   private SetupHandlers(): void {
@@ -454,13 +407,9 @@ export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTML
 export function SetBrushColor(color: string): void { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size: number): void { _doodleCanvas.SetBrushSize(size); }
 export function Destroy(): void { _doodleCanvas.Destroy() }
-export function Clear(clearCommands: boolean): void { _doodleCanvas.Clear(clearCommands); }
+export function Clear(): void { _doodleCanvas.Clear(); }
 export function Refresh(): void { _doodleCanvas.Refresh(); }
 export function Restore(commandJson: string): void { _doodleCanvas.Restore(commandJson); }
-export function Undo(): boolean { return _doodleCanvas.Undo(); }
-export function Redo(): boolean { return _doodleCanvas.Redo(); }
-export function CanUndo(): boolean { return _doodleCanvas.CanUndo(); }
-export function CanRedo(): boolean { return _doodleCanvas.CanRedo(); }
 export function SetGridSize(size: number): void { _doodleCanvas.SetGridSize(size); }
 export function SetGridColor(color: string): void { _doodleCanvas.SetGridColor(color); }
 export function SetGridType(gridType: GridType): void { _doodleCanvas.SetGridType(gridType); }

@@ -30,19 +30,11 @@ namespace Doodle.Abstractions.JsInterop
 
         Task Destroy();
 
-        Task Clear(bool clearHistory);
+        Task Clear();
 
         Task Refresh();
 
         Task Restore(string commandJson);
-
-        ValueTask<bool> Undo();
-        
-        ValueTask<bool> Redo();
-
-        ValueTask<bool> CanUndo();
-
-        ValueTask<bool> CanRedo();
 
         Task OnCanvasUpdated(string commandJson);
         

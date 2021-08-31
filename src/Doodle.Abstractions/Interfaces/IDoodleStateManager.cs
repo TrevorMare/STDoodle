@@ -27,6 +27,8 @@ namespace Doodle.Abstractions.Interfaces
 
         IEnumerable<IResizableContent> ResizableContent { get; }
 
+        IEnumerable<Abstractions.Models.CanvasPath> CanvasContent { get; }
+
         bool CanUndo { get; }
 
         bool CanRedo { get; }

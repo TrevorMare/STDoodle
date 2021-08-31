@@ -11,7 +11,7 @@ namespace Doodle.State
         #region Properties
         public string Id => Guid.NewGuid().ToString();
 
-        public string TypeName => nameof(BackgroundState);
+        public string TypeName => nameof(ResizableState);
         
         public string Detail { get; set; } = "";
         #endregion     

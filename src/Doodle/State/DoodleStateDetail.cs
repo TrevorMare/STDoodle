@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -55,12 +56,14 @@ namespace Doodle.State
             var serializerOptions = new JsonSerializerOptions 
             {
                 WriteIndented = false, 
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 IgnoreNullValues = true,
-                
             };
+            serializerOptions.Converters.Add(new JsonConverters.ResizableElementConverter());
 
             var jsonData = System.Text.Json.JsonSerializer.Serialize(this, serializerOptions);
+
+            Console.WriteLine($"Json Data: {jsonData}");
+
             var result = System.Text.Json.JsonSerializer.Deserialize<DoodleStateDetail>(jsonData, serializerOptions);
             
             result.Sequence = sequence;

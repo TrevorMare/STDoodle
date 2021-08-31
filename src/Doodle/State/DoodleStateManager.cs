@@ -27,6 +27,8 @@ namespace Doodle.State
         private IEnumerable<BackgroundData> _selectedBackgrounds = new List<BackgroundData>();
 
         private IEnumerable<IResizableContent> _resizableContent = new List<IResizableContent>();
+
+        private IEnumerable<CanvasPath> _canvasContent = new List<CanvasPath>();
         #endregion
 
         #region ctor
@@ -56,6 +58,8 @@ namespace Doodle.State
         public IEnumerable<BackgroundData> SelectedBackgrounds => _selectedBackgrounds;
 
         public IEnumerable<IResizableContent> ResizableContent => _resizableContent;
+
+        public IEnumerable<CanvasPath> CanvasContent => _canvasContent;
         #endregion
 
         #region Public Methods
@@ -169,6 +173,11 @@ namespace Doodle.State
                     this._resizableContent = System.Text.Json.JsonSerializer.Deserialize<List<IResizableContent>>(jsonResizableContent, serializeOptions);
                 }
 
+                string jsonCanvasData = this.CurrentState?.CanvasState?.Detail;
+                if (!string.IsNullOrEmpty(jsonCanvasData))
+                {
+                    this._canvasContent = System.Text.Json.JsonSerializer.Deserialize<List<CanvasPath>>(jsonCanvasData);
+                }
             }
             return Task.CompletedTask;
         }
