@@ -133,9 +133,36 @@ namespace Doodle.State
             }
             this.CurrentState = new DoodleStateDetail();
             await this.SetupState();
-            
             this.OnRestoreState?.Invoke(this, null);
         }
+
+        public Task<string> SaveCurrentState()
+        {
+            string result = null;
+            if (this.CurrentState != null)
+            {
+                result = JsonConverters.Serialization.Serialize(this.CurrentState);
+            }
+            return Task.FromResult(result);
+        }
+
+        public async Task RestoreCurrentState(string json)
+        {
+           
+            this._currentSequence = 0;
+            this.StateHistory = new List<IDoodleStateDetail>();
+            this.CurrentState = new DoodleStateDetail();
+            if (!string.IsNullOrEmpty(json))
+            {
+                this.CurrentState = JsonConverters.Serialization.Deserialize<DoodleStateDetail>(json);
+                this.CurrentState.Sequence = this._currentSequence++;
+            }
+            await PushNewState(this.CurrentState);
+            
+            this.OnDoodleDrawStateChanged?.Invoke(this, null);
+            this.OnRestoreState?.Invoke(this, null);
+        }
+
         #endregion
 
         #region Private Methods

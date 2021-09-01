@@ -45,6 +45,10 @@ namespace Doodle.Abstractions.Interfaces
 
         Task ClearDoodle(bool clearHistory);
 
+        Task<string> SaveCurrentState();
+
+        Task RestoreCurrentState(string json);
+
     }
 
 

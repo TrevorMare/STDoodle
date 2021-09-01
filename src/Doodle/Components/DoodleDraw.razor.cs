@@ -104,6 +104,34 @@ namespace Doodle.Components
             base.OnInitialized();
         }
        
+        public async Task<string> SaveCurrentDrawState()
+        {
+            try
+            {
+                string jsonData = await this.DoodleSaveHandler.SaveDoodleDraw(this.DoodleDrawInteraction);
+
+                return jsonData;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex, $"An error occured saving the data");
+                throw;
+            }
+        }
+
+        public async Task RestoreCurrentDrawState(string json)
+        {
+            try
+            {
+                await this.DoodleDrawInteraction.DoodleStateManager.RestoreCurrentState(json);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex, $"An error occured saving the data");
+                throw;
+            }
+        }
+
         public async Task<string> ExportDoodleToImage(Abstractions.Config.Html2CanvasConfig config = null)
         {
             try
