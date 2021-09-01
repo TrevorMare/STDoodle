@@ -1,6 +1,8 @@
 @using Doodle.Components
 
 <button @onclick="RenderTest">Render</button>
+<button @onclick="SaveTest">Save</button>
+<button @onclick="RestoreTest">Restore</button>
 
 
 <div style="height: 50vh;">
@@ -10,11 +12,32 @@
 
 </div>
 
+<div>
+    <span>@_jsonData</span>
+</div>
+
+
 @code {
     private DoodleDraw _doodleDraw;
+
+    private string _jsonData;
+
     private async Task RenderTest() 
     {
         await _doodleDraw.ExportDoodleToImage();
+    }
+
+    private async Task SaveTest()
+    {
+        _jsonData = await _doodleDraw.SaveCurrentDrawState();
+    }
+
+    public async Task RestoreTest()
+    {
+        if (!string.IsNullOrEmpty(_jsonData))
+        {
+            await _doodleDraw.RestoreCurrentDrawState(_jsonData);
+        }
     }
 
 }
