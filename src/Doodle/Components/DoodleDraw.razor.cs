@@ -100,7 +100,9 @@ namespace Doodle.Components
             this.DoodleDrawInteraction.OnExportImage += (s, e) => {
                 this.ExportDoodleToImage().ConfigureAwait(false);
             };
-
+            this.DoodleDrawInteraction.OnSaveDoodleData += (s, e) => {
+                this.SaveCurrentDrawState().ConfigureAwait(false);
+            };
             base.OnInitialized();
         }
        
@@ -148,14 +150,8 @@ namespace Doodle.Components
                 {
                     throw new Exception("No buffer Id returned for the exported image.");
                 }
-
-                _logger.LogInformation($"Buffer with Id {bufferId} setup for export.");
-                _logger.LogInformation($"Reading stream data from buffer.");
-
                 var base64ImageData = await JsInteropBuffer.ReadBuffer(bufferId);
-
                 await this.DoodleExportHandler.ExportImageBase64(base64ImageData);
-
                 return base64ImageData;
             }
             catch (Exception ex)

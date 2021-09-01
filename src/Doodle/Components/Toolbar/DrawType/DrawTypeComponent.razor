@@ -8,7 +8,7 @@
             {
                 <button data-toolbarbuttons-drawtypecomponent-erasorbutton="@DataAttributeName" 
                         class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-eraser @(DoodleDrawInteraction.DrawType == DrawType.Eraser ? "selected" : "")" title="Erasor"
-                        @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Eraser))"> 
+                        @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.Eraser); DoodleDrawInteraction.SetToolbarContent(ToolbarContent.None); })"> 
                         <span class="material-icons">sell</span>
                 </button>
             }
@@ -17,7 +17,7 @@
             {
                 <button data-toolbarbuttons-drawtypecomponent-penbutton="@DataAttributeName" 
                         class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-pen @(DoodleDrawInteraction.DrawType == DrawType.Pen ? "selected" : "")" title="Draw Pen"
-                        @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Pen))"> 
+                        @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.Pen); DoodleDrawInteraction.SetToolbarContent(ToolbarContent.None); })"> 
                         <span class="material-icons">draw</span>
                 </button>
             }
@@ -26,7 +26,7 @@
             {
                 <button data-toolbarbuttons-drawtypecomponent-linebutton="@DataAttributeName" 
                         class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawtypecomponent-line @(DoodleDrawInteraction.DrawType == DrawType.Line ? "selected" : "")" title="Draw Line"
-                        @onclick="@(() => DoodleDrawInteraction.SetDrawType(DrawType.Line))"> 
+                        @onclick="@(() => { DoodleDrawInteraction.SetDrawType(DrawType.Line); DoodleDrawInteraction.SetToolbarContent(ToolbarContent.None); })"> 
                         <span class="material-icons">timeline</span>
                 </button>
             }

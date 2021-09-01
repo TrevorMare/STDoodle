@@ -29,7 +29,8 @@
 
             <button data-toolbarbuttons-drawactionscomponent-savebutton="@DataAttributeName"
                     hidden="@(!SaveButtonVisible)" disabled=@(!SaveButtonEnabled) 
-                    class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-save" title="Save"> 
+                    class="toolbar-button @Theme.ToolbarMenuButtonClass btn-drawactionscomponent-save" title="Save Doodle Draw"
+                    @onclick="@(() => DoodleDrawInteraction.SaveDoodleData())"> 
                     <span class="material-icons">save</span>
             </button>
 
