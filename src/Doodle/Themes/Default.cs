@@ -80,6 +80,8 @@ namespace Doodle.Themes
 
         public string ResizableElementMoveAdornerClass { get; set; } = "";
 
+        public string ResizableElementDeleteAdornerClass { get; set; } = "";
+
     }
 
 }

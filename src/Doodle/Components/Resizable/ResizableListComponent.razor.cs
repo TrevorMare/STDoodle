@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Doodle.State;
 using Microsoft.AspNetCore.Components;
@@ -41,6 +42,17 @@ namespace Doodle.Components.Resizable
 
             };
             base.OnInitialized();
+        }
+
+        private async Task RemoveElement(Abstractions.Interfaces.IResizableContent item)
+        {
+            if (item != null)
+            {
+                var items = this.Content.ToList();
+                items.Remove(item);
+                
+                await DoodleDrawInteraction.DoodleStateManager.PushResziableState(new State.ResizableState(items));
+            }
         }
 
         private async Task ContentUpdated()

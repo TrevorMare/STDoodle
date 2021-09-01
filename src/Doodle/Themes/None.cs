@@ -79,6 +79,8 @@ namespace Doodle.Themes
         public string ResizableElementSizeAdornerClass { get; set; } = "";
 
         public string ResizableElementMoveAdornerClass { get; set; } = "";
+
+        public string ResizableElementDeleteAdornerClass { get; set; } = "";
     }
 
 }

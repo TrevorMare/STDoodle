@@ -30,6 +30,23 @@
             cursor: move;
         }
     }
+    .delete-adorner {
+        display: none;
+        height: @move-adorner-size;
+        width: @move-adorner-size;
+        position: absolute;
+        right: -@resize-adorner-size * 2;
+        top: calc(50% - @move-adorner-size-half);
+        
+        background-image: url('/_content/STDoodle/img/delete-icon.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover contain;
+        &.delete {
+            display: inline-block;
+            cursor: pointer;
+        }
+    }
     .resize-adorner {
         display: none;
         height: @resize-adorner-size;

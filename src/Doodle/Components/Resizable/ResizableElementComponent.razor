@@ -25,5 +25,7 @@
     <div data-doodle-resizable-adorner-br class="resize-adorner br @Theme.ResizableElementSizeAdornerClass @(ElementActive && AllowResize ? "resize" : "") "></div>
 
     <div data-doodle-move-adorner class="move-adorner @Theme.ResizableElementMoveAdornerClass @(ElementActive && AllowMove ? "move" : "") "></div>
+    <div data-doodle-move-adorner class="delete-adorner @Theme.ResizableElementMoveAdornerClass @(ElementActive ? "delete" : "") "
+         @onclick="@(() => RemoveElement.InvokeAsync())"></div>
 
 </div>
