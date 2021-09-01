@@ -37,14 +37,7 @@ namespace Doodle.Components.Resizable
         {
             base.InitConfigSettings(config);
 
-            this.ImageSources = new List<ResizableImageSource>()
-            {
-                new ResizableImageSource() { DataSource = "./_content/STDoodle/img/svg1.svg" },
-                new ResizableImageSource() { DataSource = "./_content/STDoodle/img/svg2.svg" },
-                new ResizableImageSource() { DataSource = "./_content/STDoodle/img/svg3.svg" },
-                new ResizableImageSource() { DataSource = "./_content/STDoodle/img/svg4.svg" }
-            };
-
+            this.ImageSources = new List<ResizableImageSource>();
         }
         #endregion
 
