@@ -31,6 +31,9 @@ namespace Doodle.Components.Resizable
 
         #region Events
         [Parameter]
+        public EventCallback RemoveElement { get; set; }
+
+        [Parameter]
         public EventCallback<ResizableElementComponent> ResizeElementReady { get; set; }
 
         [Parameter]

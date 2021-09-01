@@ -209,6 +209,22 @@
   display: inline-block;
   cursor: move;
 }
+.resizable-element-wrapper .delete-adorner {
+  display: none;
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  right: -24px;
+  top: calc(50% - 16px / 2);
+  background-image: url('/_content/STDoodle/img/delete-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover contain;
+}
+.resizable-element-wrapper .delete-adorner.delete {
+  display: inline-block;
+  cursor: pointer;
+}
 .resizable-element-wrapper .resize-adorner {
   display: none;
   height: 12px;

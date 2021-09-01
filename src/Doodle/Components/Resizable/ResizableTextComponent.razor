@@ -3,7 +3,8 @@
 <ResizableElementComponent ElementActive="ElementActive" AutoHandleEvents="false" 
                           @bind-Height="@Model.Height" @bind-Width="@Model.Width" @bind-Top="@Model.Top" @bind-Left="@Model.Left" 
                           MinHeight="@Model.MinHeight" MinWidth="@Model.MinWidth"
-                          ElementUpdated="@(() => ContentUpdated.InvokeAsync())">
+                          ElementUpdated="@(() => ContentUpdated.InvokeAsync())"
+                          RemoveElement="@(() => RemoveElement.InvokeAsync())">
     <ActiveContent>
         <textarea class="resizable-element-input @Theme.ResizableTextElementInputClass" 
                   @onchange="@((e) => { Model.Text = e.Value.ToString(); ContentUpdated.InvokeAsync(); })">@Model.Text</textarea>

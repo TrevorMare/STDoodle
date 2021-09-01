@@ -22,6 +22,9 @@ namespace Doodle.Components.Resizable
         [Parameter]
         public EventCallback ContentUpdated { get; set; }
 
+        [Parameter]
+        public EventCallback RemoveElement { get; set; }
+
         public bool ElementActive 
         { 
             get => _elementActive; 

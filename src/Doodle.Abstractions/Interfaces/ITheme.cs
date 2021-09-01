@@ -80,6 +80,8 @@ namespace Doodle.Abstractions.Interfaces
 
         string ResizableElementMoveAdornerClass { get; set; } 
 
+        string ResizableElementDeleteAdornerClass { get; set; } 
+
     }
 
 }
