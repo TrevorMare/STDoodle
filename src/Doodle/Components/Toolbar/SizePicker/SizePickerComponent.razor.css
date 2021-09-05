@@ -2,7 +2,7 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'), url(_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'), url(_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 .material-icons {
   font-family: 'Material Icons';
@@ -174,7 +174,7 @@
   display: block;
   height: 18px;
   width: 18px;
-  background-image: url("/_content/STDoodle/img/selected-icon.svg");
+  background-image: url("img/selected-icon.svg");
   background-repeat: no-repeat;
 }
 .doodle-canvas-background {

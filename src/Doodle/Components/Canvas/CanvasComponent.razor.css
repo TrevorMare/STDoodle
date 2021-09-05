@@ -2,7 +2,7 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'), url(/_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'), url(_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'), url(_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 .material-icons {
   font-family: 'Material Icons';
@@ -174,7 +174,7 @@
   display: block;
   height: 18px;
   width: 18px;
-  background-image: url("/_content/STDoodle/img/selected-icon.svg");
+  background-image: url("img/selected-icon.svg");
   background-repeat: no-repeat;
 }
 .doodle-canvas-background {
@@ -201,14 +201,14 @@
   display: none;
   position: absolute;
   top: 0px;
-  cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
+  cursor: url('img/cursor-draw.svg') -24 24, auto;
 }
 .canvas-resize .canvas.doodle-canvas.pen {
-  cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
+  cursor: url('img/cursor-draw.svg') -24 24, auto;
 }
 .canvas-resize .canvas.doodle-canvas.line {
-  cursor: url('/_content/STDoodle/img/cursor-draw.svg') -24 24, auto;
+  cursor: url('img/cursor-draw.svg') -24 24, auto;
 }
 .canvas-resize .canvas.doodle-canvas.eraser {
-  cursor: url('/_content/STDoodle/img/cursor-eraser.svg') 12 12, auto;
+  cursor: url('img/cursor-eraser.svg') 12 12, auto;
 }
