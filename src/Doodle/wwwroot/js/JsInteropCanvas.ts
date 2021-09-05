@@ -50,6 +50,11 @@ export class DoodleCanvas {
   private _drawStartHandler: any;
   private _drawEndHandler: any;
   private _drawMoveHandler: any;
+
+  private _documentTouchStartHandler: any;
+  private _documentTouchEndHandler: any;
+  private _documentTouchMoveHandler: any;
+
   private _resizeHandler: any;
 
   private _drawPreviewCanvas: HTMLCanvasElement;
@@ -71,6 +76,8 @@ export class DoodleCanvas {
     if (!!this._drawPreviewCanvas) {
       this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
     }
+
+    
 
     this.SetupHandlers();
 
@@ -166,6 +173,12 @@ export class DoodleCanvas {
     this.DrawGridLayout();
   }
 
+  private CancelDocumentEventHandler(event: any) {
+    if (event.target == this._canvas || event.target == this._drawPreviewCanvas) {
+      event.preventDefault();
+    }
+  }
+
   private SetupHandlers(): void {
 
     this._drawStartHandler = this.StartDraw.bind(this);
@@ -173,9 +186,17 @@ export class DoodleCanvas {
     this._drawMoveHandler = this.DrawMovement.bind(this);
     this._resizeHandler = this.ResizeComponent.bind(this);
 
+    this._documentTouchEndHandler = this.CancelDocumentEventHandler.bind(this);
+    this._documentTouchMoveHandler = this.CancelDocumentEventHandler.bind(this);
+    this._documentTouchStartHandler = this.CancelDocumentEventHandler.bind(this);
+
     // Attach the event handlers
     this.AttachHandlers(this._canvas);
     this.AttachHandlers(this._drawPreviewCanvas);
+
+    document.addEventListener('touchstart', this._documentTouchStartHandler, false);
+    document.addEventListener('touchend', this._documentTouchEndHandler, false);
+    document.addEventListener('touchmove', this._documentTouchMoveHandler, false);
 
     if (!!this._resizeElement) {
       this._resizeElement.addEventListener('resize', this._resizeHandler, false);
@@ -197,6 +218,10 @@ export class DoodleCanvas {
     // Remove the event handlers
     this.RemoveHandlers(this._canvas);
     this.RemoveHandlers(this._drawPreviewCanvas);
+
+    document.removeEventListener('touchstart', this._documentTouchStartHandler, false);
+    document.removeEventListener('touchend', this._documentTouchEndHandler, false);
+    document.removeEventListener('touchmove', this._documentTouchMoveHandler, false);
 
     if (!!this._resizeElement) {
       this._resizeElement.removeEventListener('resize', this._resizeHandler);
