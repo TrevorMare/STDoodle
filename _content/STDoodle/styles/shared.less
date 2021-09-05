@@ -1,0 +1,248 @@
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff2) format('woff2'),
+        url(/_content/STDoodle/fonts/MaterialIcons-Regular.woff) format('woff'),
+        url(/_content/STDoodle/fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+/* General */
+@btn-hover-shadow: 0 8px 8px 0 rgba(0,0,0,0.24), 0 12px 25px 0 rgba(0,0,0,0.19);
+@panel-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+@paper-elevation-4: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+@primary-color: #8bc34a;
+@primary-color-light: #bef67a;
+@primary-color-dark: #5a9216;
+@secondary-color: #ff9800;
+@secondary-color-light: #ffc947;
+@secondary-color-dark: #c66900;
+@primary-text-color: #000;
+@secondary-text-color: #000;
+@text-color: #7b7b7b;
+@disabled-color: rgb(90, 90, 90);
+@break-color: rgba(0, 0, 0, 0.2);
+@dark-color: rgba(0, 0, 0, 0.2);
+@close-color: rgb(255, 74, 74);
+
+
+/* Selected Icon Overlay */
+@selected-icon-overlay-size: 18px;
+
+/* Doodle Draw */
+@header-height: 50px;
+
+/* Canvas  */
+@canvas-z-index: 20;
+
+/* Canvas Background  */
+@canvas-background-preview-height: 128px;
+@canvas-background-preview-width: 128px;
+@canvas-background-preview-margin: 0.4rem;
+
+/* Buttons */
+@button-round-size: 36px;
+@button-round-margin: 0rem 0.2rem;
+@button-round-padding: 0.2rem;
+@button-round-background: white;
+
+@button-custom-outer-border: solid 1px @break-color; 
+@button-custom-outer-size: 28px;
+@button-custom-inner-size: 20px;
+@button-custom-active-color: @secondary-color; 
+
+/* Round Button Element With Material Icon */
+.doodle-btn-round {
+    height: @button-round-size;
+    width: @button-round-size;
+    margin: @button-round-margin;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: @button-round-padding;
+    background-color: @button-round-background;
+    border: solid 1px @primary-color;
+    color: @primary-color-dark;
+    span {
+        font-size: 1.4rem;
+    }
+    &:active {
+        outline:0;
+    }
+    &:focus {
+        outline:0;
+    }
+    &:hover {
+        box-shadow: @btn-hover-shadow;
+    }
+    &:disabled {
+        box-shadow: none !important;
+        border: solid 1px @disabled-color;
+        color: @disabled-color;
+        span  { 
+            opacity: 0.4;
+        }
+    }
+    &.selected {
+        background-color: @secondary-color-light;
+    }
+}
+
+/*
+    Round Button Element With Custom Round Inner
+*/
+.button-custom-outer {
+    height: @button-custom-outer-size;
+    width: @button-custom-outer-size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+
+    &.doodle-button-custom-outer {
+        border-radius: 50%;
+        border: @button-custom-outer-border;
+        &:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        &:active {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.35), 0 6px 20px 0 rgba(0,0,0,0.59);
+        }
+        &.active {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+        }
+    }
+    &.active {
+        background-color: @button-custom-active-color;
+    }
+    &.disabled {
+        opacity: 0.6;
+    }
+}
+
+.button-custom-inner {
+    box-sizing: border-box;
+    height: @button-custom-inner-size;
+    width: @button-custom-inner-size;
+    &.doodle-button-custom-inner {
+        border-radius: 50%;
+    }
+}
+
+/* Top Menu Toolbar Buttons */
+.toolbar-buttons-container {
+    display: flex; 
+    .toolbar-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &.doodle-toolbar-buttons {
+            .btn-round {
+                &.selected {
+                    background-color: @secondary-color-light;
+                }
+            }  
+        }
+    }
+
+}
+
+/* Toolbar Panels (Popup toolbar) */
+.toolbar-panels { 
+    display: flex;
+    width: 100%;
+    .toolbar-panel {
+        padding: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        border-right: solid 1px @dark-color; 
+        overflow: hidden;
+        .toolbar-panel-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 0.2rem;
+            border-bottom: solid 1px @dark-color;
+            .toolbar-panel-header-text {
+                text-transform: uppercase;
+                &.doodle-toolbar-panel-header-text {
+                    color: @secondary-color;
+                }
+            }
+        }
+        .toolbar-panel-content {
+            padding: 0.6rem;
+            align-self: center;
+            justify-self: center;
+            flex-grow: 1;
+            display: flex;
+            width: 100%;
+            overflow: auto;
+            .toolbar-panel-content-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .toolbar-close {
+                    &.doodle-toolbar-close {
+                        color: @close-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+/* Overlay element to indicate selection */
+.selected-icon-overlay {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-size: contain;
+    display: block;
+    height: @selected-icon-overlay-size;
+    width: @selected-icon-overlay-size;
+    background-image: url("/_content/STDoodle/img/selected-icon.svg");
+    background-repeat: no-repeat;
+}
+
+.doodle-canvas-background {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+} 
+

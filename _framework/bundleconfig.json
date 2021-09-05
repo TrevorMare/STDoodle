@@ -1,0 +1,104 @@
+[
+    {
+      "outputFileName": "wwwroot/js/JsInteropCommon.min.js",
+      "inputFiles": [
+        "wwwroot/js/JsInteropCommon.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/JsInteropDragDrop.min.js",
+      "inputFiles": [
+        "wwwroot/js/JsInteropDragDrop.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/JsInteropCanvas.min.js",
+      "inputFiles": [
+        "wwwroot/js/JsInteropCanvas.js",
+        "wwwroot/js/JsLocalStorage.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/JsInteropHtml2Canvas.min.js",
+      "inputFiles": [
+        "wwwroot/js/JsInteropHtml2Canvas.js",
+        "wwwroot/js/JsLocalStorage.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/JsInteropBuffer.min.js",
+      "inputFiles": [
+        "wwwroot/js/JsInteropBuffer.js",
+        "wwwroot/js/JsLocalStorage.js",
+        "wwwroot/js/JsStreamManager.js",
+        "wwwroot/js/JsStreamBuffer.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/js/vendor.min.js",
+      "inputFiles": [
+        "wwwroot/js/node_modules/html2canvas/dist/html2canvas.min.js"
+      ],
+      "minify": {
+        "enabled": true,
+        "renameLocals": false
+      },
+      "sourceMap": false
+    },
+    {
+      "outputFileName": "wwwroot/fonts/MaterialIcons-Regular.ttf",
+      "inputFiles": [
+        "wwwroot/js/node_modules/material-icons-font/fonts/MaterialIcons-Regular.ttf"
+      ],
+      "minify": {
+        "enabled": false,
+        "renameLocals": false
+      }
+    },
+    {
+      "outputFileName": "wwwroot/fonts/MaterialIcons-Regular.woff",
+      "inputFiles": [
+        "wwwroot/js/node_modules/material-icons-font/fonts/MaterialIcons-Regular.woff"
+      ],
+      "minify": {
+        "enabled": false,
+        "renameLocals": false
+      }
+    },
+    {
+      "outputFileName": "wwwroot/fonts/MaterialIcons-Regular.woff2",
+      "inputFiles": [
+        "wwwroot/js/node_modules/material-icons-font/fonts/MaterialIcons-Regular.woff2"
+      ],
+      "minify": {
+        "enabled": false,
+        "renameLocals": false
+      }
+    }
+    
+  ]
