@@ -32,7 +32,7 @@ jobs:
       working-directory: Prerender/output/wwwroot
       run: |
         find . -name "*.html" | while read htmlFile; do
-            sed -i 's/<base href="\/"/<base href="\/STGTour\/"/g' $htmlFile
+            sed -i 's/<base href="\/"/<base href="\/STDoodle\/"/g' $htmlFile
             sed -i 's/<script type="text\/javascript">var Module; window.__wasmmodulecallback__(); delete window.__wasmmodulecallback__;<\/script><script src="_framework\/dotnet.5.0.9.js" defer="" integrity="sha256-6UjELrXtxaJnUc\/awWOPSG3AjZzIKlYUPWTKLGPf6XA=" crossorigin="anonymous"><\/script>//g' $htmlFile
         done
     
