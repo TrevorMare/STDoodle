@@ -99,13 +99,24 @@ export class DoodleCanvas {
         this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
         this.DrawGridLayout();
     }
+    CancelDocumentEventHandler(event) {
+        if (event.target == this._canvas || event.target == this._drawPreviewCanvas) {
+            event.preventDefault();
+        }
+    }
     SetupHandlers() {
         this._drawStartHandler = this.StartDraw.bind(this);
         this._drawEndHandler = this.EndDraw.bind(this);
         this._drawMoveHandler = this.DrawMovement.bind(this);
         this._resizeHandler = this.ResizeComponent.bind(this);
+        this._documentTouchEndHandler = this.CancelDocumentEventHandler.bind(this);
+        this._documentTouchMoveHandler = this.CancelDocumentEventHandler.bind(this);
+        this._documentTouchStartHandler = this.CancelDocumentEventHandler.bind(this);
         this.AttachHandlers(this._canvas);
         this.AttachHandlers(this._drawPreviewCanvas);
+        document.addEventListener('touchstart', this._documentTouchStartHandler, false);
+        document.addEventListener('touchend', this._documentTouchEndHandler, false);
+        document.addEventListener('touchmove', this._documentTouchMoveHandler, false);
         if (!!this._resizeElement) {
             this._resizeElement.addEventListener('resize', this._resizeHandler, false);
         }
@@ -121,6 +132,9 @@ export class DoodleCanvas {
     DestroyHandlers() {
         this.RemoveHandlers(this._canvas);
         this.RemoveHandlers(this._drawPreviewCanvas);
+        document.removeEventListener('touchstart', this._documentTouchStartHandler, false);
+        document.removeEventListener('touchend', this._documentTouchEndHandler, false);
+        document.removeEventListener('touchmove', this._documentTouchMoveHandler, false);
         if (!!this._resizeElement) {
             this._resizeElement.removeEventListener('resize', this._resizeHandler);
         }
