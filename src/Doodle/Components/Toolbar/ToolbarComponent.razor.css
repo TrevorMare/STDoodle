@@ -189,6 +189,7 @@
 .toolbar-wrapper {
   position: relative;
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+  overflow: auto;
 }
 .toolbar-wrapper.doodle-toolbar-wrapper {
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
