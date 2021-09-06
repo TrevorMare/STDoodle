@@ -281,7 +281,6 @@ export class DoodleResize {
 
     private AdornerDownCanResize(downEvent: any): boolean {
         if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
-            document.body.style.overscrollBehavior = "contain";
             downEvent.preventDefault();
             return true;
         }
@@ -446,7 +445,7 @@ export class DoodleResize {
     }
 
     private DocumentDownEvent(e: any): void { 
-       
+        document.body.style.overscrollBehavior = "contain";
     }
 
     private DocumentUpEvent(e: any): void {
