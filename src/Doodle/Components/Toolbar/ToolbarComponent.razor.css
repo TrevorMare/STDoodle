@@ -189,7 +189,6 @@
 .toolbar-wrapper {
   position: relative;
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
-  overflow: auto;
 }
 .toolbar-wrapper.doodle-toolbar-wrapper {
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
@@ -199,6 +198,7 @@
   align-content: center;
   width: 100%;
   height: 50px;
+  overflow: auto;
 }
 .toolbar-wrapper .toolbar-header .toolbar-splitter {
   width: 1px;
