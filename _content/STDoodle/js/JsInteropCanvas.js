@@ -183,11 +183,11 @@ export class DoodleCanvas {
         }
     }
     DrawMovement(e) {
-        if (this._isDrawing == false)
+        if (this._isDrawing == false || !e)
             return;
         const event = this.GetInternalEvent(e);
         e.preventDefault();
-        this._lastMoveEvent = e;
+        this._lastMoveEvent = event;
         const coords = this.GetEventPosition(event);
         if (this._drawType === 2) {
             this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
@@ -216,14 +216,11 @@ export class DoodleCanvas {
             this.EndCurrentPath();
             this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
             this._isDrawing = false;
-            this._lastMoveEvent = null;
             this.Refresh();
         }
         else {
-            this.DrawMovement(this._lastMoveEvent);
             this._isDrawing = false;
             this.EndCurrentPath();
-            this._lastMoveEvent = null;
         }
     }
     StartCurrentPath(x, y) {
