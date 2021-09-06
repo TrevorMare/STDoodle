@@ -244,49 +244,48 @@ export class DoodleResize {
         this._elementActivated = value;
     }
 
-    private StartMove(e: any) {
-        if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
-            document.body.style.overscrollBehavior = "contain";
-            const event = this.GetInternalEvent(e);
+    private OnMoveAdornerDown(e: any) {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationMove();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         } 
     }
 
-    private StartResizeBR(e: any): void {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            document.body.style.overscrollBehavior = "contain";
-            const event = this.GetInternalEvent(e);
+    private OnResizeBRAdornerDown(e: any): void {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeBR();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
     }
 
-    private StartResizeTR(e: any): void {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            document.body.style.overscrollBehavior = "contain";
-            const event = this.GetInternalEvent(e);
+    private OnResizeTRAdornerDown(e: any): void {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeTR();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
     }
 
-    private StartResizeBL(e: any): void {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            document.body.style.overscrollBehavior = "contain";
-            const event = this.GetInternalEvent(e);
+    private OnResizeBLAdornerDown(e: any): void {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeBL();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
     }
 
-    private StartResizeTL(e: any): void {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            document.body.style.overscrollBehavior = "contain";
-            const event = this.GetInternalEvent(e);
+    private OnResizeTLAdornerDown(e: any): void {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeTL();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
+    }
+
+    private AdornerDownCanResize(downEvent: any): boolean {
+        if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
+            document.body.style.overscrollBehavior = "contain";
+            downEvent.preventDefault();
+            return true;
+        }
+        return false;
     }
 
     private SetupAdornerElements(): void {
@@ -318,28 +317,28 @@ export class DoodleResize {
     private NotifyBlazorSetIsActive(value: boolean): void {
         if (!!this._callbackRef) {
             if (this._elementActivated !== value) {
-                console.log(`JS => SetIsActive ${value}`);
                 this._callbackRef.invokeMethodAsync("SetIsActivate", value);
             }
         }
     }
 
     private AttachEventHandlers(): void {
-        console.log(`Attaching event handlers`);
-
         this._documentMoveRef = this.DocumentMoveEvent.bind(this); 
         this._documentUpRef = this.DocumentUpEvent.bind(this);
         this._documentDownRef = this.DocumentDownEvent.bind(this);
+        
         this._resizeElementDownRef = this.ResizeDownEvent.bind(this);
         this._resizeElementUpRef = this.ResizeUpEvent.bind(this);
-        this._adornerDownTLRef = this.StartResizeTL.bind(this);
-        this._adornerDownTRRef = this.StartResizeTR.bind(this);
-        this._adornerDownBLRef = this.StartResizeBL.bind(this);
-        this._adornerDownBRRef = this.StartResizeBR.bind(this);
-        this._adornerDownMoveRef = this.StartMove.bind(this);
         this._resizeElementClickRef = this.ResizeClickEvent.bind(this);
-        
 
+        // Adorner Down Events
+        this._adornerDownTLRef = this.OnResizeTLAdornerDown.bind(this);
+        this._adornerDownTRRef = this.OnResizeTRAdornerDown.bind(this);
+        this._adornerDownBLRef = this.OnResizeBLAdornerDown.bind(this);
+        this._adornerDownBRRef = this.OnResizeBRAdornerDown.bind(this);
+        this._adornerDownMoveRef = this.OnMoveAdornerDown.bind(this);
+
+        // Document Events
         document.addEventListener('touchmove', this._documentMoveRef, false);
         document.addEventListener('mousemove', this._documentMoveRef, false);
 
@@ -349,6 +348,7 @@ export class DoodleResize {
         document.addEventListener('mouseup', this._documentUpRef, false);
         document.addEventListener('touchend', this._documentUpRef, false); 
 
+        // Resize element events
         this._resizeElement.addEventListener('click', this._resizeElementClickRef, false);
 
         this._resizeElement.addEventListener('touchstart', this._resizeElementDownRef, false);
@@ -357,6 +357,7 @@ export class DoodleResize {
         this._resizeElement.addEventListener('touchend', this._resizeElementUpRef, false);
         this._resizeElement.addEventListener('mouseup', this._resizeElementUpRef, false);
 
+        // Resize Adorner Events
         this._rsAdornerBR.addEventListener('touchstart', this._adornerDownBRRef, false);
         this._rsAdornerBR.addEventListener('mousedown', this._adornerDownBRRef, false);
 
@@ -423,14 +424,14 @@ export class DoodleResize {
     private ResizeDownEvent(e: any) {
         if (this._currentOperation === null) {
             const event = this.GetInternalEvent(e);
-            event.stopPropagation();
+            e.stopPropagation();
         }
     }
 
     private ResizeUpEvent(e: any) {
         if (this._currentOperation === null && !e) {
             const event = this.GetInternalEvent(e);
-            event.stopPropagation();
+            e.stopPropagation();
         }
     }
 
@@ -438,13 +439,15 @@ export class DoodleResize {
 
         if (this._elementActivated === false && this._autoHandleEvents === true) {
             const event = this.GetInternalEvent(e);
-            event.preventDefault();
-            event.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation(); 
             this.NotifyBlazorSetIsActive(true);
         }
     }
 
-    private DocumentDownEvent(e: any): void { }
+    private DocumentDownEvent(e: any): void { 
+       
+    }
 
     private DocumentUpEvent(e: any): void {
         const event = this.GetInternalEvent(e);
