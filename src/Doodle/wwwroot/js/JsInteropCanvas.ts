@@ -51,15 +51,13 @@ export class DoodleCanvas {
   private _drawEndHandler: any;
   private _drawMoveHandler: any;
 
-  private _documentTouchStartHandler: any;
-  private _documentTouchEndHandler: any;
-  private _documentTouchMoveHandler: any;
-
   private _resizeHandler: any;
 
   private _drawPreviewCanvas: HTMLCanvasElement;
   private _drawPreviewContext: CanvasRenderingContext2D;
   private _shapeDrawDownCoords: ICanvasPathPoint;
+  private _originalOverscrollBehaviour: string;
+  private _documentCancelTouchHandler: any;
 
   constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType, drawType: DrawType, eraserColor: string) {
     this._canvas = canvas;
@@ -77,7 +75,7 @@ export class DoodleCanvas {
       this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
     }
 
-    
+    this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
 
     this.SetupHandlers();
 
@@ -175,7 +173,7 @@ export class DoodleCanvas {
 
   private CancelDocumentEventHandler(event: any) {
     if (event.target == this._canvas || event.target == this._drawPreviewCanvas) {
-      event.preventDefault();
+      //event.preventDefault();
     }
   }
 
@@ -186,17 +184,15 @@ export class DoodleCanvas {
     this._drawMoveHandler = this.DrawMovement.bind(this);
     this._resizeHandler = this.ResizeComponent.bind(this);
 
-    this._documentTouchEndHandler = this.CancelDocumentEventHandler.bind(this);
-    this._documentTouchMoveHandler = this.CancelDocumentEventHandler.bind(this);
-    this._documentTouchStartHandler = this.CancelDocumentEventHandler.bind(this);
+    this._documentCancelTouchHandler = this.CancelDocumentEventHandler.bind(this);
 
     // Attach the event handlers
     this.AttachHandlers(this._canvas);
     this.AttachHandlers(this._drawPreviewCanvas);
 
-    document.addEventListener('touchstart', this._documentTouchStartHandler, false);
-    document.addEventListener('touchend', this._documentTouchEndHandler, false);
-    document.addEventListener('touchmove', this._documentTouchMoveHandler, false);
+    document.addEventListener('touchstart', this._documentCancelTouchHandler, { passive: false});
+    document.addEventListener('touchend', this._documentCancelTouchHandler, { passive: false});
+    document.addEventListener('touchmove', this._documentCancelTouchHandler, { passive: false});
 
     if (!!this._resizeElement) {
       this._resizeElement.addEventListener('resize', this._resizeHandler, false);
@@ -204,13 +200,13 @@ export class DoodleCanvas {
   }
 
   private AttachHandlers(canvasElement: HTMLCanvasElement): void {
-    canvasElement.addEventListener('touchstart', this._drawStartHandler, false);
+    canvasElement.addEventListener('touchstart', this._drawStartHandler, { passive: false});
     canvasElement.addEventListener('mousedown', this._drawStartHandler, false);
 
-    canvasElement.addEventListener('touchend', this._drawEndHandler, false);
+    canvasElement.addEventListener('touchend', this._drawEndHandler, { passive: false});
     canvasElement.addEventListener('mouseup', this._drawEndHandler, false);
 
-    canvasElement.addEventListener('touchmove', this._drawMoveHandler, false);
+    canvasElement.addEventListener('touchmove', this._drawMoveHandler, { passive: false});
     canvasElement.addEventListener('mousemove', this._drawMoveHandler, false);
   }
 
@@ -219,9 +215,9 @@ export class DoodleCanvas {
     this.RemoveHandlers(this._canvas);
     this.RemoveHandlers(this._drawPreviewCanvas);
 
-    document.removeEventListener('touchstart', this._documentTouchStartHandler, false);
-    document.removeEventListener('touchend', this._documentTouchEndHandler, false);
-    document.removeEventListener('touchmove', this._documentTouchMoveHandler, false);
+    document.removeEventListener('touchstart', this._documentCancelTouchHandler, false);
+    document.removeEventListener('touchend', this._documentCancelTouchHandler, false);
+    document.removeEventListener('touchmove', this._documentCancelTouchHandler, false);
 
     if (!!this._resizeElement) {
       this._resizeElement.removeEventListener('resize', this._resizeHandler);
@@ -248,7 +244,11 @@ export class DoodleCanvas {
 
   private StartDraw(e: any): void {
     if (this._isDrawing == false) {
+      this._lastMoveEvent = null;
+      
       const event = this.GetInternalEvent(e);
+      e.preventDefault();
+      document.body.style.scrollBehavior = "contain";
 
       this.SetupBrush();
 
@@ -280,9 +280,13 @@ export class DoodleCanvas {
     }
   }
 
+  private _lastMoveEvent: any;
+
   private DrawMovement(e: any): void {
     if (this._isDrawing == false) return;
     const event = this.GetInternalEvent(e);
+    e.preventDefault();
+    this._lastMoveEvent = e;
      // Calculate the coords
     const coords = this.GetEventPosition(event);
 
@@ -307,20 +311,20 @@ export class DoodleCanvas {
   private EndDraw(e: any): void {
     if (this._isDrawing == false) return;
     
-    const event = this.GetInternalEvent(e);
-    
     if (this._drawType === DrawType.Line) {
-      const coords = this.GetEventPosition(event);
+      const coords = this.GetEventPosition(this._lastMoveEvent);
       this.StartCurrentPath(this._shapeDrawDownCoords.x, this._shapeDrawDownCoords.y);
       this._currentCanvasPath.points.push( { x: coords.x, y: coords.y } );
       this.EndCurrentPath();
       this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
       this._isDrawing = false;
+      this._lastMoveEvent = null;
       this.Refresh();
     } else {
-      this.DrawMovement(event);
+      this.DrawMovement(this._lastMoveEvent);
       this._isDrawing = false;
       this.EndCurrentPath();
+      this._lastMoveEvent = null;
     }
   }
 
@@ -418,7 +422,8 @@ export class DoodleCanvas {
   }
 
   private GetInternalEvent(e): any {
-    if ('touches' in e) { return e.touches[0]; }
+    if (!!e && 'touches' in e) { return e.touches[0]; }
+    
     return e;
   }
 }
