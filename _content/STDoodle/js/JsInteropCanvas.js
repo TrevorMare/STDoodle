@@ -24,6 +24,7 @@ export class DoodleCanvas {
         if (!!this._drawPreviewCanvas) {
             this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
         }
+        this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
         this.SetupHandlers();
         if (!!initColor && initColor !== '') {
             this.SetBrushColor(initColor);
@@ -101,7 +102,6 @@ export class DoodleCanvas {
     }
     CancelDocumentEventHandler(event) {
         if (event.target == this._canvas || event.target == this._drawPreviewCanvas) {
-            event.preventDefault();
         }
     }
     SetupHandlers() {
@@ -109,32 +109,30 @@ export class DoodleCanvas {
         this._drawEndHandler = this.EndDraw.bind(this);
         this._drawMoveHandler = this.DrawMovement.bind(this);
         this._resizeHandler = this.ResizeComponent.bind(this);
-        this._documentTouchEndHandler = this.CancelDocumentEventHandler.bind(this);
-        this._documentTouchMoveHandler = this.CancelDocumentEventHandler.bind(this);
-        this._documentTouchStartHandler = this.CancelDocumentEventHandler.bind(this);
+        this._documentCancelTouchHandler = this.CancelDocumentEventHandler.bind(this);
         this.AttachHandlers(this._canvas);
         this.AttachHandlers(this._drawPreviewCanvas);
-        document.addEventListener('touchstart', this._documentTouchStartHandler, false);
-        document.addEventListener('touchend', this._documentTouchEndHandler, false);
-        document.addEventListener('touchmove', this._documentTouchMoveHandler, false);
+        document.addEventListener('touchstart', this._documentCancelTouchHandler, { passive: false });
+        document.addEventListener('touchend', this._documentCancelTouchHandler, { passive: false });
+        document.addEventListener('touchmove', this._documentCancelTouchHandler, { passive: false });
         if (!!this._resizeElement) {
             this._resizeElement.addEventListener('resize', this._resizeHandler, false);
         }
     }
     AttachHandlers(canvasElement) {
-        canvasElement.addEventListener('touchstart', this._drawStartHandler, false);
+        canvasElement.addEventListener('touchstart', this._drawStartHandler, { passive: false });
         canvasElement.addEventListener('mousedown', this._drawStartHandler, false);
-        canvasElement.addEventListener('touchend', this._drawEndHandler, false);
+        canvasElement.addEventListener('touchend', this._drawEndHandler, { passive: false });
         canvasElement.addEventListener('mouseup', this._drawEndHandler, false);
-        canvasElement.addEventListener('touchmove', this._drawMoveHandler, false);
+        canvasElement.addEventListener('touchmove', this._drawMoveHandler, { passive: false });
         canvasElement.addEventListener('mousemove', this._drawMoveHandler, false);
     }
     DestroyHandlers() {
         this.RemoveHandlers(this._canvas);
         this.RemoveHandlers(this._drawPreviewCanvas);
-        document.removeEventListener('touchstart', this._documentTouchStartHandler, false);
-        document.removeEventListener('touchend', this._documentTouchEndHandler, false);
-        document.removeEventListener('touchmove', this._documentTouchMoveHandler, false);
+        document.removeEventListener('touchstart', this._documentCancelTouchHandler, false);
+        document.removeEventListener('touchend', this._documentCancelTouchHandler, false);
+        document.removeEventListener('touchmove', this._documentCancelTouchHandler, false);
         if (!!this._resizeElement) {
             this._resizeElement.removeEventListener('resize', this._resizeHandler);
         }
@@ -155,7 +153,10 @@ export class DoodleCanvas {
     }
     StartDraw(e) {
         if (this._isDrawing == false) {
+            this._lastMoveEvent = null;
             const event = this.GetInternalEvent(e);
+            e.preventDefault();
+            document.body.style.scrollBehavior = "contain";
             this.SetupBrush();
             const coords = this.GetEventPosition(event);
             if (this._drawType === 2) {
@@ -185,6 +186,8 @@ export class DoodleCanvas {
         if (this._isDrawing == false)
             return;
         const event = this.GetInternalEvent(e);
+        e.preventDefault();
+        this._lastMoveEvent = e;
         const coords = this.GetEventPosition(event);
         if (this._drawType === 2) {
             this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
@@ -206,20 +209,21 @@ export class DoodleCanvas {
     EndDraw(e) {
         if (this._isDrawing == false)
             return;
-        const event = this.GetInternalEvent(e);
         if (this._drawType === 2) {
-            const coords = this.GetEventPosition(event);
+            const coords = this.GetEventPosition(this._lastMoveEvent);
             this.StartCurrentPath(this._shapeDrawDownCoords.x, this._shapeDrawDownCoords.y);
             this._currentCanvasPath.points.push({ x: coords.x, y: coords.y });
             this.EndCurrentPath();
             this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
             this._isDrawing = false;
+            this._lastMoveEvent = null;
             this.Refresh();
         }
         else {
-            this.DrawMovement(event);
+            this.DrawMovement(this._lastMoveEvent);
             this._isDrawing = false;
             this.EndCurrentPath();
+            this._lastMoveEvent = null;
         }
     }
     StartCurrentPath(x, y) {
@@ -304,7 +308,7 @@ export class DoodleCanvas {
         img.src = url;
     }
     GetInternalEvent(e) {
-        if ('touches' in e) {
+        if (!!e && 'touches' in e) {
             return e.touches[0];
         }
         return e;
