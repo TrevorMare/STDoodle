@@ -1493,7 +1493,7 @@ input[type="radio"]:checked ~ label[b-z5ytjbpsly] {
   background-position: center;
   background-size: cover contain;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .delete-adorner[b-qn0h0calgl] {
     height: 28px;
     width: 28px;
@@ -1514,7 +1514,7 @@ input[type="radio"]:checked ~ label[b-z5ytjbpsly] {
   border: solid 1px rgba(0, 0, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.2);
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner[b-qn0h0calgl] {
     height: 24px;
     width: 24px;
@@ -1533,7 +1533,7 @@ input[type="radio"]:checked ~ label[b-z5ytjbpsly] {
   left: -12px;
   cursor: nw-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.tl[b-qn0h0calgl] {
     top: -24px;
     left: -24px;
@@ -1544,7 +1544,7 @@ input[type="radio"]:checked ~ label[b-z5ytjbpsly] {
   right: -12px;
   cursor: ne-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.tr[b-qn0h0calgl] {
     top: -24px;
     right: -24px;
@@ -1555,7 +1555,7 @@ input[type="radio"]:checked ~ label[b-z5ytjbpsly] {
   left: -12px;
   cursor: sw-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.bl[b-qn0h0calgl] {
     bottom: -24px;
     left: -24px;
@@ -1566,7 +1566,7 @@ input[type="radio"]:checked ~ label[b-z5ytjbpsly] {
   right: -12px;
   cursor: se-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.br[b-qn0h0calgl] {
     bottom: -24px;
     right: -24px;

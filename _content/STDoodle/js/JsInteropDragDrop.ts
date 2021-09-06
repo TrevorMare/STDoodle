@@ -476,7 +476,7 @@ export class DoodleResize {
                 this.NotifyBlazorSetIsActive(false);
             }
         }
-        document.body.style.overscrollBehavior = this._originalOverscrollBehaviour;
+        //document.body.style.overscrollBehavior = this._originalOverscrollBehaviour;
     }
 
     private DocumentMoveEvent(e: any): void { 
