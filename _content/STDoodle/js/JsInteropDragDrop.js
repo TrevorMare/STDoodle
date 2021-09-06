@@ -29,16 +29,19 @@ export class DoodleResizeOperation {
         this._startCoords = { x: event.clientX, y: event.clientY };
     }
     ReCalculate(event) {
-        event.preventDefault();
-        const updatedData = this.CalculateDelta(event);
-        if (updatedData !== null) {
-            this._element.style.left = `${updatedData.left}px`;
-            this._element.style.top = `${updatedData.top}px`;
-            this._element.style.width = `${updatedData.width}px`;
-            this._element.style.height = `${updatedData.height}px`;
+        if (!event)
+            return;
+        this._newDimensions = this.CalculateDelta(event);
+        if (this._newDimensions !== null) {
+            this._element.style.left = `${this._newDimensions.left}px`;
+            this._element.style.top = `${this._newDimensions.top}px`;
+            this._element.style.width = `${this._newDimensions.width}px`;
+            this._element.style.height = `${this._newDimensions.height}px`;
         }
     }
     EndOperation(event) {
+        if (!event)
+            return this._newDimensions;
         const updatedData = this.CalculateDelta(event);
         return updatedData;
     }
@@ -136,6 +139,7 @@ export class DoodleResize {
         this._minHeight = minHeight;
         this._minWidth = minWidth;
         this._autoHandleEvents = autoHandleEvents;
+        this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
         this.SetupAdornerElements();
         this.AttachEventHandlers();
     }
@@ -156,43 +160,45 @@ export class DoodleResize {
         this._autoHandleEvents = value;
     }
     SetElementIsActive(value) {
-        console.log(`Blazor=> Setting Element Active ${value} `);
         this._elementActivated = value;
     }
-    StartMove(e) {
-        if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
-            const event = this.GetInternalEvent(e);
+    OnMoveAdornerDown(e) {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationMove();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
     }
-    StartResizeBR(e) {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            const event = this.GetInternalEvent(e);
+    OnResizeBRAdornerDown(e) {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeBR();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
     }
-    StartResizeTR(e) {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            const event = this.GetInternalEvent(e);
+    OnResizeTRAdornerDown(e) {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeTR();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
     }
-    StartResizeBL(e) {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            const event = this.GetInternalEvent(e);
+    OnResizeBLAdornerDown(e) {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeBL();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
     }
-    StartResizeTL(e) {
-        if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
-            const event = this.GetInternalEvent(e);
+    OnResizeTLAdornerDown(e) {
+        if (this.AdornerDownCanResize(e)) {
             this._currentOperation = new DoodleResizeOperationResizeTL();
-            this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
+            this._currentOperation.StartOperation(this._resizeElement, this.GetInternalEvent(e), this._minWidth, this._minHeight);
         }
+    }
+    AdornerDownCanResize(downEvent) {
+        if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
+            document.body.style.overscrollBehavior = "contain";
+            downEvent.preventDefault();
+            return true;
+        }
+        return false;
     }
     SetupAdornerElements() {
         this._rsAdornerTL = this._resizeElement.querySelector('[data-doodle-resizable-adorner-tl]');
@@ -219,24 +225,22 @@ export class DoodleResize {
     NotifyBlazorSetIsActive(value) {
         if (!!this._callbackRef) {
             if (this._elementActivated !== value) {
-                console.log(`JS => SetIsActive ${value}`);
                 this._callbackRef.invokeMethodAsync("SetIsActivate", value);
             }
         }
     }
     AttachEventHandlers() {
-        console.log(`Attaching event handlers`);
         this._documentMoveRef = this.DocumentMoveEvent.bind(this);
         this._documentUpRef = this.DocumentUpEvent.bind(this);
         this._documentDownRef = this.DocumentDownEvent.bind(this);
         this._resizeElementDownRef = this.ResizeDownEvent.bind(this);
         this._resizeElementUpRef = this.ResizeUpEvent.bind(this);
-        this._adornerDownTLRef = this.StartResizeTL.bind(this);
-        this._adornerDownTRRef = this.StartResizeTR.bind(this);
-        this._adornerDownBLRef = this.StartResizeBL.bind(this);
-        this._adornerDownBRRef = this.StartResizeBR.bind(this);
-        this._adornerDownMoveRef = this.StartMove.bind(this);
         this._resizeElementClickRef = this.ResizeClickEvent.bind(this);
+        this._adornerDownTLRef = this.OnResizeTLAdornerDown.bind(this);
+        this._adornerDownTRRef = this.OnResizeTRAdornerDown.bind(this);
+        this._adornerDownBLRef = this.OnResizeBLAdornerDown.bind(this);
+        this._adornerDownBRRef = this.OnResizeBRAdornerDown.bind(this);
+        this._adornerDownMoveRef = this.OnMoveAdornerDown.bind(this);
         document.addEventListener('touchmove', this._documentMoveRef, false);
         document.addEventListener('mousemove', this._documentMoveRef, false);
         document.addEventListener('mousedown', this._documentDownRef, false);
@@ -295,29 +299,29 @@ export class DoodleResize {
     ResizeDownEvent(e) {
         if (this._currentOperation === null) {
             const event = this.GetInternalEvent(e);
-            event.stopPropagation();
+            e.stopPropagation();
         }
     }
     ResizeUpEvent(e) {
-        if (this._currentOperation === null) {
+        if (this._currentOperation === null && !e) {
             const event = this.GetInternalEvent(e);
-            event.stopPropagation();
+            e.stopPropagation();
         }
     }
     ResizeClickEvent(e) {
         if (this._elementActivated === false && this._autoHandleEvents === true) {
             const event = this.GetInternalEvent(e);
-            event.preventDefault();
-            event.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
             this.NotifyBlazorSetIsActive(true);
         }
     }
-    DocumentDownEvent(e) { }
+    DocumentDownEvent(e) {
+    }
     DocumentUpEvent(e) {
         const event = this.GetInternalEvent(e);
         if (this._elementActivated) {
             if (this._currentOperation !== null && !!e) {
-                event.preventDefault();
                 const operationResult = this._currentOperation.EndOperation(event);
                 if (this._currentOperation.OperationType === E_OperationType.Move) {
                     this.NotifyBlazorPositionChanged(operationResult);
@@ -330,21 +334,23 @@ export class DoodleResize {
                 console.log(`Document Element Up: Finalising Operation`);
             }
             else if (this._currentOperation === null && this._autoHandleEvents === true) {
-                event.preventDefault();
                 console.log(`Document Element Up: Setting active to false`);
                 this.NotifyBlazorSetIsActive(false);
             }
         }
         else {
             if (this._autoHandleEvents) {
-                event.preventDefault();
                 this.NotifyBlazorSetIsActive(false);
             }
         }
+        document.body.style.overscrollBehavior = this._originalOverscrollBehaviour;
     }
     DocumentMoveEvent(e) {
         if (!!this._currentOperation && this._elementActivated) {
             const event = this.GetInternalEvent(e);
+            if (!event) {
+                event.preventDefault();
+            }
             this._currentOperation.ReCalculate(event);
         }
     }

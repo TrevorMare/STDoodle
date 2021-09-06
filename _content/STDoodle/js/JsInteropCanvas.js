@@ -100,21 +100,13 @@ export class DoodleCanvas {
         this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
         this.DrawGridLayout();
     }
-    CancelDocumentEventHandler(event) {
-        if (event.target == this._canvas || event.target == this._drawPreviewCanvas) {
-        }
-    }
     SetupHandlers() {
         this._drawStartHandler = this.StartDraw.bind(this);
         this._drawEndHandler = this.EndDraw.bind(this);
         this._drawMoveHandler = this.DrawMovement.bind(this);
         this._resizeHandler = this.ResizeComponent.bind(this);
-        this._documentCancelTouchHandler = this.CancelDocumentEventHandler.bind(this);
         this.AttachHandlers(this._canvas);
         this.AttachHandlers(this._drawPreviewCanvas);
-        document.addEventListener('touchstart', this._documentCancelTouchHandler, { passive: false });
-        document.addEventListener('touchend', this._documentCancelTouchHandler, { passive: false });
-        document.addEventListener('touchmove', this._documentCancelTouchHandler, { passive: false });
         if (!!this._resizeElement) {
             this._resizeElement.addEventListener('resize', this._resizeHandler, false);
         }
@@ -130,9 +122,6 @@ export class DoodleCanvas {
     DestroyHandlers() {
         this.RemoveHandlers(this._canvas);
         this.RemoveHandlers(this._drawPreviewCanvas);
-        document.removeEventListener('touchstart', this._documentCancelTouchHandler, false);
-        document.removeEventListener('touchend', this._documentCancelTouchHandler, false);
-        document.removeEventListener('touchmove', this._documentCancelTouchHandler, false);
         if (!!this._resizeElement) {
             this._resizeElement.removeEventListener('resize', this._resizeHandler);
         }
@@ -156,7 +145,7 @@ export class DoodleCanvas {
             this._lastMoveEvent = null;
             const event = this.GetInternalEvent(e);
             e.preventDefault();
-            document.body.style.scrollBehavior = "contain";
+            document.body.style.overscrollBehavior = "contain";
             this.SetupBrush();
             const coords = this.GetEventPosition(event);
             if (this._drawType === 2) {
@@ -222,6 +211,7 @@ export class DoodleCanvas {
             this._isDrawing = false;
             this.EndCurrentPath();
         }
+        document.body.style.overscrollBehavior = this._originalOverscrollBehaviour;
     }
     StartCurrentPath(x, y) {
         const id = Date.now().toString(18) + Math.random().toString(36).substring(2);
