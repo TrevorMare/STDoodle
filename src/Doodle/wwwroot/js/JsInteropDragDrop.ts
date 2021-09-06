@@ -31,6 +31,7 @@ export interface IDoodleResizeOperation {
 export class DoodleResizeOperation implements IDoodleResizeOperation {
     protected _element: HTMLElement;
     protected _elementDimensions: Dimensions;
+    protected _newDimensions: Dimensions;
     protected _startCoords: Coords;
     protected _minWidth?: number;
     protected _minHeight: number;
@@ -59,16 +60,18 @@ export class DoodleResizeOperation implements IDoodleResizeOperation {
         this._startCoords = { x: event.clientX, y: event.clientY }
     }
     ReCalculate(event: any): void {
-        event.preventDefault();
-        const updatedData = this.CalculateDelta(event);
-        if (updatedData !== null) {
-            this._element.style.left = `${updatedData.left}px`;
-            this._element.style.top = `${updatedData.top}px`;
-            this._element.style.width = `${updatedData.width}px`;
-            this._element.style.height = `${updatedData.height}px`;
+        if (!event) return;
+        //event.preventDefault();
+        this._newDimensions = this.CalculateDelta(event);
+        if (this._newDimensions !== null) {
+            this._element.style.left = `${this._newDimensions.left}px`;
+            this._element.style.top = `${this._newDimensions.top}px`;
+            this._element.style.width = `${this._newDimensions.width}px`;
+            this._element.style.height = `${this._newDimensions.height}px`;
         }
     }
     EndOperation(event: any): Dimensions {
+        if (!event) return this._newDimensions;
         const updatedData = this.CalculateDelta(event);
         return updatedData;
     }
@@ -193,6 +196,8 @@ export class DoodleResize {
     private _minWidth?: number;
     private _minHeight?: number;
 
+    private _originalOverscrollBehaviour: string;
+
     public get ElementId(): string { return this._elementId; }
 
     constructor(resizeElement: HTMLElement, elementId: string, callbackRef: any, 
@@ -208,6 +213,9 @@ export class DoodleResize {
         this._minHeight = minHeight;
         this._minWidth = minWidth;
         this._autoHandleEvents = autoHandleEvents;
+
+        this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
+
         this.SetupAdornerElements();
         this.AttachEventHandlers();
     }
@@ -233,13 +241,12 @@ export class DoodleResize {
     }
 
     public SetElementIsActive(value: boolean) {
-        console.log(`Blazor=> Setting Element Active ${value} `);
         this._elementActivated = value;
     }
 
     private StartMove(e: any) {
         if (this._elementActivated === true && this._canMove && this._currentOperation === null) {
-            
+            document.body.style.overscrollBehavior = "contain";
             const event = this.GetInternalEvent(e);
             this._currentOperation = new DoodleResizeOperationMove();
             this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
@@ -248,6 +255,7 @@ export class DoodleResize {
 
     private StartResizeBR(e: any): void {
         if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
+            document.body.style.overscrollBehavior = "contain";
             const event = this.GetInternalEvent(e);
             this._currentOperation = new DoodleResizeOperationResizeBR();
             this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
@@ -256,6 +264,7 @@ export class DoodleResize {
 
     private StartResizeTR(e: any): void {
         if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
+            document.body.style.overscrollBehavior = "contain";
             const event = this.GetInternalEvent(e);
             this._currentOperation = new DoodleResizeOperationResizeTR();
             this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
@@ -264,6 +273,7 @@ export class DoodleResize {
 
     private StartResizeBL(e: any): void {
         if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
+            document.body.style.overscrollBehavior = "contain";
             const event = this.GetInternalEvent(e);
             this._currentOperation = new DoodleResizeOperationResizeBL();
             this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
@@ -272,6 +282,7 @@ export class DoodleResize {
 
     private StartResizeTL(e: any): void {
         if (this._canResize === true && this._currentOperation === null && this._elementActivated) {
+            document.body.style.overscrollBehavior = "contain";
             const event = this.GetInternalEvent(e);
             this._currentOperation = new DoodleResizeOperationResizeTL();
             this._currentOperation.StartOperation(this._resizeElement, event, this._minWidth, this._minHeight);
@@ -336,7 +347,7 @@ export class DoodleResize {
         document.addEventListener('touchstart', this._documentDownRef, false);
 
         document.addEventListener('mouseup', this._documentUpRef, false);
-        document.addEventListener('touchend', this._documentUpRef, false);
+        document.addEventListener('touchend', this._documentUpRef, false); 
 
         this._resizeElement.addEventListener('click', this._resizeElementClickRef, false);
 
@@ -417,7 +428,7 @@ export class DoodleResize {
     }
 
     private ResizeUpEvent(e: any) {
-        if (this._currentOperation === null) {
+        if (this._currentOperation === null && !e) {
             const event = this.GetInternalEvent(e);
             event.stopPropagation();
         }
@@ -441,8 +452,6 @@ export class DoodleResize {
         if (this._elementActivated) {
 
             if (this._currentOperation !== null && !!e) {
-                event.preventDefault();    
-    
                 const operationResult = this._currentOperation.EndOperation(event);
     
                 if (this._currentOperation.OperationType === E_OperationType.Move) {
@@ -454,25 +463,27 @@ export class DoodleResize {
                 this.NotifyBlazorElementUpdated(operationResult);
                 this._currentOperation = null;
 
-                console.log(`Document Element Up: Finalising Operation`);
+                console.log(`Document Element Up: Finalising Operation`); 
 
             } else if (this._currentOperation === null && this._autoHandleEvents === true) {
-                event.preventDefault();
                 console.log(`Document Element Up: Setting active to false`);
                 this.NotifyBlazorSetIsActive(false);
             }
         } else {
             if (this._autoHandleEvents) {
-                event.preventDefault();
-
                 this.NotifyBlazorSetIsActive(false);
             }
         }
+        document.body.style.overscrollBehavior = this._originalOverscrollBehaviour;
     }
 
     private DocumentMoveEvent(e: any): void { 
         if (!!this._currentOperation && this._elementActivated) {
             const event = this.GetInternalEvent(e);
+            if (!event) {
+                event.preventDefault();
+            }
+
             this._currentOperation.ReCalculate(event);
         }
     }

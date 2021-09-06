@@ -248,7 +248,7 @@ export class DoodleCanvas {
       
       const event = this.GetInternalEvent(e);
       e.preventDefault();
-      document.body.style.scrollBehavior = "contain";
+      document.body.style.overscrollBehavior = "contain";
 
       this.SetupBrush();
 
@@ -321,10 +321,10 @@ export class DoodleCanvas {
       this._isDrawing = false;
       this.Refresh();
     } else {
-      //this.DrawMovement(this._lastMoveEvent);
       this._isDrawing = false;
       this.EndCurrentPath();
     }
+    document.body.style.overscrollBehavior = this._originalOverscrollBehaviour;
   }
 
   private StartCurrentPath(x: number, y: number): void {
