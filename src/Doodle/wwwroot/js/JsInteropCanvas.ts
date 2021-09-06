@@ -283,10 +283,11 @@ export class DoodleCanvas {
   private _lastMoveEvent: any;
 
   private DrawMovement(e: any): void {
-    if (this._isDrawing == false) return;
+    if (this._isDrawing == false || !e) return;
+    
     const event = this.GetInternalEvent(e);
     e.preventDefault();
-    this._lastMoveEvent = e;
+    this._lastMoveEvent = event;
      // Calculate the coords
     const coords = this.GetEventPosition(event);
 
@@ -318,13 +319,11 @@ export class DoodleCanvas {
       this.EndCurrentPath();
       this._drawPreviewContext.clearRect(0, 0, this._drawPreviewCanvas.width, this._drawPreviewCanvas.height);
       this._isDrawing = false;
-      this._lastMoveEvent = null;
       this.Refresh();
     } else {
-      this.DrawMovement(this._lastMoveEvent);
+      //this.DrawMovement(this._lastMoveEvent);
       this._isDrawing = false;
       this.EndCurrentPath();
-      this._lastMoveEvent = null;
     }
   }
 
