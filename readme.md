@@ -60,6 +60,17 @@ To build this project you need to have Satan's tool installed (NodeJs) as this i
     }
 ```
 
+### Styles
+
+If this component will be used on mobile sites, add the following style to your stylesheet. This will help ensure that when the touch events
+occur that the page is not accidentally refreshed and also so that the canvas can pick up the events straight away.
+
+```css
+body {
+    overscroll-behavior: contain;
+}
+```
+
 ### Create a Doodle
   
 The tour can be included in a separate Razor Component or on the page.
