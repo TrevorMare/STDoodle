@@ -232,7 +232,7 @@
   background-position: center;
   background-size: cover contain;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .delete-adorner {
     height: 28px;
     width: 28px;
@@ -253,7 +253,7 @@
   border: solid 1px rgba(0, 0, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.2);
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner {
     height: 24px;
     width: 24px;
@@ -272,7 +272,7 @@
   left: -12px;
   cursor: nw-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.tl {
     top: -24px;
     left: -24px;
@@ -283,7 +283,7 @@
   right: -12px;
   cursor: ne-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.tr {
     top: -24px;
     right: -24px;
@@ -294,7 +294,7 @@
   left: -12px;
   cursor: sw-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.bl {
     bottom: -24px;
     left: -24px;
@@ -305,7 +305,7 @@
   right: -12px;
   cursor: se-resize;
 }
-@media all and (max-width: 768px) {
+@media all and (max-width: 1024px) {
   .resizable-element-wrapper .resize-adorner.br {
     bottom: -24px;
     right: -24px;
