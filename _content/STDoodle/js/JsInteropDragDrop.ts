@@ -186,7 +186,7 @@ export class DoodleResize {
     private _adornerDownTRRef: any;
     private _adornerDownBLRef: any;
     private _adornerDownBRRef: any;
-    private _adornerDownMoveRef: any;
+    private _adornerDownMoveRef: any; 
 
     private _canResize: boolean = true;
     private _canMove: boolean = true;
@@ -197,6 +197,7 @@ export class DoodleResize {
     private _minHeight?: number;
 
     private _originalOverscrollBehaviour: string;
+    private _perfOutputContainer: HTMLElement;
 
     public get ElementId(): string { return this._elementId; }
 
@@ -215,6 +216,7 @@ export class DoodleResize {
         this._autoHandleEvents = autoHandleEvents;
 
         this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
+        this._perfOutputContainer = document.querySelector('#perf-ouput');
 
         this.SetupAdornerElements();
         this.AttachEventHandlers();
@@ -309,7 +311,12 @@ export class DoodleResize {
 
     private NotifyBlazorElementUpdated(operationResult: Dimensions): void {
         if (!!this._callbackRef) {
+            var start = new Date().getTime();
             this._callbackRef.invokeMethodAsync("ElementUpdated", JSON.stringify(operationResult));
+            var end = new Date().getTime();
+            var time = end - start;
+
+            this.WritePerfOutput(`Resize ElementUpdated Execution: ${time} ms`);
         }
     }
 
@@ -318,6 +325,14 @@ export class DoodleResize {
             if (this._elementActivated !== value) {
                 this._callbackRef.invokeMethodAsync("SetIsActivate", value);
             }
+        }
+    }
+
+    private WritePerfOutput(message:string): void {
+        if (!!this._perfOutputContainer) {
+            const outputSpan = document.createElement("p");
+            outputSpan.innerText = message;
+            this._perfOutputContainer.appendChild(outputSpan);
         }
     }
 

@@ -140,6 +140,7 @@ export class DoodleResize {
         this._minWidth = minWidth;
         this._autoHandleEvents = autoHandleEvents;
         this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
+        this._perfOutputContainer = document.querySelector('#perf-ouput');
         this.SetupAdornerElements();
         this.AttachEventHandlers();
     }
@@ -218,7 +219,11 @@ export class DoodleResize {
     }
     NotifyBlazorElementUpdated(operationResult) {
         if (!!this._callbackRef) {
+            var start = new Date().getTime();
             this._callbackRef.invokeMethodAsync("ElementUpdated", JSON.stringify(operationResult));
+            var end = new Date().getTime();
+            var time = end - start;
+            this.WritePerfOutput(`Resize ElementUpdated Execution: ${time} ms`);
         }
     }
     NotifyBlazorSetIsActive(value) {
@@ -226,6 +231,13 @@ export class DoodleResize {
             if (this._elementActivated !== value) {
                 this._callbackRef.invokeMethodAsync("SetIsActivate", value);
             }
+        }
+    }
+    WritePerfOutput(message) {
+        if (!!this._perfOutputContainer) {
+            const outputSpan = document.createElement("p");
+            outputSpan.innerText = message;
+            this._perfOutputContainer.appendChild(outputSpan);
         }
     }
     AttachEventHandlers() {
