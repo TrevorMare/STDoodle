@@ -113,17 +113,9 @@ namespace Doodle.Interops
 
 
         [JSInvokable("OnCanvasUpdated")]
-        public Task OnCanvasUpdated(string commandJson)
+        public Task OnCanvasUpdated()
         {
-            if (string.IsNullOrEmpty(commandJson))
-            {
-                CanvasCommandsUpdated?.Invoke(this, null);
-            }
-            else
-            {
-                var paths = JsonConverters.Serialization.DeserializeNoConverter<List<Abstractions.Models.CanvasPath>>(commandJson);
-                CanvasCommandsUpdated?.Invoke(this, paths);
-            }
+            CanvasCommandsUpdated?.Invoke(this, null);
             return Task.CompletedTask;
         }
         #endregion

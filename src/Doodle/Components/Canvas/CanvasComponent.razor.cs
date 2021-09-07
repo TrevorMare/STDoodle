@@ -21,6 +21,8 @@ namespace Doodle.Components.Canvas
         private ElementReference ResizeElement { get; set; }
         
         private ElementReference CanvasElement { get; set; }
+
+        private string CanvasCommandHiddenValue { get; set; }
         #endregion
 
         #region Event Callbacks
@@ -122,7 +124,7 @@ namespace Doodle.Components.Canvas
                     this.DoodleDrawInteraction.EraserColor);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
-                    await UpdateState(e);
+                    await UpdateState();
                 };
 
                 this.CanvasInitialised = true;
@@ -211,10 +213,10 @@ namespace Doodle.Components.Canvas
         #endregion
 
         #region Update Methods
-        private async Task UpdateState(List<Abstractions.Models.CanvasPath> drawCommands)
+        private async Task UpdateState()
         {
-            this.PathCommands = drawCommands;
-            await this.DoodleDrawInteraction.DoodleStateManager.PushCanvasState(new CanvasState(drawCommands));
+            this.PathCommands = JsonConverters.Serialization.Deserialize<List<Abstractions.Models.CanvasPath>>(this.CanvasCommandHiddenValue);
+            await this.DoodleDrawInteraction.DoodleStateManager.PushCanvasState(new CanvasState(this.PathCommands));
             await this.OnCommandPathsUpdated.InvokeAsync(this.PathCommands);
             await this.OnCanvasUpdated.InvokeAsync();
 
@@ -232,9 +234,6 @@ namespace Doodle.Components.Canvas
         {
             if (_disposed == false && disposing)
             {
-                this.JsInteropCanvas.CanvasCommandsUpdated -= async (s, e) => {
-                    await UpdateState(e);
-                };
                 _disposed = true;
             }
         }

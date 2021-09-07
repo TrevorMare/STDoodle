@@ -36,7 +36,7 @@ namespace Doodle.Abstractions.JsInterop
 
         Task Restore(string commandJson);
 
-        Task OnCanvasUpdated(string commandJson);
+        Task OnCanvasUpdated();
         
         Task SetGridType(GridType gridType);
 
