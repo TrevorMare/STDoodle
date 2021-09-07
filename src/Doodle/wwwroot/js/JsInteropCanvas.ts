@@ -345,11 +345,9 @@ export class DoodleCanvas {
 
   private NotifyBlazorCommands(): void {
     if (!!this._callbackRef) {
-
-
-      const commandJson = JSON.stringify(this._commands);
-      this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
-
+      // const commandJson = JSON.stringify(this._commands);
+      // this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
+      console.log(`Emulating Callback`);
     }
   }
 
