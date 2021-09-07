@@ -197,7 +197,6 @@ export class DoodleResize {
     private _minHeight?: number;
 
     private _originalOverscrollBehaviour: string;
-    private _perfOutputContainer: HTMLElement;
 
     public get ElementId(): string { return this._elementId; }
 
@@ -216,8 +215,6 @@ export class DoodleResize {
         this._autoHandleEvents = autoHandleEvents;
 
         this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
-        this._perfOutputContainer = document.querySelector('#perf-ouput');
-
         this.SetupAdornerElements();
         this.AttachEventHandlers();
     }

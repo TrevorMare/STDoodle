@@ -25,7 +25,6 @@ export class DoodleCanvas {
             this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
         }
         this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
-        this._perfOutputContainer = document.querySelector('#perf-ouput');
         this.SetupHandlers();
         if (!!initColor && initColor !== '') {
             this.SetBrushColor(initColor);
@@ -242,6 +241,7 @@ export class DoodleCanvas {
     NotifyBlazorCommands() {
         if (!!this._callbackRef) {
             const commandJson = JSON.stringify(this._commands);
+            this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
         }
     }
     ResizeComponent() {

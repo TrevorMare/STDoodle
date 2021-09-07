@@ -140,7 +140,6 @@ export class DoodleResize {
         this._minWidth = minWidth;
         this._autoHandleEvents = autoHandleEvents;
         this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
-        this._perfOutputContainer = document.querySelector('#perf-ouput');
         this.SetupAdornerElements();
         this.AttachEventHandlers();
     }

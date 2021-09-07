@@ -57,7 +57,6 @@ export class DoodleCanvas {
   private _drawPreviewContext: CanvasRenderingContext2D;
   private _shapeDrawDownCoords: ICanvasPathPoint;
   private _originalOverscrollBehaviour: string;
-  private _perfOutputContainer: HTMLElement;
 
   constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType, drawType: DrawType, eraserColor: string) {
     this._canvas = canvas;
@@ -76,7 +75,6 @@ export class DoodleCanvas {
     }
 
     this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
-    this._perfOutputContainer = document.querySelector('#perf-ouput');
 
     this.SetupHandlers();
 
@@ -347,8 +345,11 @@ export class DoodleCanvas {
 
   private NotifyBlazorCommands(): void {
     if (!!this._callbackRef) {
+
+
       const commandJson = JSON.stringify(this._commands);
-      //this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
+      this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
+
     }
   }
 
