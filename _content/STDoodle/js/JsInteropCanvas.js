@@ -241,19 +241,7 @@ export class DoodleCanvas {
     }
     NotifyBlazorCommands() {
         if (!!this._callbackRef) {
-            var start = new Date().getTime();
             const commandJson = JSON.stringify(this._commands);
-            this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
-            var end = new Date().getTime();
-            var time = end - start;
-            this.WritePerfOutput(`OnCanvasUpdated Execution: ${time} ms`);
-        }
-    }
-    WritePerfOutput(message) {
-        if (!!this._perfOutputContainer) {
-            const outputSpan = document.createElement("p");
-            outputSpan.innerText = message;
-            this._perfOutputContainer.appendChild(outputSpan);
         }
     }
     ResizeComponent() {
