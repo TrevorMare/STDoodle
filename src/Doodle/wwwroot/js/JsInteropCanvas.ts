@@ -347,24 +347,8 @@ export class DoodleCanvas {
 
   private NotifyBlazorCommands(): void {
     if (!!this._callbackRef) {
-
-      var start = new Date().getTime();
-
       const commandJson = JSON.stringify(this._commands);
-      this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
-
-      var end = new Date().getTime();
-      var time = end - start;
-
-      this.WritePerfOutput(`OnCanvasUpdated Execution: ${time} ms`);
-    }
-  }
-
-  private WritePerfOutput(message:string): void {
-    if (!!this._perfOutputContainer) {
-      const outputSpan = document.createElement("p");
-      outputSpan.innerText = message;
-      this._perfOutputContainer.appendChild(outputSpan);
+      //this._callbackRef.invokeMethodAsync("OnCanvasUpdated", commandJson);
     }
   }
 

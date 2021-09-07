@@ -311,12 +311,7 @@ export class DoodleResize {
 
     private NotifyBlazorElementUpdated(operationResult: Dimensions): void {
         if (!!this._callbackRef) {
-            var start = new Date().getTime();
             this._callbackRef.invokeMethodAsync("ElementUpdated", JSON.stringify(operationResult));
-            var end = new Date().getTime();
-            var time = end - start;
-
-            this.WritePerfOutput(`Resize ElementUpdated Execution: ${time} ms`);
         }
     }
 
@@ -325,14 +320,6 @@ export class DoodleResize {
             if (this._elementActivated !== value) {
                 this._callbackRef.invokeMethodAsync("SetIsActivate", value);
             }
-        }
-    }
-
-    private WritePerfOutput(message:string): void {
-        if (!!this._perfOutputContainer) {
-            const outputSpan = document.createElement("p");
-            outputSpan.innerText = message;
-            this._perfOutputContainer.appendChild(outputSpan);
         }
     }
 
