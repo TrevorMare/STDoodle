@@ -11,6 +11,10 @@ Check out the documentation and a live [demo](https://trevormare.github.io/STDoo
 ## Important Notes
 This plugin relies on .net5 and can be ported if you want. The whole idea for me regarding this project was to spend some time on the framework. It might also not have all the features of one of the existing packages but I'm pretty sure it can be extended to do what you want. Another thing I wanted to try was to use the minimum javascript to see how far I can push Blazor.
 
+I would not suggest using this for mobile applications just yet, I have tested this on my Samsung Galaxy Tab A7 and the performance degrades the more you draw. 
+This is also the reason why the JSInterop is not used for callbacks, but rather a hidden input value is set on the canvas element to retrieve the JSON
+from the drawings.
+
 # Roll your own
 ## Build Requirements
 To build this project you need to have Satan's tool installed (NodeJs) as this is used for some of the dependencies that's included in the project.
@@ -134,7 +138,7 @@ Buy me a beer
 Distributed under the WTFPL License. See [LICENSE](http://www.wtfpl.net/) for more information.
 
 # Stuff I learned
-1. The built in JS Interopt is quite fast and can handle a high throughput without any issues.
+1. The built in JS Interopt is fast enough when using a desktop, but should probably not be used in this way for mobile browsers.
 
 
 
