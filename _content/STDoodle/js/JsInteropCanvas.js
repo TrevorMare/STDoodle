@@ -24,6 +24,7 @@ export class DoodleCanvas {
         if (!!this._drawPreviewCanvas) {
             this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
         }
+        this._inputCanvasCommands = this._resizeElement.querySelector('[data-canvas-commands]');
         this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
         this.SetupHandlers();
         if (!!initColor && initColor !== '') {
@@ -239,8 +240,11 @@ export class DoodleCanvas {
         }
     }
     NotifyBlazorCommands() {
-        if (!!this._callbackRef) {
-            console.log(`Emulating Callback`);
+        if (!!this._callbackRef && !!this._inputCanvasCommands) {
+            const commandJson = JSON.stringify(this._commands);
+            this._inputCanvasCommands.value = commandJson;
+            this._inputCanvasCommands.dispatchEvent(new Event('change'));
+            this._callbackRef.invokeMethodAsync("OnCanvasUpdated", "");
         }
     }
     ResizeComponent() {
