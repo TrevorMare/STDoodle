@@ -1,5 +1,5 @@
 export class DoodleCanvas {
-    constructor(canvas, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor) {
+    constructor(canvas, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor, updateResolution) {
         this._isDrawing = false;
         this._commands = [];
         this._gridSize = 10;
@@ -12,6 +12,8 @@ export class DoodleCanvas {
         this._erasorColor = "#ffffff";
         this._drawSize = 1;
         this._drawColor = "#000000";
+        this._pointResolution = 3;
+        this._currentDrawUpdate = 0;
         this._canvas = canvas;
         this._context = this._canvas.getContext('2d');
         this._callbackRef = callbackRef;
@@ -24,6 +26,7 @@ export class DoodleCanvas {
         if (!!this._drawPreviewCanvas) {
             this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
         }
+        this._pointResolution = updateResolution;
         this._inputCanvasCommands = this._resizeElement.querySelector('[data-canvas-commands]');
         this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
         this.SetupHandlers();
@@ -58,6 +61,9 @@ export class DoodleCanvas {
         this._gridSize = size;
         this.Refresh();
     }
+    SetUpdateResolution(updateResolution) {
+        this._pointResolution = updateResolution;
+    }
     SetGridColor(color) {
         this._gridColor = color;
         this.Refresh();
@@ -82,7 +88,7 @@ export class DoodleCanvas {
     }
     Restore(commandJson) {
         if (!!commandJson && commandJson !== '') {
-            this._commands = JSON.parse(commandJson);
+            this._commands = this.ConvertFromInteropJson(commandJson);
         }
         else {
             this._commands = [];
@@ -144,6 +150,7 @@ export class DoodleCanvas {
     StartDraw(e) {
         if (this._isDrawing == false) {
             this._lastMoveEvent = null;
+            this._currentDrawUpdate = 0;
             const event = this.GetInternalEvent(e);
             e.preventDefault();
             document.body.style.overscrollBehavior = "contain";
@@ -192,9 +199,27 @@ export class DoodleCanvas {
             this._context.lineTo(coords.x, coords.y);
             this._context.stroke();
             if (!!this._currentCanvasPath) {
-                this._currentCanvasPath.points.push({ x: coords.x, y: coords.y });
+                const shouldCapturePoint = this.ShouldCapturePoint();
+                if (shouldCapturePoint === true) {
+                    console.log(`Adding point`);
+                    this._currentCanvasPath.points.push({ x: coords.x, y: coords.y });
+                }
+            }
+            this._currentDrawUpdate++;
+        }
+    }
+    ShouldCapturePoint() {
+        if (this._currentDrawUpdate == 0) {
+            console.log(`Point Captured`);
+            return true;
+        }
+        else {
+            if (this._currentDrawUpdate % this._pointResolution == 0) {
+                console.log(`Point Captured`);
+                return true;
             }
         }
+        return false;
     }
     EndDraw(e) {
         if (this._isDrawing == false)
@@ -216,7 +241,7 @@ export class DoodleCanvas {
     }
     StartCurrentPath(x, y) {
         const id = Date.now().toString(18) + Math.random().toString(36).substring(2);
-        const path = { brushColor: this._brushColor, brushSize: this._brushSize, created: Date.now(), display: true, id: id, points: [], type: this._drawType };
+        const path = { brushColor: this._brushColor, brushSize: this._brushSize, created: Date.now(), id: id, points: [] };
         path.points.push({ x: x, y: y });
         this._currentCanvasPath = path;
     }
@@ -228,7 +253,7 @@ export class DoodleCanvas {
         }
     }
     DrawPathFromCommand(path) {
-        if (!!path && path.display === true && path.points.length > 0) {
+        if (!!path && path.points.length > 0) {
             this._context.lineWidth = path.brushSize;
             this._context.strokeStyle = path.brushColor;
             this._context.beginPath();
@@ -241,7 +266,7 @@ export class DoodleCanvas {
     }
     NotifyBlazorCommands() {
         if (!!this._callbackRef && !!this._inputCanvasCommands) {
-            const commandJson = JSON.stringify(this._commands);
+            const commandJson = this.ConvertToInteropJson();
             this._inputCanvasCommands.value = commandJson;
             this._inputCanvasCommands.dispatchEvent(new Event('change'));
             this._callbackRef.invokeMethodAsync("OnCanvasUpdated", "");
@@ -303,9 +328,38 @@ export class DoodleCanvas {
         }
         return e;
     }
+    ConvertFromInteropJson(jsonData) {
+        const result = [];
+        const interopCommands = JSON.parse(jsonData);
+        interopCommands.forEach(item => {
+            const convertedItem = {
+                brushColor: item.c,
+                brushSize: item.s,
+                created: item.t,
+                id: item.i,
+                points: item.p
+            };
+            result.push(convertedItem);
+        });
+        return result;
+    }
+    ConvertToInteropJson() {
+        const interopCommands = [];
+        this._commands.forEach(item => {
+            const convertedItem = {
+                c: item.brushColor,
+                i: item.id,
+                s: item.brushSize,
+                t: item.created,
+                p: item.points
+            };
+            interopCommands.push(convertedItem);
+        });
+        return JSON.stringify(interopCommands);
+    }
 }
 export let _doodleCanvas;
-export function InitialiseCanvas(renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor) { _doodleCanvas = new DoodleCanvas(renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor); }
+export function InitialiseCanvas(renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor, updateResolution) { _doodleCanvas = new DoodleCanvas(renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor, updateResolution); }
 export function SetBrushColor(color) { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size) { _doodleCanvas.SetBrushSize(size); }
 export function Destroy() { _doodleCanvas.Destroy(); }
@@ -318,3 +372,4 @@ export function SetGridType(gridType) { _doodleCanvas.SetGridType(gridType); }
 export function SetDrawType(drawType) { _doodleCanvas.SetDrawType(drawType); }
 export function SetEraserSize(size) { _doodleCanvas.SetEraserSize(size); }
 export function SetEraserColor(color) { _doodleCanvas.SetEraserColor(color); }
+export function SetUpdateResolution(updateResolution) { _doodleCanvas.SetUpdateResolution(updateResolution); }
