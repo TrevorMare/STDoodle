@@ -9,7 +9,8 @@ namespace Doodle.Abstractions.Interfaces
     public delegate void OnToolbarContentChangedHandler(object sender, ToolbarContent toolbarContent);
     public delegate void OnColorChangedHandler(object sender, string color);
     public delegate void OnSizeChangedHandler(object sender, double size);
-    public delegate void OnBoolChangedHandler(object sender, bool size);
+    public delegate void OnBoolChangedHandler(object sender, bool value);
+    public delegate void OnIntChangedHandler(object sender, int value);
     public delegate void OnCanvasGridTypeChangedHandler(object sender, Abstractions.Common.GridType gridType);
     public delegate void OnDrawModeChangedHandler(object sender, Abstractions.Common.DrawMode drawMode);
     public delegate void OnDrawTypeChangedHandler(object sender, Abstractions.Common.DrawType drawMode);
@@ -35,6 +36,7 @@ namespace Doodle.Abstractions.Interfaces
         event OnToolbarContentChangedHandler OnToolbarContentChanged;
         event OnDrawTypeChangedHandler OnDrawTypeChanged;
         event OnColorChangedHandler OnBackgroundColorChanged;
+        event OnIntChangedHandler OnUpdateResolutionChanged;
         #endregion
 
         #region Properties
@@ -47,6 +49,8 @@ namespace Doodle.Abstractions.Interfaces
         string EraserColor { get; }
 
         string BackgroundColor { get; }
+
+        int UpdateResolution { get; }
 
         Abstractions.Common.GridType GridType { get; } 
 
@@ -96,6 +100,7 @@ namespace Doodle.Abstractions.Interfaces
 
         Task SetBackgroundColor(string color, bool setEraserColor);
 
+        Task SetUpdateResolution(int updateResolution);
         #endregion
 
     }
