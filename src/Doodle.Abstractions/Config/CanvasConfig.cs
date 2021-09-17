@@ -22,6 +22,12 @@ namespace Doodle.Abstractions.Config
         /// <value></value>
         public Abstractions.Common.GridType GridType { get; set; } = Abstractions.Common.GridType.Grid;
 
+        /// <summary>
+        /// Gets or sets the update resolution for the canvas points
+        /// </summary>
+        /// <value></value>
+        public int UpdateResolution { get; set; } = 2;
+
     }
 
 }

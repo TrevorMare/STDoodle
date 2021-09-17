@@ -44,7 +44,8 @@ namespace Doodle
             {
                 this.GridColor = this._config.CanvasConfig.GridColor ?? "#000";
                 this.GridSize = this._config.CanvasConfig.GridSize;
-                this.GridSize = this._config.CanvasConfig.GridSize;
+                this.GridType = this._config.CanvasConfig.GridType;
+                this.UpdateResolution = this._config.CanvasConfig.UpdateResolution;
             }
         }
         #endregion
@@ -73,9 +74,12 @@ namespace Doodle
         public string BackgroundColor { get; private set; } = "#ffffff";
 
         public IDoodleStateManager DoodleStateManager => _doodleStateManager; 
+
+        public int UpdateResolution { get; private set; } = 1;
         #endregion
 
         #region Events
+        public event OnIntChangedHandler OnUpdateResolutionChanged;
         public event OnToolbarContentChangedHandler OnToolbarContentChanged;
         public event EventHandler OnStateHasChanged;
         public event OnColorChangedHandler OnStrokeColorChanged;
@@ -288,6 +292,17 @@ namespace Doodle
                 this.OnBackgroundColorChanged?.Invoke(this, this.BackgroundColor);
                 this.OnStateHasChanged?.Invoke(this, null);
             }
+        }
+
+        public Task SetUpdateResolution(int updateResolution)
+        {
+            if (this.UpdateResolution != updateResolution)
+            {
+                this.UpdateResolution = updateResolution;
+                this.OnUpdateResolutionChanged?.Invoke(this, this.UpdateResolution);
+                this.OnStateHasChanged?.Invoke(this, null);
+            }
+            return Task.CompletedTask;
         }
         #endregion
         

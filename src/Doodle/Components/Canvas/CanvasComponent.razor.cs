@@ -76,6 +76,10 @@ namespace Doodle.Components.Canvas
             this.DoodleDrawInteraction.OnCanvasGridTypeChanged += (s, gridType) => {
                 this.SetGridType(gridType).ConfigureAwait(false);
             };
+
+             this.DoodleDrawInteraction.OnUpdateResolutionChanged += (s, updateResolution) => {
+                this.SetUpdateResolution(updateResolution).ConfigureAwait(false);
+            };
             
             this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) =>  {
                 if (string.IsNullOrEmpty(DoodleDrawInteraction.DoodleStateManager?.CanvasState?.Detail)) {
@@ -121,7 +125,8 @@ namespace Doodle.Components.Canvas
                     this.DoodleDrawInteraction.GridColor, 
                     this.DoodleDrawInteraction.GridType,
                     this.DoodleDrawInteraction.DrawType,
-                    this.DoodleDrawInteraction.EraserColor);
+                    this.DoodleDrawInteraction.EraserColor,
+                    this.DoodleDrawInteraction.UpdateResolution);
 
                 this.JsInteropCanvas.CanvasCommandsUpdated += async (s, e) => {
                     await UpdateState();
@@ -163,6 +168,14 @@ namespace Doodle.Components.Canvas
             if (this.CanvasInitialised)
             {
                 await this.JsInteropCanvas.SetGridType(gridType);
+            }
+        }
+
+        private async Task SetUpdateResolution(int updateResolution)
+        {
+            if (this.CanvasInitialised)
+            {
+                await this.JsInteropCanvas.SetUpdateResolution(updateResolution);
             }
         }
 

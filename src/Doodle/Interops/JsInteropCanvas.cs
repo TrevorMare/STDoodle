@@ -33,10 +33,10 @@ namespace Doodle.Interops
         #endregion
 
         #region Interface Methods
-        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", GridType gridType = GridType.Grid, DrawType drawType = DrawType.Pen, string eraserColor = "#ffffff") 
+        public async Task InitialiseCanvas(ElementReference forElement, ElementReference resizeElement, string brushColor, int brushSize, int gridSize = 10, string gridColor = "", GridType gridType = GridType.Grid, DrawType drawType = DrawType.Pen, string eraserColor = "#ffffff", int updateResolution = 1) 
         {
             var module = await _moduleTask.Value;
-            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize, gridSize, gridColor, gridType, drawType, eraserColor);
+            await module.InvokeVoidAsync("InitialiseCanvas", forElement, resizeElement, _thisRef, brushColor, brushSize, gridSize, gridColor, gridType, drawType, eraserColor, updateResolution);
         }
 
         public async Task SetBrushColor(string color)
@@ -85,6 +85,12 @@ namespace Doodle.Interops
         {
             var module = await _moduleTask.Value;
             await module.InvokeVoidAsync("SetDrawType", drawType);
+        }
+
+        public async Task SetUpdateResolution(int updateResolution)
+        {
+            var module = await _moduleTask.Value;
+            await module.InvokeVoidAsync("SetUpdateResolution", updateResolution);
         }
 
         public async Task Destroy()

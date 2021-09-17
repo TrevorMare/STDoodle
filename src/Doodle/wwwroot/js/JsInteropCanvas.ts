@@ -1,6 +1,14 @@
 
 //import './vendor.min.js';
 
+export interface IInteropCanvasPath {
+  s: number;
+  c: string;
+  i: string;
+  p: ICanvasPathPoint[];
+  t: number;
+}
+
 export interface ICanvasPathPoint {
   x: number;
   y: number;
@@ -10,10 +18,8 @@ export interface ICanvasPath {
   brushSize: number;
   brushColor: string;
   id: string;
-  display: boolean;
   points: ICanvasPathPoint[];
   created: number;
-  type: DrawType
 }
 
 const enum GridType {
@@ -58,8 +64,10 @@ export class DoodleCanvas {
   private _shapeDrawDownCoords: ICanvasPathPoint;
   private _originalOverscrollBehaviour: string;
   private _inputCanvasCommands: HTMLInputElement;
+  private _pointResolution: number = 3;
+  private _currentDrawUpdate: number = 0;
 
-  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType, drawType: DrawType, eraserColor: string) {
+  constructor(canvas: HTMLCanvasElement, resizeElement: HTMLElement, callbackRef: any, initColor: string, initSize: number, gridSize: number, gridColor: string, gridType: GridType, drawType: DrawType, eraserColor: string, updateResolution: number) {
     this._canvas = canvas;
     this._context = this._canvas.getContext('2d');
     this._callbackRef = callbackRef;
@@ -74,7 +82,7 @@ export class DoodleCanvas {
     if (!!this._drawPreviewCanvas) {
       this._drawPreviewContext = this._drawPreviewCanvas.getContext('2d');
     }
-
+    this._pointResolution = updateResolution;
     this._inputCanvasCommands = this._resizeElement.querySelector('[data-canvas-commands]');
 
     this._originalOverscrollBehaviour = document.body.style.overscrollBehavior;
@@ -121,6 +129,10 @@ export class DoodleCanvas {
     this.Refresh();
   }
 
+  public SetUpdateResolution(updateResolution: number): void {
+    this._pointResolution = updateResolution;
+  }
+
   public SetGridColor(color: string): void {
     this._gridColor = color;
     this.Refresh();
@@ -150,7 +162,7 @@ export class DoodleCanvas {
   public Restore(commandJson: string): void {
 
     if (!!commandJson && commandJson !== '') {
-      this._commands = JSON.parse(commandJson);
+      this._commands = this.ConvertFromInteropJson(commandJson);
     } else {
       this._commands = [];
     }
@@ -172,7 +184,6 @@ export class DoodleCanvas {
     this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
     this.DrawGridLayout();
   }
-
   
   private SetupHandlers(): void {
 
@@ -232,6 +243,7 @@ export class DoodleCanvas {
   private StartDraw(e: any): void {
     if (this._isDrawing == false) {
       this._lastMoveEvent = null;
+      this._currentDrawUpdate = 0;
       
       const event = this.GetInternalEvent(e);
       e.preventDefault();
@@ -289,11 +301,32 @@ export class DoodleCanvas {
     } else {
       this._context.lineTo(coords.x, coords.y);
       this._context.stroke();
+      
   
       if (!!this._currentCanvasPath) {
-        this._currentCanvasPath.points.push( { x: coords.x, y: coords.y } );
+        const shouldCapturePoint: boolean = this.ShouldCapturePoint();
+        if (shouldCapturePoint === true) {
+          console.log(`Adding point`)
+          this._currentCanvasPath.points.push( { x: coords.x, y: coords.y } );
+        }
+      }
+
+      this._currentDrawUpdate++;
+    }
+  }
+
+  private ShouldCapturePoint(): boolean {
+
+    if (this._currentDrawUpdate == 0) {
+      console.log(`Point Captured`);
+      return true;
+    } else {
+      if (this._currentDrawUpdate % this._pointResolution == 0) {
+        console.log(`Point Captured`);
+        return true;
       }
     }
+    return false;
   }
 
   private EndDraw(e: any): void {
@@ -316,7 +349,7 @@ export class DoodleCanvas {
 
   private StartCurrentPath(x: number, y: number): void {
     const id: string = Date.now().toString(18) + Math.random().toString(36).substring(2);
-    const path: ICanvasPath = { brushColor: this._brushColor, brushSize: this._brushSize, created: Date.now(), display: true, id: id, points: [], type: this._drawType };
+    const path: ICanvasPath = { brushColor: this._brushColor, brushSize: this._brushSize, created: Date.now(), id: id, points: []};
     path.points.push( { x: x, y : y } );
     this._currentCanvasPath = path;
   }
@@ -331,7 +364,7 @@ export class DoodleCanvas {
   }
 
   private DrawPathFromCommand(path: ICanvasPath) {
-    if (!!path && path.display === true && path.points.length > 0) {
+    if (!!path && path.points.length > 0) {
       this._context.lineWidth = path.brushSize;
       this._context.strokeStyle = path.brushColor;
 
@@ -348,11 +381,12 @@ export class DoodleCanvas {
 
   private NotifyBlazorCommands(): void {
     if (!!this._callbackRef && !!this._inputCanvasCommands) {
-      const commandJson = JSON.stringify(this._commands);
+
+      const commandJson = this.ConvertToInteropJson();
       this._inputCanvasCommands.value = commandJson;
       this._inputCanvasCommands.dispatchEvent(new Event('change'));
       this._callbackRef.invokeMethodAsync("OnCanvasUpdated", "");
-      //console.log(`Emulating Callback`);
+
     }
   }
 
@@ -415,13 +449,47 @@ export class DoodleCanvas {
     
     return e;
   }
+
+  private ConvertFromInteropJson(jsonData: string): ICanvasPath[] {
+    const result: ICanvasPath[] = [];
+    const interopCommands: IInteropCanvasPath[] = JSON.parse(jsonData);
+    interopCommands.forEach(item => {
+      const convertedItem : ICanvasPath = {
+        brushColor: item.c,
+        brushSize: item.s,
+        created: item.t,
+        id: item.i,
+        points: item.p
+      };
+      result.push(convertedItem);
+    });
+    return result;
+  }
+
+  private ConvertToInteropJson(): string {
+    const interopCommands: IInteropCanvasPath[] = [];
+    this._commands.forEach(item => {
+      const convertedItem: IInteropCanvasPath = 
+      {
+        c: item.brushColor,
+        i: item.id,
+        s: item.brushSize,
+        t: item.created,
+        p: item.points
+      };
+
+      interopCommands.push(convertedItem);
+    });
+    return JSON.stringify(interopCommands);  
+  }
+
 }
 
 export let _doodleCanvas: DoodleCanvas;
 
 export function InitialiseCanvas(renderElement: HTMLElement, resizeElement: HTMLElement, callbackRef: any, 
                                  initColor: string, initSize: number, gridSize: number, gridColor: string,
-                                 gridType: GridType, drawType: DrawType, eraserColor: string): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor); } 
+                                 gridType: GridType, drawType: DrawType, eraserColor: string, updateResolution: number): void { _doodleCanvas = new DoodleCanvas(<HTMLCanvasElement>renderElement, resizeElement, callbackRef, initColor, initSize, gridSize, gridColor, gridType, drawType, eraserColor, updateResolution); } 
 export function SetBrushColor(color: string): void { _doodleCanvas.SetBrushColor(color); }
 export function SetBrushSize(size: number): void { _doodleCanvas.SetBrushSize(size); }
 export function Destroy(): void { _doodleCanvas.Destroy() }
@@ -434,4 +502,5 @@ export function SetGridType(gridType: GridType): void { _doodleCanvas.SetGridTyp
 export function SetDrawType(drawType: DrawType): void { _doodleCanvas.SetDrawType(drawType); }
 export function SetEraserSize(size: number): void { _doodleCanvas.SetEraserSize(size); }
 export function SetEraserColor(color: string): void { _doodleCanvas.SetEraserColor(color); }
+export function SetUpdateResolution(updateResolution: number): void { _doodleCanvas.SetUpdateResolution(updateResolution); }
 
