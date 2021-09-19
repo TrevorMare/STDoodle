@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Doodle.Abstractions.Config
 {
 
@@ -20,13 +22,15 @@ namespace Doodle.Abstractions.Config
         /// Gets or sets the initial Grid Type
         /// </summary>
         /// <value></value>
-        public Abstractions.Common.GridType GridType { get; set; } = Abstractions.Common.GridType.Grid;
+        public Abstractions.Common.GridType GridType { get; set; } = Abstractions.Common.GridType.None;
 
         /// <summary>
         /// Gets or sets the update resolution for the canvas points
         /// </summary>
         /// <value></value>
         public int UpdateResolution { get; set; } = 2;
+
+        public IEnumerable<Abstractions.Models.ResizableImageSource> ResizableImages { get; set; } = new List<Abstractions.Models.ResizableImageSource>();
 
     }
 
