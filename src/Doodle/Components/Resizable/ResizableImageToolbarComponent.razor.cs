@@ -20,7 +20,7 @@ namespace Doodle.Components.Resizable
         public IEnumerable<ResizableImageSource> ImageSources { get; set; } = new List<Abstractions.Models.ResizableImageSource>();
         #endregion
 
-        #region Methods
+        #region Methods 
         private async Task AddResizableContentImage(Abstractions.Models.ResizableImageSource resizableImageSource)
         {
 
@@ -37,7 +37,9 @@ namespace Doodle.Components.Resizable
         {
             base.InitConfigSettings(config);
 
-            this.ImageSources = new List<ResizableImageSource>();
+            if (config?.BackgroundConfig == null ) return;
+
+            this.ImageSources = config.CanvasConfig.ResizableImages ?? new List<Abstractions.Models.ResizableImageSource>();
         }
         #endregion
 
