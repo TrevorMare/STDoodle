@@ -20,6 +20,11 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+         window.exportImage = (imgData) => {
+            window.open().document.write('<img src="' + imgData + '" />');
+        }
+    </script>
 </body>
 
 </html>

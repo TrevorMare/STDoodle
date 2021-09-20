@@ -32,6 +32,11 @@
     </div>
     <script>
         var exports = {}; // defining an empty exports object is that common workaround
+
+        window.exportImage = (imgData) => {
+            
+            window.open().document.write('<img src="' + imgData + '" />');
+        }
     </script>
     <script src="_framework/blazor.server.js"></script>
 </body>

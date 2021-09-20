@@ -1,4 +1,5 @@
 @using Doodle.Components
+@using Microsoft.JSInterop
 
 <button @onclick="RenderTest">Render</button>
 <button @onclick="SaveTest">Save</button>
@@ -17,13 +18,17 @@
 
 
 @code {
+    [Inject]
+    private IJSRuntime JSInterop { get; set; }
+
     private DoodleDraw _doodleDraw;
 
     private string _jsonData;
 
     private async Task RenderTest() 
     {
-        await _doodleDraw.ExportDoodleToImage();
+        string base64Data = await _doodleDraw.ExportDoodleToImage();
+        await JSInterop.InvokeVoidAsync("exportImage", base64Data);
     }
 
     private async Task SaveTest()
