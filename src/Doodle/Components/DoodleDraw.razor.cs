@@ -136,8 +136,14 @@ namespace Doodle.Components
 
         public async Task<string> ExportDoodleToImage(Abstractions.Config.Html2CanvasConfig config = null)
         {
+            var originalDrawMode = this.DoodleDrawInteraction.DrawMode;
+            var originalDrawType = this.DoodleDrawInteraction.DrawType;
             try
             {
+
+                await this.DoodleDrawInteraction.SetDrawMode(Abstractions.Common.DrawMode.Canvas);
+                await this.DoodleDrawInteraction.SetDrawType(Abstractions.Common.DrawType.Pen);
+
                 _logger.LogInformation($"Exporting Doodle to image.");
 
                 if (config == null)
@@ -158,6 +164,11 @@ namespace Doodle.Components
             {
                 _logger.LogCritical(ex, $"An error occured exporting the image");
                 throw;
+            }
+            finally
+            {
+                await this.DoodleDrawInteraction.SetDrawMode(originalDrawMode);
+                await this.DoodleDrawInteraction.SetDrawType(originalDrawType);
             }
         }
         #endregion
