@@ -83,7 +83,7 @@ namespace Doodle.Components.Canvas
             
             this.DoodleDrawInteraction.DoodleStateManager.OnRestoreState += (s, e) =>  {
                 if (string.IsNullOrEmpty(DoodleDrawInteraction.DoodleStateManager?.CanvasState?.Detail)) {
-                    this.ClearCanvas().ConfigureAwait(false);
+                    this.Restore("").ConfigureAwait(false);
                 } 
                 else {
                     this.Restore(DoodleDrawInteraction.DoodleStateManager.CanvasState.Detail).ConfigureAwait(false);
@@ -205,6 +205,7 @@ namespace Doodle.Components.Canvas
 
         public async Task ClearCanvas()
         {
+            this.CanvasCommandHiddenValue = string.Empty;
             await this.JsInteropCanvas.Clear();
         }
 

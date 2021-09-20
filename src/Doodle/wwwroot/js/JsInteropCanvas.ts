@@ -316,13 +316,10 @@ export class DoodleCanvas {
   }
 
   private ShouldCapturePoint(): boolean {
-
     if (this._currentDrawUpdate == 0) {
-      console.log(`Point Captured`);
       return true;
     } else {
       if (this._currentDrawUpdate % this._pointResolution == 0) {
-        console.log(`Point Captured`);
         return true;
       }
     }

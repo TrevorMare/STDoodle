@@ -30,6 +30,11 @@ namespace Doodle.Abstractions.Config
         /// <value></value>
         public int UpdateResolution { get; set; } = 2;
 
+        /// <summary>
+        /// Gets or sets the available list of resizable images that can be used
+        /// </summary>
+        /// <typeparam name="Abstractions.Models.ResizableImageSource"></typeparam>
+        /// <returns></returns>
         public IEnumerable<Abstractions.Models.ResizableImageSource> ResizableImages { get; set; } = new List<Abstractions.Models.ResizableImageSource>();
 
     }
