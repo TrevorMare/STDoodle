@@ -37,6 +37,8 @@ namespace STDoodle.DemoServerSide
       {
         config.DefaultStrokeColor = "#FF0000";
         config.DefaultStrokeSize = 2;
+        
+        config.Theme = new Doodle.Themes.Default();
 
         config.BackgroundConfig.BackgroundSources = new List<Doodle.Abstractions.Models.BackgroundData>()
         {

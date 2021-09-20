@@ -1,0 +1,145 @@
+@using Microsoft.JSInterop
+<h2>Theming</h2>
+
+<p>
+    The ST Doodle package comes with 3 built in themes. It also allows for custom themes to be built.
+</p>
+
+<h2>Pre-built Themes</h2>
+
+<div style="width: fit-content;">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div data-no-theme>None - This will apply a blank theme to the component and all styles should be set.</div>
+        </li>
+        <li class="list-group-item">
+            <div data-default-theme>Default - This is the default built in theme.</div>
+        </li>
+        <li class="list-group-item">
+            <div data-bootstrap-theme>Bootstrap - Bootstrap classes are used for the theme.</div>
+        </li>
+    </ul>
+</div>
+
+<h3>Adding a Custom Theme</h3>
+
+<p>Create a new theme class and inherit from the Doodle.Abstractions.ITheme. Implement the class names to use. Below is
+   an example of the Default theme implementation. Due to the many options available in the theme, it is recomended that 
+   you find the element you want to style in the browser developer tools and then find the applicable class you want to override.
+</p>
+
+<pre>
+    <code class="language-cs">
+        public class MyOwnCustomTheme : Doodle.Abstractions.ITheme
+        {
+            public string ToolbarWrapperClass { get; set; } = "doodle-toolbar-wrapper";
+
+            public string ToolbarHeaderClass { get; set; }  = "";
+
+            public string ToolbarContentWrapperClass { get; set; }  = "doodle-toolbar-content-wrapper";
+
+            public string ToolbarContentClass { get; set; }  = "";
+
+            public string ToolbarMenuButtonClass { get; set; } = "doodle-btn-round";
+
+            public string ToolbarMenuButtonsContainerClass { get; set; } = "";
+
+            public string ToolbarMenuButtonsClass { get; set; } = "doodle-toolbar-buttons";
+
+            public string ToolbarContentPanelsClass { get; set; } = "";
+
+            public string ToolbarContentPanelClass { get; set; } = "";
+        
+            public string ToolbarContentPanelHeaderClass { get; set; } = "";
+
+            public string ToolbarContentPanelHeaderTextClass { get; set; } = "doodle-toolbar-panel-header-text";  
+
+            public string ToolbarContentPanelContentClass { get; set; } = "";  
+
+            public string ToolbarContentPanelContentWrapperClass { get; set; } = "";
+
+            public string ToolbarContentPanelContentCloseClass { get; set; } = "doodle-toolbar-close";
+
+            public string BackgroundPickerSourceImageClass { get; set; } = "doodle-background-source-wrapper";
+
+            public string CanvasResizeContainerClass { get; set; } = "";
+
+            public string CanvasDrawClass { get; set; } = "doodle-canvas";
+
+            public string CanvasPreviewDrawClass { get; set; } = "";
+
+            public string ColorPickerWrapperClass { get; set; } = "";
+            
+            public string ColorPickerFavouritesWrapperClass { get; set; } = "";
+
+            public string ColorPickerFavouriteOuterClass { get; set; } = "doodle-button-custom-outer";
+
+            public string ColorPickerFavouriteInnerClass { get; set; } = "doodle-button-custom-inner";
+
+            public string ColorPickerCustomColorWrapperClass { get; set; } = "";
+
+            public string ColorPickerCustomColorInputClass { get; set; } = "";
+
+            public string SizePickerWrapperClass { get; set; } = "";
+            
+            public string SizePickerFavouritesWrapperClass { get; set; } = "";
+
+            public string SizePickerFavouriteOuterClass { get; set; } = "doodle-button-custom-outer"; 
+
+            public string SizePickerFavouriteInnerClass { get; set; } = "doodle-button-custom-inner";
+
+            public string SizePickerCustomDrawSizeWrapperClass { get; set; } = "";
+
+            public string SizePickerCustomEraserSizeWrapperClass { get; set; } = "";
+
+            public string ResizableListWrapperClass { get; set; }  = "";
+
+            public string ResizableImageElementClass { get; set; }  = "";
+
+            public string ResizableTextElementInputClass { get; set; }  = "";
+
+            public string ResizableTextElementLabelClass { get; set; }  = "";
+
+            public string ResizableElementWrapperClass { get; set; } = "";
+
+            public string ResizableElementContentClass { get; set; } = "";
+
+            public string ResizableElementSizeAdornerClass { get; set; } = "doodle-resize-adorner";
+
+            public string ResizableElementMoveAdornerClass { get; set; } = "";
+
+            public string ResizableElementDeleteAdornerClass { get; set; } = "";
+        }
+    </code>
+</pre>
+
+
+<h3>Setting the theme in Startup.cs</h3>
+
+<pre>
+    <code class="language-cs">
+        ...
+        services.UseDoodle((config) => 
+        {
+            ...
+            config.Theme = new Doodle.Themes.Default(); // Or Custom
+            ...
+        });
+        ...
+    </code>
+</pre>
+
+
+@code {
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        await JSRuntime.InvokeVoidAsync("higlightCode");
+    }
+
+}
+

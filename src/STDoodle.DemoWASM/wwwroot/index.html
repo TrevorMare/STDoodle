@@ -9,6 +9,7 @@
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
     <link href="STDoodle.DemoWASM.styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/github-dark.min.css">
 </head>
 
 <body>
@@ -19,12 +20,17 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>
          window.exportImage = (imgData) => {
             window.open().document.write('<img src="' + imgData + '" />');
         }
+        window.higlightCode = () => {
+            hljs.highlightAll();
+        };
     </script>
+
 </body>
 
 </html>
