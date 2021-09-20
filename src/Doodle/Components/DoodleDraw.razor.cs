@@ -75,6 +75,9 @@ namespace Doodle.Components
         public Abstractions.Interfaces.IDoodleDrawInteraction DoodleDrawInteraction { get; set; }
 
         public string BackgroundColor => DoodleDrawInteraction.BackgroundColor;
+
+        [Parameter]
+        public EventCallback<string> OnExportImage { get; set; }
         #endregion
 
         #region Config Init
@@ -157,7 +160,11 @@ namespace Doodle.Components
                     throw new Exception("No buffer Id returned for the exported image.");
                 }
                 var base64ImageData = await JsInteropBuffer.ReadBuffer(bufferId);
+                
                 await this.DoodleExportHandler.ExportImageBase64(base64ImageData);
+                
+                await this.OnExportImage.InvokeAsync(base64ImageData);
+
                 return base64ImageData;
             }
             catch (Exception ex)
