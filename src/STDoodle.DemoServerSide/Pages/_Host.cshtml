@@ -16,6 +16,7 @@
     <link href="css/site.css" rel="stylesheet" />
     <link href="STDoodle.DemoServerSide.styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/github-dark.min.css">
 </head>
 <body>
     <component type="typeof(App)" render-mode="ServerPrerendered" />
@@ -32,12 +33,15 @@
     </div>
     <script>
         var exports = {}; // defining an empty exports object is that common workaround
-
         window.exportImage = (imgData) => {
-            
             window.open().document.write('<img src="' + imgData + '" />');
         }
+        
+        window.higlightCode = () => {
+            hljs.highlightAll();
+        };
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
     <script src="_framework/blazor.server.js"></script>
 </body>
 </html>

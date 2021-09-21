@@ -35,9 +35,9 @@ namespace STDoodle.DemoWASM
 
         config.CanvasConfig.ResizableImages = new List<Doodle.Abstractions.Models.ResizableImageSource>()
         {
-          new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Signature", DataSource = "https://www.vhv.rs/dpng/d/511-5110816_transparent-fake-signature-png-calligraphy-png-download.png" },
-          new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Passed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-passed.png" },
-          new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Failed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-failed.png" }
+          new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Signature", DataSource = "https://upload.wikimedia.org/wikipedia/commons/f/f8/Arnaldo_Tamayo_Signature.svg" },
+          new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Passed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-passed.svg" },
+          new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Failed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-failed.svg" }
         };
 
       });

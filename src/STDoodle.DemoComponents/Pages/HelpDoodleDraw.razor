@@ -1,18 +1,11 @@
 @using Doodle.Components
 @using Microsoft.JSInterop
 
-<button @onclick="SaveTest">Save</button>
-<button @onclick="RestoreTest">Restore</button>
-
 
 <div style="height: 50vh;">
     <DoodleDraw @ref="_doodleDraw" OnExportImage="RenderExportImage">
         
     </DoodleDraw>
-</div>
-
-<div>
-    <span>@_jsonData</span>
 </div>
 
 
@@ -22,24 +15,9 @@
 
     private DoodleDraw _doodleDraw;
 
-    private string _jsonData;
-
     private void RenderExportImage(string base64Image) 
     {
         JSInterop.InvokeVoidAsync("exportImage", base64Image).ConfigureAwait(false);
-    }
-
-    private async Task SaveTest()
-    {
-        _jsonData = await _doodleDraw.SaveCurrentDrawState();
-    }
-
-    public async Task RestoreTest()
-    {
-        if (!string.IsNullOrEmpty(_jsonData))
-        {
-            await _doodleDraw.RestoreCurrentDrawState(_jsonData);
-        }
     }
 
 }

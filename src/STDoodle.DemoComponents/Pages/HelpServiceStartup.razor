@@ -1,0 +1,86 @@
+@using Microsoft.JSInterop
+
+
+<h2>Service Registration</h2>
+
+<p>
+    To register the required services for injection, the following steps should be taken in the respective 
+    startup classes
+</p>
+
+
+<h3>Server Side</h3>
+<pre>
+    <code class="language-cs">
+        ...
+        services.UseDoodle((config) => 
+        {
+            config.DefaultStrokeColor = "#FF0000";
+            config.DefaultStrokeSize = 2;
+            
+            config.Theme = new Doodle.Themes.Default();
+
+            config.BackgroundConfig.BackgroundSources = @("new List<Doodle.Abstractions.Models.BackgroundData>()")
+            {
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Back", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-back.png" },
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Front", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-front.png" },
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Side", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-side.png" },
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Top", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-top.png" },
+            };
+
+            config.CanvasConfig.ResizableImages = @("new List<Doodle.Abstractions.Models.ResizableImageSource>()")
+            {
+                new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Signature", DataSource = "https://upload.wikimedia.org/wikipedia/commons/f/f8/Arnaldo_Tamayo_Signature.svg" },
+                new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Passed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-passed.svg" },
+                new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Failed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-failed.svg" }
+            };
+
+        });
+        ...
+        
+    </code>
+</pre>
+
+<h3>WASM</h3>
+<pre>
+    <code class="language-cs">
+        ...
+        builder.Services.UseDoodle((config) => 
+        {
+            config.DefaultStrokeColor = "#FF0000";
+            config.DefaultStrokeSize = 2;
+            config.CanvasConfig.UpdateResolution = 2;
+            
+            config.BackgroundConfig.BackgroundSources = @("new List<Doodle.Abstractions.Models.BackgroundData>()")
+            {
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Back", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-back.png" },
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Front", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-front.png" },
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Side", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-side.png" },
+                new Doodle.Abstractions.Models.BackgroundData() { Name = "Car Top", BackgroundSourceType = Doodle.Abstractions.Common.BackgroundSourceType.Url, DataSource = "./_content/STDoodle.DemoComponents/img/car-top.png" },
+            };
+
+            config.CanvasConfig.ResizableImages = @("new List<Doodle.Abstractions.Models.ResizableImageSource>()")
+            {
+                new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Signature", DataSource = "https://upload.wikimedia.org/wikipedia/commons/f/f8/Arnaldo_Tamayo_Signature.svg" },
+                new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Passed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-passed.svg" },
+                new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Failed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-failed.svg" }
+            };
+
+        });
+        ...
+    </code>
+</pre>
+
+
+@code {
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        await JSRuntime.InvokeVoidAsync("higlightCode");
+    }
+
+}

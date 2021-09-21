@@ -1,0 +1,372 @@
+@using Microsoft.JSInterop
+
+
+<h2>Configuration</h2>
+
+<p>
+
+    The Doodle can be configured in the service registration part. The options are as follows
+
+    <ul>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">Theme</span>
+                <span class="font-style-italic">The global theme of the component.</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">DefaultStrokeSize</span>
+                <span class="font-style-italic">The default brush stroke size</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">DefaultEraserSize</span>
+                <span class="font-style-italic">The default size of the eraser brush</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">DefaultStrokeColor</span>
+                <span class="font-style-italic">The default stroke color</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">BackgroundColor</span>
+                <span class="font-style-italic">The background color of the Doodle</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ColorPickerConfig</span>
+                <span class="font-style-italic">The Color Picker Configuration</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">SizePickerConfig</span>
+                <span class="font-style-italic">The Size Picker Configuration</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">CanvasConfig</span>
+                <span class="font-style-italic">The Canvas Configuration</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">Html2CanvasConfig</span>
+                <span class="font-style-italic">The default Html2Canvas Configuration</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ToolbarConfig</span>
+                <span class="font-style-italic">The Toolbar Configuration</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ResizableElementConfig</span>
+                <span class="font-style-italic">The Resizable Elements Configuration</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">BackgroundConfig</span>
+                <span class="font-style-italic">The Backgrounds Configuration</span>
+            </div>
+        </li>
+    </ul>
+</p>
+
+<h3>Theme</h3>
+<p>
+    Please see the theme page
+</p>
+<h3>ColorPickerConfig</h3>
+<p>
+    <ul>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">FavouriteColors</span>
+                <span class="font-style-italic">Gets or sets the favourite colors</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowCustomColor</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the custom colors should be allowed</span>
+            </div>
+        </li>
+    </ul>
+</p>
+<h3>SizePickerConfig</h3>
+<p>
+    <ul>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">FavouriteSizes</span>
+                <span class="font-style-italic">Gets or sets the favourite sizes</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowCustomNumber</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the custom selection should be available</span>
+            </div>
+        </li>
+    </ul>
+</p>
+<h3>CanvasConfig</h3>
+<p>
+    <ul>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">GridSize</span>
+                <span class="font-style-italic">Gets or sets the initial grid size</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">GridColor</span>
+                <span class="font-style-italic">Gets or sets the initial Grid Color</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">GridType</span>
+                <span class="font-style-italic">Gets or sets the initial Grid Type</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">UpdateResolution</span>
+                <span class="font-style-italic">Gets or sets the update resolution for the canvas points</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ResizableImages</span>
+                <span class="font-style-italic">Gets or sets the available list of resizable images that can be used</span>
+            </div>
+        </li>
+    </ul>
+</p>
+<h3>Html2CanvasConfig</h3>
+<p>
+   Please see the Export Image Page
+</p>
+<h3>ToolbarConfig</h3>
+<p>
+    <ul>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowToolbar</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the toolbar should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowCanvasGrid</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the canvas grid toolbar button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowBackgroundPicker</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the background picker toolbar button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowColorPicker</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the color picker toolbar button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowSizePicker</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the stroke size picker toolbar button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawType</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw types should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawTypeEraser</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw type erasor button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawTypePen</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw type pen button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawTypeLine</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw type line button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawTypeResizableText</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw type resizable text button should be displayed</span>
+            </div>
+        </li>
+         <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawTypeResizableImage</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw type resizable text button should be displayed</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawActions</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw actions should be displayed</span>
+            </div>
+        </li>
+
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawActionsUndo</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw actions undo button should be displayed</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawActionsRedo</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw actions red button should be displayed</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawActionsClear</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw actions clear button should be displayed</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawActionsSave</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw actions save button should be displayed</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ShowDrawActionsExport</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the draw actions export button should be displayed</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">ClearHistoryOnClear</span>
+                <span class="font-style-italic">Gets or sets a value indicating if drawing history should be cleared on the clear button click</span>
+            </div>
+        </li>
+    </ul>
+</p>
+<h3>ResizableElementConfig</h3>
+<p>
+  This configuration controls how the resizable text and image elements are displayed.
+    <ul>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">AllowMove</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the element can be moved</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">AllowResize</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the element can be resized</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">AutoHandleEvents</span>
+                <span class="font-style-italic">Gets or sets a value indicating if the element should internally handle the select commands</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">Height</span>
+                <span class="font-style-italic">Gets or sets the initial height of the element</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">Width</span>
+                <span class="font-style-italic">Gets or sets the initial width of the element</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">Top</span>
+                <span class="font-style-italic">Gets or sets the initial top of the element</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">Left</span>
+                <span class="font-style-italic">Gets or sets the initial left of the element</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">xxx</span>
+                <span class="font-style-italic">yyy</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">MinWidth</span>
+                <span class="font-style-italic">Gets or sets the minimum width of the element</span>
+            </div>
+        </li>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">MinHeight</span>
+                <span class="font-style-italic">Gets or sets the minimum height of the element</span>
+            </div>
+        </li>
+    </ul>
+</p>
+<h3>BackgroundConfig</h3>
+<p>
+    <ul>
+        <li>
+            <div class="d-flex flex-column">
+                <span class="font-weight-bold">BackgroundSources</span>
+                <span class="font-style-italic">A list of sources that can be used as backgrounds on the Doodle</span>
+            </div>
+        </li>
+    </ul>
+</p>
+
+
+@code {
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        await JSRuntime.InvokeVoidAsync("higlightCode");
+    }
+
+}
