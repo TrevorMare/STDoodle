@@ -19,7 +19,7 @@ namespace Doodle.Interops
         #endregion
 
         #region Members
-        private const string _basePath = "./_content/STDoodle/js/JsInteropCanvas.min.js";
+        private const string _basePath = "./_content/STDoodle.Doodle/js/JsInteropCanvas.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
         private readonly DotNetObjectReference<JsInteropCanvas> _thisRef;
         #endregion

@@ -21,7 +21,7 @@ namespace Doodle.Interops
         #endregion
 
         #region Members
-        private const string _basePath = "./_content/STDoodle/js/JsInteropDragDrop.min.js";
+        private const string _basePath = "./_content/STDoodle.Doodle/js/JsInteropDragDrop.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
         private readonly DotNetObjectReference<JsInteropDragDrop> _thisRef;
         private ElementReference _resizeElement;

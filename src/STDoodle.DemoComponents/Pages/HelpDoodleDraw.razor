@@ -1,9 +1,105 @@
 @using Doodle.Components
 @using Microsoft.JSInterop
+@using GTour.Components
+@using GTour
+@using GTour.Abstractions.Common;
 
+<h2>Demo</h2>
+
+<p>
+    This is a demo of some of the capabilities the Doodle Drawing component.
+</p>
+
+<GuidedTour TourId="CanvasTour" OverlayEnabled="true" OverlayClass="gtour-overlay" TourWrapperClass="gtour-wrapper" ArrowClass="my-arrow">
+    <ArrowContent>
+        <i class="my-arrow bi bi-caret-up-fill" data-popper-arrow></i>
+    </ArrowContent>
+    <ChildContent>
+        <GuidedTourStep Title="Doodle Wrapper" StepName="wrapperStep" TourStepSequence="1" ElementSelector="[data-doodledrawcomponent-wrapper='democanvas']">
+            <p class="tour-step-content">
+                This is the Doodle Component wrapper
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Toolbar" StepName="toolbarStep" TourStepSequence="2" ElementSelector="[data-doodletoolbarcomponent-wrapper='democanvas']">
+            <p class="tour-step-content">
+                Here is the toolbar sub component of the Doodle
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Drawing Area" PopupPlacement="PopperPlacement.Bottom" StepName="drawingAreaStep" TourStepSequence="3" ElementSelector="[data-doodledrawcomponent-body='democanvas']">
+            <p class="tour-step-content">
+                And here we have the drawing area that is both mouse and touch enabled.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Draw Actions" StepName="drawActionsStep" TourStepSequence="4" ElementSelector="[data-toolbarbuttons-drawactionscomponent='democanvas']">
+            <p class="tour-step-content">
+                This is the common draw actions that are available to the user. These include Undo, Redo, Clear and Export Image. There is
+                also a save button not displayed due to configuration.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Canvas Grid Options" StepName="canvasGridStep" TourStepSequence="5" ElementSelector="[data-toolbarbuttons-canvasgridcomponent='democanvas']">
+            <p class="tour-step-content">
+                Clicking this button will open the toolbar to set the options for the canvas Grid to be displayed.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Color Options" StepName="drawColorStep" TourStepSequence="6" ElementSelector="[data-toolbarbuttons-colorpickercomponent='democanvas']">
+            <p class="tour-step-content">
+                Clicking this button will open the toolbar to pick the drawing color from favourites or a custom color.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Size Options" StepName="drawSizeStep" TourStepSequence="7" ElementSelector="[data-toolbarbuttons-sizepickercomponent='democanvas']">
+            <p class="tour-step-content">
+                Clicking this button will open the toolbar to pick the drawing size options. This also includes the eraser size.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Grid Backgrounds" StepName="backgroundsStep" TourStepSequence="8" ElementSelector="[data-toolbar-header-backgroundpickercomponent='democanvas']">
+            <p class="tour-step-content">
+                Clicking this button will open the toolbar and display a list of backgrounds that can be used in
+                the drawing as templates.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Eraser" StepName="eraserStep" TourStepSequence="9" ElementSelector="[data-toolbarbuttons-drawtypecomponent-erasorbutton='democanvas']">
+            <p class="tour-step-content">
+                This will select the eraser component
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Freehand drawing" StepName="penStep" TourStepSequence="10" ElementSelector="[data-toolbarbuttons-drawtypecomponent-penbutton='democanvas']">
+            <p class="tour-step-content">
+                This will select the freehand drawing component
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Line component" StepName="lineStep" TourStepSequence="11" ElementSelector="[data-toolbarbuttons-drawtypecomponent-linebutton='democanvas']">
+            <p class="tour-step-content">
+                This will select the line drawing component
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Resizable Text Component" StepName="rsTextStep" TourStepSequence="12" ElementSelector="[data-toolbarbuttons-drawtypecomponent-textbutton='democanvas']">
+            <p class="tour-step-content">
+                This will switch the drawing space to a resizable component view. It will also open the toolbar to insert new text elements than can be placed
+                anywhere on the drawing surface.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Resizable Image Component" StepName="rsImageStep" TourStepSequence="13" ElementSelector="[data-toolbarbuttons-drawtypecomponent-imagebutton='democanvas']">
+            <p class="tour-step-content">
+                This will switch the drawing space to a resizable component view. It will also open the toolbar with a list of
+                predefined images that can be placed anywhere on the drawing surface.
+            </p>
+        </GuidedTourStep>
+        <GuidedTourStep Title="Finish" StepName="stepFinish" TourStepSequence="14" >
+            <p class="tour-step-content">
+                If you liked this tour, be sure to check out my STGTour project on github.
+            </p>
+        </GuidedTourStep>  
+    </ChildContent>
+         
+</GuidedTour>
+
+<button class="btn btn-info" @onclick="async () => { await StartTour(); }">Canvas Tour</button>
+
+<br/>
+<br/>
 
 <div style="height: 50vh;">
-    <DoodleDraw @ref="_doodleDraw" OnExportImage="RenderExportImage">
+    <DoodleDraw DataAttributeName="democanvas" @ref="_doodleDraw" OnExportImage="RenderExportImage">
         
     </DoodleDraw>
 </div>
@@ -13,11 +109,19 @@
     [Inject]
     private IJSRuntime JSInterop { get; set; }
 
+    [Inject]
+    private GTour.Abstractions.IGTourService GTourService { get; set; }
+
     private DoodleDraw _doodleDraw;
 
     private void RenderExportImage(string base64Image) 
     {
         JSInterop.InvokeVoidAsync("exportImage", base64Image).ConfigureAwait(false);
+    }
+
+    private async Task StartTour()
+    {
+        await GTourService.StartTour("CanvasTour");
     }
 
 }

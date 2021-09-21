@@ -140,6 +140,7 @@ This project uses [html2canvas.js](https://html2canvas.hertzen.com/) to export t
 
 Trevor Maré - [trevorm336@gmail.com](mailto:trevorm336@gmail.com)  
 Project Link - [STDoodle](https://github.com/TrevorMare/STDoodle)
+STGTour - [GTour](https://github.com/TrevorMare/STGTour)
 
 Buy me a beer
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=JTM723EPNE5N6)
