@@ -1,5 +1,13 @@
 @using Doodle.Components
 @using Microsoft.JSInterop
+@using GTour.Components
+
+<GuidedTour TourId="FormGuidedTour" OverlayEnabled="true">
+    <GuidedTourStep Title="My First Step" StepName="firstStep" TourStepSequence="1" ElementSelector="[data-form-firstStep]">
+        <span>This is my first step</span>
+    </GuidedTourStep>
+</GuidedTour>
+
 
 
 <div style="height: 50vh;">
