@@ -21,6 +21,16 @@ To build this project you need to have Satan's tool installed (NodeJs) as this i
 
 # TLDR
 
+## Installation
+![Nuget](https://img.shields.io/nuget/v/STDoodle.Doodle?style=for-the-badge)
+[![.NET](https://github.com/TrevorMare/STDoodle/actions/workflows/dotnet.yml/badge.svg)](https://github.com/TrevorMare/STDoodle/actions/workflows/dotnet.yml)
+
+Download package and install [nuget](https://www.nuget.org/packages/STDoodle.Doodle/)
+
+```shell 
+    dotnet add package STDoodle.Doodle --version 1.0.7
+```
+
 ## Usage
 ### Register the service in Startup.cs (Server Side)
 

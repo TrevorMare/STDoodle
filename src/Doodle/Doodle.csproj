@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <PackageId>STDoodle</PackageId>
+    <PackageId>STDoodle.Doodle</PackageId>
     <Version>0.0.1</Version>
     <Authors>Trevor Maré</Authors>
     <PackageTags>blazor;ui canvas;blazor canvas;blazor drawing;blazor whiteboard;stdoodle;st doodle; .net5</PackageTags>
