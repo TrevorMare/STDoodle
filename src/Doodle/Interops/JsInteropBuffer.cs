@@ -11,7 +11,7 @@ namespace Doodle.Interops
     {
 
         #region Members
-        private const string _basePath = "./_content/STDoodle/js/JsInteropBuffer.min.js";
+        private const string _basePath = "./_content/STDoodle.Doodle/js/JsInteropBuffer.min.js";
         private readonly Lazy<Task<IJSObjectReference>> _moduleTask;
         #endregion
 
