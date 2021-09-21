@@ -6,7 +6,10 @@ namespace Doodle
     public static class ServiceExtension
     {
 
-        public static IServiceCollection UseDoodle(this IServiceCollection serviceCollection, Action<Abstractions.Config.DoodleDrawConfig> config = default)
+        public static IServiceCollection UseDoodle(this IServiceCollection serviceCollection, 
+                                                   Action<Abstractions.Config.DoodleDrawConfig> config = default,
+                                                   Func<Abstractions.Interfaces.IDoodleExportHandler> exportHandler = default,
+                                                   Func<Abstractions.Interfaces.IDoodleSaveHandler> saveHandler = default)
         {
 
             if (config == null)
@@ -36,10 +39,26 @@ namespace Doodle
 
             serviceCollection.AddTransient<Abstractions.JsInterop.IJsInteropDragDrop, Interops.JsInteropDragDrop>();
             serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleDrawInteraction, DoodleDrawInteraction>();
-            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleExportHandler, Helpers.DoodleExportHandler>();
-            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleSaveHandler, Helpers.DoodleSaveHandler>();
-            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleStateManager, State.DoodleStateManager>();
+            
+            if (exportHandler != null)
+            {
+                serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleExportHandler>((e) => exportHandler.Invoke());
+            }
+            else
+            {
+                serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleExportHandler, Helpers.DoodleExportHandler>();
+            }
 
+            if (saveHandler != null)
+            {
+                serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleSaveHandler>((e) => saveHandler.Invoke());
+            }
+            else
+            {
+                serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleSaveHandler, Helpers.DoodleSaveHandler>();
+            }
+            
+            serviceCollection.AddTransient<Abstractions.Interfaces.IDoodleStateManager, State.DoodleStateManager>();
             return serviceCollection;
         }
 

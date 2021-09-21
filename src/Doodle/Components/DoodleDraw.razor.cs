@@ -78,6 +78,9 @@ namespace Doodle.Components
 
         [Parameter]
         public EventCallback<string> OnExportImage { get; set; }
+
+        [Parameter]
+        public EventCallback<string> OnSaveDoodle { get; set; }
         #endregion
 
         #region Config Init
@@ -113,7 +116,10 @@ namespace Doodle.Components
         {
             try
             {
+
                 string jsonData = await this.DoodleSaveHandler.SaveDoodleDraw(this.DoodleDrawInteraction);
+
+                await OnSaveDoodle.InvokeAsync(jsonData);
 
                 return jsonData;
             }
@@ -146,8 +152,6 @@ namespace Doodle.Components
 
                 await this.DoodleDrawInteraction.SetDrawMode(Abstractions.Common.DrawMode.Canvas);
                 await this.DoodleDrawInteraction.SetDrawType(Abstractions.Common.DrawType.Pen);
-
-                _logger.LogInformation($"Exporting Doodle to image.");
 
                 if (config == null)
                 {

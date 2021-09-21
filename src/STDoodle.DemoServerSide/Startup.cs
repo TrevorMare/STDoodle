@@ -38,7 +38,7 @@ namespace STDoodle.DemoServerSide
         config.DefaultStrokeColor = "#FF0000";
         config.DefaultStrokeSize = 2;
         
-        config.Theme = new Doodle.Themes.Default();
+      
 
         config.BackgroundConfig.BackgroundSources = new List<Doodle.Abstractions.Models.BackgroundData>()
         {
@@ -55,7 +55,9 @@ namespace STDoodle.DemoServerSide
           new Doodle.Abstractions.Models.ResizableImageSource() { Name = "Inspection Failed", DataSource = "./_content/STDoodle.DemoComponents/img/inspection-failed.svg" }
         };
 
-      });
+      }, 
+      exportHandler: () => new Doodle.Helpers.DoodleExportHandler(),
+      saveHandler: () => new Doodle.Helpers.DoodleSaveHandler());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

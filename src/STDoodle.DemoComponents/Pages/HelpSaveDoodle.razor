@@ -1,0 +1,164 @@
+@using Microsoft.JSInterop
+
+
+<h2>Saving and Restoring a Doodle</h2>
+
+<p>
+    Due to image degradation of exporting an image multiple times, this component allows for saving and restoring from
+    a state. The state is kept in json format and can be persisted or restored when required.
+</p>
+
+<h3>Saving Doodle</h3>
+
+<h4>Component Call</h4>
+
+<p>
+    The first way of saving a Doodle would be to call the save functionality on the reference
+    of the Doodle object.
+</p>
+
+<pre>
+    <code class="language-html">
+        @("<div style=\"height: 50vh;\">")
+    @("<DoodleDraw @ref=\"_doodleDraw\">")
+        
+    @("</DoodleDraw>")
+@("</div>")
+</code>
+</pre>    
+
+<pre>
+    <code class="language-cs">
+       @("@code") {
+    private DoodleDraw _doodleDraw;
+
+    // Called from a custom button click
+    private async Task OnSaveButtonClick() 
+    {
+        ...
+        string stateData = await _doodleDraw.SaveCurrentDrawState();
+        ...                
+    }
+}
+    </code>
+</pre>   
+
+<h4>Doodle Save Event Callback</h4>
+
+<p>
+    The second way of saving a Doodle would be to set the callback event property on the Doodle.
+</p>
+
+<pre>
+    <code class="language-html">
+        @("<div style=\"height: 50vh;\">")
+    @("<DoodleDraw @ref=\"_doodleDraw\" OnSaveDoodle=\"SaveDoodle\">")
+        
+    @("</DoodleDraw>")
+@("</div>")
+    </code>
+</pre>  
+
+<pre>
+    <code class="language-cs">
+       @("@code") {
+    private void SaveDoodle(string stateData) 
+    {
+        ...
+    }
+}
+    </code>
+</pre> 
+
+
+<h4>Save Doodle Handler</h4>
+
+<p>
+    The last way of saving a Doodle would be to create a custom save Doodle handler. Below is an example 
+    of creating such a handler
+</p>
+
+<pre>
+    <code class="language-cs">
+       
+    namespace YourNamespace
+    {
+        public delegate void OnSaveDoodleDrawHandler(object sender, string jsonData);
+
+        public class MySaveHandler : Abstractions.Interfaces.IDoodleSaveHandler
+        {
+            public event OnSaveDoodleDrawHandler OnSaveDoodleDraw;
+
+            public async @("Task<string>") SaveDoodleDraw(IDoodleDrawInteraction doodleDrawInteraction)
+            {
+                string result = null;
+                @("if") (doodleDrawInteraction?.DoodleStateManager != null)
+                {
+                    result = await doodleDrawInteraction.DoodleStateManager.SaveCurrentState();
+                    this.OnSaveDoodleDraw?.Invoke(this, result);
+                }
+                return result;
+            }
+        }
+    }
+    </code>
+</pre>  
+
+<p>Lastly, you need to register you export handler in the containers. This can be done when registering the Doodle Services</p>
+
+<pre>
+    <code class="language-cs">
+      services.UseDoodle((config) => 
+      {
+          ...
+      }, 
+      saveHandler: () => new MySaveHandler(),
+      ...
+    }
+    </code>
+</pre> 
+
+
+<h3>Restoring Doodle</h3>
+
+<h4>Component Call</h4>
+
+<p>
+    To restore a Doodle, a reference to the component is required and can be done as in the following example.
+</p>
+
+<pre>
+    <code class="language-html">
+        @("<div style=\"height: 50vh;\">")
+    @("<DoodleDraw @ref=\"_doodleDraw\" >")
+        
+    @("</DoodleDraw>")
+@("</div>")
+    </code>
+</pre>  
+
+<pre>
+    <code class="language-cs">
+       @("@code") {
+
+    private DoodleDraw _doodleDraw;           
+    private async Task RestoreDoodle() 
+    {
+        await _doodleDraw.RestoreCurrentDrawState(_jsonData);
+    }
+}
+    </code>
+</pre> 
+
+@code {
+
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        await JSRuntime.InvokeVoidAsync("higlightCode");
+    }
+
+}
