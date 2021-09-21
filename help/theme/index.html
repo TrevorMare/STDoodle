@@ -1,0 +1,96 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="google-site-verification" content="fYVpSfxWCs2yqh6HrmIurwg_hof_7vkfSq2kB6yqVGQ"><meta name="description" content="Blazor Canvas Drawing Component"><meta name="keywords" content="blazor, blazor drawing, canvas, ui, doodle, stdoodle, .net 5, trevor maré, stdoodle.doodle, draw, pen"><title>STDoodle Doodle</title><base href="/STDoodle/"><link href="css/bootstrap/bootstrap.min.css" rel="stylesheet"><link href="css/app.css" rel="stylesheet"><link href="STDoodle.DemoWASM.styles.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/github-dark.min.css"><style>.font-style-italic{font-style:italic}</style><link rel="preconnect" href="https://cdnjs.cloudflare.com"></head><body><div id="app"><!--!--><!--!--><!--!--><!--!--><div class="page" b-a02fw36nuz=""><div class="sidebar" b-a02fw36nuz=""><!--!--><div class="top-row pl-4 navbar navbar-dark" b-t71mygaqfq=""><!--!--><a class="navbar-brand" href="" b-t71mygaqfq="">STDoodle.DemoWASM</a> <button class="navbar-toggler" b-t71mygaqfq=""><!--!--><span class="navbar-toggler-icon" b-t71mygaqfq=""></span></button></div><!--!--><div class="collapse" b-t71mygaqfq=""><ul class="nav flex-column" b-t71mygaqfq=""><li class="nav-item px-3" b-t71mygaqfq=""><!--!--><a href="" class="nav-link active"><!--!--><span class="oi oi-plus" aria-hidden="true" b-t71mygaqfq=""></span> Overview</a></li><!--!--><li class="nav-item px-3" b-t71mygaqfq=""><!--!--><a href="/help/doodledraw" class="nav-link"><!--!--><span class="oi oi-home" aria-hidden="true" b-t71mygaqfq=""></span> Demo</a></li><!--!--><li class="nav-item px-3" b-t71mygaqfq=""><!--!--><a href="/help/configuration" class="nav-link"><!--!--><span class="oi oi-home" aria-hidden="true" b-t71mygaqfq=""></span> Configuration</a></li><!--!--><li class="nav-item px-3" b-t71mygaqfq=""><!--!--><a href="/help/exportimage" class="nav-link"><!--!--><span class="oi oi-home" aria-hidden="true" b-t71mygaqfq=""></span> Export Image</a></li><!--!--><li class="nav-item px-3" b-t71mygaqfq=""><!--!--><a href="/help/servicestartup" class="nav-link"><!--!--><span class="oi oi-home" aria-hidden="true" b-t71mygaqfq=""></span> Register Services</a></li><!--!--><li class="nav-item px-3" b-t71mygaqfq=""><!--!--><a href="/help/savedoodle" class="nav-link"><!--!--><span class="oi oi-home" aria-hidden="true" b-t71mygaqfq=""></span> Save/Restore Doodle</a></li><!--!--><li class="nav-item px-3" b-t71mygaqfq=""><!--!--><a href="/help/theme" class="nav-link active"><!--!--><span class="oi oi-home" aria-hidden="true" b-t71mygaqfq=""></span> Theme</a></li></ul></div></div><!--!--><div class="main" b-a02fw36nuz=""><!--!--><div class="top-row px-4" b-a02fw36nuz=""><a href="http://blazor.net" target="_blank" class="ml-md-auto" b-a02fw36nuz="">About</a></div><div class="content px-4" b-a02fw36nuz=""><!--!--><!--!--><!--!--><h2>Theming</h2><!--!--><p>The ST Doodle package comes with 3 built in themes. It also allows for custom themes to be built.</p><!--!--><h2>Pre-built Themes</h2><!--!--><div style="width:fit-content"><ul class="list-group list-group-flush"><li class="list-group-item"><div data-no-theme="">None - This will apply a blank theme to the component and all styles should be set.</div></li><li class="list-group-item"><div data-default-theme="">Default - This is the default built in theme.</div></li><li class="list-group-item"><div data-bootstrap-theme="">Bootstrap - Bootstrap classes are used for the theme.</div></li></ul></div><!--!--><h3>Adding a Custom Theme</h3><!--!--><p>Create a new theme class and inherit from the Doodle.Abstractions.ITheme. Implement the class names to use. Below is an example of the Default theme implementation. Due to the many options available in the theme, it is recomended that you find the element you want to style in the browser developer tools and then find the applicable class you want to override.</p><!--!--><pre><code class="language-cs hljs language-csharp">
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyOwnCustomTheme</span> : <span class="hljs-title">Doodle.Abstractions.ITheme</span>
+        {
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-toolbar-wrapper"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarHeaderClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }  = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }  = <span class="hljs-string">"doodle-toolbar-content-wrapper"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }  = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarMenuButtonClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-btn-round"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarMenuButtonsContainerClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarMenuButtonsClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-toolbar-buttons"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentPanelsClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentPanelClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+        
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentPanelHeaderClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentPanelHeaderTextClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-toolbar-panel-header-text"</span>;  
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentPanelContentClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;  
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentPanelContentWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ToolbarContentPanelContentCloseClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-toolbar-close"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> BackgroundPickerSourceImageClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-background-source-wrapper"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> CanvasResizeContainerClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> CanvasDrawClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-canvas"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> CanvasPreviewDrawClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ColorPickerWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+            
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ColorPickerFavouritesWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ColorPickerFavouriteOuterClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-button-custom-outer"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ColorPickerFavouriteInnerClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-button-custom-inner"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ColorPickerCustomColorWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ColorPickerCustomColorInputClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> SizePickerWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+            
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> SizePickerFavouritesWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> SizePickerFavouriteOuterClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-button-custom-outer"</span>; 
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> SizePickerFavouriteInnerClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-button-custom-inner"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> SizePickerCustomDrawSizeWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> SizePickerCustomEraserSizeWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableListWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }  = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableImageElementClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }  = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableTextElementInputClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }  = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableTextElementLabelClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; }  = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableElementWrapperClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableElementContentClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableElementSizeAdornerClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">"doodle-resize-adorner"</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableElementMoveAdornerClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> ResizableElementDeleteAdornerClass { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>; } = <span class="hljs-string">""</span>;
+        }
+    </code></pre><!--!--><h3>Setting the theme in Startup.cs</h3><!--!--><pre><code class="language-cs hljs language-csharp">
+        ...
+        services.UseDoodle((config) =&gt; 
+        {
+            ...
+            config.Theme = <span class="hljs-keyword">new</span> Doodle.Themes.Default(); <span class="hljs-comment">// Or Custom</span>
+            ...
+        });
+        ...
+    </code></pre></div></div></div></div><div id="blazor-error-ui">An unhandled error has occurred. <a href="" class="reload">Reload</a> <a class="dismiss">🗙</a></div><script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script><script src="_framework/blazor.webassembly.js"></script><script>window.exportImage = (imgData) => {
+            window.open().document.write('<img src="' + imgData + '" />');
+        }
+        window.higlightCode = () => {
+            hljs.highlightAll();
+        };</script></body></html>
