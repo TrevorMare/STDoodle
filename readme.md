@@ -28,7 +28,7 @@ To build this project you need to have Satan's tool installed (NodeJs) as this i
 Download package and install [nuget](https://www.nuget.org/packages/STDoodle.Doodle/)
 
 ```shell 
-    dotnet add package STDoodle.Doodle --version 1.0.7
+    dotnet add package STDoodle.Doodle --version 1.0.0
 ```
 
 ## Usage
@@ -139,8 +139,8 @@ This project uses [html2canvas.js](https://html2canvas.hertzen.com/) to export t
 # Holler
 
 Trevor Maré - [trevorm336@gmail.com](mailto:trevorm336@gmail.com)  
-Project Link - [STDoodle](https://github.com/TrevorMare/STDoodle)
-STGTour - [GTour](https://github.com/TrevorMare/STGTour)
+Project Link - [STDoodle](https://github.com/TrevorMare/STDoodle)  
+STGTour - [GTour](https://github.com/TrevorMare/STGTour)  
 
 Buy me a beer
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=JTM723EPNE5N6)
